@@ -11,8 +11,7 @@
     <!-- Header -->
     <header class="flex justify-between items-center px-6 py-4 bg-white shadow">
         <div class="flex items-center space-x-2">
-            <img src="/logo.png" alt="alatKu Logo" class="h-8">
-            <span class="text-xl font-bold text-orange-600">alatKu</span>
+            <img src="{{ asset('image/logo.png') }}" alt="alatKu Logo" class="h-20 rounded-full">
         </div>
         <nav class="space-x-6">
             <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
@@ -63,7 +62,7 @@
 
     <!-- Artikel -->
     <section class="bg-gray-200 p-10">
-        <h2 class="text-xl font-bold mb-6 text-center">artikel</h2>
+        <h2 class="text-xl font-bold mb-6 text-center">Artikel</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @for ($i = 0; $i < 4; $i++)
                 <div class="bg-white rounded-lg shadow p-4">

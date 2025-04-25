@@ -22,7 +22,7 @@
             <ul>
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('about-us') }}">About us</a></li>
-                <li><a href="{{ route('howtobuy') }}">How to buy?</a></li>
+                <li><a href="{{ route('how-to-buy') }}">How to buy?</a></li>
                 <li><a href="{{ route('article') }}">Article</a></li>
 
                 <!-- Tambahkan link navigasi lainnya -->

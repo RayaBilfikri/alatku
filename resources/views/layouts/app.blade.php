@@ -16,19 +16,6 @@
     <!-- Bisa juga menambahkan file JavaScript di sini -->
 </head>
 <body>
-    <!-- Header (optional) -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about-us') }}">About us</a></li>
-                <li><a href="{{ route('howtobuy') }}">How to buy?</a></li>
-                <li><a href="{{ route('article') }}">Article</a></li>
-
-                <!-- Tambahkan link navigasi lainnya -->
-            </ul>
-        </nav>
-    </header>
 
     <!-- Konten utama halaman akan dimuat di sini -->
     <div class="container">

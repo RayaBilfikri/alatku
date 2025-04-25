@@ -23,9 +23,10 @@
     </div>
 
     <!-- Footer (optional) -->
-    <footer>
-        <p>&copy; {{ date('Y') }} Your Company</p>
+    <footer class="bg-gray-800 text-white text-center py-4">
+        <p class="text-center mt-4">&copy; {{ date('Y') }} Alatku</p>
     </footer>
+
 
     <!-- Link ke file JS -->
     <script src="{{ asset('js/app.js') }}"></script>

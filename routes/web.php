@@ -16,7 +16,7 @@ Route::get('/', function () {
 Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
 
 // Halaman How to Buy
-Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('howtobuy');
+Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('how-to-buy');
 
 // Halaman Article
 Route::get('/article', [ArticleController::class, 'index'])->name('article');

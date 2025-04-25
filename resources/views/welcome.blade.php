@@ -15,11 +15,12 @@
             <span class="text-xl font-bold text-orange-600">alatKu</span>
         </div>
         <nav class="space-x-6">
-            <a href="#" class="hover:text-orange-600">Home</a>
-            <a href="#" class="hover:text-orange-600">About us</a>
-            <a href="#" class="hover:text-orange-600">How to buy?</a>
-            <a href="#" class="hover:text-orange-600">Article</a>
+            <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
+            <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
+            <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
+            <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
         </nav>
+
     </header>
 
     <!-- Hero Section -->

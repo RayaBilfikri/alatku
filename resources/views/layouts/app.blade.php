@@ -18,15 +18,11 @@
 <body>
     <!-- Header (optional) -->
     <header>
-        <nav>
-            <ul>
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about-us') }}">About us</a></li>
-                <li><a href="{{ route('how-to-buy') }}">How to buy?</a></li>
-                <li><a href="{{ route('article') }}">Article</a></li>
-
-                <!-- Tambahkan link navigasi lainnya -->
-            </ul>
+        <nav class="space-x-6 py-5 px-6 text-right">
+                <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
+                <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
+                <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
+                <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
         </nav>
     </header>
 
@@ -36,8 +32,8 @@
     </div>
 
     <!-- Footer (optional) -->
-    <footer>
-        <p>&copy; {{ date('Y') }} Your Company</p>
+    <footer class="text-black text-center pt-4 pb-4">
+        <p class="text-center mt-3 mb-3">&copy; {{ date('Y') }} Alatku</p>
     </footer>
 
     <!-- Link ke file JS -->

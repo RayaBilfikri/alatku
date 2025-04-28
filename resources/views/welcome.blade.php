@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>alatKu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -24,23 +25,32 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-orange-100 p-6">
-        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
-            <img src="/engineer.png" alt="Engineer" class="w-40 md:w-60">
-            <p class="text-white text-xl md:text-2xl font-semibold absolute right-10 top-10 max-w-md">
-                Ensure your operations run continuously, without any disruptions.
-            </p>
-        </div>
-    </section>
+    <section class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg">
+        <img src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png" alt="Background" class="absolute inset-0 w-full h-full object-cover filter blur-sm z-0 rounded-3xl">
+        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
-    <!-- Categories -->
-    <section class="py-10 text-center">
-        <div class="flex justify-center mb-4">
-            <div class="w-32 h-1 bg-black"></div>
-        </div>
-        <div class="flex justify-center gap-8">
-            <div class="w-64 h-64 bg-gray-300 rounded-lg flex items-center justify-center text-xl">CAT 1</div>
-            <div class="w-64 h-64 bg-gray-300 rounded-lg flex items-center justify-center text-xl">CAT 2</div>
+        <div class="container mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
+                    <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain translate-y-8">
+                </div>
+                
+                <div class="md:ml-8 text-left md:max-w-xl">
+                    <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
+                        DARI DARAT KE LAUT,<br>
+                        KAMI SIAP MENDUKUNG ANDA!
+                    </h1>
+                    <p class="text-base md:text-lg text-white font-thin font-montserrat drop-shadow-xl">
+                        Temukan alat berat dan kapal siap kerja. Pilihan terbaik untuk proyek Anda, semua di satu tempat.
+                    </p>
+                    </br>
+                    <div class="mt-8 text-right text-lg">
+                        <a href="#" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all duration-300">
+                            Cari Solusi Industri Anda
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -81,4 +91,10 @@
     </footer>
 
 </body>
+<style>
+    .shadow-text {
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
+    }
+    
+</style>
 </html>

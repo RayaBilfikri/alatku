@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>alatKu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -40,7 +40,7 @@
                         DARI DARAT KE LAUT,<br>
                         KAMI SIAP MENDUKUNG ANDA!
                     </h1>
-                    <p class="text-base md:text-lg text-white font-thin font-montserrat drop-shadow-xl">
+                    <p class="text-base md:text-lg text-white font-normal font-montserrat drop-shadow-xl">
                         Temukan alat berat dan kapal siap kerja. Pilihan terbaik untuk proyek Anda, semua di satu tempat.
                     </p>
                     </br>
@@ -207,6 +207,129 @@
                 </div>
     </section>
 
+    <!-- Ulasan / Pendapat -->
+    </section>
+        <div class="testimonial-section relative overflow-hidden">
+        <!-- Background gradient layer -->
+        <div class="bg-gradient absolute inset-0"></div>
+        
+        <!-- Left eclipse layer -->
+        <div class="left-eclipse absolute"></div>
+        
+        <!-- Right multi-layer eclipse -->
+        <div class="right-eclipse-back absolute"></div>
+        <div class="right-eclipse-middle absolute"></div>
+        <div class="right-eclipse-front absolute"></div>
+        
+        <!-- Content layer -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <!-- Testimonial heading -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
+                <p class="text-white text-lg mt-4 font-montserrat">
+                    Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
+                    terpercaya untuk menyelesaikan proyek mereka dengan sukses.
+                </p>
+            </div>
+            
+            <!-- Testimonial cards - top row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-xl testimonial-card p-6">
+                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('path/to/andy.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Andy Herman</p>
+                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('path/to/zendaya.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Zendaya</p>
+                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('path/to/chris.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Chris Septian</p>
+                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial cards - bottom row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 4 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('path/to/bagas.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Bagas Drible">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Bagas Drible</p>
+                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 5 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('path/to/elzio.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Elzio">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Elzio</p>
+                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 6 -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('path/to/lionel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Leonel Messi">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Leonel Messi</p>
+                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Artikel -->
     <section class="bg-gray-200 p-10">
         <h2 class="text-xl font-bold mb-6 text-center">artikel</h2>
@@ -252,33 +375,93 @@
         transform: scale(1.05); /* Larger scale for the active item */
     }
 
+    .testimonial-section {
+        width: 100%;
+        height: 880px;
+    }
+
+    /* Main background gradient */
+    .bg-gradient {
+        background: linear-gradient(to bottom, #F86F03, #FFA41B);
+    }
+
+    /* Left eclipse */
+    .left-eclipse {
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: linear-gradient(to bottom, #F86F03, #FFA41B);
+        top: -100px;
+        left: -250px;
+    }
+
+    /* Right multi-layer eclipse */
+    .right-eclipse-back {
+        width: 1051px;
+        height: 1051px;
+        border-radius: 50%;
+        background: linear-gradient(to bottom, #FFA41B, #F86F03);
+        top: 50%;
+        right: -525px;
+        transform: translateY(-50%);
+    }
+
+    .right-eclipse-middle {
+        width: 938px;
+        height: 938px;
+        border-radius: 50%;
+        background: #FFA41B;
+        top: 50%;
+        right: -469px;
+        transform: translateY(-50%);
+    }
+
+    .right-eclipse-front {
+        width: 353px;
+        height: 353px;
+        border-radius: 50%;
+        background: #F86F03;
+        top: 50%;
+        right: -176px;
+        transform: translateY(-50%);
+    }
 </style>
 </html>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const items = document.querySelectorAll('.carousel-item');
-    const carouselContainer = document.getElementById('carousel');
+    document.addEventListener("DOMContentLoaded", function() {
+        const items = document.querySelectorAll('.carousel-item');
+        const carouselContainer = document.getElementById('carousel');
 
-    let activeIndex = 0;
+        let activeIndex = 0;
 
-    const updateCarousel = () => {
-        items.forEach((item, index) => {
-            item.classList.remove('active');
-            if (index === activeIndex) {
-                item.classList.add('active'); // Apply active class to current item
-            }
+        const updateCarousel = () => {
+            items.forEach((item, index) => {
+                item.classList.remove('active');
+                if (index === activeIndex) {
+                    item.classList.add('active'); // Apply active class to current item
+                }
+            });
+        };
+
+        // Add event listeners for swiping (for mobile) or buttons (if added)
+        carouselContainer.addEventListener('scroll', () => {
+            const scrollPosition = carouselContainer.scrollLeft;
+            const itemWidth = items[0].offsetWidth;
+
+            activeIndex = Math.round(scrollPosition / itemWidth);
+            activeIndex = Math.max(0, Math.min(activeIndex, items.length - 1)); // Clamp index
+            updateCarousel();
         });
-    };
-
-    // Add event listeners for swiping (for mobile) or buttons (if added)
-    carouselContainer.addEventListener('scroll', () => {
-        const scrollPosition = carouselContainer.scrollLeft;
-        const itemWidth = items[0].offsetWidth;
-
-        activeIndex = Math.round(scrollPosition / itemWidth);
-        activeIndex = Math.max(0, Math.min(activeIndex, items.length - 1)); // Clamp index
-        updateCarousel();
     });
-});
+
+    tailwind.config = {
+        theme: {
+            extend: {
+            fontFamily: {
+                montserrat: ['Montserrat', 'sans-serif'],
+            },
+            },
+        },
+        }
 </script>

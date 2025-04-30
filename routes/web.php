@@ -21,5 +21,4 @@ Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('how-to-buy'
 // Halaman Article
 Route::get('/article', [ArticleController::class, 'index'])->name('article');
 
-// Halaman Ulasan
-Route::get('/ulasan', [UlasanController::class, 'index'])->name('index');
+

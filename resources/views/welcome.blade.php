@@ -55,9 +55,8 @@
     <!-- Equipment Sale -->
     <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden">
         <!-- Background circles -->
-        <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] opacity-90"></div>
-        <div class="absolute left-1/4 -bottom-32 w-40 h-40 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] opacity-80"></div>
-        <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] opacity-90"></div>
+        <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
+        <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
         
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -211,7 +210,7 @@
         </div>
     </section>
 
-    <!-- Ulasan / Pendapat -->
+    <!-- Ulasan / Pendapat Section -->
     </section>
         <div class="testimonial-section relative overflow-hidden">
         <!-- Background gradient layer -->
@@ -237,7 +236,7 @@
             </div>
             
             <!-- Testimonial cards - top row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
@@ -358,6 +357,17 @@
     .shadow-text {
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
     }
+
+    @layer utilities {
+        .shadow-right-only {
+            box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .shadow-left-only {
+            box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+        }
+    }
+
     /* Hide scrollbar */
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
@@ -404,6 +414,7 @@
         height: 500px;
         border-radius: 50%;
         background: linear-gradient(to bottom, #F86F03, #FFA41B);
+        box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3);
         top: -100px;
         left: -250px;
     }
@@ -437,7 +448,9 @@
         top: 50%;
         right: -176px;
         transform: translateY(-50%);
+        box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
     }
+
 </style>
 </html>
 
@@ -473,6 +486,13 @@
                 left: direction === 'next' ? itemWidth : -itemWidth,
                 behavior: 'smooth'
             });
+            // Sembunyikan tombol prev jika di item pertama, next jika di item terakhir
+            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+
+            prevButton.style.display = newIndex === 0 ? 'none' : 'block';
+            nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
+
         }
 
         prevButtons.forEach(button => {
@@ -488,6 +508,19 @@
                 updateActiveItem(carousel, 'next');
             });
         });
+    // Set kondisi tombol saat halaman pertama kali dimuat
+    document.querySelectorAll('#carousel').forEach(carousel => {
+        const items = carousel.querySelectorAll('.carousel-item');
+        const activeItem = carousel.querySelector('.carousel-item.active');
+        const currentIndex = Array.from(items).indexOf(activeItem);
+
+        const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+        const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+
+        prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+        nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+    });
+
     });
 
 

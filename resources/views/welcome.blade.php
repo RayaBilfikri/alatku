@@ -398,13 +398,14 @@
         opacity: 0.85;
         transition: all 0.4s ease;
         transform-origin: center;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); 
     }
 
     .carousel-item.active {
         transform: scale(1);
         opacity: 1;
         z-index: 10;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     .testimonial-section {

@@ -80,7 +80,7 @@
                 <div class="md:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-4 py-2" id="carousel">
+                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
                             <!-- Carousel Item 1 (Active/Featured) -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item active" data-index="0">
                                 <img src="/images/KOMATSUPC135F-10M0.png" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
@@ -196,7 +196,7 @@
                     </div>
                     
                     <!-- Navigation buttons -->
-                    <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block">
+                    <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block ml-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
@@ -389,21 +389,23 @@
         position: relative;
         padding: 10px;
         margin: -10px;
+        overflow: visible;
     }
 
     /* Item styling with scale effect */
     .carousel-item {
-        transform: scale(0.95);
+        transform: scale(0.85);
         opacity: 0.85;
         transition: all 0.4s ease;
         transform-origin: center;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); 
     }
 
     .carousel-item.active {
-        transform: scale(1.05);
+        transform: scale(1);
         opacity: 1;
         z-index: 10;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     .testimonial-section {

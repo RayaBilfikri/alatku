@@ -80,7 +80,7 @@
                 <div class="md:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-4 py-2" id="carousel">
+                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
                             <!-- Carousel Item 1 (Active/Featured) -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item active" data-index="0">
                                 <img src="/images/KOMATSUPC135F-10M0.png" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
@@ -389,18 +389,19 @@
         position: relative;
         padding: 10px;
         margin: -10px;
+        overflow: visible;
     }
 
     /* Item styling with scale effect */
     .carousel-item {
-        transform: scale(0.95);
+        transform: scale(0.80);
         opacity: 0.85;
         transition: all 0.4s ease;
         transform-origin: center;
     }
 
     .carousel-item.active {
-        transform: scale(1.05);
+        transform: scale(1);
         opacity: 1;
         z-index: 10;
         box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);

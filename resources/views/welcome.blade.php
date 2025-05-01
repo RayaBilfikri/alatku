@@ -6,6 +6,7 @@
     <title>alatKu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -34,7 +35,7 @@
                 </div>
                 
                 <div class="md:ml-8 text-left md:max-w-xl">
-                    <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
+                    <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
                         DARI DARAT KE LAUT,<br>
                         KAMI SIAP MENDUKUNG ANDA!
                     </h1>
@@ -55,9 +56,8 @@
     <!-- Equipment Sale -->
     <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden">
         <!-- Background circles -->
-        <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] opacity-90"></div>
-        <div class="absolute left-1/4 -bottom-32 w-40 h-40 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] opacity-80"></div>
-        <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] opacity-90"></div>
+        <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
+        <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
         
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -83,7 +83,7 @@
                         <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-4 py-2" id="carousel">
                             <!-- Carousel Item 1 (Active/Featured) -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item active" data-index="0">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
+                                <img src="/images/KOMATSUPC135F-10M0.png" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F-10M0</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
@@ -111,9 +111,9 @@
                             
                             <!-- Carousel Item 2 -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="1">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
+                                <img src="/images/caterpillar.jpg" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
                                 <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F-10M0</h3>
+                                    <h3 class="font-bold text-gray-800">Rigid Hauler 777G</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -139,7 +139,7 @@
                             
                             <!-- Carousel Item 3 -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="2">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Excavator" class="w-full h-48 object-cover">
+                                <img src="/images/komatsu3.png" alt="Komatsu Excavator" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
@@ -167,7 +167,7 @@
                             
                             <!-- Carousel Item 4 (New) -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="3">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Wheel Loader" class="w-full h-48 object-cover">
+                                <img src="/images/komatsu4.png" alt="Komatsu Wheel Loader" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-bold text-gray-800">Komatsu Wheel Loader WA380</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
@@ -211,7 +211,7 @@
         </div>
     </section>
 
-    <!-- Ulasan / Pendapat -->
+    <!-- Ulasan / Pendapat Section -->
     </section>
         <div class="testimonial-section relative overflow-hidden">
         <!-- Background gradient layer -->
@@ -230,14 +230,14 @@
             <!-- Testimonial heading -->
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
-                <p class="text-white text-lg mt-4 font-montserrat">
+                <p class="text-white text-lg mt-12 font-montserrat">
                     Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
                     terpercaya untuk menyelesaikan proyek mereka dengan sukses.
                 </p>
             </div>
             
             <!-- Testimonial cards - top row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
@@ -358,6 +358,24 @@
     .shadow-text {
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
     }
+
+    @layer utilities {
+        .shadow-right-only {
+            box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .shadow-left-only {
+            box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    @font-face {
+        font-family: 'Akira Expanded';
+        src: url('/fonts/AkiraExpanded.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     /* Hide scrollbar */
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
@@ -404,6 +422,7 @@
         height: 500px;
         border-radius: 50%;
         background: linear-gradient(to bottom, #F86F03, #FFA41B);
+        box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3);
         top: -100px;
         left: -250px;
     }
@@ -437,12 +456,14 @@
         top: 50%;
         right: -176px;
         transform: translateY(-50%);
+        box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
     }
+
 </style>
 </html>
 
 <script>
-    // Selector untuk tombol navigasi carousel
+    
     document.addEventListener("DOMContentLoaded", function () {
         const prevButtons = document.querySelectorAll('.carousel-prev');
         const nextButtons = document.querySelectorAll('.carousel-next');
@@ -452,7 +473,7 @@
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
 
-            // Hitung indeks baru berdasarkan arah
+            
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
 
             // Batasi indeks agar tidak keluar dari range
@@ -473,6 +494,13 @@
                 left: direction === 'next' ? itemWidth : -itemWidth,
                 behavior: 'smooth'
             });
+            // Sembunyikan tombol prev jika di item pertama, next jika di item terakhir
+            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+
+            prevButton.style.display = newIndex === 0 ? 'none' : 'block';
+            nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
+
         }
 
         prevButtons.forEach(button => {
@@ -488,6 +516,19 @@
                 updateActiveItem(carousel, 'next');
             });
         });
+    // Set kondisi tombol saat halaman pertama kali dimuat
+    document.querySelectorAll('#carousel').forEach(carousel => {
+        const items = carousel.querySelectorAll('.carousel-item');
+        const activeItem = carousel.querySelector('.carousel-item.active');
+        const currentIndex = Array.from(items).indexOf(activeItem);
+
+        const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+        const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+
+        prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+        nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+    });
+
     });
 
 
@@ -496,6 +537,7 @@
             extend: {
             fontFamily: {
                 montserrat: ['Montserrat', 'sans-serif'],
+                akira: ['"Akira Expanded"', 'sans-serif'],
             },
             },
         },

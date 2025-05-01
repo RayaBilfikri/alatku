@@ -6,6 +6,7 @@
     <title>alatKu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -34,7 +35,7 @@
                 </div>
                 
                 <div class="md:ml-8 text-left md:max-w-xl">
-                    <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
+                    <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
                         DARI DARAT KE LAUT,<br>
                         KAMI SIAP MENDUKUNG ANDA!
                     </h1>
@@ -229,7 +230,7 @@
             <!-- Testimonial heading -->
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
-                <p class="text-white text-lg mt-4 font-montserrat">
+                <p class="text-white text-lg mt-12 font-montserrat">
                     Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
                     terpercaya untuk menyelesaikan proyek mereka dengan sukses.
                 </p>
@@ -368,6 +369,13 @@
         }
     }
 
+    @font-face {
+        font-family: 'Akira Expanded';
+        src: url('/fonts/AkiraExpanded.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     /* Hide scrollbar */
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
@@ -455,7 +463,7 @@
 </html>
 
 <script>
-    // Selector untuk tombol navigasi carousel
+    
     document.addEventListener("DOMContentLoaded", function () {
         const prevButtons = document.querySelectorAll('.carousel-prev');
         const nextButtons = document.querySelectorAll('.carousel-next');
@@ -465,7 +473,7 @@
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
 
-            // Hitung indeks baru berdasarkan arah
+            
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
 
             // Batasi indeks agar tidak keluar dari range
@@ -529,6 +537,7 @@
             extend: {
             fontFamily: {
                 montserrat: ['Montserrat', 'sans-serif'],
+                akira: ['"Akira Expanded"', 'sans-serif'],
             },
             },
         },

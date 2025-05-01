@@ -9,6 +9,7 @@ module.exports = {
       extend: {
         fontFamily: {
           montserrat: ['Montserrat', 'sans-serif'],
+          akira: ['"Akira Expanded"', 'sans-serif'],
         }
       },
     },

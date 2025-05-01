@@ -83,7 +83,7 @@
                         <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-4 py-2" id="carousel">
                             <!-- Carousel Item 1 (Active/Featured) -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item active" data-index="0">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
+                                <img src="/images/KOMATSUPC135F-10M0.png" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F-10M0</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
@@ -111,9 +111,9 @@
                             
                             <!-- Carousel Item 2 -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="1">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
+                                <img src="/images/caterpillar.jpg" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
                                 <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F-10M0</h3>
+                                    <h3 class="font-bold text-gray-800">Rigid Hauler 777G</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -139,7 +139,7 @@
                             
                             <!-- Carousel Item 3 -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="2">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Excavator" class="w-full h-48 object-cover">
+                                <img src="/images/komatsu3.png" alt="Komatsu Excavator" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
@@ -167,7 +167,7 @@
                             
                             <!-- Carousel Item 4 (New) -->
                             <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="3">
-                                <img src="https://via.placeholder.com/300x200" alt="Komatsu Wheel Loader" class="w-full h-48 object-cover">
+                                <img src="/images/komatsu4.png" alt="Komatsu Wheel Loader" class="w-full h-48 object-cover">
                                 <div class="p-4">
                                     <h3 class="font-bold text-gray-800">Komatsu Wheel Loader WA380</h3>
                                     <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">

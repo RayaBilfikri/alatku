@@ -196,7 +196,7 @@
                     </div>
                     
                     <!-- Navigation buttons -->
-                    <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block">
+                    <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block ml-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
@@ -394,7 +394,7 @@
 
     /* Item styling with scale effect */
     .carousel-item {
-        transform: scale(0.80);
+        transform: scale(0.85);
         opacity: 0.85;
         transition: all 0.4s ease;
         transform-origin: center;

@@ -53,8 +53,8 @@
         </div>
     </section>
 
-    <!-- Equipment Sale -->
-    <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden">
+    <!-- Equipment Sale with Carousel Section -->
+    <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
         <!-- Background circles -->
         <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
@@ -211,8 +211,9 @@
         </div>
     </section>
 
+    
     <!-- Ulasan / Pendapat Section -->
-    </section>
+    <section class="bg-gradient-to-b from-[#F86F03] to-[#FFA41B] py-12">
         <div class="testimonial-section relative overflow-hidden">
         <!-- Background gradient layer -->
         <div class="bg-gradient absolute inset-0"></div>
@@ -334,24 +335,74 @@
         </div>
     </section>
 
-    <!-- Artikel -->
-    <section class="bg-gray-200 p-10">
-        <h2 class="text-xl font-bold mb-6 text-center">artikel</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            @for ($i = 0; $i < 4; $i++)
-                <div class="bg-white rounded-lg shadow p-4">
-                    <div class="bg-gray-300 h-32 mb-4"></div>
-                    <p class="font-semibold">Judul Artikel</p>
-                    <p class="text-sm text-gray-500">Deskripsi singkat artikel.</p>
+
+    <section class="article-section relative overflow-hidden bg-gradient-to-t from-[#F86F03] to-[#FFA41B] overflow-hidden">
+        <!-- Background gradient layer (matching testimonial section) -->
+        
+        <!-- Content layer -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="w-full mx-auto" style="max-width: 1440px;">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold font-montserrat text-white">Artikel</h2>
+                    <p class="text-white text-lg mt-4 font-montserrat">
+                        Temukan tips dan informasi terbaru tentang alat konstruksi
+                    </p>
                 </div>
-            @endfor
+                
+                <!-- Article cards using the orange style from the high-fidelity image -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
+                    <!-- Article Card 1 -->
+                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-4">
+                        <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <h3 class="text-white font-bold text-lg mb-2">Solusi Kebutuhan Kontraktor</h3>
+                            <p class="text-white text-sm mb-4">
+                                Pilihan alat berat terbaik untuk proyek konstruksi jalan raya, bangunan gedung, jembatan dan infrastruktur lainnya.
+                            </p>
+                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Article Card 2 -->
+                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-4">
+                        <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <h3 class="text-white font-bold text-lg mb-2">Tips Pemeliharaan Kontraktor</h3>
+                            <p class="text-white text-sm mb-4">
+                                Panduan lengkap merawat alat berat untuk memaksimalkan umur dan performa mesin di berbagai kondisi lapangan.
+                            </p>
+                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Article Card 3 -->
+                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-4">
+                        <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <h3 class="text-white font-bold text-lg mb-2">Teknologi Konstruksi Kontraktor</h3>
+                            <p class="text-white text-sm mb-4">
+                                Inovasi terbaru dalam peralatan konstruksi yang meningkatkan efisiensi, produktivitas, dan keamanan proyek.
+                            </p>
+                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Article Card 4 -->
+                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
+                        <div class="p-4">
+                            <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <h3 class="text-white font-bold text-lg mb-2">Solusi Finansial Kontraktor</h3>
+                            <p class="text-white text-sm mb-4">
+                                Opsi pembiayaan dan sewa alat berat untuk proyek konstruksi dengan berbagai skala dan kebutuhan.
+                            </p>
+                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-white text-center p-6">
-        <p class="font-semibold">Footer</p>
-    </footer>
 
 </body>
 <style>
@@ -410,12 +461,15 @@
 
     .testimonial-section {
         width: 100%;
-        height: 880px;
+        position: relative; 
+        z-index: 10;
+        overflow: visible; 
     }
 
-    /* Main background gradient */
-    .bg-gradient {
-        background: linear-gradient(to bottom, #F86F03, #FFA41B);
+
+    section {
+        overflow-x: clip;
+        overflow-clip-margin: 0px;
     }
 
     /* Left eclipse */
@@ -427,6 +481,7 @@
         box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3);
         top: -100px;
         left: -250px;
+        z-index: 6;
     }
 
     /* Right multi-layer eclipse */
@@ -438,6 +493,7 @@
         top: 50%;
         right: -525px;
         transform: translateY(-50%);
+
     }
 
     .right-eclipse-middle {
@@ -448,6 +504,7 @@
         top: 50%;
         right: -469px;
         transform: translateY(-50%);
+
     }
 
     .right-eclipse-front {
@@ -459,6 +516,12 @@
         right: -176px;
         transform: translateY(-50%);
         box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+
+    }
+
+    .testimonial-section .text-center {
+        position: relative;
+        z-index: 10; 
     }
 
 </style>

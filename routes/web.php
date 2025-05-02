@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HowToBuyController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CatalogController;
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
 Route::get('/', function () {
@@ -21,5 +22,5 @@ Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('how-to-buy'
 // Halaman Article
 Route::get('/article', [ArticleController::class, 'index'])->name('article');
 
-// Halaman Ulasan
-Route::get('/ulasan', [UlasanController::class, 'index'])->name('index');
+// ✅ Halaman Catalog
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');

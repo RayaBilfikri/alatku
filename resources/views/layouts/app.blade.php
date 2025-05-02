@@ -3,15 +3,15 @@
 <head>
     
 
-
+    {{-- Inject konten tambahan di <head> seperti Tailwind CSS --}}
     @yield('head')
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alatku</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Link ke file CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Bisa juga menambahkan file JavaScript di sini -->
 </head>

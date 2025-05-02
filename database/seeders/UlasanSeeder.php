@@ -13,7 +13,7 @@ class UlasanSeeder extends Seeder
      */
     public function run()
     {
-        Ulasan::factory()->count(6)->create();
+        Ulasan::factory()->count(12)->create();
     }
     
 }

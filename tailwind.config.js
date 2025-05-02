@@ -6,12 +6,7 @@ module.exports = {
       "./resources/**/*.vue",
     ],
     theme: {
-      extend: {
-        fontFamily: {
-          montserrat: ['Montserrat', 'sans-serif'],
-          akira: ['"Akira Expanded"', 'sans-serif'],
-        }
-      },
+      extend: {},
     },
     plugins: [],
   }

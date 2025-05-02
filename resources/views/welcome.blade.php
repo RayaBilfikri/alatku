@@ -13,7 +13,7 @@
     <!-- Header -->
     <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
         <div class="flex items-center space-x-2">
-            <img src="/images/488cb94d8d296c83f62e532f20d689b8c80de868.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
+            <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
         </div>
         <nav class="space-x-6">
             <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
@@ -354,7 +354,7 @@
                     <!-- Article Card 1 -->
                     <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
                         <div class="p-4">
-                        <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <img src="{{ asset('images/excavator1.jpg') }}" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
                             <h3 class="text-white font-bold text-lg mb-2">Solusi Kebutuhan Kontraktor</h3>
                             <p class="text-white text-sm mb-4">
                                 Pilihan alat berat terbaik untuk proyek konstruksi jalan raya, bangunan gedung, jembatan dan infrastruktur lainnya.
@@ -366,7 +366,7 @@
                     <!-- Article Card 2 -->
                     <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
                         <div class="p-4">
-                        <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <img src="{{ asset('images/excavator2.jpg') }}" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
                             <h3 class="text-white font-bold text-lg mb-2">Tips Pemeliharaan Kontraktor</h3>
                             <p class="text-white text-sm mb-4">
                                 Panduan lengkap merawat alat berat untuk memaksimalkan umur dan performa mesin di berbagai kondisi lapangan.
@@ -378,7 +378,7 @@
                     <!-- Article Card 3 -->
                     <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
                         <div class="p-4">
-                        <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <img src="{{ asset('images/excavator3.jpg') }}" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
                             <h3 class="text-white font-bold text-lg mb-2">Teknologi Konstruksi Kontraktor</h3>
                             <p class="text-white text-sm mb-4">
                                 Inovasi terbaru dalam peralatan konstruksi yang meningkatkan efisiensi, produktivitas, dan keamanan proyek.
@@ -390,7 +390,7 @@
                     <!-- Article Card 4 -->
                     <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
                         <div class="p-4">
-                            <img src="/images/worker.png" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <img src="/images/worker.jpg" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
                             <h3 class="text-white font-bold text-lg mb-2">Solusi Finansial Kontraktor</h3>
                             <p class="text-white text-sm mb-4">
                                 Opsi pembiayaan dan sewa alat berat untuk proyek konstruksi dengan berbagai skala dan kebutuhan.

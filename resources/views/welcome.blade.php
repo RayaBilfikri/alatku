@@ -40,11 +40,13 @@
                         KAMI SIAP MENDUKUNG ANDA!
                     </h1>
                     <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
-                        Temukan alat berat dan kapal siap kerja. Pilihan terbaik untuk proyek Anda, semua di satu tempat.
+                        Jelajahi beragam peralatan industri dan konstruksi<br>
+                        untuk berbagai kebutuhan proyek.<br>
+                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                     </p>
                     </br>
                     <div class="mt-8 text-right text-lg">
-                        <a href="#" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                        <a href="{{ route('catalog') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
                             Cari Solusi Industri Anda
                         </a>
                     </div>
@@ -68,7 +70,7 @@
                         Lihat koleksi alat berat dan kapal siap kerja 
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
-                    <a href="#" class="inline-flex items-center bg-gradient-to-r from-[#f86f03] to-[#ffa41b] text-white px-5 py-2 rounded-full font-medium text-sm">
+                    <a href="{{ route('catalog') }}" class="inline-flex items-center bg-gradient-to-r from-[#f86f03] to-[#ffa41b] text-white px-5 py-2 rounded-full font-medium text-sm">
                         Lihat produk selengkapnya
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />

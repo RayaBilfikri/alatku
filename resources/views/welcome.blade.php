@@ -70,11 +70,16 @@
                         Lihat koleksi alat berat dan kapal siap kerja 
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
-                    <a href="{{ route('catalog') }}" class="inline-flex items-center bg-gradient-to-r from-[#f86f03] to-[#ffa41b] text-white px-5 py-2 rounded-full font-medium text-sm">
-                        Lihat produk selengkapnya
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
+
+                    <a href="{{ route('catalog') }}"
+                        class="relative inline-flex items-center overflow-hidden text-white px-5 py-2 rounded-full font-medium text-sm group">
+                        <span class="absolute inset-0 bg-gradient-to-r from-[#f86f03] to-[#ffa41b] transition-transform duration-500 ease-in-out group-hover:from-[#ffa41b] group-hover:to-[#f86f03]"></span>
+                        <span class="relative z-10 flex items-center">
+                            Lihat produk selengkapnya
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-500 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
                     </a>
                 </div>
                 
@@ -460,7 +465,8 @@
         z-index: 10;
         box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
     }
-
+    
+    
     .testimonial-section {
         width: 100%;
         position: relative; 

@@ -7,6 +7,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HowToBuyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\DashboardController;
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
 Route::get('/', function () {
@@ -24,3 +25,6 @@ Route::get('/article', [ArticleController::class, 'index'])->name('article');
 
 // ✅ Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+
+// Route untuk dashboard (belum ada role permission)
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

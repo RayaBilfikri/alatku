@@ -28,3 +28,8 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::prefix('api')->group(function(){
+    // mengarahkan semua rute API ke file api.php
+    require base_path('routes\api.php');
+});

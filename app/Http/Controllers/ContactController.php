@@ -11,13 +11,13 @@ class ContactController extends Controller
     public function index()
     {
         $contacts = Contact::all();
-        return view('contacts.index', compact('contacts'));
+        return view('superadmin.contacts.index', compact('contacts'));
     }
 
 
     public function create()
     {
-        return view('contacts.create');
+        return view('superadmin.contacts.create');
     }
 
 
@@ -30,14 +30,14 @@ class ContactController extends Controller
 
         Contact::create($request->all());
 
-        return redirect()->route('contacts.index')->with('message', 'Contact added successfully.');
+        return redirect()->route('superadmin.contacts.index')->with('message', 'Contact added successfully.');
     }
 
 
     public function edit($id)
     {
-        $contacts = Contact::findOrFail($id);
-        return view('contacts.create', compact('contact'));
+        $contact = Contact::findOrFail($id);
+        return view('superadmin.contacts.edit', compact('contact'));
     }
 
 
@@ -51,13 +51,13 @@ class ContactController extends Controller
         $contact = Contact::findOrFail($id);
         $contact->update($request->all());
 
-        return redirect()->route('contacts.index')->with('message', 'Contact updated successfully.');
+        return redirect()->route('superadmin.contacts.index')->with('message', 'Contact updated successfully.');
     }
 
 
     public function destroy($id)
     {
         Contact::destroy($id);
-        return redirect()->route('contacts.index')->with('message', 'Contact deleted successfully.');
+        return redirect()->route('superadmin.contacts.index')->with('message', 'Contact deleted successfully.');
     }
 }

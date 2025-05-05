@@ -11,7 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WebsiteProfileController;
-use App\Models\Contact;
+
 
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
@@ -53,4 +53,12 @@ Route::prefix('contacts')->group(function () {
     Route::delete('/{contacts}', [ContactController::class, 'destroy'])->name('superadmin.contacts.destroy');
 });
 
-
+// Route website profile (hanya super admin)
+Route::prefix('websiteprofiles')->group(function () {
+    Route::get('/', [WebsiteProfileController::class, 'index'])->name('superadmin.websiteprofiles.index');
+    Route::get('/create', [WebsiteProfileController::class, 'create'])->name('superadmin.websiteprofiles.create'); // Menampilkan form create
+    Route::post('/', [WebsiteProfileController::class, 'store'])->name('superadmin.websiteprofiles.store'); // Menyimpan data kontak
+    Route::get('/{websiteprofiles}/edit', [WebsiteProfileController::class, 'edit'])->name('superadmin.websiteprofiles.edit');
+    Route::put('/{websiteprofiles}', [WebsiteProfileController::class, 'update'])->name('superadmin.websiteprofiles.update');
+    Route::delete('/{websiteprofiles}', [WebsiteProfileController::class, 'destroy'])->name('superadmin.websiteprofiles.destroy');
+});

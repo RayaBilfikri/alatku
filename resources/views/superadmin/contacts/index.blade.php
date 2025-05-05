@@ -34,9 +34,9 @@
                 <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
-                <a href="#" class="block py-2 px-3 rounded bg-orange-100 font-semibold">Kelola Kontak</a>
+                <a href="/contacts" class="block py-2 px-3 rounded bg-orange-100 font-semibold">Kelola Kontak</a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
-                <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
+                <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
             </nav>
         </div>
     </aside>

@@ -16,7 +16,7 @@
             <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
         </div>
         <nav class="space-x-6">
-            <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
+            <a href="{{ route('home') }}" class="hover:text-orange-600">Dashboard</a>
             <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
             <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
             <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>

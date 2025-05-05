@@ -8,23 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('ulasan', function (Blueprint $table) {
             $table->id();
-            $table->text('content'); // isi ulasan
-            $table->string('user_name'); // nama user pemberi ulasan
-            $table->string('user_avatar')->nullable(); // URL gambar profil
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->text('content');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
-        
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('ulasan');
     }

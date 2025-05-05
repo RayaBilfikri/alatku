@@ -9,14 +9,14 @@ class WebsiteProfileController extends Controller
 {
     public function index()
     {
-        $websiteprofiles = WebsiteProfile::all();
-        return view('websiteprofiles.index', compact('websiteprofiles'));
+        $websiteProfiles = WebsiteProfile::all();
+        return view('superadmin.websiteprofiles.index', compact('websiteProfiles'));
     }
 
 
     public function create()
     {
-        return view('websiteprofiles.create');
+        return view('superadmin.websiteprofiles.create');
     }
 
 
@@ -28,18 +28,16 @@ class WebsiteProfileController extends Controller
             'tentang_kami' => 'required|string',
         ]);
 
-        WebsiteProfile::create($request->all());
+        $data = $request->only(['nama_website', 'tentang_kami']);
 
-        return redirect()->route('websiteprofiles.index')->with('message', 'added successfully.');
+        if ($request->hasFile('logo_website')) {
+            $data['logo_website'] = $request->file('logo_website')->store('logos', 'public');
+        }
+
+        WebsiteProfile::create($data);
+
+        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'Profil website berhasil ditambahkan.');
     }
-
-
-    public function edit($id)
-    {
-        $websiteprofiles = WebsiteProfile::findOrFail($id);
-        return view('websiteprofiles.create', compact('websiteprofile'));
-    }
-
 
     public function update(Request $request, $id)
     {
@@ -49,16 +47,27 @@ class WebsiteProfileController extends Controller
             'tentang_kami' => 'required|string',
         ]);
 
-        $websiteprofile = WebsiteProfile::findOrFail($id);
-        $websiteprofile->update($request->all());
+        $websiteProfile = WebsiteProfile::findOrFail($id);
+        $data = $request->only(['nama_website', 'tentang_kami']);
 
-        return redirect()->route('websiteprofiles.index')->with('message', 'updated successfully.');
+        if ($request->hasFile('logo_website')) {
+            $data['logo_website'] = $request->file('logo_website')->store('logos', 'public');
+        }
+
+        $websiteProfile->update($data);
+
+        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'Profil website berhasil diperbarui.');
     }
 
+    public function edit($id)
+    {
+        $websiteProfile = WebsiteProfile::findOrFail($id);
+        return view('superadmin.websiteprofiles.edit', compact('websiteProfile'));
+    }
 
     public function destroy($id)
     {
         WebsiteProfile::destroy($id);
-        return redirect()->route('websiteprofiles.index')->with('message', 'deleted successfully.');
+        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'deleted successfully.');
     }
 }

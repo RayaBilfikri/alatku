@@ -1,4 +1,3 @@
-{{-- resources/views/catalog/index.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
@@ -31,37 +30,43 @@
 </div>
 
 <div class="bg-indigo-600 py-10 px-4 text-white">
-    <h2 class="text-xl md:text-2xl font-semibold mb-4">Jelajahi Kategori Alat Siap Pakai</h2>
-    <p class="mb-6">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-center">
-        <div class="flex flex-col items-center">
-            <img src="/icons/tugboat.png" class="h-12 mb-2" alt="Tugboats">
-            <span>Tugboats</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img src="/icons/barge.png" class="h-12 mb-2" alt="Barge">
-            <span>Barge</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img src="/icons/heavy-equipment.png" class="h-12 mb-2" alt="Heavy Equipment">
-            <span>Heavy Equipment</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img src="/icons/material-handling.png" class="h-12 mb-2" alt="Material Handling">
-            <span>Material Handling</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img src="/icons/genset.png" class="h-12 mb-2" alt="Generating Set">
-            <span>Generating Set</span>
-        </div>
-        <div class="flex flex-col items-center">
-            <img src="/icons/heavy-construction.png" class="h-12 mb-2" alt="Heavy Construction Equipment">
-            <span>Heavy Construction</span>
-        </div>
+  <h2 class="text-xl md:text-2xl font-semibold mb-4">Jelajahi Kategori Alat Siap Pakai</h2>
+  <p class="mb-6">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-center">
+    <!-- Ship -->
+    <div class="flex flex-col items-center bg-white text-black rounded-lg p-6 min-h-[140px] shadow w-full">
+      <img src="/images/ship.png" class="h-30 mb-3" alt="Ship">
+      <span class="text-sm font-medium">Ship</span>
     </div>
+    <!-- Heavy Equipment (active) -->
+    <div class="flex flex-col items-center bg-white text-black rounded-lg p-6 min-h-[140px] shadow w-full">
+      <img src="/icons/heavy-equipment.png" class="h-30 mb-3" alt="Heavy Equipment">
+      <span class="text-sm font-medium">Heavy Equipment</span>
+    </div>
+    <!-- Material Handling -->
+    <div class="flex flex-col items-center bg-white text-black rounded-lg p-6 min-h-[140px] shadow w-full">
+      <img src="/icons/material-handling.png" class="h-30 mb-3" alt="Material Handling">
+      <span class="text-sm font-medium">Material Handling</span>
+    </div>
+    <!-- Generating Set -->
+    <div class="flex flex-col items-center bg-white text-black rounded-lg p-6 min-h-[140px] shadow w-full">
+      <img src="/icons/genset.png" class="h-30 mb-3" alt="Generating Set">
+      <span class="text-sm font-medium">Generating Set</span>
+    </div>
+    <!-- Heavy Construction -->
+    <div class="flex flex-col items-center bg-white text-black rounded-lg p-6 min-h-[140px] shadow w-full">
+      <img src="/icons/heavy-construction.png" class="h-30 mb-3" alt="Heavy Construction Equipment">
+      <span class="text-sm font-medium text-center">Heavy Construction Equipment</span>
+    </div>
+    <!-- Other -->
+    <div class="flex flex-col items-center bg-white text-black rounded-lg p-6 min-h-[140px] shadow w-full">
+      <img src="/icons/other.png" class="h-30 mb-3" alt="Other">
+      <span class="text-sm font-medium">Other</span>
+    </div>
+  </div>
 </div>
 
-<div class="py-10 px-4 bg-gray-100">
+<div class="py-10 px-4 bg-indigo-600">
     <h2 class="text-xl md:text-2xl font-semibold mb-4">Jelajahi Kategori Alat Siap Pakai</h2>
     <p class="mb-6">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

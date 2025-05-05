@@ -30,15 +30,5 @@
         @yield('content')  <!-- Bagian ini akan digantikan oleh konten dari halaman lain -->
     </div>
 
-    <!-- Footer (optional) -->
-    <footer class="text-black text-center pt-4 pb-4">
-        <p class="text-center mt-3 mb-3">&copy; {{ date('Y') }} Alatku</p>
-    </footer>
-
-    <!-- Link ke file JS -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
-    {{-- Inject footer scripts seperti JS Vite --}}
-    @yield('footer')
 </body>
 </html>

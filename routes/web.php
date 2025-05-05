@@ -8,6 +8,7 @@ use App\Http\Controllers\HowToBuyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SearchController;
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
 Route::get('/', function () {
@@ -28,3 +29,5 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/search', [SearchController::class, 'index'])->name('search');

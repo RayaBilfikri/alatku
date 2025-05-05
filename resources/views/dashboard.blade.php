@@ -27,13 +27,6 @@
                     <span>Super Admin</span>
                 </div>
             </div>
-
-            <!-- Dynamic Content -->
-            <div class="bg-white rounded-lg shadow p-6">
-                @yield('content')
-            </div>
-        </main>
+        </div>
     </div>
-
-</body>
-</html>
+</x-app-layout>

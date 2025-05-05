@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price', 'stock'];
+    use HasFactory;
+    protected $table = 'products';
+    protected $fillable = [
+        'title',
+        'category',
+        'price',
+    ];
 }

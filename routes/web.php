@@ -9,7 +9,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
-use App\Models\Contact;
+use App\Http\Controllers\SearchController;
+
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
 Route::get('/', function () {
@@ -31,6 +32,10 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+// Route untuk search
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+
 // Route kontak (hanya super admin)
 Route::prefix('contacts')->group(function () {
     Route::get('/', [ContactController::class, 'index'])->name('superadmin.contacts.index');
@@ -40,3 +45,5 @@ Route::prefix('contacts')->group(function () {
     Route::put('/{contacts}', [ContactController::class, 'update'])->name('superadmin.contacts.update');
     Route::delete('/{contacts}', [ContactController::class, 'destroy'])->name('superadmin.contacts.destroy');
 });
+
+

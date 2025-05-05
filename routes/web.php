@@ -10,6 +10,8 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\WebsiteProfileController;
+use App\Models\Contact;
 
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'

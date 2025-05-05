@@ -3,13 +3,30 @@
 
 @section('content')
 <div class="bg-cover bg-center relative" style="background-image: url('/images/header-bg.jpg'); height: 300px;">
-    <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center px-4">
+    <div class="absolute inset-0 bg-gray-700 bg-opacity-70 flex flex-col justify-center items-center text-white text-center px-4">
         <h1 class="text-3xl md:text-4xl font-bold mb-2">Langsung Temukan, Langsung Kerja!</h1>
         <p class="mb-4">Cari alat yang anda butuhkan dengan cepat dan mulai proyek Anda tanpa hambatan.</p>
-        <div class="flex w-full max-w-xl">
-            <input type="text" class="flex-1 p-2 rounded-l-lg focus:outline-none" placeholder="Apa yang anda butuhkan untuk proyek ini?">
-            <button class="bg-orange-500 text-white px-4 rounded-r-lg">Cari</button>
-        </div>
+        
+        <!-- Form untuk search -->
+        <form action="{{ route('search') }}" method="GET" class="flex w-full max-w-xl">
+            <div class="relative flex-1 flex items-center bg-[#D9D9D9] rounded-l-full">
+                <!-- Ikon search di sebelah kiri -->
+                <div class="absolute left-3 text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <input 
+                    type="text" 
+                    name="q" 
+                    class="w-full bg-transparent p-3 pl-10 focus:outline-none text-gray-700" 
+                    placeholder="Apa yang anda butuhkan untuk proyek ini?"
+                    autocomplete="off"
+                >
+            </div>
+            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-full">Cari</button>
+        </form>
     </div>
 </div>
 

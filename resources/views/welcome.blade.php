@@ -343,7 +343,8 @@
     </section>
 
 
-    <section class="article-section relative overflow-hidden bg-gradient-to-t from-[#F86F03] to-[#FFA41B] overflow-hidden">
+    <!--Article Section-->
+    <section class="article-section relative overflow-hidden bg-[#FFA41B] overflow-hidden">
         <!-- Background gradient layer (matching testimonial section) -->
         
         <!-- Content layer -->

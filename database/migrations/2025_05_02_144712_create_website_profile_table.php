@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('website_profile', function (Blueprint $table) {
             $table->id();
             $table->string('nama_website');
-            $table->string('logo_website')->nullable(); // untuk path file gambar
+            $table->string('logo_website')->nullable();
             $table->longText('tentang_kami')->nullable();
             $table->timestamps();
         });

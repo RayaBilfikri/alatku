@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
+    
 </head>
 <body class="bg-gray-100 font-sans">
 
@@ -32,9 +36,9 @@
                     <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
                     <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
                     <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
-                    <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
+                    <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
                     <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
-                    <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
+                    <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
                 </nav>
             </div>
             

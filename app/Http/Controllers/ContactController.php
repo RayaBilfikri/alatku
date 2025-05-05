@@ -20,7 +20,6 @@ class ContactController extends Controller
         return view('superadmin.contacts.create');
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -33,13 +32,11 @@ class ContactController extends Controller
         return redirect()->route('superadmin.contacts.index')->with('message', 'Contact added successfully.');
     }
 
-
     public function edit($id)
     {
         $contact = Contact::findOrFail($id);
         return view('superadmin.contacts.edit', compact('contact'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -53,7 +50,6 @@ class ContactController extends Controller
 
         return redirect()->route('superadmin.contacts.index')->with('message', 'Contact updated successfully.');
     }
-
 
     public function destroy($id)
     {

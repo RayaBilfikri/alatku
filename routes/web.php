@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WebsiteProfileController;
+use App\Http\Controllers\ProdukController;
 use App\Models\Contact;
 
 
@@ -51,6 +52,6 @@ Route::prefix('contacts')->group(function () {
     Route::get('/{contacts}/edit', [ContactController::class, 'edit'])->name('superadmin.contacts.edit');
     Route::put('/{contacts}', [ContactController::class, 'update'])->name('superadmin.contacts.update');
     Route::delete('/{contacts}', [ContactController::class, 'destroy'])->name('superadmin.contacts.destroy');
-});
 
+});
 

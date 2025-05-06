@@ -50,6 +50,7 @@ class ContactController extends Controller
 
         return redirect()->route('superadmin.contacts.index')->with('message', 'Contact updated successfully.');
     }
+    
 
     public function destroy($id)
     {

@@ -13,6 +13,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WebsiteProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\CategoryController;
 
 
 
@@ -86,3 +90,29 @@ Route::prefix('websiteprofiles')->group(function () {
     Route::put('/{websiteprofiles}', [WebsiteProfileController::class, 'update'])->name('superadmin.websiteprofiles.update');
     Route::delete('/{websiteprofiles}', [WebsiteProfileController::class, 'destroy'])->name('superadmin.websiteprofiles.destroy');
 });
+
+// Role & Permission Management
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+    
+    // User Management - Menggunakan UserController yang lengkap
+    Route::resource('users', UserController::class)->except(['show']);
+});
+
+// API Routes
+Route::prefix('api')->group(function() {
+    require base_path('routes/api.php');
+});
+
+// Route kategori
+Route::prefix('categories')->name('superadmin.categories.')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
+    Route::get('/create', [CategoryController::class, 'create'])->name('create');
+    Route::post('/', [CategoryController::class, 'store'])->name('store');
+    Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
+    Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+    Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+});
+
+    

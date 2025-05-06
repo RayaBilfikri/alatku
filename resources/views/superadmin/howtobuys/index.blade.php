@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kelola</title>
+    <title>Kelola How To Buy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
@@ -19,18 +19,18 @@
         <!-- Header -->
         @include('partials.header')
 
-        <!-- Konten Tabel Kontak -->
+        <!-- Konten Tabel How To Buy -->
         <div class="bg-white rounded-lg shadow p-6">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Data Kontak</h2>
-                <a href="{{ route('superadmin.contacts.create') }}"
+                <h2 class="text-xl font-bold">Data How To Buy</h2>
+                <a href="{{ route('superadmin.howtobuys.create') }}"
                    class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah 
+                    Tambah
                 </a>
             </div>
 
@@ -39,24 +39,26 @@
                     <thead class="bg-gray-100">
                     <tr>
                         <th class="px-4 py-2 border">No</th>
-                        <th class="px-4 py-2 border">Nama Kontak</th>
-                        <th class="px-4 py-2 border">Nomor</th>
+                        <th class="px-4 py-2 border">Judul</th>
+                        <th class="px-4 py-2 border">Deskripsi</th>
+                        <th class="px-4 py-2 border">Step Number</th>
                         <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($contacts as $index => $contact)
+                    @foreach($howtobuys as $index => $howtobuy)
                         <tr class="text-center">
                             <td class="px-4 py-2 border">{{ $index + 1 }}</td>
-                            <td class="px-4 py-2 border">{{ $contact->name }}</td>
-                            <td class="px-4 py-2 border">{{ $contact->no_wa }}</td>
+                            <td class="px-4 py-2 border">{{ $howtobuy->judul }}</td>
+                            <td class="px-4 py-2 border">{{ $howtobuy->deskripsi }}</td>
+                            <td class="px-4 py-2 border">{{ $howtobuy->step_number }}</td>
                             <td class="px-4 py-2 border space-x-2">
-                                <a href="{{ route('superadmin.contacts.edit', $contact->id) }}"
+                                <a href="{{ route('superadmin.howtobuys.edit', $howtobuy->id) }}"
                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
 
-                                <form action="{{ route('superadmin.contacts.destroy', $contact->id) }}"
+                                <form action="{{ route('superadmin.howtobuys.destroy', $howtobuy->id) }}"
                                       method="POST" class="inline-block"
-                                      onsubmit="return confirm('Yakin ingin menghapus kontak ini?')">
+                                      onsubmit="return confirm('Yakin ingin menghapus step ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -68,9 +70,9 @@
                         </tr>
                     @endforeach
 
-                    @if ($contacts->isEmpty())
+                    @if ($howtobuys->isEmpty())
                         <tr>
-                            <td colspan="4" class="text-center py-4">Tidak ada data kontak.</td>
+                            <td colspan="5" class="text-center py-4">Tidak ada data How To Buy.</td>
                         </tr>
                     @endif
                     </tbody>

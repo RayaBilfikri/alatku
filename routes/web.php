@@ -91,20 +91,6 @@ Route::prefix('websiteprofiles')->group(function () {
     Route::delete('/{websiteprofiles}', [WebsiteProfileController::class, 'destroy'])->name('superadmin.websiteprofiles.destroy');
 });
 
-// Role & Permission Management
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
-    
-    // User Management - Menggunakan UserController yang lengkap
-    Route::resource('users', UserController::class)->except(['show']);
-});
-
-// API Routes
-Route::prefix('api')->group(function() {
-    require base_path('routes/api.php');
-});
-
 // Route kategori
 Route::prefix('categories')->name('superadmin.categories.')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('index');

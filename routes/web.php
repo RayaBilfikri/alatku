@@ -92,4 +92,3 @@ Route::prefix('websiteprofiles')->group(function () {
 Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
 Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
 Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
-Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);

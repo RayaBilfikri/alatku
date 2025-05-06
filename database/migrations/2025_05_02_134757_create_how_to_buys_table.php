@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('how_to_buys', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('gambar')->nullable();
-            $table->string('link');
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
+            $table->string('deskripsi');
+            $table->string('step_number');
             $table->timestamps();
         });
     }

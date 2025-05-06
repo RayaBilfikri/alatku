@@ -67,25 +67,16 @@ Route::prefix('api')->group(function(){
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 
-// Route kontak (hanya super admin)
-Route::prefix('contacts')->group(function () {
-    Route::get('/', [ContactController::class, 'index'])->name('superadmin.contacts.index');
-    Route::get('/create', [ContactController::class, 'create'])->name('superadmin.contacts.create'); // Menampilkan form create
-    Route::post('/', [ContactController::class, 'store'])->name('superadmin.contacts.store'); // Menyimpan data kontak
-    Route::get('/{contacts}/edit', [ContactController::class, 'edit'])->name('superadmin.contacts.edit');
-    Route::put('/{contacts}', [ContactController::class, 'update'])->name('superadmin.contacts.update');
-    Route::delete('/{contacts}', [ContactController::class, 'destroy'])->name('superadmin.contacts.destroy');
-});
+// FITUR ABIM
+// Route kontak terbaru
+Route::resource('contacts', ContactController::class)->names('superadmin.contacts')->except(['show']);
 
-// Route website profile (hanya super admin)
-Route::prefix('websiteprofiles')->group(function () {
-    Route::get('/', [WebsiteProfileController::class, 'index'])->name('superadmin.websiteprofiles.index');
-    Route::get('/create', [WebsiteProfileController::class, 'create'])->name('superadmin.websiteprofiles.create'); // Menampilkan form create
-    Route::post('/', [WebsiteProfileController::class, 'store'])->name('superadmin.websiteprofiles.store'); // Menyimpan data kontak
-    Route::get('/{websiteprofiles}/edit', [WebsiteProfileController::class, 'edit'])->name('superadmin.websiteprofiles.edit');
-    Route::put('/{websiteprofiles}', [WebsiteProfileController::class, 'update'])->name('superadmin.websiteprofiles.update');
-    Route::delete('/{websiteprofiles}', [WebsiteProfileController::class, 'destroy'])->name('superadmin.websiteprofiles.destroy');
-});
+// Route website profile terbaru
+Route::resource('websiteprofiles', WebsiteProfileController::class)->names('superadmin.websiteprofiles')->except(['show']);
+
+// Route how to buy (hanya super admin)
+Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
+
 
 // Ulasan Routes
 Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');

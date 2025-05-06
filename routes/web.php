@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 
 
@@ -20,6 +21,13 @@ use App\Http\Controllers\WebsiteProfileController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Halaman Coursel
+Route::apiResource('carousel', CarouselController::class);
+Route::resource('carousel', CarouselController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('carousel', CarouselController::class);
+});
 
 // Halaman About Us
 Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
@@ -54,7 +62,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/products/save', [ProductController::class, 'save'])->name('admin/products/save');
 
     Route::get('/admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasan');
-    Route::get('/admin/article', [ArticleController::class, 'index'])->name('admin.article');
+    Route::resource('/admin/article', ArticleController::class)->names('admin.article');
+
 });
 
 require __DIR__.'/auth.php';
@@ -85,6 +94,10 @@ Route::prefix('websiteprofiles')->group(function () {
     Route::get('/{websiteprofiles}/edit', [WebsiteProfileController::class, 'edit'])->name('superadmin.websiteprofiles.edit');
     Route::put('/{websiteprofiles}', [WebsiteProfileController::class, 'update'])->name('superadmin.websiteprofiles.update');
     Route::delete('/{websiteprofiles}', [WebsiteProfileController::class, 'destroy'])->name('superadmin.websiteprofiles.destroy');
+});
+
+Route::middleware(['auth'])->prefix('superadmin')->group(function () {
+    Route::resource('carousel', CarouselController::class);
 });
 
 // Ulasan Routes

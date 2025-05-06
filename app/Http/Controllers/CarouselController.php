@@ -12,7 +12,8 @@ class CarouselController extends Controller
 {
     public function index()
     {
-        return response()->json(Carousel::all());
+        $carousels = Carousel::all();
+        return view('superadmin.carousel.index', compact('carousels'));
     }
 
     public function store(Request $request)

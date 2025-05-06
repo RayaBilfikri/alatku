@@ -1,5 +1,6 @@
 @extends("layouts.ulasan")
 
+
 @section('content')
     <div class="container mx-auto px-4 py-6">
         <div class="flex items-center mb-6">
@@ -113,6 +114,8 @@
         const btnLihatUlasanTertunda = document.getElementById('btnLihatUlasanTertunda');
         const viewPendingReviewsPopup = document.getElementById('viewPendingReviewsPopup');
         const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
 
         // Submit review
         ulasanForm.addEventListener('submit', function(e) {
@@ -127,7 +130,9 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': 'xfwl5MctseD4mGMY69unm9jzk0G48fC8XEbfqFBO'
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json', 
+
                 },
                 body: JSON.stringify({
                     content: content

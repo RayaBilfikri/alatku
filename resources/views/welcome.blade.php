@@ -20,6 +20,7 @@
             <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
             <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
             <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
+            <a href="{{ route('login') }}" class="hover:text-orange-600">Login</a>
         </nav>
     </header>
 

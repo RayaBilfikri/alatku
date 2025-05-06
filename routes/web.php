@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WebsiteProfileController;
+use App\Http\Controllers\CategoryController;
 
 
 
@@ -86,9 +87,3 @@ Route::prefix('websiteprofiles')->group(function () {
     Route::put('/{websiteprofiles}', [WebsiteProfileController::class, 'update'])->name('superadmin.websiteprofiles.update');
     Route::delete('/{websiteprofiles}', [WebsiteProfileController::class, 'destroy'])->name('superadmin.websiteprofiles.destroy');
 });
-
-// Ulasan Routes
-Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
-Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
-Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
-Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);

@@ -237,12 +237,12 @@
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
-                <a href="{{ route('ulasan.index') }}" class="absolute top-0 right-0 -mt-8 group inline-flex items-center px-5 py-2.5 rounded-full text-white font-medium bg-[#F86F03] hover:bg-[#e56703] transition-all duration-300 shadow-lg transform hover:-translate-y-1">
-                    Selengkapnya
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </a>
+            <a href="javascript:void(0)" id="selengkapnyaBtn" class="absolute top-0 right-0 -mt-8 group inline-flex items-center px-5 py-2.5 rounded-full text-white font-medium bg-[#F86F03] hover:bg-[#e56703] transition-all duration-300 shadow-lg transform hover:-translate-y-1">
+                Selengkapnya
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
                 <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
                 <p class="text-white text-lg mt-12 font-montserrat">
                     Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
@@ -342,6 +342,33 @@
                             <p class="text-sm font-semibold text-gray-800">Leonel Messi</p>
                             <p class="text-xs text-gray-500">Civil Engineer</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Register-->
+            <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
+                <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">Pemberitahuan</h3>
+                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-center mb-6">
+                        <div class="mb-4 flex justify-center">
+                            <svg class="w-12 h-12 text-[#F86F03]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-lg text-gray-700">Daftar untuk melanjutkan.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
+                            Daftar Sekarang
+                        </a>
                     </div>
                 </div>
             </div>
@@ -547,6 +574,9 @@
     document.addEventListener("DOMContentLoaded", function () {
         const prevButtons = document.querySelectorAll('.carousel-prev');
         const nextButtons = document.querySelectorAll('.carousel-next');
+        const modalBtn = document.getElementById('selengkapnyaBtn');
+        const modal = document.getElementById('registerModal');
+        const closeBtn = document.getElementById('closeModal');
 
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
@@ -582,6 +612,48 @@
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
 
         }
+
+        function openModal() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            
+            // Animasi untuk konten modal
+            const modalContent = modal.querySelector('div');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 50);
+        }
+        
+        // Fungsi untuk menutup modal dengan animasi
+        function closeModal() {
+            const modalContent = modal.querySelector('div');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 200);
+        }
+        
+        // Event listener untuk tombol
+        modalBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        
+        // Tutup modal saat klik di luar modal
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Tutup modal dengan tombol ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
+                closeModal();
+            }
+        });
 
         prevButtons.forEach(button => {
             button.addEventListener('click', function () {

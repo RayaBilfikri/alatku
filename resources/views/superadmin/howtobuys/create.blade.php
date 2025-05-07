@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tambah Kontak</title>
+    <title>Tambah How to Buy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
@@ -18,29 +18,36 @@
         <!-- Header -->
         @include('partials.header')
 
-        <!-- Form Tambah Kontak -->
+        <!-- Form Tambah How to Buy -->
         <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Tambah Kontak</h2>
-            <form action="{{ route('superadmin.contacts.store') }}" method="POST">
+            <h2 class="text-2xl font-semibold mb-6 text-center">Tambah How to Buy</h2>
+            <form action="{{ route('superadmin.howtobuys.store') }}" method="POST">
                 @csrf
+
                 <div class="mb-6 flex items-center space-x-6">
-                    <label for="name" class="w-40 text-sm font-medium">Nama</label>
-                    <input type="text" id="name" name="name" required
+                    <label for="judul" class="w-40 text-sm font-medium">Judul</label>
+                    <input type="text" id="judul" name="judul" required
                         class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
                 </div>
 
                 <div class="mb-6 flex items-center space-x-6">
-                    <label for="no_wa" class="w-40 text-sm font-medium">Nomor Kontak</label>
-                    <input type="text" id="no_wa" name="no_wa" required class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                    <label for="deskripsi" class="w-40 text-sm font-medium">Deskripsi</label>
+                    <input type="text" id="deskripsi" name="deskripsi" required
+                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
                 </div>
 
+                <div class="mb-6 flex items-center space-x-6">
+                    <label for="step_number" class="w-40 text-sm font-medium">Step Number</label>
+                    <input type="text" id="step_number" name="step_number" required
+                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                </div>
 
                 <div class="flex justify-start space-x-4">
                     <button type="submit"
                             class="bg-blue-600 hover:bg-grey-500 text-white px-6 py-3 rounded-md">
                         Tambahkan
                     </button>
-                    <a href="{{ route('superadmin.contacts.index') }}"
+                    <a href="{{ route('superadmin.howtobuys.index') }}"
                        class="bg-red-500 hover:bg-grey-500 text-white px-6 py-3 rounded-md">
                         Batal
                     </a>

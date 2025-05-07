@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
@@ -22,6 +23,13 @@ use App\Http\Controllers\SubCategoryController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Halaman Coursel
+Route::apiResource('carousel', CarouselController::class);
+Route::resource('carousel', CarouselController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('carousel', CarouselController::class);
+});
 
 // Halaman About Us
 Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
@@ -56,7 +64,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/products/save', [ProductController::class, 'save'])->name('admin/products/save');
 
     Route::get('/admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasan');
-    Route::get('/admin/article', [ArticleController::class, 'index'])->name('admin.article');
+    Route::resource('/admin/article', ArticleController::class)->names('admin.article');
+
 });
 
 require __DIR__.'/auth.php';
@@ -79,6 +88,10 @@ Route::resource('websiteprofiles', WebsiteProfileController::class)->names('supe
 // Route how to buy (hanya super admin)
 Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
 
+
+Route::middleware(['auth'])->prefix('superadmin')->group(function () {
+    Route::resource('carousel', CarouselController::class);
+});
 
 // Ulasan Routes
 Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');

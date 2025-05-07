@@ -16,11 +16,11 @@
         <div class="flex items-center">
             <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
             <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
-            <nav class="ml-8 flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
-                <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
-                <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
-                <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
+            <nav class="ml-12 flex items-center space-x-8" style="transform: translateX(300px);">
+                <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
+                <a href="{{ route('about-us') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
+                <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
+                <a href="{{ route('article') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
             </nav>
         </div>
         

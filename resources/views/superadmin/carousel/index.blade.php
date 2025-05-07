@@ -17,7 +17,7 @@
         <table class="min-w-full bg-white border rounded shadow">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="p-2 border">#</th>
+                    <th class="p-2 border">No</th>
                     <th class="p-2 border text-left">Judul</th>
                     <th class="p-2 border text-left">Gambar</th>
                     <th class="p-2 border text-left">Link</th>

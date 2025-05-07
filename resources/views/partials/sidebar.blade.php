@@ -15,7 +15,7 @@
             <div class="relative group">
                 <button class="w-full text-left py-2 px-3 rounded hover:bg-orange-100">Kelola Akses</button>
             </div>
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
+            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>

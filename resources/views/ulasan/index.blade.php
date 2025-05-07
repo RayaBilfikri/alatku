@@ -66,11 +66,11 @@
                     @foreach ($ulasans as $ulasan)
                         <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat">
                             <div class="flex-shrink-0 mr-4">
-                                <img src="{{ asset('images/avatars/denny.jpg') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                                <img src="{{ '/images/user.jpg' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
                             </div>
                             <div class="flex-grow">
                                 <div class="flex items-center mb-1">
-                                    <h3 class="font-medium text-gray-800">Denny Ali</h3>
+                                    <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
                                 </div>
                                 <span class="text-xs text-gray-500">Civil Engineer Intern</span>
                                 <p class="text-gray-600 ml-2">{{ $ulasan->content }}</p>

@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::resource('carousel', CarouselController::class);
+
 
 // Halaman About Us
 Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');

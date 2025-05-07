@@ -16,6 +16,11 @@ class CarouselController extends Controller
         return view('superadmin.carousel.index', compact('carousels'));
     }
 
+    public function create()
+    {
+        return view('superadmin.carousel.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

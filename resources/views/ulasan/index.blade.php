@@ -115,6 +115,7 @@
         const viewPendingReviewsPopup = document.getElementById('viewPendingReviewsPopup');
         const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const loggedInUserName = @json(auth()->user()->name);
         
 
         // Submit review
@@ -156,11 +157,11 @@
                 newReview.className = "bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat";
                 newReview.innerHTML = `
                     <div class="flex-shrink-0 mr-4">
-                        <img src="${window.location.origin}/images/avatars/denny.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+                        <img src="${window.location.origin}/images/user.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
                     </div>
                     <div class="flex-grow">
                         <div class="flex items-center mb-1">
-                            <h3 class="font-medium text-gray-800">Denny Ali</h3>
+                        <h3 class="font-medium text-gray-800">${loggedInUserName}</h3>
                         </div>
                         <span class="text-xs text-gray-500">Civil Engineer Intern</span>
                         <p class="text-gray-600 ml-2">${content}</p>

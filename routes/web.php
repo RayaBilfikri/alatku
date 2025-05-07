@@ -12,8 +12,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 
 
 
@@ -21,6 +23,8 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+
 
 // Halaman About Us
 Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
@@ -55,7 +59,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/products/save', [ProductController::class, 'save'])->name('admin/products/save');
 
     Route::get('/admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasan');
-    Route::get('/admin/article', [ArticleController::class, 'index'])->name('admin.article');
+    Route::resource('/admin/article', ArticleController::class)->names('admin.article');
 });
 
 require __DIR__.'/auth.php';
@@ -79,6 +83,7 @@ Route::resource('websiteprofiles', WebsiteProfileController::class)->names('supe
 Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
 
 
+
 // Ulasan Routes
 Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
 Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
@@ -94,3 +99,16 @@ Route::prefix('categories')->name('superadmin.categories.')->group(function () {
     Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
 });
+
+// Route sub kategori
+Route::prefix('subcategories')->name('superadmin.subcategories.')->group(function () {
+    Route::get('/', [SubCategoryController::class, 'index'])->name('index');
+    Route::get('/create', [SubCategoryController::class, 'create'])->name('create');
+    Route::post('/', [SubCategoryController::class, 'store'])->name('store');
+    Route::get('/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('edit');
+    Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
+    Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
+});
+
+//route carousel
+Route::resource('carousel', CarouselController::class);

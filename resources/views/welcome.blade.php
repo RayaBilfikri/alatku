@@ -140,12 +140,12 @@
                                         Tangerang, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2023</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,824 jam</div>
                                         </div>
                                     </div>
@@ -168,12 +168,12 @@
                                         Surabaya, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2023</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,824 jam</div>
                                         </div>
                                     </div>
@@ -196,12 +196,12 @@
                                         Jakarta, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2021</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,500 jam</div>
                                         </div>
                                     </div>
@@ -224,12 +224,12 @@
                                         Bandung, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2023</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,824 jam</div>
                                         </div>
                                     </div>

@@ -90,6 +90,14 @@ Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])-
 Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
 Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);
 
+// Route Kelola Ulasan
+Route::prefix('ulasans')->name('superadmin.ulasans.')->group(function () {
+    Route::get('/', [UlasanController::class, 'superadminIndex'])->name('index');
+    Route::put('/{id}/approve', [UlasanController::class, 'approve'])->name('approve');
+    Route::put('/{id}/reject', [UlasanController::class, 'reject'])->name('reject');
+    Route::delete('/{id}', [UlasanController::class, 'destroy'])->name('destroy');
+});
+
 // Route kategori
 Route::prefix('categories')->name('superadmin.categories.')->group(function () {
     Route::get('/', [CategoryController::class, 'index'])->name('index');

@@ -5,23 +5,62 @@
     <meta charset="UTF-8">
     <title>alatKu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- Header -->
+    <!-- Header lengkap dengan dropdown klikable -->
     <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center">
             <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
+            <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
+            <nav class="ml-8 flex items-center space-x-6">
+                <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
+                <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
+                <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
+                <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
+            </nav>
         </div>
-        <nav class="space-x-6">
-            <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
-            <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
-            <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
-            <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
-        </nav>
+        
+        <!-- Profile atau Login/Register section -->
+        <div>
+            @guest
+                <div class="flex items-center space-x-4">
+                    <a href="{{ route('login') }}" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 transition-colors duration-200">Login</a>
+                    <a href="{{ route('register') }}" class="px-4 py-2 rounded bg-[#F86F03] text-white hover:bg-[#e56703] transition-colors duration-200">Register</a>
+                </div>
+            @else
+                <div class="relative">
+                    <!-- Profile toggle button -->
+                    <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                            <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium">{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    
+                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                        <a href="{{ route('ulasan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                            <i class="fas fa-star-half-alt mr-2 text-gray-500"></i> Ulasan
+                        </a>
+                        <hr class="my-1">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                                <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endguest
+        </div>
     </header>
+
 
     <!-- Hero Section -->
     <section class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg">
@@ -566,17 +605,39 @@
         z-index: 10; 
     }
 
+    #profileDropdown a:hover, 
+    #profileDropdown button:hover {
+        font-weight: 500;
+        transform: translateX(2px);
+        transition: transform 0.2s ease;
+    }
+
+    /* Tambahan efek bayangan saat dropdown muncul */
+    #profileDropdown:not(.hidden) {
+        animation: fadeIn 0.2s ease-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
 </style>
 </html>
 
 <script>
     
     document.addEventListener("DOMContentLoaded", function () {
+        const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
         const prevButtons = document.querySelectorAll('.carousel-prev');
         const nextButtons = document.querySelectorAll('.carousel-next');
         const modalBtn = document.getElementById('selengkapnyaBtn');
         const modal = document.getElementById('registerModal');
         const closeBtn = document.getElementById('closeModal');
+        const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+        const profileDropdown = document.getElementById('profileDropdown');
+        
 
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
@@ -586,25 +647,25 @@
             
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
 
-            // Batasi indeks agar tidak keluar dari range
+            
             if (newIndex < 0 || newIndex >= items.length) return;
 
-            // Hapus kelas aktif dan animasi dari item lama
+            
             activeItem.classList.remove('active', 'scale-105', 'z-10');
             activeItem.classList.add('scale-100');
 
-            // Tambahkan kelas aktif dan animasi zoom ke item baru
+           
             const newItem = items[newIndex];
             newItem.classList.add('active', 'scale-105', 'z-10');
             newItem.classList.remove('scale-100');
 
-            // Scroll ke item baru
+            
             const itemWidth = newItem.offsetWidth;
             carousel.scrollBy({
                 left: direction === 'next' ? itemWidth : -itemWidth,
                 behavior: 'smooth'
             });
-            // Sembunyikan tombol prev jika di item pertama, next jika di item terakhir
+            
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
             const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
 
@@ -613,47 +674,93 @@
 
         }
 
-        function openModal() {
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.classList.add('opacity-100');
+        if (modalBtn && modal && closeBtn) {
+        // Fungsi untuk membuka modal dengan animasi
             
-            // Animasi untuk konten modal
-            const modalContent = modal.querySelector('div');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 50);
+            function openModal() {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                
+                // Animasi untuk konten modal
+                const modalContent = modal.querySelector('div');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 50);
+            }
+            
+            // Fungsi untuk menutup modal dengan animasi
+            function closeModal() {
+                const modalContent = modal.querySelector('div');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                
+                setTimeout(() => {
+                    modal.classList.remove('opacity-100');
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                }, 200);
+            }
+            
+            // Event listener untuk tombol
+            modalBtn.addEventListener('click', function(e) {
+                @auth
+                    // Jika user sudah login, arahkan langsung ke halaman ulasan
+                    window.location.href = "{{ route('ulasan.index') }}";
+                @else
+                    // Jika belum login, tampilkan modal
+                    openModal();
+                @endauth
+            });
+            
+            closeBtn.addEventListener('click', closeModal);
+            
+            // Tutup modal saat klik di luar modal
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Tutup modal dengan tombol ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
+                    closeModal();
+                }
+            });
+        }
+
+        if (profileDropdownToggle && profileDropdown) {
+            let isDropdownOpen = false;
+            
+            // Toggle dropdown saat tombol profil diklik
+            profileDropdownToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isDropdownOpen) {
+                    profileDropdown.classList.add('hidden');
+                } else {
+                    profileDropdown.classList.remove('hidden');
+                }
+                isDropdownOpen = !isDropdownOpen;
+            });
+            
+            // Tutup dropdown ketika mengklik di luar dropdown
+            document.addEventListener('click', function(event) {
+                if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.add('hidden');
+                    isDropdownOpen = false;
+                }
+            });
+            
+            // Mencegah dropdown tertutup saat mengklik pada dropdown itu sendiri
+            profileDropdown.addEventListener('click', function(e) {
+                // Jangan tutup dropdown jika mengklik di dalam menu dropdown
+                // kecuali jika itu tombol submit (logout)
+                if (!e.target.matches('button[type="submit"]')) {
+                    e.stopPropagation();
+                }
+            });
         }
         
-        // Fungsi untuk menutup modal dengan animasi
-        function closeModal() {
-            const modalContent = modal.querySelector('div');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            
-            setTimeout(() => {
-                modal.classList.remove('opacity-100');
-                modal.classList.add('opacity-0', 'pointer-events-none');
-            }, 200);
-        }
-        
-        // Event listener untuk tombol
-        modalBtn.addEventListener('click', openModal);
-        closeBtn.addEventListener('click', closeModal);
-        
-        // Tutup modal saat klik di luar modal
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-        
-        // Tutup modal dengan tombol ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
-                closeModal();
-            }
-        });
 
         prevButtons.forEach(button => {
             button.addEventListener('click', function () {

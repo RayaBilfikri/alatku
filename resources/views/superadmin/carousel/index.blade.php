@@ -4,7 +4,7 @@
 <div class="p-6">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Data Carousel</h1>
-        <a href="{{ route('carousel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tambah Carousel</a>
+        <a href="{{ route('superadmin.carousel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tambah Carousel</a>
     </div>
 
     @if(session('success'))
@@ -49,8 +49,8 @@
                         </td>
                         <td class="p-2 border text-center">
                             <div class="flex justify-center space-x-2">
-                                <a href="{{ route('carousel.edit', $carousel->id_carousel) }}" class="text-yellow-600 hover:underline">Edit</a>
-                                <form action="{{ route('carousel.destroy', $carousel->id_carousel) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                <a href="{{ route('superadmin.carousel.edit', $carousel->id_carousel) }}" class="text-yellow-600 hover:underline">Edit</a>
+                                <form action="{{ route('superadmin.carousel.destroy', $carousel->id_carousel) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-red-600 hover:underline">Hapus</button>

@@ -145,10 +145,35 @@
                 
                 // Show pending review popup
                 pendingReviewPopup.classList.remove('hidden');
-                
+
                 // Show "Lihat ulasan tertunda" button
                 btnLihatUlasanTertunda.classList.remove('hidden');
+
+                // Tambahkan langsung ke popup ulasan tertunda
+                const container = viewPendingReviewsPopup.querySelector('.overflow-y-auto');
+                
+                const newReview = document.createElement('div');
+                newReview.className = "bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat";
+                newReview.innerHTML = `
+                    <div class="flex-shrink-0 mr-4">
+                        <img src="${window.location.origin}/images/avatars/denny.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex items-center mb-1">
+                            <h3 class="font-medium text-gray-800">Denny Ali</h3>
+                        </div>
+                        <span class="text-xs text-gray-500">Civil Engineer Intern</span>
+                        <p class="text-gray-600 ml-2">${content}</p>
+                    </div>
+                    <div class="ml-4 flex-shrink-0">
+                        <span class="bg-[#F86F03] text-white px-3 py-1 rounded">Pending</span>
+                    </div>
+                `;
+                
+                // Sisipkan di paling atas
+                container.prepend(newReview);
             })
+
             .catch(error => {
                 console.error('Error:', error);
             });

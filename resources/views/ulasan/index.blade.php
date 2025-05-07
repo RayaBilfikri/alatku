@@ -115,6 +115,7 @@
         const viewPendingReviewsPopup = document.getElementById('viewPendingReviewsPopup');
         const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const loggedInUserName = @json(auth()->user()->name);
         
 
         // Submit review
@@ -160,7 +161,7 @@
                     </div>
                     <div class="flex-grow">
                         <div class="flex items-center mb-1">
-                            <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
+                        <h3 class="font-medium text-gray-800">${loggedInUserName}</h3>
                         </div>
                         <span class="text-xs text-gray-500">Civil Engineer Intern</span>
                         <p class="text-gray-600 ml-2">${content}</p>

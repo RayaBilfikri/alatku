@@ -24,12 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Halaman Coursel
-Route::apiResource('carousel', CarouselController::class);
 Route::resource('carousel', CarouselController::class);
-Route::middleware(['auth'])->group(function () {
-    Route::resource('carousel', CarouselController::class);
-});
 
 // Halaman About Us
 Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
@@ -65,7 +60,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasan');
     Route::resource('/admin/article', ArticleController::class)->names('admin.article');
-
 });
 
 require __DIR__.'/auth.php';
@@ -89,9 +83,6 @@ Route::resource('websiteprofiles', WebsiteProfileController::class)->names('supe
 Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
 
 
-Route::middleware(['auth'])->prefix('superadmin')->group(function () {
-    Route::resource('carousel', CarouselController::class);
-});
 
 // Ulasan Routes
 Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
@@ -118,3 +109,6 @@ Route::prefix('subcategories')->name('superadmin.subcategories.')->group(functio
     Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
     Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
 });
+
+//route carousel
+Route::resource('carousel', CarouselController::class);

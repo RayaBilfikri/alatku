@@ -66,7 +66,7 @@
                     @foreach ($ulasans as $ulasan)
                         <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat">
                             <div class="flex-shrink-0 mr-4">
-                                <img src="{{ '/images/user.jpg' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                                <img src="{{ '/images/user.png' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
                             </div>
                             <div class="flex-grow">
                                 <div class="flex items-center mb-1">
@@ -157,7 +157,7 @@
                 newReview.className = "bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat";
                 newReview.innerHTML = `
                     <div class="flex-shrink-0 mr-4">
-                        <img src="${window.location.origin}/images/user.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+                        <img src="${window.location.origin}/images/user.png" alt="User Avatar" class="w-12 h-12 rounded-full">
                     </div>
                     <div class="flex-grow">
                         <div class="flex items-center mb-1">

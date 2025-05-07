@@ -14,6 +14,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 
 
 
@@ -93,4 +94,14 @@ Route::prefix('categories')->name('superadmin.categories.')->group(function () {
     Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
     Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+});
+
+// Route sub kategori
+Route::prefix('subcategories')->name('superadmin.subcategories.')->group(function () {
+    Route::get('/', [SubCategoryController::class, 'index'])->name('index');
+    Route::get('/create', [SubCategoryController::class, 'create'])->name('create');
+    Route::post('/', [SubCategoryController::class, 'store'])->name('store');
+    Route::get('/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('edit');
+    Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
+    Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
 });

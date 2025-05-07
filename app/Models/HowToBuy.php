@@ -12,8 +12,7 @@ class HowToBuy extends Model
     protected $table = 'how_to_buys';
     protected $fillable = [
         'judul',
-        'gambar',
-        'link',
-        'status',
+        'deskripsi',
+        'step_number'
     ];
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ulasan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mckenziearts\Notify\Facades\Notify;
+
 
 class UlasanController extends Controller
 {
@@ -22,7 +24,7 @@ class UlasanController extends Controller
      */
     public function index()
     {
-        $approvedReviews = Ulasan::where('status', 'approved')->with('user')->latest()->get();
+        $approvedReviews = Ulasan::where('status', 'approved')->with('user')->latest()->take(3)->get();
         $pendingReviews = [];
 
         if (Auth::check()) {
@@ -70,9 +72,12 @@ class UlasanController extends Controller
         $ulasan = Ulasan::findOrFail($id);
         $ulasan->status = 'approved';
         $ulasan->save();
+        
 
+        notify()->success('Ulasan kamu disetujui.');
+        
         return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan disetujui.');
-        return redirect()->route('ulasans.index')->with('success', 'Ulasan anda disetujui!.');
+        
     }
 
     /**
@@ -83,6 +88,8 @@ class UlasanController extends Controller
         $ulasan = Ulasan::findOrFail($id);
         $ulasan->status = 'rejected';
         $ulasan->save();
+
+        notify()->error('Ulasan ditolak.');
 
         return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan ditolak.');
     }

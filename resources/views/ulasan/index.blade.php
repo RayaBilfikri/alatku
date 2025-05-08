@@ -17,7 +17,7 @@
 
     <div class="container mx-auto px-4 py-6">
         <div class="flex items-center mb-6">
-            <a href="http://127.0.0.1:8000" class="flex items-center text-gray-800 hover:text-gray-600">
+            <a href="{{ route('home') }}" class="flex items-center text-gray-800 hover:text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -88,7 +88,7 @@
                                 <div class="flex items-center mb-1">
                                     <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
                                 </div>
-                                <span class="text-xs text-gray-500">Civil Engineer Intern</span>
+                                <span class="text-xs text-gray-500">{{ $ulasan->user->type ?? 'user' }}</span>
                                 <p class="text-gray-600 ml-2">{{ $ulasan->content }}</p>
                             </div>
                             <div class="ml-4 flex-shrink-0">
@@ -132,16 +132,11 @@
         const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const loggedInUserName = @json(auth()->user()->name);
+        const loggedInUserType = @json(Auth::user()->usertype);
         const alerts = document.querySelectorAll(".flash-alert");
+        const url = "{{ route('ulasan.store') }}";
 
         
-        alerts.forEach(alert => {
-            setTimeout(() => {
-                alert.style.transition = "opacity 0.5s ease-out";
-                alert.style.opacity = "0";
-                setTimeout(() => alert.remove(), 500); // Hapus dari DOM setelah fade out
-            }, 3000);
-        });
 
         // Submit review
         ulasanForm.addEventListener('submit', function(e) {
@@ -152,7 +147,7 @@
             if (content === '') return;
             
             // Send review to backend
-            fetch('http://127.0.0.1:8000/ulasan', {
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -188,7 +183,7 @@
                         <div class="flex items-center mb-1">
                         <h3 class="font-medium text-gray-800">${loggedInUserName}</h3>
                         </div>
-                        <span class="text-xs text-gray-500">Civil Engineer Intern</span>
+                        <span class="text-xs text-gray-500">${loggedInUserType}</span>
                         <p class="text-gray-600 ml-2">${content}</p>
                     </div>
                     <div class="ml-4 flex-shrink-0">

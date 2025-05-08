@@ -29,12 +29,13 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
+            'name' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048', // Validasi gambar
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'contact_id' => 'required|exists:contacts,id',
-            'name' => 'required|string|max:255',
-            'gambar' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',  // Pastikan sesuai
             'serial_number' => 'required|string|max:255',
             'year_of_build' => 'nullable|digits:4|integer',
             'hours_meter' => 'nullable|string|max:255',
@@ -44,24 +45,29 @@ class ProductController extends Controller
             'brosur' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
-        $data = $request->all();
+        // Ambil data input selain file gambar
+        $data = $request->only([
+            'name', 'category_id', 'sub_category_id', 'contact_id', 'serial_number', 
+            'year_of_build', 'hours_meter', 'stock', 'harga', 'description'
+        ]);
 
-        // Handle brosur
-        if ($request->hasFile('brosur')) {
-            $brosurPath = $request->file('brosur')->store('brosurs', 'public');
-            $data['brosur'] = $brosurPath;
-        }
-
-        // Handle gambar
+        // Jika ada file gambar, simpan ke folder 'images' di storage
         if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('images', 'public');
-            $data['gambar'] = $imagePath;  // Pastikan konsisten dengan nama field
+            $data['gambar'] = $request->file('gambar')->store('images', 'public');
         }
 
+        // Jika ada file brosur, simpan ke folder 'brosurs' di storage
+        if ($request->hasFile('brosur')) {
+            $data['brosur'] = $request->file('brosur')->store('brosurs', 'public');
+        }
+
+        // Simpan produk baru
         Product::create($data);
 
+        // Redirect dengan pesan sukses
         return redirect()->route('superadmin.products.index')->with('message', 'Product added successfully.');
     }
+
 
 
     public function edit($id)
@@ -77,12 +83,13 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Validasi input
         $request->validate([
+            'name' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048', // Validasi gambar
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'contact_id' => 'required|exists:contacts,id',
-            'name' => 'required|string|max:255',
-            'gambar' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',  // Pastikan sesuai
             'serial_number' => 'required|string|max:255',
             'year_of_build' => 'nullable|digits:4|integer',
             'hours_meter' => 'nullable|string|max:255',
@@ -92,25 +99,33 @@ class ProductController extends Controller
             'brosur' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
+        // Ambil produk yang akan diupdate
         $product = Product::findOrFail($id);
-        $data = $request->all();
 
-        // Handle brosur
-        if ($request->hasFile('brosur')) {
-            $brosurPath = $request->file('brosur')->store('brosurs', 'public');
-            $data['brosur'] = $brosurPath;
-        }
+        // Ambil data input selain file gambar dan brosur
+        $data = $request->only([
+            'name', 'category_id', 'sub_category_id', 'contact_id', 'serial_number', 
+            'year_of_build', 'hours_meter', 'stock', 'harga', 'description'
+        ]);
 
-        // Handle gambar
+        // Jika ada file gambar, simpan gambar baru dan tambahkan path-nya ke data
         if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('images', 'public');
-            $data['gambar'] = $imagePath;  // Pastikan konsisten dengan nama field
+            $data['gambar'] = $request->file('gambar')->store('images', 'public');
         }
 
+        // Jika ada file brosur, simpan brosur baru dan tambahkan path-nya ke data
+        if ($request->hasFile('brosur')) {
+            $data['brosur'] = $request->file('brosur')->store('brosurs', 'public');
+        }
+
+        // Update produk dengan data yang telah diperbarui
         $product->update($data);
 
+        // Redirect ke halaman daftar produk dengan pesan sukses
         return redirect()->route('superadmin.products.index')->with('message', 'Product updated successfully.');
     }
+
+
     
 
     public function destroy($id)

@@ -60,10 +60,12 @@
                             <td class="px-4 py-2 border">{{ $subcategory->name }}</td>
                             <td class="px-4 py-2 border">{{ $subcategory->category->name ?? '-' }}</td>
                             <td class="px-4 py-2 border space-x-2">
-                                <a href="{{ route('superadmin.subcategories.edit', $subcategory->id_sub_categories) }}"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
-                                 
-                                 <form action="{{ route('superadmin.subcategories.destroy', $subcategory->id_sub_categories) }}"
+                                <!-- <a href="{{ route('superadmin.subcategories.edit', $subcategory->id) }}"
+                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a> -->
+                                <a href="{{ route('superadmin.subcategories.edit', $subcategory->id) }}" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+                                    Edit
+                                </a>
+                                 <form action="{{ route('superadmin.subcategories.destroy', $subcategory->id) }}"
                                        method="POST" class="inline-block"
                                        onsubmit="return confirm('Yakin ingin menghapus sub kategori ini?')">
                                      @csrf

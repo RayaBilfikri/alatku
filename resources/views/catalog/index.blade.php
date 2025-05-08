@@ -73,7 +73,7 @@
 
             <div class="grid gap-6 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
                 @for ($i = 0; $i < 100; $i++)
-                <a href="/produk/{{ $i }}" class="block">
+                <a href="/catalog/{{ $i }}" class="block">
                     <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-105">
                         <div class="px-4 pt-4">
                             <img src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png"

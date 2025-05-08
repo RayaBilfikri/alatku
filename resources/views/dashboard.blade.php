@@ -7,12 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
-    
 </head>
 <body class="bg-gray-100 font-sans">
 
     <div class="flex h-screen">
-    @include('partials.sidebar')
+        @include('partials.sidebar')
 
         <!-- Content Area -->
         <main class="flex-1 bg-gray-50 p-6">
@@ -27,6 +26,7 @@
                     <span>Super Admin</span>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
+
 

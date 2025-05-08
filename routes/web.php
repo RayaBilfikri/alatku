@@ -12,9 +12,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\Frontend\PageController;
 
 
 
@@ -23,14 +25,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Halaman About Us
-Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
 
-// Halaman How to Buy
-Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('how-to-buy');
 
-// Halaman Article
-Route::get('/article', [ArticleController::class, 'index'])->name('article');
+// Frontend routes
+Route::get('/tentangkami', [PageController::class, 'about'])->name('tentang-kami');
+Route::get('/caramembeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
+Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
 // ✅ Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/products/save', [ProductController::class, 'save'])->name('admin/products/save');
 
     Route::get('/admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasan');
-    Route::get('/admin/article', [ArticleController::class, 'index'])->name('admin.article');
+    Route::resource('/admin/article', ArticleController::class)->names('admin.article');
 });
 
 require __DIR__.'/auth.php';
@@ -78,6 +78,7 @@ Route::resource('websiteprofiles', WebsiteProfileController::class)->names('supe
 
 // Route how to buy (hanya super admin)
 Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
+
 
 
 // Ulasan Routes
@@ -105,3 +106,12 @@ Route::prefix('subcategories')->name('superadmin.subcategories.')->group(functio
     Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
     Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
 });
+
+//route carousel
+Route::get('/carousel', [CarouselController::class, 'index'])->name('superadmin.carousel.index');
+Route::get('/carousel/create', [CarouselController::class, 'create'])->name('superadmin.carousel.create');
+Route::post('/carousel', [CarouselController::class, 'store'])->name('superadmin.carousel.store');
+Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('superadmin.carousel.edit');
+Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
+Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
+

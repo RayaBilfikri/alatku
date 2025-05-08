@@ -16,11 +16,11 @@
         <div class="flex items-center">
             <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
             <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
-            <nav class="ml-8 flex items-center space-x-6">
-                <a href="{{ route('home') }}" class="hover:text-orange-600">Home</a>
-                <a href="{{ route('about-us') }}" class="hover:text-orange-600">About us</a>
-                <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600">How to buy?</a>
-                <a href="{{ route('article') }}" class="hover:text-orange-600">Article</a>
+            <nav class="ml-12 flex items-center space-x-8" style="transform: translateX(300px);">
+                <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
+                <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
+                <a href="{{ route('cara-membeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
+                <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
             </nav>
         </div>
         
@@ -28,8 +28,8 @@
         <div>
             @guest
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('login') }}" class="px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
-                    <a href="{{ route('register') }}" class="px-4 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+                    <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
+                    <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
                 </div>
             @else
                 <div class="relative">
@@ -46,7 +46,7 @@
                     
                     <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
                         <a href="{{ route('ulasan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
-                            <i class="fas fa-star-half-alt mr-2 text-gray-500"></i> Ulasan
+                            <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
                         </a>
                         <hr class="my-1">
                         <form method="POST" action="{{ route('logout') }}">
@@ -140,12 +140,12 @@
                                         Tangerang, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2023</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,824 jam</div>
                                         </div>
                                     </div>
@@ -168,12 +168,12 @@
                                         Surabaya, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2023</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,824 jam</div>
                                         </div>
                                     </div>
@@ -196,12 +196,12 @@
                                         Jakarta, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2021</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,500 jam</div>
                                         </div>
                                     </div>
@@ -224,12 +224,12 @@
                                         Bandung, Indonesia
                                     </div>
                                     <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                             <div class="text-center">Tahun</div>
                                             <div class="font-bold text-center">2023</div>
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-3 py-1 rounded">
-                                            <div class="text-center">Jam</div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                            <div class="text-center">Jam operasional</div>
                                             <div class="font-bold text-center">2,824 jam</div>
                                         </div>
                                     </div>

@@ -72,6 +72,7 @@ class UlasanController extends Controller
         $ulasan->save();
 
         return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan disetujui.');
+        return redirect()->route('ulasans.index')->with('success', 'Ulasan anda disetujui!.');
     }
 
     /**

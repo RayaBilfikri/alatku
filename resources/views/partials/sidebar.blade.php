@@ -38,6 +38,7 @@
             <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
             <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
             <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
+            <a href="/product_images" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Gambar Produk</a>
             <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
             <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
             <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>

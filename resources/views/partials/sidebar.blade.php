@@ -23,6 +23,8 @@
             <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
             <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
             <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Tentang Kami</a>
         </nav>
     </div>
 </aside>

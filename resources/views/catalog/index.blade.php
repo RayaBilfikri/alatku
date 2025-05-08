@@ -42,23 +42,28 @@
         <div class="max-w-screen-xl mx-auto">
             <h2 class="text-xl md:text-2xl font-semibold mb-4">Jelajahi Kategori Alat Siap Pakai</h2>
             <p class="mb-6">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-center">
-                @foreach ([
-                    ['src' => '/images/', 'label' => 'Tugboats'],
-                    ['src' => 'barge.png', 'label' => 'Barge'],
-                    ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment'],
-                    ['src' => 'material-handling.png', 'label' => 'Material Handling'],
-                    ['src' => 'genset.png', 'label' => 'Generating Set'],
-                    ['src' => 'heavy-construction.png', 'label' => 'Heavy Construction']
-                ] as $item)
-                    <div class="flex flex-col items-center min-w-0">
-                        <img src="/icons/{{ $item['src'] }}" class="h-12 mb-2" alt="{{ $item['label'] }}">
-                        <span>{{ $item['label'] }}</span>
-                    </div>
-                @endforeach
+            
+            <div class="overflow-x-auto">
+                <div class="flex gap-4 w-max px-1">
+                    @foreach ([
+                        ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
+                        ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
+                        ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
+                        ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
+                        ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
+                        ['src' => 'heavy-construction.png', 'label' => 'Heavy Construction Equipment', 'link' => '#']
+                    ] as $item)
+                        <a href="{{ $item['link'] }}"
+                            class="bg-white text-gray-800 rounded-2xl shadow-md flex flex-col items-center justify-center px-4 py-4 w-[140px] text-center transition-all duration-300 hover:bg-yellow-200 hover:ring-1 hover:ring-orange-400">
+                            <img src="/images/{{ $item['src'] }}" class="h-30 mb-2" alt="{{ $item['label'] }}">
+                            <span class="text-sm font-medium break-words leading-tight">{{ $item['label'] }}</span>
+                        </a>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- Produk -->
     <div class="py-10 px-4 bg-[#EEF1FF]">

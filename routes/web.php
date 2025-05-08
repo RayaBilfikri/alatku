@@ -16,6 +16,7 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\Frontend\PageController;
 
 
 
@@ -26,14 +27,10 @@ Route::get('/', function () {
 
 
 
-// Halaman About Us
-Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
-
-// Halaman How to Buy
-Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('how-to-buy');
-
-// Halaman Article
-Route::get('/article', [ArticleController::class, 'index'])->name('article');
+// Frontend routes
+Route::get('/tentangkami', [PageController::class, 'about'])->name('tentang-kami');
+Route::get('/caramembeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
+Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
 // ✅ Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');

@@ -18,9 +18,9 @@
             <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
             <nav class="ml-12 flex items-center space-x-8" style="transform: translateX(300px);">
                 <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
-                <a href="{{ route('about-us') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
-                <a href="{{ route('how-to-buy') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
-                <a href="{{ route('article') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
+                <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
+                <a href="{{ route('cara-membeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
+                <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
             </nav>
         </div>
         

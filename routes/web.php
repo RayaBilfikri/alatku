@@ -18,6 +18,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Http\Controllers\Frontend\PageController;
+
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
 Route::get('/', function () {
@@ -26,14 +28,10 @@ Route::get('/', function () {
 
 
 
-// Halaman About Us
-Route::get('/aboutus', [AboutController::class, 'index'])->name('about-us');
-
-// Halaman How to Buy
-Route::get('/howtobuy', [HowToBuyController::class, 'index'])->name('how-to-buy');
-
-// Halaman Article
-Route::get('/article', [ArticleController::class, 'index'])->name('article');
+// Frontend routes
+Route::get('/tentangkami', [PageController::class, 'about'])->name('tentang-kami');
+Route::get('/caramembeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
+Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
 // ✅ Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
@@ -119,4 +117,10 @@ Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);
 // });
 
 //route carousel
-Route::resource('carousel', CarouselController::class);
+Route::get('/carousel', [CarouselController::class, 'index'])->name('superadmin.carousel.index');
+Route::get('/carousel/create', [CarouselController::class, 'create'])->name('superadmin.carousel.create');
+Route::post('/carousel', [CarouselController::class, 'store'])->name('superadmin.carousel.store');
+Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('superadmin.carousel.edit');
+Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
+Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
+

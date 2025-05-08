@@ -21,20 +21,12 @@ use App\Models\SubCategory;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\WelcomeController;
 
-// ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
 
-Route::get('/', [
-    \App\Http\Controllers\WelcomeController::class,
-    'index'
-])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
-Route::get('/home', [
-    \App\Http\Controllers\HomeController::class,
-    'index'
-])->name('home');
+
 
 
 

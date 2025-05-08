@@ -24,24 +24,60 @@ class UlasanController extends Controller
      */
     public function index()
     {
-        $approvedReviews = Ulasan::where('status', 'approved')->with('user')->latest()->take(3)->get();
+        $approvedReviews = Ulasan::where('status', 'approved')
+            ->with('user')
+            ->latest()
+            ->take(3)
+            ->get();
+    
         $pendingReviews = [];
-
+    
         if (Auth::check()) {
-            $pendingReviews = Ulasan::where('user_id', Auth::id())
+            $userId = Auth::id();
+            $messages = [];
+        
+            $newlyProcessed = Ulasan::where('user_id', $userId)
+                ->whereIn('status', ['approved', 'rejected'])
+                ->where('notified', false)
+                ->get();
+        
+
+            foreach ($newlyProcessed as $ulasan) {
+                if ($ulasan->status === 'approved') {
+                    $messages[] = [
+                        'type' => 'success',
+                        'message' => 'Ulasan Anda telah disetujui!'
+                    ];
+                } elseif ($ulasan->status === 'rejected') {
+                    $messages[] = [
+                        'type' => 'error',
+                        'message' => 'Maaf, ulasan Anda ditolak oleh admin.'
+                    ];
+                }
+            
+                $ulasan->notified = true;
+                $ulasan->save();
+            }
+            
+            if (!empty($messages)) {
+                session()->flash('review_notifications', $messages);
+            }
+            
+            $pendingReviews = Ulasan::where('user_id', $userId)
                 ->where('status', 'pending')
                 ->with('user')
                 ->latest()
                 ->get();
-        }
 
+        }
+    
         return view('ulasan.index', [
             'approvedReviews' => $approvedReviews,
             'pendingReviews' => $pendingReviews,
             'hasPendingReviews' => count($pendingReviews) > 0
         ]);
     }
-
+    
     /**
      * Store a newly created review in storage.
      */
@@ -71,10 +107,8 @@ class UlasanController extends Controller
     {
         $ulasan = Ulasan::findOrFail($id);
         $ulasan->status = 'approved';
+        $ulasan->notified = false; 
         $ulasan->save();
-        
-
-        notify()->success('Ulasan kamu disetujui.');
         
         return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan disetujui.');
         
@@ -87,9 +121,8 @@ class UlasanController extends Controller
     {
         $ulasan = Ulasan::findOrFail($id);
         $ulasan->status = 'rejected';
+        $ulasan->notified = false;
         $ulasan->save();
-
-        notify()->error('Ulasan ditolak.');
 
         return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan ditolak.');
     }

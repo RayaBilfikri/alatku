@@ -16,11 +16,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        @notifyCss
 </head>
 
-@notifyJs
-@notifyRender
 <body class="font-sans antialiased bg-gray-100">
     <div id="app" class="min-h-screen">
         <!-- Page Content -->

@@ -3,17 +3,30 @@
 
 @section('content')
 
-@if (session('success'))
-    <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
-        {{ session('success') }}
-    </div>
+@if (session('review_notifications'))
+    @foreach (session('review_notifications') as $notification)
+        <div class="{{ $notification['type'] == 'success' ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : 'bg-rose-50 border-rose-500 text-rose-700' }} border-l-4 px-4 py-3 rounded shadow-sm mb-3 flex items-center justify-between">
+            <div class="flex items-center">
+                @if ($notification['type'] == 'success')
+                    <svg class="w-5 h-5 mr-2 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                @else
+                    <svg class="w-5 h-5 mr-2 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                    </svg>
+                @endif
+                <p>{{ $notification['message'] }}</p>
+            </div>
+            <button type="button" class="text-gray-400 hover:text-gray-600" onclick="this.parentElement.remove()">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    @endforeach
 @endif
 
-@if (session('error'))
-    <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
-        {{ session('error') }}
-    </div>
-@endif
 
     <div class="container mx-auto px-4 py-6">
         <div class="flex items-center mb-6">
@@ -119,6 +132,8 @@
         </div>
     </div>
 @endsection
+
+
 
 @push('scripts')
 <script>

@@ -19,7 +19,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Http\Controllers\Frontend\PageController;
-use App\Http\Controllers\WelcomeController;
+
 
 
 Route::get('/', function () {
@@ -133,6 +133,13 @@ Route::post('/carousel', [CarouselController::class, 'store'])->name('superadmin
 Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('superadmin.carousel.edit');
 Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
 Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
+
+
+Route::middleware(['web'])->group(function () {
+    Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
+});
+
+ 
 
 
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SubCategory extends Model
 {
     protected $table = 'sub_categories';
-    protected $primaryKey = 'id_sub_categories';
+    protected $primaryKey = 'id';
     public $incrementing = true;
     protected $keyType = 'int';
 
@@ -21,4 +21,10 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class, 'categories_id');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'sub_category_id');
+    }
+
 }

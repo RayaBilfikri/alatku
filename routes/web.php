@@ -16,14 +16,21 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\Frontend\PageController;
-
-
 
 // ✅ Route Home yang menampilkan welcome.blade.php dan diberi nama 'home'
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
+Route::get('/', [
+    \App\Http\Controllers\WelcomeController::class,
+    'index'
+])->name('home');
+
+Route::get('/home', [
+    \App\Http\Controllers\HomeController::class,
+    'index'
+])->name('home');
 
 
 
@@ -79,6 +86,15 @@ Route::resource('websiteprofiles', WebsiteProfileController::class)->names('supe
 // Route how to buy (hanya super admin)
 Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
 
+// Route product (hanya super admin)
+Route::resource('products', ProductController::class)->names('superadmin.products')->except(['show']);
+
+// Route subcategories (hanya super admin)
+Route::resource('subcategories', SubCategoryController::class)->names('superadmin.subcategories')->except(['show']);
+
+// Route Categories
+Route::resource('categories', CategoryController::class)->names('superadmin.categories')->except(['show']);
+
 
 
 // Ulasan Routes
@@ -87,25 +103,25 @@ Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])-
 Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
 Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);
 
-// Route kategori
-Route::prefix('categories')->name('superadmin.categories.')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('index');
-    Route::get('/create', [CategoryController::class, 'create'])->name('create');
-    Route::post('/', [CategoryController::class, 'store'])->name('store');
-    Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
-    Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
-    Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+// Route Kelola Ulasan
+Route::prefix('ulasans')->name('superadmin.ulasans.')->group(function () {
+    Route::get('/', [UlasanController::class, 'superadminIndex'])->name('index');
+    Route::put('/{id}/approve', [UlasanController::class, 'approve'])->name('approve');
+    Route::put('/{id}/reject', [UlasanController::class, 'reject'])->name('reject');
+    Route::delete('/{id}', [UlasanController::class, 'destroy'])->name('destroy');
 });
 
+// Route kategori
+// Route::prefix('categories')->name('superadmin.categories.')->group(function () {
+//     Route::get('/', [CategoryController::class, 'index'])->name('index');
+//     Route::get('/create', [CategoryController::class, 'create'])->name('create');
+//     Route::post('/', [CategoryController::class, 'store'])->name('store');
+//     Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
+//     Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+//     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+// });
+
 // Route sub kategori
-Route::prefix('subcategories')->name('superadmin.subcategories.')->group(function () {
-    Route::get('/', [SubCategoryController::class, 'index'])->name('index');
-    Route::get('/create', [SubCategoryController::class, 'create'])->name('create');
-    Route::post('/', [SubCategoryController::class, 'store'])->name('store');
-    Route::get('/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('edit');
-    Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
-    Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
-});
 
 //route carousel
 Route::get('/carousel', [CarouselController::class, 'index'])->name('superadmin.carousel.index');

@@ -30,11 +30,30 @@
         <!-- Form Tambah Kontak -->
         <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
             <h2 class="text-2xl font-semibold mb-6 text-center">Tambah Kategori</h2>
-            <form action="{{ route('superadmin.categories.store') }}" method="POST">
+            
+            <!-- Display validation errors -->
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+
+            <form action="{{ route('superadmin.categories.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-6 flex items-center space-x-6">
                     <label for="name" class="w-40 text-sm font-medium">Nama Kategori</label>
                     <input type="text" id="name" name="name" required
+                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                </div>
+
+                <div class="mb-6 flex items-center space-x-6">
+                    <label for="icon" class="w-40 text-sm font-medium">Icon</label>
+                    <input type="file" id="icon" name="icon" accept="image/*"
                         class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
                 </div>
 

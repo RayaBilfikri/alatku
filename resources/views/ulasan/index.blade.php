@@ -2,6 +2,19 @@
 
 
 @section('content')
+
+@if (session('success'))
+    <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+        {{ session('error') }}
+    </div>
+@endif
+
     <div class="container mx-auto px-4 py-6">
         <div class="flex items-center mb-6">
             <a href="http://127.0.0.1:8000" class="flex items-center text-gray-800 hover:text-gray-600">
@@ -20,22 +33,25 @@
         </div>
 
         <!-- Review Section -->
-        <div id="ulasanList" class="flex items-start space-x-4 max-w-[1241px] font-montserrat mb-4">
-            <div class="flex-shrink-0">
-                <img src="http://127.0.0.1:8000/images/avatars/chris.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
-            </div>
-
-            <div class="flex-grow">
-                <div class="mb-1">
-                    <h3 class="font-medium text-gray-800">Chris Septian</h3>
-                    <span class="text-xs text-gray-500">Civil Engineer Intern</span>
+        @foreach ($approvedReviews as $ulasan)
+            <div id="ulasanList" class="flex items-start space-x-4 max-w-[1241px] font-montserrat mb-4">
+                <div class="flex-shrink-0">
+                    <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
                 </div>
 
-                <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
-                    <p class="text-gray-600 p-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="flex-grow">
+                    <div class="mb-1">
+                        <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
+                        <span class="text-xs text-gray-500">{{ $ulasan->user->type ?? 'user' }}</span>
+                    </div>
+
+                    <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
+                        <p class="text-gray-600 p-4">{{ $ulasan->content }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endforeach
+
 
         <!-- Popup for Pending Review -->
         <div id="pendingReviewPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden font-montserrat">
@@ -63,7 +79,7 @@
                 
                 <div class="overflow-y-auto max-h-[300px] space-y-4 pr-2">
                     <!-- Pending review sample -->
-                    @foreach ($ulasans as $ulasan)
+                    @foreach ($pendingReviews as $ulasan)
                         <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat">
                             <div class="flex-shrink-0 mr-4">
                                 <img src="{{ '/images/user.png' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
@@ -117,6 +133,13 @@
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const loggedInUserName = @json(auth()->user()->name);
         
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.style.transition = "opacity 0.5s ease-out";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500); // Hapus dari DOM setelah fade out
+            }, 3000);
+        });
 
         // Submit review
         ulasanForm.addEventListener('submit', function(e) {
@@ -194,6 +217,8 @@
         closePendingReviewsPopup.addEventListener('click', function() {
             viewPendingReviewsPopup.classList.add('hidden');
         });
+
+        
     });
 
     tailwind.config = {

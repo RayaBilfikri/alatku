@@ -14,4 +14,10 @@ class Contact extends Model
         'name',
         'no_wa',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

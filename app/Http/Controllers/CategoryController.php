@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,47 +13,58 @@ class CategoryController extends Controller
         return view('superadmin.categories.index', compact('categories'));
     }
 
-    // Tampilkan form tambah kategori
     public function create()
     {
         return view('superadmin.categories.create');
     }
 
-    // Simpan kategori baru
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'icon' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
 
-        Category::create(['name' => $request->name]);
+        $data = $request->only(['name']);
 
-        return redirect()->route('superadmin.categories.index')->with('success', 'Category added successfully.');
+        if ($request->hasFile('icon')) {
+            $data['icon'] = $request->file('icon')->store('icons', 'public');
+        }
+
+        Category::create($data);
+
+        return redirect()->route('superadmin.categories.index')->with('message', 'Category added successfully.');
     }
 
-    // Tampilkan form edit kategori
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = Category::findOrFail($id);
         return view('superadmin.categories.edit', compact('category'));
     }
 
-    // Update data kategori
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'icon' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
 
-        $category->update(['name' => $request->name]);
+        $category = Category::findOrFail($id);
 
-        return redirect()->route('superadmin.categories.index')->with('success', 'Category updated successfully.');
+        $data = $request->only(['name']);
+
+        if ($request->hasFile('icon')) {
+            $data['icon'] = $request->file('icon')->store('icons', 'public');
+        }
+
+        $category->update($data);
+
+        return redirect()->route('superadmin.categories.index')->with('message', 'Category updated successfully.');
     }
 
-    // Hapus kategori
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-
-        return redirect()->route('superadmin.categories.index')->with('success', 'Category deleted successfully.');
+        Category::destroy($id);
+        return redirect()->route('superadmin.categories.index')->with('message', 'Category deleted successfully.');
     }
 }

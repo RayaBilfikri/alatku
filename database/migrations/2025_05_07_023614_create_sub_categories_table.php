@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sub_categories', function (Blueprint $table) {
-            $table->id('id_sub_categories');
+            $table->id();
             $table->foreignId('categories_id')->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();

@@ -30,7 +30,7 @@
         <!-- Form Edit Sub Kategori -->
         <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
             <h2 class="text-2xl font-semibold mb-6 text-center">Edit Sub Kategori</h2>
-            <form action="{{ route('superadmin.subcategories.update', $subcategory->id_sub_categories) }}" method="POST">
+            <form action="{{ route('superadmin.subcategories.update', $subcategory->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 

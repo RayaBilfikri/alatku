@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
 
-
+use App\Http\Controllers\Controller;
 use App\Models\Carousel;
 
 class HeroController extends Controller

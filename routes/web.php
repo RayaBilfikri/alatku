@@ -19,7 +19,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Http\Controllers\Frontend\PageController;
-use App\Http\Controllers\HeroController;
+use App\Http\Controllers\Frontend\HeroController;
 
 
 

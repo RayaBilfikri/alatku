@@ -16,6 +16,7 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\TentangKamiController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Http\Controllers\Frontend\PageController;
@@ -124,3 +125,7 @@ Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('su
 Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
 Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
 
+//route article
+Route::resource('articles', ArticleController::class);
+
+// route tentang kami 

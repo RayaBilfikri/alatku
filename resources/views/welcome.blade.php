@@ -102,7 +102,7 @@
             autoplayInterval: null,
             
             startAutoplay() {
-                this.autoplayInterval = setInterval(() => this.next(), 5000);
+                this.autoplayInterval = setInterval(() => this.next(), 8000);
             },
             
             stopAutoplay() {

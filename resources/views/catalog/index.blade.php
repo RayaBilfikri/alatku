@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Alat</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    /* Scrollbar untuk elemen dengan ID scrollContainer */
+    #scrollContainer::-webkit-scrollbar {
+        height: 8px; /* scroll horizontal */
+    }
+
+    #scrollContainer::-webkit-scrollbar-track {
+        background: transparent; /* biar tidak terlihat garis putih */
+    }
+
+    #scrollContainer::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3); /* putih transparan */
+        border-radius: 4px;
+    }
+
+    #scrollContainer::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.5); /* saat hover lebih jelas */
+    }
+
+    /* Untuk Firefox */
+    #scrollContainer {
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        scrollbar-width: thin;
+    }
+    </style>
 </head>
 <body class="bg-white text-gray-800">
 
@@ -38,31 +64,44 @@
     </div>
 
     <!-- Kategori -->
-    <div class="bg-indigo-600 py-10 px-4 text-white">
-        <div class="max-w-screen-xl mx-auto">
+    <div class="bg-indigo-600 py-10 px-4 text-white relative">
+        <div class="w-full px-4 mx-auto">
             <h2 class="text-xl md:text-2xl font-semibold mb-4">Jelajahi Kategori Alat Siap Pakai</h2>
             <p class="mb-6">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
-            
-            <div class="overflow-x-auto">
-                <div class="flex gap-4 w-max px-1">
-                    @foreach ([
-                        ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
-                        ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
-                        ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
-                        ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
-                        ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
-                        ['src' => 'heavy-construction.png', 'label' => 'Heavy Construction Equipment', 'link' => '#']
-                    ] as $item)
-                        <a href="{{ $item['link'] }}"
-                            class="bg-white text-gray-800 rounded-2xl shadow-md flex flex-col items-center justify-center px-4 py-4 w-[140px] text-center transition-all duration-300 hover:bg-yellow-200 hover:ring-1 hover:ring-orange-400">
-                            <img src="/images/{{ $item['src'] }}" class="h-30 mb-2" alt="{{ $item['label'] }}">
-                            <span class="text-sm font-medium break-words leading-tight">{{ $item['label'] }}</span>
-                        </a>
-                    @endforeach
+
+                <!-- Kontainer scroll -->
+                <div id="scrollContainer" class="overflow-x-auto overflow-y-hidden scroll-smooth pb-5">
+                    <div class="flex gap-4 w-max px-10">
+                        @foreach ([
+                            ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
+                            ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
+                            ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
+                            ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
+                            ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
+                            ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
+                            ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
+                            ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
+                            ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
+                            ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
+                            ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
+                            ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
+                            ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
+                            ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
+                            ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
+                            ['src' => 'heavy-construction.png', 'label' => 'Heavy Construction Equipment', 'link' => '#']
+                        ] as $item)
+                            <a href="{{ $item['link'] }}"
+                                class="bg-white text-gray-800 rounded-2xl shadow-md flex flex-col items-center justify-center px-4 py-4 w-[140px] text-center transition-all duration-300 hover:bg-yellow-200 hover:ring-1 hover:ring-orange-400">
+                                <img src="/images/{{ $item['src'] }}" class="h-30 mb-2" alt="{{ $item['label'] }}">
+                                <span class="text-sm font-medium break-words leading-tight">{{ $item['label'] }}</span>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Produk -->
     <div class="py-10 px-4 bg-[#EEF1FF]">
@@ -110,6 +149,7 @@
             </div>
         </div>
     </div>
-    
+  
 </body>
+
 </html>

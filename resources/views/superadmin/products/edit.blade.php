@@ -37,10 +37,17 @@
                     <label for="gambar" class="w-40 text-sm font-medium">Gambar Produk</label>
                     <input type="file" id="gambar" name="gambar" accept="image/jpeg, image/png, image/jpg"
                         class="flex-1 border border-gray-300 rounded px-4 py-3">
-                    @if($product->gambar)
-                        <p class="text-sm text-gray-500 mt-2">Gambar yang sudah diunggah: <a href="{{ Storage::url($product->gambar) }}" class="text-blue-500" target="_blank">Lihat</a></p>
-                    @endif
                 </div>
+
+                <!-- Sub Gambar -->
+                <div class="mb-4 flex items-center space-x-6">
+                    <label for="sub_images[]" class="w-40 text-sm font-medium">Sub Gambar</label>
+                    <input type="file" id="sub_images" name="sub_images[]" accept="image/jpeg, image/png, image/jpg" multiple
+                        class="flex-1 border border-gray-300 rounded px-4 py-3" onchange="limitFiles(this)">
+                </div>
+
+                
+
 
                 <!-- Kategori -->
                 <div class="mb-4 flex items-center space-x-6">
@@ -144,6 +151,9 @@
                     <label for="brosur" class="w-40 text-sm font-medium">Brosur (PDF)</label>
                     <input type="file" id="brosur" name="brosur" accept="application/pdf"
                         class="flex-1 border border-gray-300 rounded px-4 py-3">
+                    @if($product->brosur)
+                        <p class="text-sm text-gray-500 mt-2">Brosur yang sudah diunggah: <a href="{{ Storage::url($product->brosur) }}" class="text-blue-500" target="_blank">Lihat</a></p>
+                    @endif
                 </div>
 
                 <!-- Tombol -->
@@ -164,6 +174,16 @@
 
 <!-- CDN Alpine.js -->
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+
+<script>
+    function limitFiles(input) {
+        if (input.files.length > 3) {
+            alert('Maksimal 3 gambar yang boleh diunggah.');
+            input.value = ''; // reset input
+        }
+    }
+</script>
 
 </body>
 </html>

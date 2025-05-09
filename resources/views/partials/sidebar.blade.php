@@ -1,4 +1,4 @@
-<aside class="w-64 h-full bg-white shadow-md flex flex-col justify-between">
+<aside class="w-64 h-screen bg-white shadow-md flex flex-col justify-between sticky top-0">
     <div>
         <!-- Logo -->
         <div class="flex items-center justify-center h-20 border-b">

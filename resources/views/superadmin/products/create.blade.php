@@ -7,14 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 font-sans">
 
-<div class="flex min-h-screen">
+<body class="bg-gray-100 font-sans h-screen overflow-hidden">
+
+<div class="flex h-screen overflow-hidden">
     <!-- Sidebar -->
     @include('partials.sidebar')
 
     <!-- Main content -->
-    <main class="flex-1 bg-gray-50 p-6">
+    <main class="flex-1 bg-gray-50 p-6 overflow-y-auto">
         <!-- Header -->
         @include('partials.header')
 
@@ -38,6 +39,16 @@
                 <input type="file" id="gambar" name="gambar" accept="image/jpeg, image/png, image/jpg"
                     class="flex-1 border border-gray-300 rounded px-4 py-3">
             </div>
+
+            <!-- Sub Gambar -->
+            <div class="mb-4 flex items-center space-x-6">
+                <label class="w-40 text-sm font-medium">Sub Gambar</label>
+                <input type="file" name="sub_images[]" accept="image/jpeg, image/png, image/jpg" multiple
+                    class="flex-1 border border-gray-300 rounded px-4 py-3">
+            </div>
+
+            
+
 
             <!-- Kategori -->
             <div class="mb-4 flex items-center space-x-6">

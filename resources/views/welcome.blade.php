@@ -264,7 +264,7 @@
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
-                            @foreach ($latestProducts as $index => $product)
+                            @foreach ($ProductCard as $index => $product)
                                 <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                                     <div class="p-4">

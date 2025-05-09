@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="p-6">
+    <div class="bg-white rounded-lg shadow p-6">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Data Carousel</h1>
         <a href="{{ route('superadmin.carousel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tambah Carousel</a>

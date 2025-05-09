@@ -21,6 +21,7 @@
             <!-- Header -->
             @include('partials.header')
 
+            <div class="bg-white rounded-lg shadow p-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Data Profil Website</h2>
                 <a href="{{ route('superadmin.websiteprofiles.create') }}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">

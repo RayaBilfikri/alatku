@@ -26,7 +26,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah
+                    Tambah Kategori
                 </a>
             </div>
 
@@ -49,7 +49,7 @@
                                 @if($category->icon)
                                     <img src="{{ asset('storage/' . $category->icon) }}" alt="Icon" class="h-20 mx-auto">
                                 @else
-                                    -
+
                                 @endif
                             </td>
                             <td class="px-4 py-2 border">

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -62,36 +63,172 @@
     </header>
 
 
-    <!-- Hero Section -->
-    <section class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg">
-        <img src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png" alt="Background" class="absolute inset-0 w-full h-full object-cover filter blur-sm z-0 rounded-3xl">
-        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
+    <!-- Hero Section Carousel -->
+    <section 
+        x-data="{ 
+            activeSlide: 0,
+            // Menggabungkan slide statis dengan carousel dari database
+            slides: [
+                // Slide statis
+                {
+                    id: 0,
+                    is_static: true,
+                    judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
+                    gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
+                    link: '{{ route('catalog') }}'
+                },
+                // Menambahkan data carousel dari database (jika ada)
+                @if($carousels->count() > 0)
+                    {
+                        id: 1,
+                        is_static: false,
+                        judul: '{{ $carousels->first()->judul }}',
+                        gambar: '{{ asset('storage/' . $carousels->first()->gambar) }}',
+                        link: '{{ $carousels->first()->link }}'
+                    }
+                @endif
 
-        <div class="container mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
-                    <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain translate-y-8">
-                </div>
-                
-                <div class="md:ml-8 text-left md:max-w-xl">
-                    <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
-                        DARI DARAT KE LAUT,<br>
-                        KAMI SIAP MENDUKUNG ANDA!
-                    </h1>
-                    <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
-                        Jelajahi beragam peralatan industri dan konstruksi<br>
-                        untuk berbagai kebutuhan proyek.<br>
-                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
-                    </p>
-                    </br>
-                    <div class="mt-8 text-right text-lg">
-                        <a href="{{ route('catalog') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
-                            Cari Solusi Industri Anda
-                        </a>
+            ],
+            
+            next() { 
+                this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+            },
+            
+            prev() { 
+                this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+            },
+            
+            // Autoplay
+            autoplayInterval: null,
+            
+            startAutoplay() {
+                this.autoplayInterval = setInterval(() => this.next(), 5000);
+            },
+            
+            stopAutoplay() {
+                clearInterval(this.autoplayInterval);
+            }
+        }"
+        x-init="startAutoplay()"
+        @mouseover="stopAutoplay()"
+        @mouseout="startAutoplay()"
+        x-cloak
+        class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg"
+    >
+        <!-- Slide Container -->
+        <div class="relative w-full h-full min-h-[400px]">
+            <template x-for="(slide, index) in slides" :key="index">
+                    <div 
+                        x-show="activeSlide === index" 
+                        x-transition:enter="transition ease-out duration-500"
+                        x-transition:enter-start="opacity-0 transform translate-x-full"
+                        x-transition:enter-end="opacity-100 transform translate-x-0"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100 transform translate-x-0"
+                        x-transition:leave-end="opacity-0 transform -translate-x-full"
+                        class="absolute inset-0 w-full h-full rounded-3xl"
+                    >
+                        <!-- Background -->
+                        <img :src="slide.gambar" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
+
+                        <!-- Content -->
+                        <div class="container mx-auto relative z-10 h-full flex items-center">
+                            <!-- Static Hero Slide -->
+                            <template x-if="slide.is_static">
+                                <div class="flex flex-col md:flex-row items-center justify-between w-full">
+                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
+                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 translate-y-8">
+                                    </div>
+                                    
+                                    <div class="md:ml-8 text-left md:max-w-xl">
+                                        <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
+                                            DARI DARAT KE LAUT,<br>
+                                            KAMI SIAP MENDUKUNG ANDA!
+                                        </h1>
+                                        <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
+                                            Jelajahi beragam peralatan industri dan konstruksi<br>
+                                            untuk berbagai kebutuhan proyek.<br>
+                                            Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                        </p>
+                                        <div class="mt-8 text-right text-lg">
+                                            <a href="{{ route('catalog') }}" @click.stop="$event.stopPropagation()" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                                                Cari Solusi Industri Anda
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                        </template>
+
+                        <!-- Dynamic Slide dari Database -->
+                        <template x-if="!slide.is_static">
+                            <div class="w-full text-center text-white">
+                                <h2 class="text-2xl md:text-4xl font-akira font-bold mb-4" x-text="slide.judul"></h2>
+                                <template x-if="slide.link">
+                                    <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                                        Kunjungi
+                                    </a>
+                                </template>
+                            </div>
+                        </template>
                     </div>
                 </div>
-            </div>
+            </template>
         </div>
+
+        <!-- Hanya tampilkan navigasi jika ada lebih dari 1 slide -->
+        @if($carousels->count() > 0)
+        <!-- Touch/Mouse Swipe Area -->
+        <div 
+            class="absolute inset-0 z-10 pointer-events-none"
+
+            x-on:mousedown="startX = $event.clientX"
+            x-on:mouseup="
+                endX = $event.clientX;
+                if (startX - endX > 50) {
+                    next();
+                } else if (endX - startX > 50) {
+                    prev();
+                }
+            "
+            x-on:touchstart="touchStartX = $event.changedTouches[0].screenX"
+            x-on:touchend="
+                touchEndX = $event.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) {
+                    next();
+                } else if (touchEndX - touchStartX > 50) {
+                    prev();
+                }
+            "
+            x-data="{
+                startX: 0,
+                endX: 0,
+                touchStartX: 0,
+                touchEndX: 0
+            }"
+        ></div>
+
+        <!-- Navigation Buttons -->
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+            <button @click="prev()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+                ‹
+            </button>
+            <button @click="next()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+                ›
+            </button>
+        </div>
+
+        <!-- Carousel Indicators -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+            <template x-for="(slide, index) in slides" :key="index">
+                <button 
+                    @click="activeSlide = index"
+                    :class="{'bg-orange-500': activeSlide === index, 'bg-white': activeSlide !== index}"
+                    class="w-3 h-3 rounded-full shadow-md transition"
+                ></button>
+            </template>
+        </div>
+        @endif
     </section>
 
     <!-- Equipment Sale with Carousel Section -->
@@ -506,6 +643,8 @@
         font-weight: normal;
         font-style: normal;
     }
+
+    [x-cloak] { display: none !important; }
 
     /* Hide scrollbar */
     .hide-scrollbar::-webkit-scrollbar {

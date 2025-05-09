@@ -5,7 +5,15 @@
     <div class="bg-white rounded-lg shadow p-6">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Data Carousel</h1>
-        <a href="{{ route('superadmin.carousel.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tambah Carousel</a>
+        <a href="{{ route('superadmin.carousel.create') }}"
+            class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 4v16m8-8H4"/>
+            </svg>
+            Tambah Carousel
+        </a>
     </div>
 
     @if(session('success'))

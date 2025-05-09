@@ -16,10 +16,6 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
-use App\Models\Product;
-use App\Models\SubCategory;
-use App\Http\Controllers\Frontend\PageController;
-use App\Http\Controllers\Frontend\HeroController;
 
 
 
@@ -40,6 +36,7 @@ Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
 // ✅ Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+Route::get('/catalog/{id}', [CatalogController::class, 'detailproduct']);
 
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -95,6 +92,7 @@ Route::resource('subcategories', SubCategoryController::class)->names('superadmi
 Route::resource('categories', CategoryController::class)->names('superadmin.categories')->except(['show']);
 
 
+
 // Ulasan Routes
 Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
 Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
@@ -120,14 +118,6 @@ Route::prefix('ulasans')->name('superadmin.ulasans.')->group(function () {
 // });
 
 // Route sub kategori
-// Route::prefix('subcategories')->name('superadmin.subcategories.')->group(function () {
-//     Route::get('/', [SubCategoryController::class, 'index'])->name('index');
-//     Route::get('/create', [SubCategoryController::class, 'create'])->name('create');
-//     Route::post('/', [SubCategoryController::class, 'store'])->name('store');
-//     Route::get('/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('edit');
-//     Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
-//     Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
-// });
 
 //route carousel
 Route::get('/carousel', [CarouselController::class, 'index'])->name('superadmin.carousel.index');
@@ -136,13 +126,4 @@ Route::post('/carousel', [CarouselController::class, 'store'])->name('superadmin
 Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('superadmin.carousel.edit');
 Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
 Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
-
-
-Route::middleware(['web'])->group(function () {
-    Route::get('/ulasan', [UlasanController::class, 'index'])->name('ulasan.index');
-});
-
- 
-
-
 

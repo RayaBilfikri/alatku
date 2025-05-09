@@ -147,10 +147,6 @@
         const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const loggedInUserName = @json(auth()->user()->name);
-        const loggedInUserType = @json(Auth::user()->usertype);
-        const alerts = document.querySelectorAll(".flash-alert");
-        const url = "{{ route('ulasan.store') }}";
-
         
 
         // Submit review

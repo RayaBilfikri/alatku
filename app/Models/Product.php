@@ -15,6 +15,7 @@ class Product extends Model
 
         'sub_category_id',
         'contact_id',
+        'category_id',
         'name',
         'gambar',
         'serial_number',

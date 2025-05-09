@@ -100,7 +100,7 @@
 <!-- Modal for viewing icon -->
 <div id="iconModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded">
-        <button onclick="closeModal()" class="text-gray-500">X</button>
+        <button onclick="closeModal()" class="text-gray-500 hover:text-red-500">X</button>
         <img id="modalIcon" src="" alt="Icon" class="max-w-md mx-auto mt-4">
     </div>
 </div>

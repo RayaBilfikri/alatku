@@ -16,6 +16,7 @@
                 <button class="w-full text-left py-2 px-3 rounded hover:bg-orange-100">Kelola Akses</button>
             </div>
             <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
+            <a href="/articles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
             <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
             <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>

@@ -39,11 +39,11 @@
             <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
 
 
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
+            <!-- <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a> -->
 
             <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
-            <a href="/product_images" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Gambar Produk</a>
+            <!-- <a href="/product_images" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Gambar Produk</a> -->
             <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
 
             <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>

@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Http\Controllers;
+
+
+
+use App\Models\Carousel;
+
+class HeroController extends Controller
+{
+    public function index()
+    {
+        $carousels = Carousel::where('status', 'aktif')
+                        ->latest('id_carousel')
+                        ->take(1)
+                        ->get();
+
+        return view('welcome', compact('carousels'));
+    }
+}

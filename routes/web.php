@@ -19,6 +19,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Http\Controllers\Frontend\PageController;
+use App\Http\Controllers\HeroController;
 
 
 
@@ -27,6 +28,8 @@ Route::get('/', function () {
 })->name('home');
 
 
+//Hero Carousel Routes
+Route::get('/', [HeroController::class, 'index'])->name('home');
 
 
 

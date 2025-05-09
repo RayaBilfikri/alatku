@@ -231,7 +231,7 @@
         @endif
     </section>
 
-    <!-- Equipment Sale with Carousel Section -->
+    <!-- Equipment Sale with Product Card Section -->
     <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
         <!-- Background circles -->
         <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
@@ -264,7 +264,7 @@
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
-                            @foreach ($latestProducts as $index => $product)
+                            @foreach ($ProductCard as $index => $product)
                                 <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                                     <div class="p-4">
@@ -283,7 +283,7 @@
                                             </div>
                                             <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                                 <div class="text-center">Jam operasional</div>
-                                                <div class="font-bold text-center">{{ $product->hours_meter }}</div> <!-- Biarkan statis -->
+                                                <div class="font-bold text-center">{{ $product->hours_meter }} jam</div> 
                                             </div>
                                         </div>
                                         <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">

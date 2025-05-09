@@ -17,9 +17,9 @@ class WelcomeController
                         ->get();
         
         // Data dari CardController
-        $latestProducts = Product::latest()->take(4)->get();
+        $ProductCard = Product::latest()->take(4)->get();
         
         // Mengirim kedua data ke view
-        return view('welcome', compact('carousels', 'latestProducts'));
+        return view('welcome', compact('carousels', 'ProductCard'));
     }
 }

@@ -32,12 +32,12 @@
 </head>
 <body class="font-montserrat">
     <!-- Header dengan Font Montserrat -->
-    <header class="bg-white shadow-md">
+    <header class="bg-gray-100 shadow-md">
         <nav class="container mx-auto px-5 py-5 flex items-center relative">
             <div class="font-bold text-xl ml-6">
                 <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
             </div>
-            <div class="absolute left-1/2 transform -translate-x-1/2 space-x-6 font-montserrat">
+            <div class="absolute left-1/2 transform -translate-x-1/2 space-x-6 font-montserrat font-bold">
                 <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
                 <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
                 <a href="/cara-membeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>

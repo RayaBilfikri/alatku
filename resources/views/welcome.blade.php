@@ -113,7 +113,7 @@
         @mouseover="stopAutoplay()"
         @mouseout="startAutoplay()"
         x-cloak
-        class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg"
+        class="relative bg-gray-100 py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">

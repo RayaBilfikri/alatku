@@ -20,16 +20,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\WelcomeController;
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
-
-
 
 // Frontend routes
 Route::get('/tentangkami', [PageController::class, 'about'])->name('tentang-kami');
@@ -41,7 +32,7 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/catalog/{id}', [CatalogController::class, 'detailproduct']);
 
 // Route untuk dashboard (belum ada role permission)
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 // Dashboard Admin
 //Route::get('admin/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'admin']);
@@ -93,14 +84,6 @@ Route::resource('subcategories', SubCategoryController::class)->names('superadmi
 // Route Categories
 Route::resource('categories', CategoryController::class)->names('superadmin.categories')->except(['show']);
 
-
-
-// Ulasan Routes
-Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
-Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
-Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
-Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);
-
 // Route Kelola Ulasan
 Route::prefix('ulasans')->name('superadmin.ulasans.')->group(function () {
     Route::get('/', [UlasanController::class, 'superadminIndex'])->name('index');
@@ -129,3 +112,8 @@ Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('su
 Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
 Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
 
+// Ulasan Routes
+Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
+Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
+Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
+Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);

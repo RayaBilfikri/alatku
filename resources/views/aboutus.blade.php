@@ -99,6 +99,18 @@
                                 <h4 class="font-bold text-gray-800 mb-2 text-sm">Hemat Waktu & Biaya</h4>
                                 <p class="text-gray-600 text-sm">Proses pengadaan alat lebih cepat dan efisien sehingga Anda bisa fokus pada bisnis inti.</p>
                             </div>
+
+                            <div class="md:col-span-2 flex justify-center">
+                                <div class="bg-gray-50 p-5 rounded-lg shadow feature-card w-full md:w-1/2">
+                                    <div class="text-primary-orange text-3xl mb-3 flex justify-center items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v2h20V8a2 2 0 0 0-2-2zM10 4h4v2h-4V4zm12 6H2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V10zM7 18H5v-2h2v2zm4 0H9v-2h2v2zm4 0h-2v-2h2v2z"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 mb-2 text-sm">Katalog Lengkap</h4>
+                                    <p class="text-gray-600 text-sm">Menjual perlengkapan industri dan konstruksi yang lengkap.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

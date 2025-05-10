@@ -136,12 +136,12 @@
                         <div class="container mx-auto relative z-10 h-full flex items-center">
                             <!-- Static Hero Slide -->
                             <template x-if="slide.is_static">
-                                <div class="flex flex-col md:flex-row items-center justify-between w-full">
+                                <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
                                     <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
                                         <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 translate-y-8">
                                     </div>
                                     
-                                    <div class="md:ml-8 text-left md:max-w-xl">
+                                    <div class="md:ml-8 text-left md:max-w-xl flex-grow">
                                         <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
                                             DARI DARAT KE LAUT,<br>
                                             KAMI SIAP MENDUKUNG ANDA!
@@ -151,7 +151,7 @@
                                             untuk berbagai kebutuhan proyek.<br>
                                             Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                         </p>
-                                        <div class="mt-8 text-right text-lg" x-data>
+                                        <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
                                             <button
                                                 @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
                                                 class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"

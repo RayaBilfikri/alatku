@@ -360,13 +360,13 @@
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/andy.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
+                        <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Andy Herman</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Kobel</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -375,13 +375,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/zendaya.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
+                        <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Zendaya</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Alisson</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -390,13 +390,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/chris.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
+                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Chris Septian</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Onana</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -404,51 +404,23 @@
             
             <!-- Testimonial cards - bottom row -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
-                <!-- Testimonial 4 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/bagas.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Bagas Drible">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Bagas Drible</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                @foreach ($Testimonials as $testimonial)
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="text-3xl text-gray-300 mb-4">"</div>
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                            {{ $testimonial->content }}
+                        </p>
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800">{{ $testimonial->user->name }}</p>
+                                <p class="text-xs text-gray-500">{{ $testimonial->user->usertype }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Testimonial 5 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/elzio.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Elzio">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Elzio</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 6 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/lionel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Leonel Messi">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Leonel Messi</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
+
 
             <!-- Modal Register-->
             <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">

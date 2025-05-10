@@ -274,7 +274,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
-                                            Tangerang, Indonesia
+                                            Indonesia
                                         </div>
                                         <div class="flex justify-between mb-3">
                                             <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
@@ -294,7 +294,7 @@
                             @empty
                                 <div class="min-w-full flex flex-col items-center justify-center py-12 text-gray-500">
                                     <!-- Ilustrasi SVG keranjang kosong -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 animate-pulse text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
                                     </svg>
                                     <p class="text-lg font-semibold text-white">Belum ada produk saat ini</p>

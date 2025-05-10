@@ -42,6 +42,42 @@
                 <a href="/cara-membeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
                 <a href="/artikel" class="hover:text-orange-600 text-sm">Artikel</a>
             </div>
+
+                    
+            <div class="ml-auto pr-6">
+                @guest
+                    <div class="flex items-center space-x-4">
+                        <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
+                        <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+                    </div>
+                @else
+                    <div class="relative">
+                        <!-- Profile toggle button -->
+                        <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                                <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                            </div>
+                            <span class="font-medium">{{ Auth::user()->name }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        
+                        <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                            <a href="{{ route('ulasan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                                <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
+                            </a>
+                            <hr class="my-1">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                                    <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endguest
+            </div>
         </nav>
     </header>
 

@@ -1,45 +1,56 @@
 <!DOCTYPE html>
- <html lang="id">
- <head>
- 
- 
-     {{-- Inject konten tambahan di <head> seperti Tailwind CSS --}}
-     @yield('head')
- 
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Alatku</title>
-     <script src="https://cdn.tailwindcss.com"></script>
-     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
- 
-     <!-- Bisa juga menambahkan file JavaScript di sini -->
- </head>
- <body>
-     <!-- Header (optional) -->
-     <header>
-        <nav class="ml-12 flex items-center space-x-8" style="transform: translateX(300px);">
-                <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
-                <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
-                <a href="{{ route('cara-membeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
-                <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alatku</title>
+
+  <!-- Google Font: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            montserrat: ['Montserrat', 'sans-serif'],
+            akira: ['"Akira Expanded"', 'sans-serif'], // Aktifkan kalau kamu sudah punya file/font-nya
+          }
+        }
+      }
+    }
+  </script>
+    
+    {{-- Inject konten tambahan di head seperti Tailwind CSS --}}
+    @yield('head')
+</head>
+<body class="font-montserrat">
+    <!-- Header dengan Font Montserrat -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-5 py-5 flex items-center relative">
+            <div class="font-bold text-xl ml-6">
+                <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
+            </div>
+            <div class="absolute left-1/2 transform -translate-x-1/2 space-x-6 font-montserrat">
+                <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
+                <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
+                <a href="/cara-membeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
+                <a href="/artikel" class="hover:text-orange-600 text-sm">Artikel</a>
+            </div>
         </nav>
-     </header>
- 
-     <!-- Konten utama halaman akan dimuat di sini -->
-     <div class="container">
-         @yield('content')  <!-- Bagian ini akan digantikan oleh konten dari halaman lain -->
-     </div>
- 
-     <!-- Footer (optional) -->
-     <footer class="text-black text-center pt-4 pb-4">
-         <p class="text-center mt-3 mb-3">&copy; {{ date('Y') }} Alatku</p>
-     </footer>
- 
-     <!-- Link ke file JS -->
-     <script src="{{ asset('js/app.js') }}"></script>
- 
-     {{-- Inject footer scripts seperti JS Vite --}}
-     @yield('footer')
- </body>
- </html>
+    </header>
+
+
+    <main>
+        @yield('content')
+    </main>
+
+    {{-- Inject footer scripts seperti JS Vite --}}
+    @yield('footer')
+</body>
+</html>

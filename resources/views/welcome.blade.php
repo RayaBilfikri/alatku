@@ -151,10 +151,13 @@
                                             untuk berbagai kebutuhan proyek.<br>
                                             Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                         </p>
-                                        <div class="mt-8 text-right text-lg">
-                                            <a href="{{ route('catalog') }}" @click.stop="$event.stopPropagation()" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                                        <div class="mt-8 text-right text-lg" x-data>
+                                            <button
+                                                @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
+                                                class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
+                                            >
                                                 Cari Solusi Industri Anda
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +235,7 @@
     </section>
 
     <!-- Equipment Sale with Product Card Section -->
-    <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
+    <section id="equipment-sale" class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
         <!-- Background circles -->
         <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>

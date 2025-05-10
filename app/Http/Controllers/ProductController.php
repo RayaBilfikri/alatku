@@ -204,4 +204,5 @@ class ProductController extends Controller
         return redirect()->route('superadmin.products.index')->with('message', 'Product deleted successfully.');
     }
 
+
 }

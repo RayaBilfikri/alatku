@@ -104,19 +104,14 @@
     <div class="bg-white p-6 rounded-lg shadow-lg relative max-w-3xl w-full overflow-auto">
         <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 transition duration-300 text-2xl">&times;</button>
         
-        <!-- Gambar Utama -->
-        <img id="modalImage" src="{{ asset('storage/' . $product->main_image) }}"
-        alt="Gambar Produk"
-        class="w-[500px] h-[300px] object-contain bg-white mx-auto rounded-md shadow-lg transition-transform duration-300 hover:scale-105" />
+         <!-- Gambar Utama - Using JavaScript to set this image -->
+        <img id="modalImage" src="" alt="Gambar Produk"
+            class="w-[500px] h-[300px] object-contain bg-white mx-auto rounded-md shadow-lg transition-transform duration-300 hover:scale-105" />
 
 
 
         <div id="subImagesContainer" class="flex justify-center gap-4 mt-6 flex-wrap">
-            @foreach ($product->images as $image)
-                <img src="{{ asset('storage/' . $image->path) }}"
-                    class="w-24 h-24 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-blue-500 transition-transform duration-300 hover:scale-110"
-                    onclick="changeMainImage(this.src)" />
-            @endforeach
+            <!-- This will be populated dynamically by JavaScript when a specific product is viewed -->
         </div>
 
         <!-- Tombol Kembali -->

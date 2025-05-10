@@ -137,11 +137,11 @@
                             <!-- Static Hero Slide -->
                             <template x-if="slide.is_static">
                                 <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
-                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 translate-y-8">
+                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center ml-4 mb-8 md:mb-0">
+                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 ml-4 translate-y-8">
                                     </div>
                                     
-                                    <div class="md:ml-8 text-left md:max-w-xl flex-grow">
+                                    <div class="md:ml-12 text-left md:max-w-xl flex-grow">
                                         <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
                                             DARI DARAT KE LAUT,<br>
                                             KAMI SIAP MENDUKUNG ANDA!

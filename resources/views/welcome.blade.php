@@ -294,7 +294,7 @@
                             @empty
                                 <div class="min-w-full flex flex-col items-center justify-center py-12 text-gray-500">
                                     <!-- Ilustrasi SVG keranjang kosong -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 animate-pulse text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
                                     </svg>
                                     <p class="text-lg font-semibold text-white">Belum ada produk saat ini</p>

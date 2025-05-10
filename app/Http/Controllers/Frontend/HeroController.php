@@ -12,7 +12,7 @@ class HeroController extends Controller
     {
         $carousels = Carousel::where('status', 'aktif')
                         ->latest('id_carousel')
-                        ->take(1)
+                        ->take(2)
                         ->get();
 
         return view('welcome', compact('carousels'));

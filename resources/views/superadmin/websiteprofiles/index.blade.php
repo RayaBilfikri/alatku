@@ -100,10 +100,10 @@
     </div>
 
     <!-- Modal for viewing logo -->
-    <div id="logoModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-6 rounded">
-        <button onclick="closeModal()" class="text-gray-500 hover:text-red-500">X</button>
-            <img id="modalLogo" src="" alt="Logo" class="max-w-xs mx-auto mt-4">
+    <div id="logoModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[9999] hidden">
+        <div class="bg-white p-6 rounded relative z-[10000] max-w-md w-full">
+            <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl font-bold">×</button>
+            <img id="modalLogo" src="" alt="Logo" class="w-full h-auto mt-6">
         </div>
     </div>
 

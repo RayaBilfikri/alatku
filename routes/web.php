@@ -23,8 +23,8 @@ use App\Http\Controllers\Frontend\WelcomeController;
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
 // Frontend routes
-Route::get('/tentangkami', [PageController::class, 'about'])->name('tentang-kami');
-Route::get('/caramembeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
+Route::get('/tentang-kami', [PageController::class, 'about'])->name('tentang-kami');
+Route::get('/cara-membeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
 Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
 // ✅ Halaman Catalog

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Carousel;
+use App\Models\Ulasan;
 
 class WelcomeController
 {
@@ -18,8 +19,14 @@ class WelcomeController
         
         // Data dari CardController
         $ProductCard = Product::latest()->take(4)->get();
+
+        $Testimonials = Ulasan::with('user')
+            ->where('status', 'approved')
+            ->latest()
+            ->take(3)
+            ->get();
         
         // Mengirim kedua data ke view
-        return view('welcome', compact('carousels', 'ProductCard'));
+        return view('welcome', compact('carousels', 'ProductCard', 'Testimonials'));
     }
 }

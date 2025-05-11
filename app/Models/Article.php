@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    protected $table = 'articles';
     protected $primaryKey = 'id_articles';
 
     protected $fillable = [
@@ -15,4 +16,5 @@ class Article extends Model
         'tanggal_publish',
     ];
 }
+
 

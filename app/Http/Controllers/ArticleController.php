@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -23,43 +24,56 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'konten_artikel' => 'required',
+            'tanggal_publish' => 'required|date',
             'gambar' => 'nullable|image|max:2048',
-            'tanggal_publish' => 'nullable|date',
         ]);
 
         if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('images', 'public');
+            $validated['gambar'] = $request->file('gambar')->store('articles', 'public');
         }
 
         Article::create($validated);
-        return redirect()->route('articles.index')->with('success', 'Artikel berhasil disimpan.');
+
+        return redirect()->route('articles.index')->with('success', 'Artikel berhasil ditambahkan.');
     }
 
-    public function edit(Article $article)
+    public function edit($id)
     {
+        $article = Article::findOrFail($id);
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
+        $article = Article::findOrFail($id);
+
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'konten_artikel' => 'required',
+            'tanggal_publish' => 'required|date',
             'gambar' => 'nullable|image|max:2048',
-            'tanggal_publish' => 'nullable|date',
         ]);
 
         if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('images', 'public');
+            if ($article->gambar) {
+                Storage::disk('public')->delete($article->gambar);
+            }
+            $validated['gambar'] = $request->file('gambar')->store('articles', 'public');
         }
 
         $article->update($validated);
+
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui.');
     }
 
-    public function destroy(Article $article)
+    public function destroy($id)
     {
+        $article = Article::findOrFail($id);
+        if ($article->gambar) {
+            Storage::disk('public')->delete($article->gambar);
+        }
         $article->delete();
+
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil dihapus.');
     }
 }

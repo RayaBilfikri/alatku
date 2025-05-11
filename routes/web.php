@@ -16,6 +16,9 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\TentangKamiController;
+use App\Models\Product;
+use App\Models\SubCategory;
 use App\Http\Middleware\RedirectToRegister;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\WelcomeController;
@@ -28,7 +31,7 @@ Route::get('/tentang-kami', [PageController::class, 'about'])->name('tentang-kam
 Route::get('/cara-membeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
 Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
-// ✅ Halaman Catalog
+// Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/catalog/{id}', [CatalogController::class, 'detailproduct']);
 
@@ -64,6 +67,66 @@ Route::prefix('api')->group(function(){
 
 // Route untuk search
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+
+// FITUR ABIM
+// Route kontak terbaru
+Route::resource('contacts', ContactController::class)->names('superadmin.contacts')->except(['show']);
+
+// Route website profile terbaru
+Route::resource('websiteprofiles', WebsiteProfileController::class)->names('superadmin.websiteprofiles')->except(['show']);
+
+// Route how to buy (hanya super admin)
+Route::resource('howtobuys', HowToBuyController::class)->names('superadmin.howtobuys')->except(['show']);
+
+// Route product (hanya super admin)
+Route::resource('products', ProductController::class)->names('superadmin.products')->except(['show']);
+
+// Route subcategories (hanya super admin)
+Route::resource('subcategories', SubCategoryController::class)->names('superadmin.subcategories')->except(['show']);
+
+// Route Categories
+Route::resource('categories', CategoryController::class)->names('superadmin.categories')->except(['show']);
+
+
+// Ulasan Routes
+Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
+Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
+Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
+Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);
+
+// Route kategori
+// Route::prefix('categories')->name('superadmin.categories.')->group(function () {
+//     Route::get('/', [CategoryController::class, 'index'])->name('index');
+//     Route::get('/create', [CategoryController::class, 'create'])->name('create');
+//     Route::post('/', [CategoryController::class, 'store'])->name('store');
+//     Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
+//     Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+//     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+// });
+
+// Route sub kategori
+// Route::prefix('subcategories')->name('superadmin.subcategories.')->group(function () {
+//     Route::get('/', [SubCategoryController::class, 'index'])->name('index');
+//     Route::get('/create', [SubCategoryController::class, 'create'])->name('create');
+//     Route::post('/', [SubCategoryController::class, 'store'])->name('store');
+//     Route::get('/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('edit');
+//     Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
+//     Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
+// });
+
+//route carousel
+Route::get('/carousel', [CarouselController::class, 'index'])->name('superadmin.carousel.index');
+Route::get('/carousel/create', [CarouselController::class, 'create'])->name('superadmin.carousel.create');
+Route::post('/carousel', [CarouselController::class, 'store'])->name('superadmin.carousel.store');
+Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('superadmin.carousel.edit');
+Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
+Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
+
+//route article
+Route::resource('articles', ArticleController::class);
+
+// route tentang kami 
 
 Route::middleware([CheckSuperadmin::class])->group(function () {
     // FITUR ABIM
@@ -122,3 +185,4 @@ Route::middleware([CheckSuperadmin::class])->group(function () {
 
     });
 });
+main

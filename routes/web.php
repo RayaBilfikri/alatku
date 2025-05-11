@@ -64,7 +64,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 require __DIR__.'/auth.php';
 Route::prefix('api')->group(function(){
     // mengarahkan semua rute API ke file api.php
-    require base_path('routes\api.php');
+    require base_path('routes/api.php');
 });
 
 // Route untuk search

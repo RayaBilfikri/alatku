@@ -75,7 +75,6 @@
                     is_static: true,
                     judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
                     gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
-                    link: '{{ route('catalog') }}'
                 },
                 // Menambahkan data carousel dari database (jika ada)
                 @if($carousels->count() > 0)
@@ -151,16 +150,11 @@
                                             untuk berbagai kebutuhan proyek.<br>
                                             Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                         </p>
-
-                                        <div class="mt-8 text-right text-lg">
-                                            <a href="{{ route('catalog') }}" @click.stop="$event.stopPropagation()" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
-
                                         <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
                                             <button
                                                 @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
                                                 class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
                                             >
-
                                                 Cari Solusi Industri Anda
                                             </button>
                                         </div>
@@ -255,7 +249,7 @@
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
 
-                    <a href="{{ route('catalog') }}"
+                    <a href="{{ route('catalog.index') }}"
                         class="relative inline-flex items-center overflow-hidden text-white px-5 py-2 rounded-full font-medium text-sm group">
                         <span class="absolute inset-0 bg-gradient-to-r from-[#f86f03] to-[#ffa41b] transition-transform duration-500 ease-in-out group-hover:from-[#ffa41b] group-hover:to-[#f86f03]"></span>
                         <span class="relative z-10 flex items-center">

@@ -1,42 +1,64 @@
-@extends('layouts.app')
+@extends('layouts.superadmin')
 
 @section('content')
-<div class="container mx-auto">
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Daftar Artikel</h1>
-        <a href="{{ route('articles.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">+ Tambah Artikel</a>
-    </div>
+<div class="flex h-screen">
+    <main class="flex-1 bg-gray-50 p-6 overflow-y-auto">
+        <div class="bg-white p-6 rounded shadow">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Data Artikel</h2>
+                <a href="{{ route('articles.create') }}"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Tambah
+                </a>
+            </div>
 
-    @if(session('success'))
-        <div class="bg-green-100 p-2 rounded mb-4">
-            {{ session('success') }}
+            <div class="overflow-x-auto rounded border">
+                <table class="min-w-full bg-white border">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-2 border text-left">Judul</th>
+                            <th class="px-4 py-2 border text-left">Gambar</th>
+                            <th class="px-4 py-2 border text-left">Tanggal</th>
+                            <th class="px-4 py-2 border text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($articles as $article)
+                            <tr>
+                                <td class="px-4 py-2 border">{{ $article->judul }}</td>
+                                <td class="px-4 py-2 border">
+                                    @if($article->gambar)
+                                        <img src="{{ asset('storage/'.$article->gambar) }}" alt="Gambar" class="w-16 h-16 object-cover rounded shadow">
+                                    @else
+                                        <span class="text-gray-400 italic">Tidak ada gambar</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-2 border">{{ $article->tanggal_publish }}</td>
+                                <td class="px-4 py-2 border text-center space-x-1">
+                                    <a href="{{ route('articles.edit', $article->id_articles) }}"
+                                       class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
+                                    <form action="{{ route('articles.destroy', $article->id_articles) }}"
+                                          method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus artikel ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-gray-500">Belum ada artikel.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-    @endif
-
-    <table class="w-full border">
-        <thead class="bg-gray-200">
-            <tr>
-                <th class="p-2 border">Judul</th>
-                <th class="p-2 border">Tanggal</th>
-                <th class="p-2 border">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($articles as $article)
-                <tr class="text-sm">
-                    <td class="p-2 border">{{ $article->judul }}</td>
-                    <td class="p-2 border">{{ $article->tanggal_publish }}</td>
-                    <td class="p-2 border flex gap-2">
-                        <a href="{{ route('articles.edit', $article->id_articles) }}" class="text-blue-600">Edit</a>
-                        <form action="{{ route('articles.destroy', $article->id_articles) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    </main>
 </div>
 @endsection

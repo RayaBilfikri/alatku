@@ -20,7 +20,7 @@
             <a href="/articles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
             <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
             <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
+            <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
             <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
             <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
             <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
@@ -49,27 +49,6 @@
                     }
                 </script>
             </div>  
-            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('categories') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Kategori
-            </a>
-            <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('subcategories') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Sub Kategori
-            </a>
-            <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('products') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Produk
-            </a>
-            <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('ulasans') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Ulasan
-            </a>
-
-            <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('carousel') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Carousel</a>
-            <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('contacts') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Kontak</a>
-            <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('howtobuys') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Cara Membeli</a>
-            <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('websiteprofiles') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Profile Website</a>
-
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Tentang Kami</a>
-
         </nav>
     </div>
     <!-- Logout button -->

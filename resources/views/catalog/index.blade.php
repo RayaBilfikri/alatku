@@ -94,7 +94,6 @@
     </div>
 </main>
 
-<!-- Script Subkategori -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const kategoriLinks = document.querySelectorAll(".kategori-link");
@@ -115,17 +114,27 @@
             if (currentSubcategory) url.searchParams.set('subcategory', currentSubcategory);
             if (currentKeyword) url.searchParams.set('q', currentKeyword);
 
+            const renderEmptyState = (message, image = '/images/empty-box.svg') => {
+                return `
+                    <div class="flex flex-col items-center justify-center text-center w-full py-12">
+                        <img src="/images/notfound.png" alt="Empty" class="w-40 h-40 mb-6 opacity-70" loading="lazy" />
+                        <p class="text-lg text-white font-semibold">${message}</p>
+                    </div>
+                `;
+            };
+
             try {
                 const response = await fetch(url);
                 const data = await response.json();
                 productContainer.innerHTML = data.length
                     ? data.map(renderProduct).join('')
-                    : `<p class="col-span-full text-center text-gray-200">Tidak ada produk ditemukan.</p>`;
+                    : renderEmptyState("Tidak ada produk ditemukan.");
             } catch (error) {
-                productContainer.innerHTML = `<p class="col-span-full text-center text-red-500">Gagal memuat produk.</p>`;
+                productContainer.innerHTML = renderEmptyState("Gagal memuat produk. Silakan coba lagi nanti.", '/images/notfound.png');
                 console.error('Fetch error:', error);
             }
         }
+
 
         // Render produk
         function renderProduct(item) {
@@ -147,11 +156,21 @@
                                 </p>
                                 <div class="flex justify-between gap-2 text-sm font-medium mt-3">
                                     <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                        <p class="text-xs">Tahun</p>
+                                        <p class="text-xs flex justify-center items-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            Tahun
+                                        </p>
                                         <p class="text-sm font-semibold">${item.year_of_build}</p>
                                     </div>
                                     <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                        <p class="text-xs">Jam operasi</p>
+                                        <p class="text-xs flex justify-center items-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Jam operasi
+                                        </p>
                                         <p class="text-sm font-semibold">${item.hours_meter} jam</p>
                                     </div>
                                 </div>
@@ -223,6 +242,5 @@
     });
 
 </script>
-
 </body>
 </html>

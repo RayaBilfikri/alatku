@@ -16,7 +16,7 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\WebsiteProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
-
+use App\Http\Middleware\RedirectToRegister;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\WelcomeController;
 
@@ -112,8 +112,10 @@ Route::get('/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('su
 Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
 Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
 
-// Ulasan Routes
-Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
-Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
-Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
-Route::get('/ulasan/pending', [UlasanController::class, 'getPending']);
+// Ulasan Routes - hanya bisa diakses jika user sudah login
+Route::middleware([RedirectToRegister::class])->group(function () {
+    Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');
+    Route::post('/ulasan', [App\Http\Controllers\UlasanController::class, 'store'])->name('ulasan.store');
+    Route::patch('/ulasan/{id}/status', [App\Http\Controllers\UlasanController::class, 'updateStatus'])->name('ulasan.update-status');
+    Route::get('/ulasan/pending', [App\Http\Controllers\UlasanController::class, 'getPending']);
+});

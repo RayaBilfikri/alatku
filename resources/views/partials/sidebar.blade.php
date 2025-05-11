@@ -24,8 +24,8 @@
                     </div>
                 </button>
                 <div class="pl-3 ml-2 space-y-1 submenu hidden text-sm border-l border-orange-300">
-                    <a href="users" class="block mt-1 px-5 rounded hover:bg-orange-100 text-sm">Kelola User</a>
-                    <a href="roles" class="block mt-1 px-5 rounded hover:bg-orange-100 text-sm">Kelola Role</a>
+                    <a href="/users" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('users') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola User</a>
+                    <a href="/roles" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('roles') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Role</a>
                 </div>
                 <script>
                     function toggleSubmenu(button) {

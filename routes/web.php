@@ -8,6 +8,8 @@ use App\Http\Controllers\HowToBuyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
@@ -39,6 +41,11 @@ Route::get('/ajax/products', [CatalogController::class, 'ajaxFilteredProducts'])
 
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+// Route untuk Role
+Route::resource('/roles', RoleController::class);
+// Route untuk User
+Route::resource('/users', UserController::class);
 
 // Dashboard Admin
 //Route::get('admin/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'admin']);

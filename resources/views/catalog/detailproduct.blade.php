@@ -11,7 +11,7 @@
   <div class="max-w-6xl mx-auto px-4 py-6">
     <!-- Back button -->
     <div class="w-full pl-4 mb-6">
-        <a href="{{ route('catalog') }}" class="flex items-center text-white font-bold text-lg">
+        <a href="{{ route('catalog.index') }}" class="flex items-center text-white font-bold text-lg">
         <svg xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 122.88 108.06" 
             class="w-5 h-5 text-white fill-current mr-2" 
@@ -46,19 +46,19 @@
         <div class="flex gap-3 mt-4">
           <div class="flex-1 bg-indigo-600 text-white text-center rounded-lg py-2 text-sm shadow-sm">
             <div class="text-xs opacity-90">📅 Tahun</div>
-            <div class="font-semibold text-base">{{ $product->year }}</div>
+            <div class="font-semibold text-base">{{ $product->year_of_build }}</div>
           </div>
           <div class="flex-1 bg-indigo-600 text-white text-center rounded-lg py-2 text-sm shadow-sm">
             <div class="text-xs opacity-90">⏱️ Jam operasi</div>
-            <div class="font-semibold text-base">{{ number_format($product->hours, 0, ',', '.') }} jam</div>
+            <div class="font-semibold text-base">{{ number_format($product->hours_meter, 0, ',', '.') }} jam</div>
           </div>
         </div>
 
         <div class="bg-orange-500 text-white font-bold text-center py-3 rounded-lg text-lg shadow-md">
-          Rp{{ number_format($product->price, 0, ',', '.') }}
+          Rp{{ number_format($product->harga, 0, ',', '.') }}
         </div>
 
-        <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan produk {{ $product->name }}" target="_blank">
+        <a href="https://wa.me/{{ $product->contact->phone_number }}?text=Halo, saya tertarik dengan produk {{ $product->name }}" target="_blank" class="mt-4 block">
           <button class="w-full flex items-center justify-center gap-2 border border-green-600 text-green-600 font-semibold py-2 rounded-lg bg-white shadow-sm hover:bg-green-50 transition">
             <img src="https://img.icons8.com/fluency/24/000000/whatsapp.png" class="w-5 h-5" />
             Hubungi via WhatsApp

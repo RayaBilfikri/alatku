@@ -24,6 +24,7 @@
         }
       }
     }
+    
   </script>
     
     {{-- Inject konten tambahan di head seperti Tailwind CSS --}}
@@ -31,12 +32,12 @@
 </head>
 <body class="font-montserrat">
     <!-- Header dengan Font Montserrat -->
-    <header class="bg-white shadow-md">
+    <header class="bg-gray-100 shadow-md">
         <nav class="container mx-auto px-5 py-5 flex items-center relative">
             <div class="font-bold text-xl ml-6">
                 <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
             </div>
-            <div class="absolute left-1/2 transform -translate-x-1/2 space-x-6 font-montserrat">
+            <div class="absolute left-1/2 transform -translate-x-1/2 space-x-6 font-montserrat font-bold">
                 <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
                 <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
                 <a href="/cara-membeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
@@ -64,13 +65,15 @@
                         </div>
                         
                         <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
-                            <a href="{{ route('ulasan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                            <a href="{{ route('ulasan.index') }}"
+                            class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-all duration-200 rounded-md">
                                 <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
                             </a>
-                            <hr class="my-1">
+
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                                <button type="submit"
+                                    class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200 rounded-md text-left">
                                     <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
                                 </button>
                             </form>
@@ -86,7 +89,51 @@
         @yield('content')
     </main>
 
-    {{-- Inject footer scripts seperti JS Vite --}}
+    <!-- Hover Dropdown for Account in Navbar-->
+    <style>
+        #profileDropdown a:hover, 
+        #profileDropdown button:hover {
+            font-weight: 500;
+            transform: translateX(2px);
+            transition: transform 0.2s ease;
+        }
+
+        /* Tambahan efek bayangan saat dropdown muncul */
+        #profileDropdown:not(.hidden) {
+            animation: fadeIn 0.2s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+
+    <!-- JS Dropdown logic -->
+    <script>
+        const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        if (profileDropdownToggle && profileDropdown) {
+        let isDropdownOpen = false;
+
+        profileDropdownToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('hidden');
+            isDropdownOpen = !isDropdownOpen;
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
+            profileDropdown.classList.add('hidden');
+            isDropdownOpen = false;
+            }
+        });
+
+        profileDropdown.addEventListener('click', function(e) {
+            if (!e.target.matches('button[type="submit"]')) {
+            e.stopPropagation();
+            }
+        });
+        }
+    </script>
+
     @yield('footer')
 </body>
 </html>

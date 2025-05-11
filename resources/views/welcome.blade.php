@@ -17,7 +17,7 @@
         <div class="flex items-center">
             <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
             <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
-            <nav class="ml-12 flex items-center space-x-8" style="transform: translateX(300px);">
+            <nav class="ml-12 font-bold flex items-center space-x-8" style="transform: translateX(300px);">
                 <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
                 <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
                 <a href="{{ route('cara-membeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
@@ -113,7 +113,7 @@
         @mouseover="stopAutoplay()"
         @mouseout="startAutoplay()"
         x-cloak
-        class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg"
+        class="relative bg-gray-100 py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
@@ -136,12 +136,12 @@
                         <div class="container mx-auto relative z-10 h-full flex items-center">
                             <!-- Static Hero Slide -->
                             <template x-if="slide.is_static">
-                                <div class="flex flex-col md:flex-row items-center justify-between w-full">
-                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
-                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 translate-y-8">
+                                <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
+                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center ml-4 mb-8 md:mb-0">
+                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 ml-4 translate-y-8">
                                     </div>
                                     
-                                    <div class="md:ml-8 text-left md:max-w-xl">
+                                    <div class="md:ml-12 text-left md:max-w-xl flex-grow">
                                         <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
                                             DARI DARAT KE LAUT,<br>
                                             KAMI SIAP MENDUKUNG ANDA!
@@ -151,10 +151,18 @@
                                             untuk berbagai kebutuhan proyek.<br>
                                             Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                         </p>
+
                                         <div class="mt-8 text-right text-lg">
                                             <a href="{{ route('catalog.index') }}" @click.stop="$event.stopPropagation()" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+
+                                        <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
+                                            <button
+                                                @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
+                                                class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
+                                            >
+
                                                 Cari Solusi Industri Anda
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +240,7 @@
     </section>
 
     <!-- Equipment Sale with Product Card Section -->
-    <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
+    <section id="equipment-sale" class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
         <!-- Background circles -->
         <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
@@ -274,7 +282,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
-                                            Tangerang, Indonesia
+                                            Indonesia
                                         </div>
                                         <div class="flex justify-between mb-3">
                                             <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
@@ -294,7 +302,7 @@
                             @empty
                                 <div class="min-w-full flex flex-col items-center justify-center py-12 text-gray-500">
                                     <!-- Ilustrasi SVG keranjang kosong -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 animate-pulse text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
                                     </svg>
                                     <p class="text-lg font-semibold text-white">Belum ada produk saat ini</p>
@@ -360,13 +368,13 @@
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/andy.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
+                        <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Andy Herman</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Kobel</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -375,13 +383,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/zendaya.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
+                        <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Zendaya</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Alisson</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -390,13 +398,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/chris.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
+                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Chris Septian</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Onana</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -404,51 +412,23 @@
             
             <!-- Testimonial cards - bottom row -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
-                <!-- Testimonial 4 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/bagas.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Bagas Drible">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Bagas Drible</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                @foreach ($Testimonials as $testimonial)
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="text-3xl text-gray-300 mb-4">"</div>
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                            {{ $testimonial->content }}
+                        </p>
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800">{{ $testimonial->user->name }}</p>
+                                <p class="text-xs text-gray-500">{{ $testimonial->user->usertype }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Testimonial 5 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/elzio.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Elzio">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Elzio</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 6 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/lionel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Leonel Messi">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Leonel Messi</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
+
 
             <!-- Modal Register-->
             <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
@@ -504,7 +484,7 @@
                             <p class="text-white text-sm mb-4">
                                 Pilihan alat berat terbaik untuk proyek konstruksi jalan raya, bangunan gedung, jembatan dan infrastruktur lainnya.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class=" bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition flex justify-center">Baca Selengkapnya</a>
                         </div>
                     </div>
                     
@@ -516,7 +496,7 @@
                             <p class="text-white text-sm mb-4">
                                 Panduan lengkap merawat alat berat untuk memaksimalkan umur dan performa mesin di berbagai kondisi lapangan.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
                         </div>
                     </div>
                     
@@ -528,19 +508,19 @@
                             <p class="text-white text-sm mb-4">
                                 Inovasi terbaru dalam peralatan konstruksi yang meningkatkan efisiensi, produktivitas, dan keamanan proyek.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
                         </div>
                     </div>
                     
                     <!-- Article Card 4 -->
                     <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
                         <div class="p-4">
-                            <img src="/images/worker.jpg" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <img src="/images/worker.jpg" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
                             <h3 class="text-white font-bold text-lg mb-2">Solusi Finansial Kontraktor</h3>
                             <p class="text-white text-sm mb-4">
                                 Opsi pembiayaan dan sewa alat berat untuk proyek konstruksi dengan berbagai skala dan kebutuhan.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -548,6 +528,55 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Brand and Company Info -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h2 class="text-3xl font-bold font-montserrat text-[#FFA41B] mb-4">ALATKU</h2>
+                    <p class="text-gray-300 text-center md:text-left">
+                       Solusi terpercaya untuk kebutuhan alat konstruksi Anda
+                    </p>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kontak Kami</h3>
+                    <div class="flex items-center mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#FFA41B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p class="text-gray-300">Jl. Dr. Hadari Nawawi, Bansir Laut, Kota Pontianak</p>
+                    </div>
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#FFA41B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        <p class="text-gray-300">+62 813 4886 9922</p>
+                    </div>
+                </div>
+                
+                <!-- Website and Social Media -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kunjungi Kami</h3>
+                    <a href="https://www.alatku.com" class="flex items-center mb-3 hover:text-[#FFA41B] transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#FFA41B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
+                        </svg>
+                        <span>alatku.com</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Copyright Section -->
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">© 2025 alatKu. Hak Cipta Dilindungi di bawah naungan PT. Inti Teknologi Berdikari.</p>
+            </div>
+        </div>
+    </footer>
 
 </body>
 <style>

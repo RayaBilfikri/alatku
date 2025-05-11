@@ -12,6 +12,20 @@
         <!-- Navigation -->
         <nav class="p-4 space-y-2 text-sm">
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Beranda</a>
+
+            <div class="relative group">
+                <button class="w-full text-left py-2 px-3 rounded hover:bg-orange-100">Kelola Akses</button>
+            </div>
+            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
+            <a href="/articles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
+            <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
+            <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
+            <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
+            <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
+            <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
+            <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
+
             <!-- Submenu Kelola Akses dengan dropdown -->
             <div class="relative submenu-container">
                 <button onclick="toggleSubmenu(this)" class="w-full text-left py-2 px-3 rounded hover:bg-orange-100 focus:outline-none text-base">
@@ -55,6 +69,7 @@
 
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Tentang Kami</a>
+
         </nav>
     </div>
     <!-- Logout button -->

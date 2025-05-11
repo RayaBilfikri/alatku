@@ -185,4 +185,3 @@ Route::middleware([CheckSuperadmin::class])->group(function () {
 
     });
 });
-main

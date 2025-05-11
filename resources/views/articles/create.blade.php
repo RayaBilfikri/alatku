@@ -1,32 +1,57 @@
-@extends('layouts.app')
+@extends('layouts.superadmin')
 
 @section('content')
-<div class="container mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Tambah Artikel</h1>
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <!-- Main content -->
+    <main class="flex-1 bg-gray-50 p-6">
+        <!-- Form Tambah Artikel -->
+        <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
+            <h2 class="text-2xl font-semibold mb-6 text-center">Tambah Artikel</h2>
+            <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-    <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-        @csrf
-        <div>
-            <label>Judul</label>
-            <input type="text" name="judul" class="w-full border p-2" required>
+                <!-- Judul -->
+                <div class="mb-6 flex items-center space-x-6">
+                    <label for="judul" class="w-40 text-sm font-medium">Judul</label>
+                    <input type="text" id="judul" name="judul" required
+                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                </div>
+
+                <!-- Konten Artikel -->
+                <div class="mb-6 flex items-start space-x-6">
+                    <label for="konten_artikel" class="w-40 text-sm font-medium pt-2">Konten Artikel</label>
+                    <textarea id="konten_artikel" name="konten_artikel" rows="5" required
+                              class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"></textarea>
+                </div>
+
+                <!-- Gambar -->
+                <div class="mb-6 flex items-center space-x-6">
+                    <label for="gambar" class="w-40 text-sm font-medium">Gambar</label>
+                    <input type="file" id="gambar" name="gambar"
+                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                </div>
+
+                <!-- Tanggal Publish -->
+                <div class="mb-6 flex items-center space-x-6">
+                    <label for="tanggal_publish" class="w-40 text-sm font-medium">Tanggal Publish</label>
+                    <input type="date" id="tanggal_publish" name="tanggal_publish"
+                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                </div>
+
+                <!-- Tombol -->
+                <div class="flex justify-start space-x-4">
+                    <button type="submit"
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md">
+                        Simpan
+                    </button>
+                    <a href="{{ route('articles.index') }}"
+                       class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md">
+                        Batal
+                    </a>
+                </div>
+            </form>
         </div>
-
-        <div>
-            <label>Konten Artikel</label>
-            <textarea name="konten_artikel" class="w-full border p-2" rows="5" required></textarea>
-        </div>
-
-        <div>
-            <label>Gambar</label>
-            <input type="file" name="gambar" class="w-full border p-2">
-        </div>
-
-        <div>
-            <label>Tanggal Publish</label>
-            <input type="date" name="tanggal_publish" class="w-full border p-2">
-        </div>
-
-        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Simpan</button>
-    </form>
+    </main>
 </div>
 @endsection

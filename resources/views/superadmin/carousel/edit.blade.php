@@ -78,14 +78,14 @@
                         </select>
                     </div>
 
-                    <div class="flex justify-end space-x-4">
+                    <div class="flex space-x-4 justify-start mt-6">
                         <!-- Tombol Batal -->
-                        <a href="{{ route('superadmin.carousel.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 transition">
+                        <a href="{{ route('superadmin.carousel.index') }}" class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition">
                             Batal
                         </a>
 
                         <!-- Tombol Update -->
-                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                        <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
                             Simpan 
                         </button>
                     </div>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -16,7 +17,7 @@
         <div class="flex items-center">
             <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
             <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
-            <nav class="ml-12 flex items-center space-x-8" style="transform: translateX(300px);">
+            <nav class="ml-12 font-bold flex items-center space-x-8" style="transform: translateX(300px);">
                 <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
                 <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
                 <a href="{{ route('cara-membeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
@@ -62,40 +63,179 @@
     </header>
 
 
-    <!-- Hero Section -->
-    <section class="relative bg-white py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%] shadow-lg">
-        <img src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png" alt="Background" class="absolute inset-0 w-full h-full object-cover filter blur-sm z-0 rounded-3xl">
-        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
+    <!-- Hero Section Carousel -->
+    <section 
+        x-data="{ 
+            activeSlide: 0,
+            // Menggabungkan slide statis dengan carousel dari database
+            slides: [
+                // Slide statis
+                {
+                    id: 0,
+                    is_static: true,
+                    judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
+                    gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
+                    link: '{{ route('catalog') }}'
+                },
+                // Menambahkan data carousel dari database (jika ada)
+                @if($carousels->count() > 0)
+                    {
+                        id: 1,
+                        is_static: false,
+                        judul: '{{ $carousels->first()->judul }}',
+                        gambar: '{{ asset('storage/' . $carousels->first()->gambar) }}',
+                        link: '{{ $carousels->first()->link }}'
+                    }
+                @endif
 
-        <div class="container mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mb-8 md:mb-0">
-                    <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain translate-y-8">
-                </div>
-                
-                <div class="md:ml-8 text-left md:max-w-xl">
-                    <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
-                        DARI DARAT KE LAUT,<br>
-                        KAMI SIAP MENDUKUNG ANDA!
-                    </h1>
-                    <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
-                        Jelajahi beragam peralatan industri dan konstruksi<br>
-                        untuk berbagai kebutuhan proyek.<br>
-                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
-                    </p>
-                    </br>
-                    <div class="mt-8 text-right text-lg">
-                        <a href="{{ route('catalog') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
-                            Cari Solusi Industri Anda
-                        </a>
+            ],
+            
+            next() { 
+                this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+            },
+            
+            prev() { 
+                this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+            },
+            
+            // Autoplay
+            autoplayInterval: null,
+            
+            startAutoplay() {
+                this.autoplayInterval = setInterval(() => this.next(), 8000);
+            },
+            
+            stopAutoplay() {
+                clearInterval(this.autoplayInterval);
+            }
+        }"
+        x-init="startAutoplay()"
+        @mouseover="stopAutoplay()"
+        @mouseout="startAutoplay()"
+        x-cloak
+        class="relative bg-gray-100 py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
+    >
+        <!-- Slide Container -->
+        <div class="relative w-full h-full min-h-[400px]">
+            <template x-for="(slide, index) in slides" :key="index">
+                    <div 
+                        x-show="activeSlide === index" 
+                        x-transition:enter="transition ease-out duration-500"
+                        x-transition:enter-start="opacity-0 transform translate-x-full"
+                        x-transition:enter-end="opacity-100 transform translate-x-0"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100 transform translate-x-0"
+                        x-transition:leave-end="opacity-0 transform -translate-x-full"
+                        class="absolute inset-0 w-full h-full rounded-3xl"
+                    >
+                        <!-- Background -->
+                        <img :src="slide.gambar" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
+
+                        <!-- Content -->
+                        <div class="container mx-auto relative z-10 h-full flex items-center">
+                            <!-- Static Hero Slide -->
+                            <template x-if="slide.is_static">
+                                <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
+                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center ml-4 mb-8 md:mb-0">
+                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 ml-4 translate-y-8">
+                                    </div>
+                                    
+                                    <div class="md:ml-12 text-left md:max-w-xl flex-grow">
+                                        <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
+                                            DARI DARAT KE LAUT,<br>
+                                            KAMI SIAP MENDUKUNG ANDA!
+                                        </h1>
+                                        <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
+                                            Jelajahi beragam peralatan industri dan konstruksi<br>
+                                            untuk berbagai kebutuhan proyek.<br>
+                                            Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                        </p>
+                                        <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
+                                            <button
+                                                @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
+                                                class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
+                                            >
+                                                Cari Solusi Industri Anda
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </template>
+
+                        <!-- Dynamic Slide dari Database -->
+                        <template x-if="!slide.is_static">
+                            <div class="w-full text-center text-white">
+                                <h2 class="text-2xl md:text-4xl font-akira font-bold mb-4" x-text="slide.judul"></h2>
+                                <template x-if="slide.link">
+                                    <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                                        Kunjungi
+                                    </a>
+                                </template>
+                            </div>
+                        </template>
                     </div>
                 </div>
-            </div>
+            </template>
         </div>
+
+        <!-- Hanya tampilkan navigasi jika ada lebih dari 1 slide -->
+        @if($carousels->count() > 0)
+        <!-- Touch/Mouse Swipe Area -->
+        <div 
+            class="absolute inset-0 z-10 pointer-events-none"
+
+            x-on:mousedown="startX = $event.clientX"
+            x-on:mouseup="
+                endX = $event.clientX;
+                if (startX - endX > 50) {
+                    next();
+                } else if (endX - startX > 50) {
+                    prev();
+                }
+            "
+            x-on:touchstart="touchStartX = $event.changedTouches[0].screenX"
+            x-on:touchend="
+                touchEndX = $event.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) {
+                    next();
+                } else if (touchEndX - touchStartX > 50) {
+                    prev();
+                }
+            "
+            x-data="{
+                startX: 0,
+                endX: 0,
+                touchStartX: 0,
+                touchEndX: 0
+            }"
+        ></div>
+
+        <!-- Navigation Buttons -->
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+            <button @click="prev()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+                ‹
+            </button>
+            <button @click="next()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+                ›
+            </button>
+        </div>
+
+        <!-- Carousel Indicators -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+            <template x-for="(slide, index) in slides" :key="index">
+                <button 
+                    @click="activeSlide = index"
+                    :class="{'bg-orange-500': activeSlide === index, 'bg-white': activeSlide !== index}"
+                    class="w-3 h-3 rounded-full shadow-md transition"
+                ></button>
+            </template>
+        </div>
+        @endif
     </section>
 
-    <!-- Equipment Sale with Carousel Section -->
-    <section class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
+    <!-- Equipment Sale with Product Card Section -->
+    <section id="equipment-sale" class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
         <!-- Background circles -->
         <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
@@ -127,131 +267,59 @@
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
-                            <!-- Carousel Item 1 (Active/Featured) -->
-                            <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item active" data-index="0">
-                                <img src="/images/KOMATSUPC135F-10M0.png" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F-10M0</h3>
-                                    <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        Tangerang, Indonesia
-                                    </div>
-                                    <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Tahun</div>
-                                            <div class="font-bold text-center">2023</div>
+                            @forelse ($ProductCard as $index => $product)
+                                <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                    <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
+                                    <div class="p-4">
+                                        <h3 class="font-bold text-gray-800">{{ $product->name }}</h3>
+                                        <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                            Indonesia
                                         </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Jam operasional</div>
-                                            <div class="font-bold text-center">2,824 jam</div>
+                                        <div class="flex justify-between mb-3">
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                                <div class="text-center">Tahun</div>
+                                                <div class="font-bold text-center">{{ $product->year_of_build }}</div>
+                                            </div>
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
+                                                <div class="text-center">Jam operasional</div>
+                                                <div class="font-bold text-center">{{ $product->hours_meter }} jam</div> 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
-                                        Rp430.000.000
+                                        <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
+                                            Rp{{ number_format($product->harga, 0, ',', '.') }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Carousel Item 2 -->
-                            <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="1">
-                                <img src="/images/caterpillar.jpg" alt="Komatsu Excavator PC135F-10M0" class="w-full h-48 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">Rigid Hauler 777G</h3>
-                                    <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        Surabaya, Indonesia
-                                    </div>
-                                    <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Tahun</div>
-                                            <div class="font-bold text-center">2023</div>
-                                        </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Jam operasional</div>
-                                            <div class="font-bold text-center">2,824 jam</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
-                                        Rp450.000.000
-                                    </div>
+                            @empty
+                                <div class="min-w-full flex flex-col items-center justify-center py-12 text-gray-500">
+                                    <!-- Ilustrasi SVG keranjang kosong -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
+                                    </svg>
+                                    <p class="text-lg font-semibold text-white">Belum ada produk saat ini</p>
+                                    <p class="text-sm text-white">Yuk tambahkan produk agar tampil di sini!</p>
                                 </div>
-                            </div>
-                            
-                            <!-- Carousel Item 3 -->
-                            <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="2">
-                                <img src="/images/komatsu3.png" alt="Komatsu Excavator" class="w-full h-48 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">Komatsu Excavator PC135F</h3>
-                                    <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        Jakarta, Indonesia
-                                    </div>
-                                    <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Tahun</div>
-                                            <div class="font-bold text-center">2021</div>
-                                        </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Jam operasional</div>
-                                            <div class="font-bold text-center">2,500 jam</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
-                                        Rp330.000.000
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Carousel Item 4 (New) -->
-                            <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item" data-index="3">
-                                <img src="/images/komatsu4.png" alt="Komatsu Wheel Loader" class="w-full h-48 object-cover">
-                                <div class="p-4">
-                                    <h3 class="font-bold text-gray-800">Komatsu Wheel Loader WA380</h3>
-                                    <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        Bandung, Indonesia
-                                    </div>
-                                    <div class="flex justify-between mb-3">
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Tahun</div>
-                                            <div class="font-bold text-center">2023</div>
-                                        </div>
-                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                            <div class="text-center">Jam operasional</div>
-                                            <div class="font-bold text-center">2,824 jam</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
-                                        Rp500.000.000
-                                    </div>
-                                </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
-                    
+
                     <!-- Navigation buttons -->
-                    <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block ml-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button class="carousel-next absolute -right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 opacity-100 hover:opacity-100 transition-opacity">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                    @if ($ProductCard->isNotEmpty()) <!-- Only show buttons if there are products -->
+                        <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button class="carousel-next absolute -right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 opacity-100 hover:opacity-100 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -295,13 +363,13 @@
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/andy.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
+                        <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Andy Herman</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Kobel</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -310,13 +378,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/zendaya.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
+                        <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Zendaya</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Alisson</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -325,13 +393,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
-                        <img src="{{ asset('path/to/chris.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
+                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
                         <div>
-                            <p class="text-sm font-semibold text-gray-800">Chris Septian</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                            <p class="text-sm font-semibold text-gray-800">Onana</p>
+                            <p class="text-xs text-gray-500">user</p>
                         </div>
                     </div>
                 </div>
@@ -339,51 +407,23 @@
             
             <!-- Testimonial cards - bottom row -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
-                <!-- Testimonial 4 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/bagas.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Bagas Drible">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Bagas Drible</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
+                @foreach ($Testimonials as $testimonial)
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="text-3xl text-gray-300 mb-4">"</div>
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                            {{ $testimonial->content }}
+                        </p>
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800">{{ $testimonial->user->name }}</p>
+                                <p class="text-xs text-gray-500">{{ $testimonial->user->usertype }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Testimonial 5 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/elzio.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Elzio">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Elzio</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 6 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('path/to/lionel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Leonel Messi">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Leonel Messi</p>
-                            <p class="text-xs text-gray-500">Civil Engineer</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
+
 
             <!-- Modal Register-->
             <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
@@ -506,6 +546,8 @@
         font-weight: normal;
         font-style: normal;
     }
+
+    [x-cloak] { display: none !important; }
 
     /* Hide scrollbar */
     .hide-scrollbar::-webkit-scrollbar {
@@ -638,7 +680,7 @@
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
         
-
+        
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');

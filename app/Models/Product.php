@@ -15,6 +15,7 @@ class Product extends Model
 
         'sub_category_id',
         'contact_id',
+        'category_id',
         'name',
         'gambar',
         'serial_number',
@@ -37,5 +38,15 @@ class Product extends Model
     {
         return $this->belongsTo(Contact::class);
     }
+
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    
+
+
 
 }

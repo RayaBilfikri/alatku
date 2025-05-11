@@ -7,12 +7,13 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Category;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with(['subCategory.category', 'contact'])->get();
+        $products = Product::with(['subCategory.category', 'contact', 'images'])->get();
         return view('superadmin.products.index', compact('products'));
     }
 
@@ -29,39 +30,62 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'sub_images' => 'nullable|array',
+            'sub_images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'brosur' => 'nullable|mimes:pdf|max:10240',
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'contact_id' => 'required|exists:contacts,id',
-            'name' => 'required|string|max:255',
-            'gambar' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',  // Pastikan sesuai
-            'serial_number' => 'required|string|max:255',
-            'year_of_build' => 'nullable|digits:4|integer',
-            'hours_meter' => 'nullable|string|max:255',
-            'stock' => 'required|integer|min:0',
-            'harga' => 'required|numeric|min:0',
+            'serial_number' => 'nullable|string|max:255',
+            'year_of_build' => 'nullable|integer',
+            'hours_meter' => 'nullable|integer',
+            'stock' => 'required|integer',
+            'harga' => 'required|numeric',
             'description' => 'nullable|string',
-            'brosur' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
-        $data = $request->all();
+        $product = new Product();
+        $product->name = $validated['name'];
+        $product->category_id = $validated['category_id'];
+        $product->sub_category_id = $validated['sub_category_id'];
+        $product->contact_id = $validated['contact_id'];
+        $product->serial_number = $validated['serial_number'];
+        $product->year_of_build = $validated['year_of_build'];
+        $product->hours_meter = $validated['hours_meter'];
+        $product->stock = $validated['stock'];
+        $product->harga = $validated['harga'];
+        $product->description = $validated['description'];
 
-        // Handle brosur
-        if ($request->hasFile('brosur')) {
-            $brosurPath = $request->file('brosur')->store('brosurs', 'public');
-            $data['brosur'] = $brosurPath;
-        }
-
-        // Handle gambar
+        // Upload gambar utama
         if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('images', 'public');
-            $data['gambar'] = $imagePath;  // Pastikan konsisten dengan nama field
+            $product->gambar = $request->file('gambar')->store('product_images', 'public');
         }
 
-        Product::create($data);
+        // Upload brosur
+        if ($request->hasFile('brosur')) {
+            $product->brosur = $request->file('brosur')->store('product_brosur', 'public');
+        }
 
-        return redirect()->route('superadmin.products.index')->with('message', 'Product added successfully.');
+        $product->save();
+
+        // Simpan sub image ke dalam storage
+        if ($request->has('sub_images')) {
+            foreach ($request->file('sub_images') as $file) {
+                // Simpan gambar di public storage
+                $imagePath = $file->store('product_images', 'public');
+                
+                // Simpan path gambar ke database
+                $product->images()->create(['image_path' => $imagePath]);
+            }
+        }
+
+        return redirect()->route('superadmin.products.index')->with('success', 'Produk berhasil ditambahkan');
     }
+
+
 
 
     public function edit($id)
@@ -77,45 +101,108 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        // Validasi input
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'sub_images' => 'nullable|array|max:3',
+            'sub_images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'brosur' => 'nullable|mimes:pdf|max:10240',
             'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'contact_id' => 'required|exists:contacts,id',
-            'name' => 'required|string|max:255',
-            'gambar' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',  // Pastikan sesuai
-            'serial_number' => 'required|string|max:255',
-            'year_of_build' => 'nullable|digits:4|integer',
-            'hours_meter' => 'nullable|string|max:255',
-            'stock' => 'required|integer|min:0',
-            'harga' => 'required|numeric|min:0',
+            'serial_number' => 'nullable|string|max:255',
+            'year_of_build' => 'nullable|integer',
+            'hours_meter' => 'nullable|integer',
+            'stock' => 'required|integer',
+            'harga' => 'required|numeric',
             'description' => 'nullable|string',
-            'brosur' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
+        // Temukan produk yang akan diupdate
         $product = Product::findOrFail($id);
-        $data = $request->all();
 
-        // Handle brosur
-        if ($request->hasFile('brosur')) {
-            $brosurPath = $request->file('brosur')->store('brosurs', 'public');
-            $data['brosur'] = $brosurPath;
-        }
+        // Update data produk
+        $product->name = $validated['name'];
+        $product->category_id = $validated['category_id'];
+        $product->sub_category_id = $validated['sub_category_id'];
+        $product->contact_id = $validated['contact_id'];
+        $product->serial_number = $validated['serial_number'];
+        $product->year_of_build = $validated['year_of_build'];
+        $product->hours_meter = $validated['hours_meter'];
+        $product->stock = $validated['stock'];
+        $product->harga = $validated['harga'];
+        $product->description = $validated['description'];
 
-        // Handle gambar
+        // Update gambar utama jika ada file baru
         if ($request->hasFile('gambar')) {
-            $imagePath = $request->file('gambar')->store('images', 'public');
-            $data['gambar'] = $imagePath;  // Pastikan konsisten dengan nama field
+            // Hapus gambar lama jika ada
+            if ($product->gambar) {
+                Storage::delete('public/' . $product->gambar);
+            }
+
+            // Simpan gambar utama baru
+            $product->gambar = $request->file('gambar')->store('product_images', 'public');
         }
 
-        $product->update($data);
+        // Update brosur jika ada file baru
+        if ($request->hasFile('brosur')) {
+            // Hapus brosur lama jika ada
+            if ($product->brosur) {
+                Storage::delete('public/' . $product->brosur);
+            }
 
-        return redirect()->route('superadmin.products.index')->with('message', 'Product updated successfully.');
+            // Simpan brosur baru
+            $product->brosur = $request->file('brosur')->store('product_brosur', 'public');
+        }
+
+        // Simpan perubahan produk
+        $product->save();
+
+        // Hapus gambar sub lama jika ada
+        if ($request->has('sub_images')) {
+            // Hapus gambar sub sebelumnya jika ada
+            foreach ($product->images as $image) {
+                Storage::delete('public/' . $image->image_path);
+                $image->delete();
+            }
+
+            // Simpan gambar sub baru
+            foreach ($request->file('sub_images') as $file) {
+                $imagePath = $file->store('product_images', 'public');
+                $product->images()->create(['image_path' => $imagePath]);
+            }
+        }
+
+        // Redirect ke halaman produk dengan pesan sukses
+        return redirect()->route('superadmin.products.index')->with('success', 'Produk berhasil diperbarui');
     }
-    
+
 
     public function destroy($id)
     {
-        Product::destroy($id);
+        $product = Product::findOrFail($id);
+
+        // Hapus gambar utama
+        if ($product->gambar) {
+            Storage::disk('public')->delete($product->gambar);
+        }
+
+        // Hapus brosur jika ada
+        if ($product->brosur) {
+            Storage::disk('public')->delete($product->brosur);
+        }
+
+        // Hapus semua sub gambar
+        foreach ($product->images as $image) {
+            Storage::disk('public')->delete($image->image_path);
+            $image->delete();
+        }
+
+        $product->delete();
+
         return redirect()->route('superadmin.products.index')->with('message', 'Product deleted successfully.');
     }
+
+
 }

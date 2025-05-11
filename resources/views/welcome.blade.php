@@ -479,7 +479,7 @@
                             <p class="text-white text-sm mb-4">
                                 Pilihan alat berat terbaik untuk proyek konstruksi jalan raya, bangunan gedung, jembatan dan infrastruktur lainnya.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class=" bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition flex justify-center">Baca Selengkapnya</a>
                         </div>
                     </div>
                     
@@ -491,7 +491,7 @@
                             <p class="text-white text-sm mb-4">
                                 Panduan lengkap merawat alat berat untuk memaksimalkan umur dan performa mesin di berbagai kondisi lapangan.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
                         </div>
                     </div>
                     
@@ -503,19 +503,19 @@
                             <p class="text-white text-sm mb-4">
                                 Inovasi terbaru dalam peralatan konstruksi yang meningkatkan efisiensi, produktivitas, dan keamanan proyek.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
                         </div>
                     </div>
                     
                     <!-- Article Card 4 -->
                     <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
                         <div class="p-4">
-                            <img src="/images/worker.jpg" class="w-full h-60 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
+                            <img src="/images/worker.jpg" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
                             <h3 class="text-white font-bold text-lg mb-2">Solusi Finansial Kontraktor</h3>
                             <p class="text-white text-sm mb-4">
                                 Opsi pembiayaan dan sewa alat berat untuk proyek konstruksi dengan berbagai skala dan kebutuhan.
                             </p>
-                            <a href="#" class="inline-block bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
+                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
                         </div>
                     </div>
                 </div>

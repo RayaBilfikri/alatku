@@ -37,11 +37,6 @@ Route::get('/ajax/products', [CatalogController::class, 'ajaxFilteredProducts'])
 
 
 
-// Halaman Catalog
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
-Route::get('/catalog/{id}', [CatalogController::class, 'detailproduct']);
-
-
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 

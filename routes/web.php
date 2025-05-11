@@ -56,11 +56,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/admin/article', ArticleController::class)->names('admin.article');
 });
 
-require _DIR_.'/auth.php';
-Route::prefix('api')->group(function(){
-    // mengarahkan semua rute API ke file api.php
-    require base_path('routes\api.php');
-});
+
 
 // Route untuk search
 Route::get('/search', [SearchController::class, 'index'])->name('search');

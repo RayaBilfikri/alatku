@@ -28,9 +28,19 @@ Route::get('/tentang-kami', [PageController::class, 'about'])->name('tentang-kam
 Route::get('/cara-membeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
 Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 
+
+// Halaman Catalog
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog.detailproduct');
+Route::get('/search', [CatalogController::class, 'search'])->name('search');
+Route::get('/ajax/products', [CatalogController::class, 'ajaxFilteredProducts'])->name('products.ajax');
+
+
+
 // Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/catalog/{id}', [CatalogController::class, 'detailproduct']);
+
 
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');

@@ -1,155 +1,228 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Katalog Alat</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
-    /* Scrollbar untuk elemen dengan ID scrollContainer */
-    #scrollContainer::-webkit-scrollbar {
-        height: 8px; /* scroll horizontal */
-    }
-
-    #scrollContainer::-webkit-scrollbar-track {
-        background: transparent; /* biar tidak terlihat garis putih */
-    }
-
-    #scrollContainer::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.3); /* putih transparan */
-        border-radius: 4px;
-    }
-
-    #scrollContainer::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(255, 255, 255, 0.5); /* saat hover lebih jelas */
-    }
-
-    /* Untuk Firefox */
-    #scrollContainer {
-        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-        scrollbar-width: thin;
-    }
+        #scrollContainer::-webkit-scrollbar { height: 8px; }
+        #scrollContainer::-webkit-scrollbar-track { background: transparent; }
+        #scrollContainer::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.3); border-radius: 4px; }
+        #scrollContainer::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.5); }
+        #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
+        .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 antialiased" data-products-url="{{ route('products.ajax') }}">
 
-    <!-- Header -->
-    <div class="bg-cover bg-center relative" style="background-image: url('/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png'); height: 300px;">
+<main>
+    <!-- Banner -->
+    <section class="bg-cover bg-center relative" style="background-image: url('/images/banner.png'); height: 300px;" aria-label="Banner Pencarian Alat">
         <div class="absolute inset-0 bg-gray-700 bg-opacity-70 flex flex-col justify-center items-center text-white text-center px-4">
             <h1 class="text-3xl md:text-4xl font-bold mb-2">Langsung Temukan, Langsung Kerja!</h1>
             <p class="mb-4">Cari alat yang anda butuhkan dengan cepat dan mulai proyek Anda tanpa hambatan.</p>
-            
-            <!-- Form untuk search -->
-            <form action="{{ route('search') }}" method="GET" class="flex w-full max-w-xl">
+            <form action="{{ route('search') }}" method="GET" class="flex w-full max-w-xl" aria-label="Form pencarian alat">
                 <div class="relative flex-1 flex items-center bg-[#D9D9D9] rounded-l-full">
                     <div class="absolute left-3 text-gray-500">
-                        <!-- Ikon search -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" fill="none" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" />
                         </svg>
                     </div>
                     <input 
                         type="text" 
                         name="q" 
                         class="w-full bg-transparent p-3 pl-10 focus:outline-none text-gray-700" 
-                        placeholder="Apa yang anda butuhkan untuk proyek ini?"
+                        placeholder="Apa yang anda butuhkan untuk proyek ini?" 
                         autocomplete="off"
-                    >
+                        aria-label="Pencarian alat"
+                    />
                 </div>
-                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-full">Cari</button>
+                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-full">
+                    Cari
+                </button>
             </form>
         </div>
-    </div>
+    </section>
 
     <!-- Kategori -->
-    <div class="bg-indigo-600 py-10 px-4 text-white relative">
+ 
+    <section class="bg-indigo-600 py-10 px-4 text-white relative" aria-label="Kategori Alat">
         <div class="w-full px-4 mx-auto">
             <h2 class="text-xl md:text-2xl font-semibold mb-4">Jelajahi Kategori Alat Siap Pakai</h2>
             <p class="mb-6">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
-
-                <!-- Kontainer scroll -->
-                <div id="scrollContainer" class="overflow-x-auto overflow-y-hidden scroll-smooth pb-5">
-                    <div class="flex gap-4 w-max px-10">
-                        @foreach ([
-                            ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
-                            ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
-                            ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
-                            ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
-                            ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
-                            ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
-                            ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
-                            ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
-                            ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
-                            ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
-                            ['src' => 'tugboat.png', 'label' => 'Tugboats', 'link' => '#'],
-                            ['src' => 'barge.png', 'label' => 'Barge', 'link' => '#'],
-                            ['src' => 'heavy-equipment.png', 'label' => 'Heavy Equipment', 'link' => '#'],
-                            ['src' => 'material-handling.png', 'label' => 'Material Handling', 'link' => '#'],
-                            ['src' => 'genset.png', 'label' => 'Generating Set', 'link' => '#'],
-                            ['src' => 'heavy-construction.png', 'label' => 'Heavy Construction Equipment', 'link' => '#']
-                        ] as $item)
-                            <a href="{{ $item['link'] }}"
-                                class="bg-white text-gray-800 rounded-2xl shadow-md flex flex-col items-center justify-center px-4 py-4 w-[140px] text-center transition-all duration-300 hover:bg-yellow-200 hover:ring-1 hover:ring-orange-400">
-                                <img src="/images/{{ $item['src'] }}" class="h-30 mb-2" alt="{{ $item['label'] }}">
-                                <span class="text-sm font-medium break-words leading-tight">{{ $item['label'] }}</span>
-                            </a>
-                        @endforeach
-                    </div>
+            <nav id="scrollContainer" class="overflow-x-auto overflow-y-hidden scroll-smooth pb-5" role="navigation">
+                <div class="flex gap-4 w-max px-10">
+                    @foreach ($categories as $category)
+                        <a 
+                            href="#"
+                            class="kategori-link bg-white text-gray-800 rounded-2xl shadow-md flex flex-col items-center justify-center px-4 py-4 w-[140px] text-center transition-all duration-300 hover:bg-yellow-200 hover:ring-1 hover:ring-orange-400"
+                            data-kategori="{{ $category->name }}"
+                            data-subkategori="{{ $category->subCategories->pluck('name') }}"
+                            aria-label="Kategori {{ $category->name }}"
+                        >
+                            <img src="{{ asset('storage/' . $category->icon) }}" alt="{{ $category->name }}" class="h-30 mb-2" loading="lazy" />
+                            <span class="text-sm font-medium break-words leading-tight">{{ $category->name }}</span>
+                        </a>
+                    @endforeach
                 </div>
-            </div>
+            </nav>
         </div>
-    </div>
+    </section>
 
+    <!-- Subkategori -->
+    <section id="subCategoryContainer" class="bg-white shadow-md rounded-3xl mx-6 my-6 p-4 hidden" aria-label="Subkategori">
+        <h3 id="subCategoryTitle" class="text-lg font-semibold text-gray-700 mb-3">Subkategori</h3>
+        <ul id="subCategoryList" class="flex flex-wrap gap-3"></ul>
+    </section>
+
+
+    <section class="bg-indigo-600 py-8 px-6 text-white relative" aria-label="Produk Alat">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-xl md:text-2xl font-semibold mb-2">Temukan Alat Siap Pakai Untuk Pekerjaaan Anda</h2>
+            <p class="text-white">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
+        </div>
+    </section>
 
     <!-- Produk -->
-    <div class="py-10 px-4 bg-[#EEF1FF]">
-        <div class="w-full px-4 mx-auto">
-
-            <h2 class="text-xl md:text-2xl font-semibold mb-4 text-gray-800">Jelajahi Produk Terbaru</h2>
-            <p class="mb-6 text-gray-600">Koleksi alat terbaru kami siap membantu proyek Anda lebih efisien.</p>
-
-            <div class="grid gap-6 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">
-                @for ($i = 0; $i < 100; $i++)
-                <a href="/catalog/{{ $i }}" class="block">
-                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-105">
-                        <div class="px-4 pt-4">
-                            <img src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png"
-                                alt="Komatsu PC135F-10MO"
-                                class="w-full h-48 object-cover rounded-2xl shadow-sm" />
-                        </div>
-                        <div class="p-4 space-y-3">
-                            <h3 class="font-semibold text-md text-gray-800">Komatsu Excavator PC135F-10MO</h3>
-                            <p class="text-sm text-gray-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 10s7-5.686 7-10A7 7 0 005 11c0 4.314 7 10 7 10z" />
-                                </svg>
-                                Tangerang, Indonesia
-                            </p>
-
-                            <div class="flex justify-between gap-2 text-sm font-medium">
-                                <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                    <p class="text-xs">Tahun</p>
-                                    <p class="text-sm font-semibold">2023</p>
-                                </div>
-                                <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                    <p class="text-xs">Jam operasi</p>
-                                    <p class="text-sm font-semibold">2.824 jam</p>
-                                </div>
-                            </div>
-
-                            <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center font-bold text-lg py-2 rounded-xl mt-2 shadow-md">
-                                Rp430.000.000
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                @endfor
-            </div>
-        </div>
+    <section id="productContainer" class="bg-indigo-600 p-2 flex " aria-label="Daftar Produk"></section>
+    
+    <!-- Pagination -->
+    <div class="mt-8 px-6" aria-label="Navigasi halaman">
+        {{ $products->appends(request()->query())->links() }}
     </div>
-  
-</body>
+</main>
 
+<!-- Script Subkategori -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const kategoriLinks = document.querySelectorAll(".kategori-link");
+        const productContainer = document.getElementById("productContainer");
+        const searchForm = document.querySelector('form[action*="search"]');
+        const searchInput = searchForm.querySelector('input[name="q"]');
+        const subContainer = document.getElementById('subCategoryContainer');
+        const subList = document.getElementById('subCategoryList');
+
+        let currentCategory = null;
+        let currentSubcategory = null;
+        let currentKeyword = null;
+
+        // Fetch products berdasarkan filter aktif
+        async function fetchAndRenderProducts() {
+            const url = new URL(document.body.dataset.productsUrl);
+            if (currentCategory) url.searchParams.set('category', currentCategory);
+            if (currentSubcategory) url.searchParams.set('subcategory', currentSubcategory);
+            if (currentKeyword) url.searchParams.set('q', currentKeyword);
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                productContainer.innerHTML = data.length
+                    ? data.map(renderProduct).join('')
+                    : `<p class="col-span-full text-center text-gray-200">Tidak ada produk ditemukan.</p>`;
+            } catch (error) {
+                productContainer.innerHTML = `<p class="col-span-full text-center text-red-500">Gagal memuat produk.</p>`;
+                console.error('Fetch error:', error);
+            }
+        }
+
+        // Render produk
+        function renderProduct(item) {
+            return `
+                <div class="p-2">
+                    <a href="/catalog/${item.id}" class="block h-full flex flex-col" aria-label="Lihat detail produk ${item.name}">
+                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-105 h-50 w-80 flex flex-col">
+                            <div class="px-4 pt-4">
+                                <img src="/storage/${item.gambar}" alt="${item.name}" class="w-full h-48 object-cover rounded-2xl shadow-sm" loading="lazy" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-semibold text-md text-gray-800 truncate">${item.name}</h3>
+                                <p class="text-sm text-gray-600">Kategori: ${item.sub_category?.category?.name ?? '-'}</p>
+                                <p class="text-sm text-gray-600 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 10s7-5.686 7-10A7 7 0 005 11c0 4.314 7 10 7 10z" />
+                                    </svg>
+                                    ${item.contact?.location ?? '-'}
+                                </p>
+                                <div class="flex justify-between gap-2 text-sm font-medium mt-3">
+                                    <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
+                                        <p class="text-xs">Tahun</p>
+                                        <p class="text-sm font-semibold">${item.year_of_build}</p>
+                                    </div>
+                                    <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
+                                        <p class="text-xs">Jam operasi</p>
+                                        <p class="text-sm font-semibold">${item.hours_meter} jam</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center font-bold text-lg py-2 rounded-xl mt-2 shadow-md mx-4 mb-4">
+                                Rp${Number(item.harga).toLocaleString("id-ID")}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            `;
+        }
+
+        // Bersihkan subkategori aktif
+        function clearActiveSubcategories() {
+            document.querySelectorAll('.active-subcategory').forEach(el => el.classList.remove('active-subcategory'));
+        }
+
+        // Handle klik kategori
+        kategoriLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const label = link.dataset.kategori;
+                const subkategoriList = JSON.parse(link.dataset.subkategori.replace(/'/g, '"'));
+
+                subList.innerHTML = "";
+
+                // Toggle: jika klik ulang kategori yang sama
+                if (currentCategory === label) {
+                    currentCategory = null;
+                    currentSubcategory = null;
+                    subContainer.classList.add('hidden');
+                    clearActiveSubcategories();
+                    fetchAndRenderProducts();
+                    return;
+                }
+
+                // Render subkategori
+                subkategoriList.forEach(name => {
+                    const item = document.createElement('li');
+                    item.textContent = name;
+                    item.className = "subkategori-item cursor-pointer px-3 py-1 rounded-full bg-gray-100 hover:bg-orange-400 hover:text-white";
+                    item.addEventListener('click', () => {
+                        clearActiveSubcategories();
+                        item.classList.add('active-subcategory');
+                        currentSubcategory = name;
+                        fetchAndRenderProducts();
+                    });
+                    subList.appendChild(item);
+                });
+
+                subContainer.classList.remove('hidden');
+                currentCategory = label;
+                currentSubcategory = null;
+                clearActiveSubcategories();
+                fetchAndRenderProducts();
+            });
+        });
+
+        // Handle pencarian
+        searchForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            currentKeyword = searchInput.value.trim();
+            fetchAndRenderProducts();
+        });
+
+        // Load awal
+        fetchAndRenderProducts();
+    });
+
+</script>
+
+</body>
 </html>

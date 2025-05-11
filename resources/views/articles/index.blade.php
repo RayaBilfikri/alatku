@@ -23,6 +23,7 @@
                         <tr>
                             <th class="px-4 py-2 border text-left">Judul</th>
                             <th class="px-4 py-2 border text-left">Gambar</th>
+                            <th class="px-4 py-2 border text-left">Konten</th>
                             <th class="px-4 py-2 border text-left">Tanggal</th>
                             <th class="px-4 py-2 border text-center">Aksi</th>
                         </tr>
@@ -31,6 +32,9 @@
                         @forelse ($articles as $article)
                             <tr>
                                 <td class="px-4 py-2 border">{{ $article->judul }}</td>
+                                <td class="px-4 py-2 border">
+                                    {{ Str::limit(strip_tags($article->konten_artikel), 100) }}
+                                </td>
                                 <td class="px-4 py-2 border">
                                     @if($article->gambar)
                                         <img src="{{ asset('storage/'.$article->gambar) }}" alt="Gambar" class="w-16 h-16 object-cover rounded shadow">
@@ -41,9 +45,9 @@
                                 <td class="px-4 py-2 border">{{ $article->tanggal_publish }}</td>
                                 <td class="px-4 py-2 border text-center space-x-1">
                                     <a href="{{ route('articles.edit', $article->id_articles) }}"
-                                       class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
+                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
                                     <form action="{{ route('articles.destroy', $article->id_articles) }}"
-                                          method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus artikel ini?')">
+                                        method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus artikel ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>
@@ -52,7 +56,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center py-4 text-gray-500">Belum ada artikel.</td>
+                                <td colspan="5" class="text-center py-4 text-gray-500">Belum ada artikel.</td>
                             </tr>
                         @endforelse
                     </tbody>

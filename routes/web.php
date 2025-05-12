@@ -32,7 +32,7 @@ Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
 // Halaman Catalog
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
 Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog.detailproduct');
-Route::get('/search', [CatalogController::class, 'search'])->name('search');
+Route::get('/searchproduct', [CatalogController::class, 'search'])->name('searchproduct');
 Route::get('/ajax/products', [CatalogController::class, 'ajaxFilteredProducts'])->name('products.ajax');
 
 

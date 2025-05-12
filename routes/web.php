@@ -47,7 +47,7 @@ Route::resource('/roles', RoleController::class);
 // Route untuk User
 Route::resource('/users', UserController::class);
 
-Route::resource('/superadmin/users', UserController::class);
+
 
 
 // Dashboard Admin

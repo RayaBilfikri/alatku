@@ -11,11 +11,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with(['subCategory.category', 'contact', 'images'])->get();
+        $query = Product::with(['subCategory.category', 'contact', 'images']);
+
+        if ($request->has('search') && $request->search !== null) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                ->orWhere('serial_number', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        $products = $query->get();
+
         return view('superadmin.products.index', compact('products'));
     }
+
 
 
 

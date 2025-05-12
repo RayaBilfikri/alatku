@@ -38,7 +38,7 @@
                 <div class="flex justify-start space-x-4">
                     <button type="submit"
                             class="bg-blue-600 hover:bg-grey-500 text-white px-6 py-3 rounded-md">
-                        Tambahkan
+                        Tambah
                     </button>
                     <a href="{{ route('superadmin.contacts.index') }}"
                        class="bg-red-500 hover:bg-grey-500 text-white px-6 py-3 rounded-md">

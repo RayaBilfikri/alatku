@@ -36,7 +36,7 @@ class WebsiteProfileController extends Controller
 
         WebsiteProfile::create($data);
 
-        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'Profil website berhasil ditambahkan.');
+        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'Data berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -56,7 +56,7 @@ class WebsiteProfileController extends Controller
 
         $websiteProfile->update($data);
 
-        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'Profil website berhasil diperbarui.');
+        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'Data berhasil diperbarui.');
     }
 
     public function edit($id)
@@ -68,6 +68,6 @@ class WebsiteProfileController extends Controller
     public function destroy($id)
     {
         WebsiteProfile::destroy($id);
-        return redirect()->route('superadmin.websiteprofiles.index')->with('message', 'deleted successfully.');
+        return redirect()->route('superadmin.websiteprofiles.index')->with('message', ' Data berhasil dihapus');
     }
 }

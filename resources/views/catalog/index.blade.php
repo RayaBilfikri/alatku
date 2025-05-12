@@ -32,6 +32,7 @@
                     </div>
                     <input 
                         type="text" 
+                        id="enterInput"
                         name="q" 
                         class="w-full bg-transparent p-3 pl-10 focus:outline-none text-gray-700" 
                         placeholder="Apa yang anda butuhkan untuk proyek ini?" 
@@ -105,6 +106,8 @@
         const subContainer = document.getElementById('subCategoryContainer');
         const subList = document.getElementById('subCategoryList');
         const productContainerWrapper = document.getElementById("productContainerWrapper");
+        const enterInput = document.getElementById('enterInput');
+        
 
         let currentCategory = null;
         let currentSubcategory = null;
@@ -258,6 +261,20 @@
                 pagination.scrollIntoView({ behavior: 'smooth' });
             }
         }, 300); // Sesuaikan delay jika perlu
+    });
+    
+    searchInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchBtn.click(); // Pencet tombol cari (biar query jalan)
+            
+            setTimeout(function () {
+                const pagination = document.getElementById('pagination');
+                if (pagination) {
+                    pagination.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300); // Delay untuk nunggu hasil
+        }
     });
 </script>
 </body>

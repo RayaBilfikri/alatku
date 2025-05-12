@@ -22,13 +22,16 @@ use App\Http\Middleware\RedirectToRegister;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Middleware\CheckSuperadmin;
+use App\Http\Controllers\Frontend\ArtikelController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
 // Frontend routes
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('tentang-kami');
 Route::get('/cara-membeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
-Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
+Route::get('/artikel', [PageController::class, 'article'])->name('artikel.index');
+
+Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel');
 
 
 // Halaman Catalog

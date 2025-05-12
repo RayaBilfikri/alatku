@@ -481,7 +481,7 @@
 
                             <!-- Limiting the article content with padding -->
                             <p class="text-black text-sm mb-4">
-                                {{ \Illuminate\Support\Str::limit($article->konten_artikel, 50) }}
+                                {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
                             </p>
 
                             <!-- Link to read the full article with padding -->

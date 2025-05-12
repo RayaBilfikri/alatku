@@ -51,7 +51,7 @@ class UlasanController extends Controller
                 } elseif ($ulasan->status === 'rejected') {
                     $messages[] = [
                         'type' => 'error',
-                        'message' => 'Maaf, ulasan Anda ditolak oleh admin.'
+                        'message' => 'Maaf, ulasan Anda ditolak oleh admin'
                     ];
                 }
             
@@ -95,7 +95,7 @@ class UlasanController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Ulasan berhasil dikirim dan sedang menunggu persetujuan.',
+            'message' => 'Ulasan berhasil dikirim dan sedang menunggu persetujuan',
             'ulasan' => $ulasan
         ]);
     }
@@ -110,7 +110,7 @@ class UlasanController extends Controller
         $ulasan->notified = false; 
         $ulasan->save();
         
-        return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan disetujui.');
+        return redirect()->route('superadmin.ulasans.index')->with('message', 'Ulasan disetujui');
         
     }
 
@@ -124,7 +124,7 @@ class UlasanController extends Controller
         $ulasan->notified = false;
         $ulasan->save();
 
-        return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan ditolak.');
+        return redirect()->route('superadmin.ulasans.index')->with('message', 'Ulasan ditolak');
     }
 
     /**
@@ -135,10 +135,10 @@ class UlasanController extends Controller
         $ulasan = Ulasan::findOrFail($id);
 
         if ($ulasan->status !== 'approved') {
-            return redirect()->route('superadmin.ulasans.index')->with('error', 'Hanya ulasan yang disetujui yang dapat dihapus.');
+            return redirect()->route('superadmin.ulasans.index')->with('error', 'Hanya ulasan yang disetujui yang dapat dihapus');
         }
 
         $ulasan->delete();
-        return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan berhasil dihapus.');
+        return redirect()->route('superadmin.ulasans.index')->with('message', 'Ulasan berhasil dihapus');
     }
 }

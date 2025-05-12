@@ -18,7 +18,7 @@
         <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-3xl mx-auto">
             <h2 class="text-2xl font-semibold mb-6 text-center">Edit Role User</h2>
 
-            <form action="{{ route('users.update', $user->id) }}" method="POST">
+            <form action="{{ route('superadmin.users.edit', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 

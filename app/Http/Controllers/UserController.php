@@ -40,7 +40,7 @@ class UserController extends Controller
         $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
         $user->assignRole($roleNames);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -55,7 +55,6 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8',
             'roles' => 'required|array',
             'roles.*' => 'exists:roles,id',
         ]);
@@ -67,20 +66,26 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Tidak dapat mengubah user Super Admin.');
         }
 
+        // Update Nama dan Email
         $user->name = $request->name;
         $user->email = $request->email;
 
+        // Jika password tidak disertakan dalam form, maka abaikan pembaruan password
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
+        // Menyimpan perubahan ke database
         $user->save();
 
+        // Menyinkronkan roles yang dipilih oleh pengguna
         $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
         $user->syncRoles($roleNames);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
+        // Redirect ke daftar user dengan pesan sukses
+        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {
@@ -93,6 +98,13 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
+        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil dihapus.');
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('superadmin.users.show', compact('user'));
+    }
+
 }

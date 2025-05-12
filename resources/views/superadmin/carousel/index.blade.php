@@ -12,15 +12,15 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 4v16m8-8H4"/>
             </svg>
-            Tambah Carousel
+            Tambah 
         </a>
     </div>
 
-    @if(session('success'))
+    <!-- @if(session('success'))
         <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
             {{ session('success') }}
         </div>
-    @endif
+    @endif -->
 
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border rounded shadow">
@@ -59,17 +59,18 @@
                         <td class="p-2 border text-center">
                             <div class="flex justify-center space-x-2">
                                 <a href="{{ route('superadmin.carousel.edit', $carousel->id_carousel) }}" class="text-yellow-600 hover:underline">Edit</a>
-                                <form action="{{ route('superadmin.carousel.destroy', $carousel->id_carousel) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                <form action="{{ route('superadmin.carousel.destroy', $carousel->id_carousel) }}" method="POST" class="delete-form inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-red-600 hover:underline">Hapus</button>
+                                    <button type="submit" class="text-red-600 hover:underline">Hapus</button>
                                 </form>
+
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="p-4 text-center text-gray-500">Tidak ada data carousel.</td>
+                        <td colspan="6" class="p-4 text-center text-gray-500">Data tidak ada</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -77,3 +78,46 @@
     </div>
 </div>
 @endsection
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('success'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif

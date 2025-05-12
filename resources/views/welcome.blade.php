@@ -238,7 +238,7 @@
     </section>
 
     <!-- Equipment Sale with Product Card Section -->
-    <section id="equipment-sale" class="bg-[#525fe1] p-8 md:p-10 relative overflow-hidden z-6">
+    <section id="equipment-sale" class="bg-[#525fe1] py-16 px-8 md:py-20 md:px-10 relative overflow-hidden z-6">
         <!-- Background circles -->
         <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
@@ -344,7 +344,7 @@
         <div class="right-eclipse-front absolute"></div>
         
         <!-- Content layer -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-4">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
             <a href="javascript:void(0)" id="selengkapnyaBtn" class="absolute top-0 right-0 -mt-8 group inline-flex items-center px-5 py-2.5 rounded-full text-white font-medium bg-[#F86F03] hover:bg-[#e56703] transition-all duration-300 shadow-lg transform hover:-translate-y-1">
@@ -365,7 +365,7 @@
                 <!-- Testimonial 1 -->
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-base leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
@@ -380,7 +380,7 @@
                 <!-- Testimonial 2 -->
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-base leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
                     <div class="flex items-center">
@@ -395,8 +395,8 @@
                 <!-- Testimonial 3 -->
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-base leading-relaxed mb-6">
-                        Situs favorit ketika mencari alat berat.
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
                         <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
@@ -413,7 +413,7 @@
                 @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <div class="text-3xl text-gray-300 mb-4">"</div>
-                        <p class="text-gray-700 text-base leading-relaxed mb-6">
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
                             {{ $testimonial->content }}
                         </p>
                         <div class="flex items-center">

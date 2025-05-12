@@ -86,7 +86,9 @@
     </section>
 
     <!-- Produk -->
-    <section id="productContainer" class="bg-indigo-600 p-2 flex " aria-label="Daftar Produk"></section>
+    <section id="productContainerWrapper" class="p-2 bg-indigo-600">
+        <section id="productContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-label="Daftar Produk"></section>
+    </section>
     
     <!-- Pagination -->
     <div class="mt-8 px-6" aria-label="Navigasi halaman">
@@ -102,21 +104,21 @@
         const searchInput = searchForm.querySelector('input[name="q"]');
         const subContainer = document.getElementById('subCategoryContainer');
         const subList = document.getElementById('subCategoryList');
+        const productContainerWrapper = document.getElementById("productContainerWrapper");
 
         let currentCategory = null;
         let currentSubcategory = null;
         let currentKeyword = null;
 
-        // Fetch products berdasarkan filter aktif
         async function fetchAndRenderProducts() {
             const url = new URL(document.body.dataset.productsUrl);
             if (currentCategory) url.searchParams.set('category', currentCategory);
             if (currentSubcategory) url.searchParams.set('subcategory', currentSubcategory);
             if (currentKeyword) url.searchParams.set('q', currentKeyword);
 
-            const renderEmptyState = (message, image = '/images/empty-box.svg') => {
+            const renderEmptyState = (message) => {
                 return `
-                    <div class="flex flex-col items-center justify-center text-center w-full py-12">
+                    <div class="col-span-full flex flex-col items-center justify-center text-center w-full py-12">
                         <img src="/images/notfound.png" alt="Empty" class="w-40 h-40 mb-6 opacity-70" loading="lazy" />
                         <p class="text-lg text-white font-semibold">${message}</p>
                     </div>
@@ -126,70 +128,81 @@
             try {
                 const response = await fetch(url);
                 const data = await response.json();
+
+                if (!Array.isArray(data)) {
+                    console.error("Unexpected data format", data);
+                    productContainer.innerHTML = renderEmptyState("Data tidak valid.");
+                    return;
+                }
+
                 productContainer.innerHTML = data.length
-                    ? data.map(renderProduct).join('')
+                    ? data.map(renderProduct).join("")
                     : renderEmptyState("Tidak ada produk ditemukan.");
+
+                // Tambahkan justify-center hanya jika produk lebih dari 4
+                if (data.length > 4) {
+                    productContainerWrapper.classList.add("justify-center");
+                } else {
+                    productContainerWrapper.classList.remove("justify-center");
+                }
+
             } catch (error) {
-                productContainer.innerHTML = renderEmptyState("Gagal memuat produk. Silakan coba lagi nanti.", '/images/notfound.png');
+                productContainer.innerHTML = renderEmptyState("Gagal memuat produk. Silakan coba lagi nanti.");
                 console.error('Fetch error:', error);
             }
         }
 
-
-        // Render produk
         function renderProduct(item) {
             return `
-                <div class="p-2">
-                    <a href="/catalog/${item.id}" class="block h-full flex flex-col" aria-label="Lihat detail produk ${item.name}">
-                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-105 h-50 w-80 flex flex-col">
-                            <div class="px-4 pt-4">
-                                <img src="/storage/${item.gambar}" alt="${item.name}" class="w-full h-48 object-cover rounded-2xl shadow-sm" loading="lazy" />
-                            </div>
-                            <div class="p-4 flex flex-col flex-grow">
-                                <h3 class="font-semibold text-md text-gray-800 truncate">${item.name}</h3>
-                                <p class="text-sm text-gray-600">Kategori: ${item.sub_category?.category?.name ?? '-'}</p>
-                                <p class="text-sm text-gray-600 flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 10s7-5.686 7-10A7 7 0 005 11c0 4.314 7 10 7 10z" />
-                                    </svg>
-                                    ${item.contact?.location ?? '-'}
-                                </p>
-                                <div class="flex justify-between gap-2 text-sm font-medium mt-3">
-                                    <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                        <p class="text-xs flex justify-center items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            Tahun
-                                        </p>
-                                        <p class="text-sm font-semibold">${item.year_of_build}</p>
-                                    </div>
-                                    <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                        <p class="text-xs flex justify-center items-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            Jam operasi
-                                        </p>
-                                        <p class="text-sm font-semibold">${item.hours_meter} jam</p>
-                                    </div>
+            <div class="flex">
+                <a href="/catalog/${item.id}" class="block w-full h-full" aria-label="Lihat detail produk ${item.name}">
+                    <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-105 flex flex-col">
+                        <div class="px-4 pt-4">
+                            <img src="/storage/${item.gambar}" alt="${item.name}" class="w-full h-48 object-cover rounded-2xl shadow-sm" loading="lazy" />
+                        </div>
+                        <div class="p-4 flex flex-col flex-grow">
+                            <h3 class="font-semibold text-md text-gray-800 truncate">${item.name}</h3>
+                            <p class="text-sm text-gray-600">Kategori: ${item.sub_category?.category?.name ?? '-'}</p>
+                            <p class="text-sm text-gray-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 10s7-5.686 7-10A7 7 0 005 11c0 4.314 7 10 7 10z" />
+                                </svg>
+                                ${item.contact?.location ?? '-'}
+                            </p>
+                            <div class="flex justify-between gap-2 text-sm font-medium mt-3">
+                                <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
+                                    <p class="text-xs flex justify-center items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        Tahun
+                                    </p>
+                                    <p class="text-sm font-semibold">${item.year_of_build}</p>
+                                </div>
+                                <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
+                                    <p class="text-xs flex justify-center items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        Jam operasi
+                                    </p>
+                                    <p class="text-sm font-semibold">${item.hours_meter} jam</p>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center font-bold text-lg py-2 rounded-xl mt-2 shadow-md mx-4 mb-4">
-                                Rp${Number(item.harga).toLocaleString("id-ID")}
-                            </div>
                         </div>
-                    </a>
-                </div>
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center font-bold text-lg py-2 rounded-xl mt-2 shadow-md mx-4 mb-4">
+                            Rp${Number(item.harga).toLocaleString("id-ID")}
+                        </div>
+                    </div>
+                </a>
+            </div>
             `;
         }
 
-        // Bersihkan subkategori aktif
         function clearActiveSubcategories() {
             document.querySelectorAll('.active-subcategory').forEach(el => el.classList.remove('active-subcategory'));
         }
 
-        // Handle klik kategori
         kategoriLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -198,7 +211,6 @@
 
                 subList.innerHTML = "";
 
-                // Toggle: jika klik ulang kategori yang sama
                 if (currentCategory === label) {
                     currentCategory = null;
                     currentSubcategory = null;
@@ -208,7 +220,6 @@
                     return;
                 }
 
-                // Render subkategori
                 subkategoriList.forEach(name => {
                     const item = document.createElement('li');
                     item.textContent = name;
@@ -230,17 +241,14 @@
             });
         });
 
-        // Handle pencarian
         searchForm.addEventListener("submit", (e) => {
             e.preventDefault();
             currentKeyword = searchInput.value.trim();
             fetchAndRenderProducts();
         });
 
-        // Load awal
         fetchAndRenderProducts();
     });
-
 </script>
 </body>
 </html>

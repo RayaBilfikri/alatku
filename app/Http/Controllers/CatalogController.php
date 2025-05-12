@@ -38,8 +38,11 @@ class CatalogController extends Controller
         $keyword = $request->input('q');
         $categories = Category::with('subCategories')->get();
 
-        $query = Product::with(['subCategory.category', 'contact'])
-            ->where(function ($q) use ($keyword) {
+        $query = Product::with(['subCategory.category', 'contact']);
+
+        // Filter jika ada keyword pencarian
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
                 $q->where('name', 'like', '%' . $keyword . '%')
                 ->orWhereHas('subCategory', function ($q2) use ($keyword) {
                     $q2->where('name', 'like', '%' . $keyword . '%');
@@ -48,8 +51,9 @@ class CatalogController extends Controller
                     $q3->where('name', 'like', '%' . $keyword . '%');
                 });
             });
+        }
 
-        // Optional: filter tambahan berdasarkan subkategori dari form
+        // Filter tambahan berdasarkan subkategori dari form
         if ($request->has('subcategory') && $request->subcategory) {
             $query->whereHas('subCategory', function ($q) use ($request) {
                 $q->where('name', $request->subcategory);
@@ -60,6 +64,7 @@ class CatalogController extends Controller
 
         return view('catalog.index', compact('categories', 'products'));
     }
+
 
     public function ajaxFilteredProducts(Request $request)
     {

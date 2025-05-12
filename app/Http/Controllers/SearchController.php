@@ -13,6 +13,7 @@ class SearchController extends Controller
         // Di sini Anda bisa menambahkan logika pencarian sesuai kebutuhan
         // Misalnya mencari di database:
         // $results = Product::where('name', 'like', '%' . $query . '%')->get();
+        return redirect()->route('searchproduct', ['q' => $request->input('q')]);
         
         return view('search.results', [
             'query' => $query,

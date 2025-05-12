@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Carousel;
 use App\Models\Ulasan;
+use App\Models\Article;
 
 class WelcomeController
 {
@@ -26,7 +27,16 @@ class WelcomeController
             ->take(3)
             ->get();
         
-        // Mengirim kedua data ke view
-        return view('welcome', compact('carousels', 'ProductCard', 'Testimonials'));
+
+        // Mengambil 4 artikel terbaru
+        $latestArticles = Article::latest()->take(4)->get();
+
+        // Mengirim ketiga data ke view
+        return view('welcome', compact('carousels', 'ProductCard', 'Testimonials', 'latestArticles'));
+
+
+
+    
     }
+
 }

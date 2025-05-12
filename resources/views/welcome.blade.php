@@ -75,7 +75,10 @@
                     is_static: true,
                     judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
                     gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
+
                     link: '{{ route('catalog.index') }}'
+
+
                 },
                 // Menambahkan data carousel dari database (jika ada)
                 @if($carousels->count() > 0)
@@ -152,15 +155,17 @@
                                             Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                         </p>
 
+
                                         <div class="mt-8 text-right text-lg">
                                             <a href="{{ route('catalog.index') }}" @click.stop="$event.stopPropagation()" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+
+
 
                                         <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
                                             <button
                                                 @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
                                                 class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
                                             >
-
                                                 Cari Solusi Industri Anda
                                             </button>
                                         </div>
@@ -276,7 +281,7 @@
                                 <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                                     <div class="p-4">
-                                        <h3 class="font-bold text-gray-800">{{ $product->name }}</h3>
+                                        <h3 class="font-semibold text-base text-gray-800">{{ $product->name }}</h3>
                                         <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -460,10 +465,10 @@
     </section>
 
 
-    <!--Article Section-->
-    <section class="article-section relative overflow-hidden bg-[#FFA41B] overflow-hidden">
+   <!--Article Section-->
+    <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6">
         <!-- Background gradient layer (matching testimonial section) -->
-        
+
         <!-- Content layer -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="w-full mx-auto" style="max-width: 1440px;">
@@ -474,60 +479,32 @@
                     </p>
                 </div>
                 
-                <!-- Article cards using the orange style from the high-fidelity image -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
-                    <!-- Article Card 1 -->
-                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
-                        <div class="p-4">
-                            <img src="{{ asset('images/excavator1.jpg') }}" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
-                            <h3 class="text-white font-bold text-lg mb-2">Solusi Kebutuhan Kontraktor</h3>
-                            <p class="text-white text-sm mb-4">
-                                Pilihan alat berat terbaik untuk proyek konstruksi jalan raya, bangunan gedung, jembatan dan infrastruktur lainnya.
-                            </p>
-                            <a href="#" class=" bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition flex justify-center">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Article Card 2 -->
-                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
-                        <div class="p-4">
-                            <img src="{{ asset('images/excavator2.jpg') }}" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
-                            <h3 class="text-white font-bold text-lg mb-2">Tips Pemeliharaan Kontraktor</h3>
-                            <p class="text-white text-sm mb-4">
-                                Panduan lengkap merawat alat berat untuk memaksimalkan umur dan performa mesin di berbagai kondisi lapangan.
-                            </p>
-                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Article Card 3 -->
-                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
-                        <div class="p-4">
-                            <img src="{{ asset('images/excavator3.jpg') }}" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
-                            <h3 class="text-white font-bold text-lg mb-2">Teknologi Konstruksi Kontraktor</h3>
-                            <p class="text-white text-sm mb-4">
-                                Inovasi terbaru dalam peralatan konstruksi yang meningkatkan efisiensi, produktivitas, dan keamanan proyek.
-                            </p>
-                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Article Card 4 -->
-                    <div class="bg-orange-500 rounded-xl shadow-lg overflow-hidden">
-                        <div class="p-4">
-                            <img src="/images/worker.jpg" class="w-full h-40 object-cover rounded-lg mb-4" alt="Artikel Konstruksi">
-                            <h3 class="text-white font-bold text-lg mb-2">Solusi Finansial Kontraktor</h3>
-                            <p class="text-white text-sm mb-4">
-                                Opsi pembiayaan dan sewa alat berat untuk proyek konstruksi dengan berbagai skala dan kebutuhan.
-                            </p>
-                            <a href="#" class="flex justify-center bg-white text-orange-500 py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-100 transition">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                </div>
+            <!-- Article cards using the dynamic data from the database -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
+                @foreach ($latestArticles as $article)
+                    <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative">
+                        <!-- Gambar menempel di kiri dan kanan -->
+                        <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
+                        <!-- Teks dan tombol dengan padding -->
+                        <div class="p-4">
+                            <h3 class="text-black font-bold text-lg mb-2 mt-6">{{ $article->judul }}</h3>
+
+                            <!-- Limiting the article content with padding -->
+                            <p class="text-black text-sm mb-4">
+                                {{ \Illuminate\Support\Str::limit($article->konten_artikel, 200) }}
+                            </p>
+
+                            <!-- Link to read the full article with padding -->
+                            <a href="#" class="flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+
         </div>
     </section>
+
 
     <!-- Footer Section -->
     <footer class="bg-gray-900 text-white">

@@ -8,6 +8,8 @@ use App\Http\Controllers\HowToBuyController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
@@ -20,13 +22,16 @@ use App\Http\Middleware\RedirectToRegister;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Middleware\CheckSuperadmin;
+use App\Http\Controllers\Frontend\ArtikelController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
 // Frontend routes
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('tentang-kami');
 Route::get('/cara-membeli', [PageController::class, 'howToBuy'])->name('cara-membeli');
-Route::get('/artikel', [PageController::class, 'article'])->name('artikel');
+Route::get('/artikel', [PageController::class, 'article'])->name('artikel.index');
+
+Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel');
 
 
 // Halaman Catalog
@@ -39,6 +44,14 @@ Route::get('/ajax/products', [CatalogController::class, 'ajaxFilteredProducts'])
 
 // Route untuk dashboard (belum ada role permission)
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+// Route untuk Role
+Route::resource('/roles', RoleController::class);
+// Route untuk User
+Route::resource('/users', UserController::class);
+
+
+
 
 // Dashboard Admin
 //Route::get('admin/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'admin']);
@@ -64,7 +77,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 require __DIR__.'/auth.php';
 Route::prefix('api')->group(function(){
     // mengarahkan semua rute API ke file api.php
-    require base_path('routes\api.php');
+    require base_path('routes/api.php');
 });
 
 // Route untuk search

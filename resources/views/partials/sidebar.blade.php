@@ -13,19 +13,6 @@
         <nav class="p-4 space-y-2 text-sm">
             <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Beranda</a>
 
-            <div class="relative group">
-                <button class="w-full text-left py-2 px-3 rounded hover:bg-orange-100">Kelola Akses</button>
-            </div>
-            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
-            <a href="/articles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
-            <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
-            <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
-            <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
-            <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
-            <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
-            <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
-
             <!-- Submenu Kelola Akses dengan dropdown -->
             <div class="relative submenu-container">
                 <button onclick="toggleSubmenu(this)" class="w-full text-left py-2 px-3 rounded hover:bg-orange-100 focus:outline-none text-base">
@@ -37,8 +24,8 @@
                     </div>
                 </button>
                 <div class="pl-3 ml-2 space-y-1 submenu hidden text-sm border-l border-orange-300">
-                    <a href="users" class="block mt-1 px-5 rounded hover:bg-orange-100 text-sm">Kelola User</a>
-                    <a href="roles" class="block mt-1 px-5 rounded hover:bg-orange-100 text-sm">Kelola Role</a>
+                    <a href="/users" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('users') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola User</a>
+                    <a href="/roles" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('roles') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Role</a>
                 </div>
                 <script>
                     function toggleSubmenu(button) {
@@ -48,28 +35,16 @@
                         icon.classList.toggle('rotate-180');
                     }
                 </script>
-            </div>  
-            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('categories') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Kategori
-            </a>
-            <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('subcategories') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Sub Kategori
-            </a>
-            <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('products') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Produk
-            </a>
-            <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('ulasans') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">
-                Kelola Ulasan
-            </a>
-
-            <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('carousel') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Carousel</a>
-            <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('contacts') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Kontak</a>
-            <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('howtobuys') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Cara Membeli</a>
-            <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100 {{ request()->is('websiteprofiles') ? 'bg-orange-200 text-orange-800 font-semibold' : '' }}">Kelola Profile Website</a>
-
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Tentang Kami</a>
-
+            </div> 
+            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
+            <a href="/articles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
+            <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
+            <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
+            <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
+            <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
+            <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
+            <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
+            <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
         </nav>
     </div>
     <!-- Logout button -->

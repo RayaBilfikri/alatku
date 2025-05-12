@@ -270,7 +270,7 @@
                                 <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                                     <div class="p-4">
-                                        <h3 class="font-bold text-gray-800">{{ $product->name }}</h3>
+                                        <h3 class="font-semibold text-base text-gray-800">{{ $product->name }}</h3>
                                         <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

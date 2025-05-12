@@ -22,7 +22,7 @@
         <!-- Konten Tabel How To Buy -->
         <div class="bg-white rounded-lg shadow p-6">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Data How To Buy</h2>
+                <h2 class="text-xl font-bold">Data Cara Membeli</h2>
                 <a href="{{ route('superadmin.howtobuys.create') }}"
                    class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -30,7 +30,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah Cara Membeli
+                    Tambah
                 </a>
             </div>
 
@@ -57,8 +57,7 @@
                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
 
                                 <form action="{{ route('superadmin.howtobuys.destroy', $howtobuy->id) }}"
-                                      method="POST" class="inline-block"
-                                      onsubmit="return confirm('Yakin ingin menghapus step ini?')">
+                                    method="POST" class="delete-form inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -66,13 +65,14 @@
                                         Hapus
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                     @endforeach
 
                     @if ($howtobuys->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-center py-4">Tidak ada data How To Buy.</td>
+                            <td colspan="5" class="text-center py-4">Data tidak ada</td>
                         </tr>
                     @endif
                     </tbody>
@@ -81,6 +81,50 @@
         </div>
     </main>
 </div>
+
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('message'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('message') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
 
 </body>
 </html>

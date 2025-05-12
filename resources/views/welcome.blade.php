@@ -344,7 +344,7 @@
         <div class="right-eclipse-front absolute"></div>
         
         <!-- Content layer -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-4">
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
             <a href="javascript:void(0)" id="selengkapnyaBtn" class="absolute top-0 right-0 -mt-8 group inline-flex items-center px-5 py-2.5 rounded-full text-white font-medium bg-[#F86F03] hover:bg-[#e56703] transition-all duration-300 shadow-lg transform hover:-translate-y-1">

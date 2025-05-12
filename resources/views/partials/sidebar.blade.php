@@ -1,12 +1,8 @@
 <aside class="w-64 h-screen bg-white shadow-md flex flex-col justify-between sticky top-0">
     <div>
         <!-- Logo -->
-        <div class="flex items-center justify-center h-20 border-b">
-            <img src="/logo.png" alt="Logo" class="h-12">
-            <div class="ml-2">
-                <h1 class="text-xl font-bold text-orange-600">alatKu</h1>
-                <p class="text-xs text-blue-800 leading-tight">Heavy Equipment, Spare Parts, <br>Marine Machinery</p>
-            </div>
+        <div class="flex justify-end items-center h-24 border-b px-4">
+            <img src="/images/alatku.png" alt="Logo" class="h-17 w-auto object-contain">
         </div>
 
         <!-- Navigation -->

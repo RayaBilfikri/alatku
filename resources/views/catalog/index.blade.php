@@ -39,7 +39,7 @@
                         aria-label="Pencarian alat"
                     />
                 </div>
-                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-full">
+                <button id="searchBtn" type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-full">
                     Cari
                 </button>
             </form>
@@ -91,7 +91,7 @@
     </section>
     
     <!-- Pagination -->
-    <div class="mt-8 px-6" aria-label="Navigasi halaman">
+    <div id="pagination" class="mt-8 px-6" aria-label="Navigasi halaman">
         {{ $products->appends(request()->query())->links() }}
     </div>
 </main>
@@ -248,6 +248,16 @@
         });
 
         fetchAndRenderProducts();
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', function () {
+        // Tunggu sebentar agar hasil pencarian sempat dimuat dulu
+        setTimeout(function () {
+            const pagination = document.getElementById('pagination');
+            if (pagination) {
+                pagination.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 300); // Sesuaikan delay jika perlu
     });
 </script>
 </body>

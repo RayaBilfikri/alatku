@@ -154,13 +154,6 @@
                                             untuk berbagai kebutuhan proyek.<br>
                                             Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                         </p>
-
-
-                                        <div class="mt-8 text-right text-lg">
-                                            <a href="{{ route('catalog.index') }}" @click.stop="$event.stopPropagation()" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
-
-
-
                                         <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
                                             <button
                                                 @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"

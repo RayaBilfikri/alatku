@@ -11,7 +11,7 @@
 
         <!-- Navigation -->
         <nav class="p-4 space-y-2 text-sm">
-            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Beranda</a>
+            <a href="/dashboard" class="block py-2 px-3 rounded hover:bg-orange-100">Beranda</a>
 
             <!-- Submenu Kelola Akses dengan dropdown -->
             <div class="relative submenu-container">

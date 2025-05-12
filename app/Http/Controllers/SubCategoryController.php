@@ -32,7 +32,7 @@ class SubCategoryController extends Controller
             'categories_id' => $request->categories_id,
         ]);
 
-        return redirect()->route('superadmin.subcategories.index')->with('success', 'Sub Category added successfully.');
+        return redirect()->route('superadmin.subcategories.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function edit(SubCategory $subcategory)
@@ -53,12 +53,12 @@ class SubCategoryController extends Controller
             'categories_id' => $request->categories_id,
         ]);
 
-        return redirect()->route('superadmin.subcategories.index')->with('success', 'Sub Category updated successfully.');
+        return redirect()->route('superadmin.subcategories.index')->with('success', 'Data berhasil diperbarui');
     }
 
     public function destroy(SubCategory $subcategory)
     {
         $subcategory->delete();
-        return redirect()->route('superadmin.subcategories.index')->with('success', 'Sub Category deleted successfully.');
+        return redirect()->route('superadmin.subcategories.index')->with('success', 'Data berhasil dihapus');
     }
 }

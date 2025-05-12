@@ -22,8 +22,8 @@
                     <thead class="bg-gray-100">
                         <tr>
                             <th class="px-4 py-2 border text-left">Judul</th>
-                            <th class="px-4 py-2 border text-left">Gambar</th>
                             <th class="px-4 py-2 border text-left">Konten</th>
+                            <th class="px-4 py-2 border text-left">Gambar</th>
                             <th class="px-4 py-2 border text-left">Tanggal</th>
                             <th class="px-4 py-2 border text-center">Aksi</th>
                         </tr>

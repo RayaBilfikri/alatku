@@ -413,7 +413,7 @@
                 @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <div class="text-3xl text-gray-300 mb-4">"</div>
-                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        <p class="text-gray-700 text-base leading-relaxed mb-6">
                             {{ $testimonial->content }}
                         </p>
                         <div class="flex items-center">

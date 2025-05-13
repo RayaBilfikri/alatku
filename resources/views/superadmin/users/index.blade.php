@@ -92,6 +92,9 @@
                     @endif
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $users->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                </div>
             </div>
         </div>
     </main>

@@ -468,29 +468,39 @@
                     </p>
                 </div>
                 
-            <!-- Article cards using the dynamic data from the database -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
-                @foreach ($latestArticles as $article)
-                    <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative">
-                        <!-- Gambar menempel di kiri dan kanan -->
-                        <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
+                <!-- Article cards using the dynamic data from the database -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
+                    @if($latestArticles->count() > 0)
+                        @foreach ($latestArticles as $article)
+                            <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative">
+                                <!-- Gambar menempel di kiri dan kanan -->
+                                <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
-                        <!-- Teks dan tombol dengan padding -->
-                        <div class="p-4">
-                            <h3 class="text-black font-bold text-lg mb-2 mt-6">{{ $article->judul }}</h3>
+                                <!-- Teks dan tombol dengan padding -->
+                                <div class="p-4">
+                                    <h3 class="text-black font-bold text-lg mb-2 mt-6">{{ $article->judul }}</h3>
 
-                            <!-- Limiting the article content with padding -->
-                            <p class="text-black text-sm mb-4">
-                                {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
-                            </p>
+                                    <!-- Limiting the article content with padding -->
+                                    <p class="text-black text-sm mb-4">
+                                        {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
+                                    </p>
 
-                            <!-- Link to read the full article with padding -->
-                            <a href="#" class="flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">Baca Selengkapnya</a>
+                                    <!-- Link to read the full article with padding -->
+                                    <a href="#" class="flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="col-span-1 md:col-span-4 bg-orange-200 rounded-xl shadow-lg p-8 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h3 class="text-black font-bold text-xl mt-4 mb-2">Tidak Ada Artikel</h3>
+                            <p class="text-black">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
                         </div>
-                    </div>
-                @endforeach
+                    @endif
+                </div>
             </div>
-
         </div>
     </section>
 

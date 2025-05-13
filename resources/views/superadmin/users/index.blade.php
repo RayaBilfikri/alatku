@@ -93,7 +93,7 @@
                     </tbody>
                 </table>
                 <div class="mt-4">
-                    {{ $subcategories->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                    {{ $users->onEachSide(1)->links('vendor.pagination.tailwind') }}
                 </div>
             </div>
         </div>

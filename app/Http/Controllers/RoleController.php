@@ -36,14 +36,14 @@ class RoleController extends Controller
         // Sinkronisasi permission yang dipilih
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('roles.index')->with('success', 'Role berhasil ditambahkan.');
+        return redirect()->route('superadmin.roles.index')->with('success', 'Role berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
         $role = Role::findOrFail($id);
         $permissions = Permission::all();
-        $rolePermissions = $role->permissions->pluck('id')->toArray();
+        $rolePermissions = $role->permissions->pluck('name')->toArray();
 
         return view('superadmin.roles.edit', compact('role', 'permissions', 'rolePermissions'));
     }
@@ -52,17 +52,17 @@ class RoleController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'permissions' => 'required|array',
+            'permissions.*' => 'exists:permissions,name', // Tambahan validasi yang aman
         ]);
 
         $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->save();
 
-        // Konversi ID permission ke nama
-        $permissions = Permission::whereIn('id', $request->permissions)->pluck('name')->toArray();
-        $role->syncPermissions($permissions);
+        // Karena yang dikirim adalah permission name, langsung sync
+        $role->syncPermissions($request->permissions);
 
-        return redirect()->route('roles.index')->with('success', 'Role berhasil diperbaharui.');
+        return redirect()->route('superadmin.roles.index')->with('success', 'Role berhasil diperbaharui.');
     }
 
 
@@ -71,7 +71,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->delete();
 
-        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
+        return redirect()->route('superadmin.roles.index')->with('success', 'Role deleted successfully.');
     }
     public function show($id)
     {

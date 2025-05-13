@@ -28,7 +28,7 @@
             @endif
 
             {{-- Form Start --}}
-            <form action="{{ route('roles.store') }}" method="POST">
+            <form action="{{ route('superadmin.roles.store') }}" method="POST">
                 @csrf
 
                 {{-- Role Name --}}
@@ -68,7 +68,7 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex justify-end space-x-2">
-                    <a href="{{ route('roles.index') }}"
+                    <a href="{{ route('superadmin.roles.index') }}"
                         class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg transition">
                         Batal
                     </a>

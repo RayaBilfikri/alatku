@@ -26,7 +26,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah Kategori
+                    Tambah 
                 </a>
             </div>
 
@@ -36,7 +36,7 @@
                     <tr>
                         <th class="px-4 py-2 border">No</th>
                         <th class="px-4 py-2 border">Nama Kategori</th>
-                        <th class="px-4 py-2 border">Icon</th>
+                        <th class="px-4 py-2 border">Ikon</th>
                         <th class="px-4 py-2 border">Aksi</th>
                     </tr>
                     </thead>
@@ -58,8 +58,8 @@
                                        class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded focus:outline-none border-none">Edit</a>
 
                                     <form action="{{ route('superadmin.categories.destroy', $category->id) }}"
-                                          method="POST" class="inline-block"
-                                          onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
+                                        method="POST"
+                                        class="delete-form inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -87,7 +87,7 @@
 
                     @if ($categories->isEmpty())
                         <tr>
-                            <td colspan="4" class="text-center py-4">Belum ada kategori.</td>
+                            <td colspan="4" class="text-center py-4">Data tidak ada</td>
                         </tr>
                     @endif
                     </tbody>
@@ -118,6 +118,49 @@
         modal.classList.add('hidden');
     }
 </script>
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('message'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('message') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
 
 </body>
 </html>

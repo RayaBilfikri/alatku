@@ -59,7 +59,7 @@
             <div class="flex justify-start space-x-4">
                 <button type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md">
-                    Update
+                    Perbarui
                 </button>
                 <a href="{{ route('articles.index') }}"
                    class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md">

@@ -47,16 +47,20 @@
                                     <a href="{{ route('articles.edit', $article->id_articles) }}"
                                     class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
                                     <form action="{{ route('articles.destroy', $article->id_articles) }}"
-                                        method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus artikel ini?')">
+                                        method="POST"
+                                        class="delete-article-form inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>
+                                        <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded show-confirm-delete">
+                                            Hapus
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-4 text-gray-500">Belum ada artikel.</td>
+                                <td colspan="5" class="text-center py-4 text-gray-500">Data tidak ada</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -66,3 +70,46 @@
     </main>
 </div>
 @endsection
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-article-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('success'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif

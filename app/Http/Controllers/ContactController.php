@@ -29,7 +29,7 @@ class ContactController extends Controller
 
         Contact::create($request->all());
 
-        return redirect()->route('superadmin.contacts.index')->with('message', 'Contact added successfully.');
+        return redirect()->route('superadmin.contacts.index')->with('message', 'Data berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -48,13 +48,13 @@ class ContactController extends Controller
         $contact = Contact::findOrFail($id);
         $contact->update($request->all());
 
-        return redirect()->route('superadmin.contacts.index')->with('message', 'Contact updated successfully.');
+        return redirect()->route('superadmin.contacts.index')->with('message', 'Data berhasil diperbarui');
     }
     
 
     public function destroy($id)
     {
         Contact::destroy($id);
-        return redirect()->route('superadmin.contacts.index')->with('message', 'Contact deleted successfully.');
+        return redirect()->route('superadmin.contacts.index')->with('message', 'Data berhasil dihapus');
     }
 }

@@ -28,7 +28,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    Tambah Profil Website
+                    Tambah 
                 </a>
             </div>
 
@@ -62,13 +62,14 @@
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('superadmin.websiteprofiles.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus profil ini?')">
+                                    <form action="{{ route('superadmin.websiteprofiles.destroy', $profile->id) }}" method="POST" class="delete-form inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
                                             Hapus
                                         </button>
                                     </form>
+
 
                                     @if($profile->logo_website)
                                         <button onclick="showModal('{{ asset('storage/' . $profile->logo_website) }}')"
@@ -89,7 +90,7 @@
 
                         @if ($websiteProfiles->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-center py-4">Belum ada data profil website.</td>
+                            <td colspan="5" class="text-center py-4">Data tidak ada</td>
                         </tr>
                         @endif
                     </tbody>
@@ -122,6 +123,49 @@
             modal.classList.add('hidden');
         }
     </script>
+
+    <!-- sweet alert -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('.delete-form').on('submit', function (e) {
+                e.preventDefault(); // Mencegah form submit langsung
+
+                const form = this; // Simpan referensi form
+
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- notif berhasil -->
+    @if (session('message'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: '{{ session('message') }}',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            });
+        </script>
+    @endif
 
 </body>
 

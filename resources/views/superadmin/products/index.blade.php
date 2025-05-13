@@ -33,7 +33,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    Tambah Produk
+                    Tambah 
                 </a>
             </div>
 
@@ -60,11 +60,14 @@
                                 <td class="px-4 py-2 border">
                                     <div class="flex justify-center gap-2">
                                         <a href="{{ route('superadmin.products.edit', $product->id) }}" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
-                                        <form action="{{ route('superadmin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                        <form action="{{ route('superadmin.products.destroy', $product->id) }}" method="POST" class="delete-form inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>
+                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                                                Hapus
+                                            </button>
                                         </form>
+
 
                                         @if($product->gambar)
                                             <button onclick="showModal('{{ asset('storage/' . $product->gambar) }}', {
@@ -94,7 +97,7 @@
                         @empty
                             <tr>
                                 <td colspan="6" class="text-center py-4 text-gray-500">
-                                    Tidak ada produk ditemukan untuk pencarian:
+                                    Data tidak ada 
                                     <strong>{{ request('search') }}</strong>
                                 </td>
                             </tr>
@@ -183,6 +186,49 @@ function restoreMainImage() {
     document.getElementById('modalImage').src = window.originalImageSrc;
 }
 </script>
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('success'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
 
 </body>
 </html>

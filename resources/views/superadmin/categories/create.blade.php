@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="mb-6 flex items-center space-x-6">
-                    <label for="icon" class="w-40 text-sm font-medium">Icon</label>
+                    <label for="icon" class="w-40 text-sm font-medium">Ikon</label>
                     <input type="file" id="icon" name="icon" accept="image/*"
                         class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
                 </div>
@@ -60,7 +60,7 @@
                 <div class="flex justify-start space-x-4">
                     <button type="submit"
                             class="bg-blue-600 hover:bg-grey-500 text-white px-6 py-3 rounded-md">
-                        Tambahkan
+                        Tambah
                     </button>
                     <a href="{{ route('superadmin.categories.index') }}"
                        class="bg-red-500 hover:bg-grey-500 text-white px-6 py-3 rounded-md">

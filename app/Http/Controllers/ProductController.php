@@ -96,7 +96,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('superadmin.products.index')->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('superadmin.products.index')->with('success', 'Data berhasil ditambahkan');
     }
 
 
@@ -189,7 +189,7 @@ class ProductController extends Controller
         }
 
         // Redirect ke halaman produk dengan pesan sukses
-        return redirect()->route('superadmin.products.index')->with('success', 'Produk berhasil diperbarui');
+        return redirect()->route('superadmin.products.index')->with('success', 'Data berhasil diperbarui');
     }
 
 
@@ -215,7 +215,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('superadmin.products.index')->with('message', 'Product deleted successfully.');
+        return redirect()->route('superadmin.products.index')->with('success', 'Data berhasil dihapus');
     }
 
 

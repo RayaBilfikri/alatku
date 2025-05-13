@@ -20,7 +20,7 @@
 
         <!-- Form Tambah How to Buy -->
         <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Tambah How to Buy</h2>
+            <h2 class="text-2xl font-semibold mb-6 text-center">Tambah cara membeli</h2>
             <form action="{{ route('superadmin.howtobuys.store') }}" method="POST">
                 @csrf
 
@@ -45,7 +45,7 @@
                 <div class="flex justify-start space-x-4">
                     <button type="submit"
                             class="bg-blue-600 hover:bg-grey-500 text-white px-6 py-3 rounded-md">
-                        Tambahkan
+                        Tambah
                     </button>
                     <a href="{{ route('superadmin.howtobuys.index') }}"
                        class="bg-red-500 hover:bg-grey-500 text-white px-6 py-3 rounded-md">

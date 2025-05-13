@@ -26,14 +26,14 @@
     <div class="grid md:grid-cols-3 gap-6 mb-6">
       <!-- Left Box -->
       <div class="md:col-span-2 bg-orange-100 rounded-xl p-4 shadow-md">
-        <img src="{{ asset('storage/' . $product->main_image) }}" alt="{{ $product->name }}" class="w-full h-72 object-cover rounded-md mb-4">
+        <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-72 object-cover rounded-md mb-4">
         
-        @if($product->gallery && count($product->gallery))
-        <div class="flex gap-2 overflow-x-auto">
-          @foreach($product->gallery as $image)
-            <img src="{{ asset('storage/' . $image) }}" class="w-24 h-20 object-cover rounded border" alt="">
-          @endforeach
-        </div>
+        @if($product->images && $product->images->count())
+          <div class="flex gap-2 overflow-x-auto">
+            @foreach($product->images as $image)
+              <img src="{{ asset('storage/' . $image->image_path) }}" class="w-24 h-20 object-cover rounded border" alt="">
+            @endforeach
+          </div>
         @endif
       </div>
 

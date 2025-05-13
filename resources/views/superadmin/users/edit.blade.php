@@ -15,12 +15,13 @@
     <main class="flex-1 bg-gray-50 p-6">
         @include('partials.header')
 
-        <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-3xl mx-auto">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Edit Role User</h2>
+        <div class="bg-white shadow-md rounded-lg p-6 mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Edit Role User</h2>
 
-            <form action="{{ route('superadmin.users.edit', $user->id) }}" method="POST">
+            <form action="{{ route('users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
+
 
                 <!-- Nama -->
                 <div class="mb-6 flex items-center space-x-6">
@@ -37,33 +38,33 @@
                 </div>
 
                 <!-- Pilih Role -->
-                <div class="mb-6 flex items-start space-x-6">
-                    <label for="roles" class="w-40 text-sm font-medium mt-2">Pilih Role</label>
-                    <div class="flex-1">
+                <div class="mb-6 flex items-center space-x-6">
+                    <label for="roles" class="w-40 text-sm font-medium">Pilih Role</label>
+                    <select name="roles[]" id="roles" multiple
+                        class="flex-1 h-28 px-4 py-3 border border-gray-300 rounded bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         @foreach($roles as $role)
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" name="roles[]" id="role-{{ $role->id }}" value="{{ $role->id }}"
-                                    {{ (is_array(old('roles')) && in_array($role->id, old('roles'))) || $user->roles->contains('id', $role->id) ? 'checked' : '' }}
-                                    class="mr-2">
-                                <label for="role-{{ $role->id }}">{{ $role->name }}</label>
-                            </div>
+                            <option value="{{ $role->id }}" @if(collect(old('roles', $user->roles->pluck('id')))->contains($role->id)) selected @endif>
+                                {{ $role->name }}
+                            </option>
                         @endforeach
-
-                        @error('roles')
+                    </select>
+                    @error('roles')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    @enderror
                 </div>
 
-                <!-- Tombol -->
-                <div class="flex justify-start space-x-4">
-                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md">
-                        Perbarui
-                    </button>
+
+
+                {{-- Action Buttons --}}
+                <div class="flex justify-end space-x-2">
                     <a href="{{ route('users.index') }}"
-                       class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md">
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg transition">
                         Batal
                     </a>
+                    <button type="submit"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition font-semibold">
+                        Simpan
+                    </button>
                 </div>
             </form>
         </div>

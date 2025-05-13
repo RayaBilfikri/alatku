@@ -14,10 +14,10 @@
     @include('partials.sidebar')
 
     {{-- Main Content --}}
-    <main class="flex-1 p-6">
+    <main class="flex-1 bg-gray-50 p-6">
         @include('partials.header')
 
-        <div class="bg-white shadow-md rounded-lg p-6 max-w-3xl mx-auto">
+        <div class="bg-white shadow-md rounded-lg p-6 mx-auto">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Tambah Role Baru</h2>
 
             {{-- Flash Message --}}
@@ -36,7 +36,7 @@
                     <label for="name" class="block text-gray-700 font-semibold mb-2">Nama Role</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Contoh: Super Admin, Admin, Broker">
+                        placeholder="Contoh: Super Admin">
                     @error('name')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -44,12 +44,19 @@
 
                 {{-- Permissions --}}
                 <div class="mb-6">
-                    <label class="block text-gray-700 font-semibold mb-2">Pilih Permissions</label>
+                    <label class="block text-gray-700 font-semibold mb-2">Pilih Hak Akses</label>
+                    {{-- Pilih Semua --}}
+                    <div class="mb-4">
+                        <label class="flex items-centertext-sm font-bold text-gray-700 mb-2">
+                            <input type="checkbox" id="select-all" class="form-checkbox h-4 w-4 text-blue-600">
+                            <span class="ml-2">Pilih Semua Hak Akses</span>
+                        </label>
+                    </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                         @foreach($permissions as $permission)
                             <label class="flex items-center space-x-2 text-sm">
                                 <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"
-                                    class="text-blue-600 border-gray-300 rounded">
+                                    class="permission-checkbox text-blue-600 border-gray-300 rounded">
                                 <span>{{ ucwords(str_replace('_', ' ', $permission->name)) }}</span>
                             </label>
                         @endforeach
@@ -75,6 +82,20 @@
         </div>
     </main>
 </div>
+
+{{-- Script Pilih Semua --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectAll = document.getElementById('select-all');
+        const checkboxes = document.querySelectorAll('.permission-checkbox');
+
+        selectAll.addEventListener('change', function () {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

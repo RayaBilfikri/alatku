@@ -29,7 +29,11 @@ class CatalogController extends Controller
 
     public function show($id)
     {
+
+        $product = Product::with('images')->findOrFail($id);
+
        $product = Product::with('images')->findOrFail($id);
+
 
         return view('catalog.detailproduct', compact('product'));
     }

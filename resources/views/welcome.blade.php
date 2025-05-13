@@ -271,17 +271,14 @@
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <div class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+
+
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
                                     <div class="p-4">
                                         <h3 class="font-semibold text-base text-gray-800">{{ $product->name }}</h3>
-                                        <div class="flex items-center text-xs text-gray-500 mt-2 mb-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                            Indonesia
-                                        </div>
+                                        <p class="text-sm text-gray-600 mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
+                                        
                                         <div class="flex justify-between mb-3">
                                             <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
                                                 <div class="text-center">Tahun</div>
@@ -296,7 +293,7 @@
                                             Rp{{ number_format($product->harga, 0, ',', '.') }}
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             @empty
                                 <div class="min-w-full flex flex-col items-center justify-center py-12 text-gray-500">
                                     <!-- Ilustrasi SVG keranjang kosong -->
@@ -476,23 +473,24 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
                     @if($latestArticles->count() > 0)
                         @foreach ($latestArticles as $article)
-                            <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative">
-                                <!-- Gambar menempel di kiri dan kanan -->
-                                <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
+                        <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
+                            <!-- Gambar -->
+                            <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
-                                <!-- Teks dan tombol dengan padding -->
-                                <div class="p-4">
-                                    <h3 class="text-black font-bold text-lg mb-2 mt-6">{{ $article->judul }}</h3>
+                            <!-- Konten -->
+                            <div class="p-4 flex flex-col flex-grow">
+                            <h3 class="text-black font-bold text-lg mb-2 mt-4">{{ $article->judul }}</h3>
 
-                                    <!-- Limiting the article content with padding -->
-                                    <p class="text-black text-sm mb-4">
-                                        {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
-                                    </p>
+                            <p class="text-black text-sm mb-4 flex-grow">
+                                {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
+                            </p>
 
-                                    <!-- Link to read the full article with padding -->
-                                    <a href="#" class="flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">Baca Selengkapnya</a>
-                                </div>
+                            <!-- Tombol di posisi bawah -->
+                            <a href="#" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">
+                                Baca Selengkapnya
+                            </a>
                             </div>
+                        </div>
                         @endforeach
                     @else
                         <div class="col-span-1 md:col-span-4 bg-orange-200 rounded-xl shadow-lg p-8 text-center">

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -11,53 +12,56 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        //  Nonaktifkan foreign key constraints untuk sementara
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        // Nonaktifkan foreign key constraints untuk sementara (lebih aman untuk semua DB)
+        Schema::disableForeignKeyConstraints();
 
-        // Truncate semua tabel relasi permission
+        // Kosongkan tabel-tabel terkait permission & role
         DB::table('role_has_permissions')->truncate();
         DB::table('model_has_permissions')->truncate();
         DB::table('model_has_roles')->truncate();
         DB::table('permissions')->truncate();
         DB::table('roles')->truncate();
 
-        //  Aktifkan kembali foreign key constraints
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        // Aktifkan kembali foreign key constraints
+        Schema::enableForeignKeyConstraints();
 
-        // Hapus cache permission
+        // Hapus cache permission dari Spatie
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Permissions
-        $permissions = [
-            'Buat Pengguna','edit Pengguna','Hapus Pengguna',
-            'Buat Role','edit Role','Hapus Role',
-            'Buat Kategori','edit Kategori','Hapus Kategori',
-            'Buat Sub Kategori','edit Sub Kategori','Hapus Sub Kategori',
-            'Buat Produk','edit Produk','Hapus Produk',
-            'Buat carousel','edit carousel','Hapus carousel',
-            'Buat Kontak','edit Kontak','Hapus Kontak',
-            'Buat Cara Membeli','edit Cara Membeli','Hapus Cara Membeli',
-            'Buat Profil Website','edit Profil Website','Hapus Profil Website',
-            'Buat ulasan','edit ulasan','Hapus ulasan',
+        // Daftar modul dan aksi untuk membuat permission
+        $modules = [
+            'Pengguna', 'Role', 'Kategori', 'Sub Kategori', 'Produk',
+            'carousel', 'Kontak', 'Cara Membeli', 'Profil Website', 'ulasan',
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'web']);
+        $actions = ['Buat', 'edit', 'Hapus'];
+
+        // Generate semua permissions
+        $permissions = [];
+        foreach ($modules as $module) {
+            foreach ($actions as $action) {
+                $permissions[] = "$action $module";
+                Permission::firstOrCreate([
+                    'name' => "$action $module",
+                    'guard_name' => 'web',
+                ]);
+            }
         }
 
-        // Buat Role: Super Admin
-        $superAdmin = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'web']);
+        // Role: Superadmin (akses penuh)
+        $superAdmin = Role::firstOrCreate(['name' => 'superadmin', 'guard_name' => 'web']);
         $superAdmin->givePermissionTo(Permission::all());
 
-        // Buat Role: Broker
-        $broker = Role::firstOrCreate(['name' => 'Broker', 'guard_name' => 'web']);
-        $broker->givePermissionTo([
-            'Buat Kategori','edit Kategori','Hapus Kategori',
-            'Buat Sub Kategori','edit Sub Kategori','Hapus Sub Kategori',
-        ]);
+        // Role: Broker (akses terbatas, misalnya hanya ke kategori dan sub kategori)
+        $broker = Role::firstOrCreate(['name' => 'broker', 'guard_name' => 'web']);
+        $brokerPermissions = [
+            'Buat Kategori', 'edit Kategori', 'Hapus Kategori',
+            'Buat Sub Kategori', 'edit Sub Kategori', 'Hapus Sub Kategori',
+        ];
+        $broker->givePermissionTo($brokerPermissions);
 
-        // Buat Role: User (tanpa permission)
-        Role::firstOrCreate(['name' => 'User', 'guard_name' => 'web']);
+        // Role: User (tanpa permission)
+        Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
 
         $this->command->info('Seeder Role & Permission berhasil dijalankan ulang.');
     }

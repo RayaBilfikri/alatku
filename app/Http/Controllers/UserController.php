@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->paginate(10);
         return view('superadmin.users.index', compact('users'));
     }
 
@@ -46,46 +46,32 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::all();
+        $roles = Role::all(); // Ambil semua role
+
         return view('superadmin.users.edit', compact('user', 'roles'));
     }
 
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $id,
-        'roles' => 'required|array',
-        'roles.*' => 'exists:roles,id',
-    ]);
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
 
-    $user = User::findOrFail($id);
+        $request->validate([
+            'roles' => 'required|array',
+            'roles.*' => 'exists:roles,id',
+        ]);
 
-    // Cegah ubah user Super Admin
-    if ($user->hasRole('Super Admin')) {
-        return redirect()->back()->with('error', 'Tidak dapat mengubah user Super Admin.');
+        if ($user->hasRole('Super Admin')) {
+            return redirect()->route('users.index')->with('error', 'Role Super Admin tidak dapat diubah!');
+        }
+
+        // Ambil nama-nama role berdasarkan ID yang dipilih
+        $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
+
+        // Sync roles pakai nama
+        $user->syncRoles($roleNames);
+
+        return redirect()->route('users.index')->with('success', 'Role user berhasil diperbarui.');
     }
-
-    // Update Nama dan Email
-    $user->name = $request->name;
-    $user->email = $request->email;
-
-    // Update Password jika disertakan
-    if ($request->filled('password')) {
-        $user->password = Hash::make($request->password);
-    }
-
-    // Simpan perubahan
-    $user->save();
-
-    // Sinkronisasi Role
-    $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
-    $user->syncRoles($roleNames);
-
-    // Redirect ke halaman index dengan pesan sukses
-    return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
-}
-
 
     public function destroy($id)
     {
@@ -98,7 +84,7 @@ public function update(Request $request, $id)
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
+        return redirect()->route('users.show', $user->id)->with('success', 'User berhasil diperbarui.');
     }
 
     public function show($id)
@@ -106,5 +92,4 @@ public function update(Request $request, $id)
         $user = User::findOrFail($id);
         return view('superadmin.users.show', compact('user'));
     }
-
 }

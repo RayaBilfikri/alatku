@@ -48,6 +48,7 @@
                             </option>
                         @endforeach
                     </select>
+                <p class="text-xs text-gray-500 mt-1">Tekan Ctrl (Windows) / Cmd (Mac) untuk pilih lebih dari satu role</p>
                     @error('roles')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror

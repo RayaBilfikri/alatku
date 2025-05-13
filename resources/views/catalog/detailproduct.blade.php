@@ -34,8 +34,13 @@
     <!-- Grid Utama -->
     <div class="grid md:grid-cols-3 gap-6 mb-6">
 
+
       <!-- Kotak Kiri -->
       <div class="md:col-span-2 bg-white rounded-xl p-4 shadow-lg border border-orange-200">
+
+      <!-- Left Box -->
+      <div class="md:col-span-2 bg-orange-100 rounded-xl p-4 shadow-md">
+
         <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-72 object-cover rounded-md mb-4">
         
         @if($product->images && $product->images->count())

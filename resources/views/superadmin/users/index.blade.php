@@ -20,7 +20,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Data User</h2>
                 <a href="{{ route('users.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                    + Tambah User
+                    + Tambah
                 </a>
             </div>
 
@@ -92,6 +92,9 @@
                     @endif
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $users->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                </div>
             </div>
         </div>
     </main>

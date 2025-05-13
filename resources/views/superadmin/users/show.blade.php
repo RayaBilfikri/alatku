@@ -1,42 +1,96 @@
-@extends('layouts.superadmin')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
 
-@section('content')
-<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Detail Pengguna</h2>
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    @include('partials.sidebar')
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Section Nama Pengguna -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow-md">
-            <div class="text-base font-medium text-gray-600">Nama Pengguna</div>
-            <div class="text-lg font-semibold text-gray-800">{{ $user->name }}</div>
-        </div>
+    <!-- Main Content -->
+    <main class="flex-1 bg-gray-50 p-6">
+        @include('partials.header')
 
-        <!-- Section Email Pengguna -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow-md">
-            <div class="text-base font-medium text-gray-600">Email</div>
-            <div class="text-lg font-semibold text-gray-800">{{ $user->email }}</div>
-        </div>
-    </div>
+        <div class="bg-white shadow-md rounded-lg p-6 mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Detail User</h2>
 
-    <div class="mt-6">
-        <!-- Section Role -->
-        <div class="bg-gray-50 p-4 rounded-lg shadow-md">
-            <div class="text-base font-medium text-gray-600">Role Pengguna</div>
-            <div class="flex flex-wrap mt-2">
-                @foreach ($user->getRoleNames() as $role)
-                    <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-lg text-xs font-semibold mr-2 mb-2">{{ $role }}</span>
-                @endforeach
+            <table class="w-full text-left table-auto border border-gray-200 rounded-lg overflow-hidden">
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <th class="px-6 py-4 font-medium text-gray-700 w-1/4">
+                            <div class="flex justify-between">
+                                <span>Nama Lengkap</span>
+                                <span>:</span>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4 text-gray-900">{{ $user->name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-4 font-medium text-gray-700">
+                            <div class="flex justify-between">
+                                <span>Email</span>
+                                <span>:</span>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4 text-gray-900">{{ $user->email }}</td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-4 font-medium text-gray-700 align-top">
+                            <div class="flex justify-between">
+                                <span>Role</span>
+                                <span>:</span>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                @forelse ($user->roles as $role)
+                                    <span class="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
+                                        {{ $role->name }}
+                                    </span>
+                                @empty
+                                    <span class="text-gray-500">User ini belum memiliki role.</span>
+                                @endforelse
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="px-6 py-4 font-medium text-gray-700">
+                            <div class="flex justify-between">
+                                <span>Dibuat Pada</span>
+                                <span>:</span>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4 text-gray-900">
+                            {{ $user->created_at->translatedFormat('l, d F Y H:i') }} WIB
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+            <!-- Tombol Aksi -->
+            <div class="flex justify-end space-x-2 mt-6">
+                <a href="{{ route('users.index') }}"
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg transition font-semibold">
+                    Batal
+                </a>
+
+                <a href="{{ route('users.edit', $user->id) }}"
+                   class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition font-semibold">
+                    Edit
+                </a>
             </div>
         </div>
-    </div>
-
-    <div class="mt-8 text-center">
-        <a href="{{ route('users.index') }}" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7 7-7M5 12h14" />
-            </svg>
-            Kembali ke Daftar Pengguna
-        </a>
-    </div>
+    </main>
 </div>
-@endsection
+
+</body>
+</html>

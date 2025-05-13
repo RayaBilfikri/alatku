@@ -40,7 +40,7 @@ class UserController extends Controller
         $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
         $user->assignRole($roleNames);
 
-        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -50,41 +50,41 @@ class UserController extends Controller
         return view('superadmin.users.edit', compact('user', 'roles'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'roles' => 'required|array',
-            'roles.*' => 'exists:roles,id',
-        ]);
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'roles' => 'required|array',
+        'roles.*' => 'exists:roles,id',
+    ]);
 
-        $user = User::findOrFail($id);
+    $user = User::findOrFail($id);
 
-        // Cegah ubah user Super Admin
-        if ($user->hasRole('Super Admin')) {
-            return redirect()->back()->with('error', 'Tidak dapat mengubah user Super Admin.');
-        }
-
-        // Update Nama dan Email
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        // Jika password tidak disertakan dalam form, maka abaikan pembaruan password
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
-
-        // Menyimpan perubahan ke database
-        $user->save();
-
-        // Menyinkronkan roles yang dipilih oleh pengguna
-        $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
-        $user->syncRoles($roleNames);
-
-        // Redirect ke daftar user dengan pesan sukses
-        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil diperbarui.');
+    // Cegah ubah user Super Admin
+    if ($user->hasRole('Super Admin')) {
+        return redirect()->back()->with('error', 'Tidak dapat mengubah user Super Admin.');
     }
+
+    // Update Nama dan Email
+    $user->name = $request->name;
+    $user->email = $request->email;
+
+    // Update Password jika disertakan
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+    }
+
+    // Simpan perubahan
+    $user->save();
+
+    // Sinkronisasi Role
+    $roleNames = Role::whereIn('id', $request->roles)->pluck('name')->toArray();
+    $user->syncRoles($roleNames);
+
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
+}
 
 
     public function destroy($id)
@@ -98,7 +98,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('superadmin.users.index')->with('success', 'User berhasil dihapus.');
+        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
 
     public function show($id)

@@ -15,7 +15,7 @@ class UlasanController extends Controller
      */
     public function superadminIndex()
     {
-        $ulasans = Ulasan::with('user')->latest()->get();
+        $ulasans = Ulasan::with('user')->latest()->paginate(10);
         return view('superadmin.ulasans.index', compact('ulasans'));
     }
 

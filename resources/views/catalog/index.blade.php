@@ -16,6 +16,55 @@
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased" data-products-url="{{ route('products.ajax') }}">
+        <!-- Header lengkap dengan dropdown klikable -->
+    <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
+        <div class="flex items-center">
+            <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
+            <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
+            <nav class="ml-12 font-bold flex items-center space-x-8" style="transform: translateX(300px);">
+                <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
+                <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
+                <a href="{{ route('cara-membeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
+                <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
+            </nav>
+        </div>
+        
+        <!-- Profile atau Login/Register section -->
+        <div>
+            @guest
+                <div class="flex items-center space-x-4">
+                    <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
+                    <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+                </div>
+            @else
+                <div class="relative">
+                    <!-- Profile toggle button -->
+                    <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                            <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium">{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    
+                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                        <a href="{{ route('ulasan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                            <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
+                        </a>
+                        <hr class="my-1">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                                <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endguest
+        </div>
+    </header>
 
 <main>
     <!-- Banner -->
@@ -71,10 +120,7 @@
                 </div>
             </nav>
         </div>
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-xl md:text-2xl font-semibold mb-2">Temukan Alat Siap Pakai Untuk Pekerjaaan Anda</h2>
-            <p class="text-white">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
-        </div>
+
         <section id="subCategoryContainer" class="bg-white shadow-md rounded-3xl mx-6 my-6 p-4 hidden" aria-label="Subkategori Alat">
             <h3 class="text-lg font-semibold text-gray-700 mb-3">Subkategori</h3>
             <ul id="subCategoryList" class="flex flex-wrap gap-3"></ul>
@@ -83,60 +129,12 @@
 
     <!-- Produk -->
     <section id="productContainerWrapper" class="p-6">
+        <div class="max-w-7xl mx-auto text-center mb-10">
+            <h2 class="text-xl md:text-2xl font-semibold mb-2 text-black">Temukan Alat Siap Pakai Untuk Pekerjaaan Anda</h2>
+            <p class="text-black">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
+        </div>
         <section id="productContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-label="Daftar Produk"></section>
     </section>
-    
-    <!-- Pagination -->
-    <div id="pagination" class="mt-8 px-6" aria-label="Navigasi halaman">
-        {{ $products->appends(request()->query())->links() }}
-    </div>
-        <footer class="bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Brand and Company Info -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h2 class="text-3xl font-bold font-montserrat text-[#FFA41B] mb-4">ALATKU</h2>
-                    <p class="text-gray-300 text-center md:text-left">
-                       Solusi terpercaya untuk kebutuhan alat konstruksi Anda
-                    </p>
-                </div>
-                
-                <!-- Contact Information -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kontak Kami</h3>
-                    <div class="flex items-center mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#FFA41B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <p class="text-gray-300">Jl. Dr. Hadari Nawawi, Bansir Laut, Kota Pontianak</p>
-                    </div>
-                    <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#FFA41B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        <p class="text-gray-300">+62 813 4886 9922</p>
-                    </div>
-                </div>
-                
-                <!-- Website and Social Media -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kunjungi Kami</h3>
-                    <a href="https://www.alatku.com" class="flex items-center mb-3 hover:text-[#FFA41B] transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#FFA41B]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />
-                        </svg>
-                        <span>alatku.com</span>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Copyright Section -->
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-                <p class="text-gray-400">© 2025 alatKu. Hak Cipta Dilindungi di bawah naungan PT. Inti Teknologi Berdikari.</p>
-            </div>
-        </div>
-    </footer>
 </main>
 
 
@@ -166,7 +164,7 @@
                 return `
                     <div class="col-span-full flex flex-col items-center justify-center text-center w-full py-12">
                         <img src="/images/notfound.png" alt="Empty" class="w-40 h-40 mb-6 opacity-70" loading="lazy" />
-                        <p class="text-lg text-white font-semibold">${message}</p>
+                        <p class="text-lg text-black font-semibold">${message}</p>
                     </div>
                 `;
             };
@@ -183,7 +181,7 @@
 
                 productContainer.innerHTML = data.length
                     ? data.map(renderProduct).join("")
-                    : renderEmptyState("Tidak ada produk ditemukan.");
+                    : renderEmptyState("Ooops! Kayaknya produk yang Anda cari tidak ada nih:(");
 
                 // Tambahkan justify-center hanya jika produk lebih dari 4
                 if (data.length > 4) {
@@ -209,12 +207,7 @@
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="font-semibold text-md text-gray-800 truncate">${item.name}</h3>
                             <p class="text-sm text-gray-600">Kategori: ${item.sub_category?.category?.name ?? '-'}</p>
-                            <p class="text-sm text-gray-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 10s7-5.686 7-10A7 7 0 005 11c0 4.314 7 10 7 10z" />
-                                </svg>
-                                ${item.contact?.location ?? '-'}
-                            </p>
+                    
                             <div class="flex justify-between gap-2 text-sm font-medium mt-3">
                                 <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
                                     <p class="text-xs flex justify-center items-center gap-1">

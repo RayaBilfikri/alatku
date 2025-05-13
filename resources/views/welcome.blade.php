@@ -396,7 +396,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
-                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
+                        Terbantu sekali dengan adanya website ini.
                     </p>
                     <div class="flex items-center">
                         <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">

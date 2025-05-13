@@ -80,14 +80,14 @@
                                 @endif
 
                                 @if ($ulasan->status === 'approved')
-                                    <form action="{{ route('superadmin.ulasans.destroy', $ulasan->id) }}" method="POST" class="inline-block"
-                                          onsubmit="return confirm('Yakin ingin menghapus ulasan ini?')">
+                                    <form action="{{ route('superadmin.ulasans.destroy', $ulasan->id) }}" method="POST" class="delete-form inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
                                             Hapus
                                         </button>
                                     </form>
+
                                 @endif
                             </td>
                         </tr>
@@ -95,15 +95,61 @@
 
                     @if ($ulasans->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-center py-4">Tidak ada data ulasan.</td>
+                            <td colspan="5" class="text-center py-4">Data tidak ada</td>
                         </tr>
                     @endif
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $ulasans->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                </div>
             </div>
         </div>
     </main>
 </div>
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('message'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('message') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
 
 </body>
 </html>

@@ -39,7 +39,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah Sub Kategori
+                    Tambah
                 </a>
             </div>
 
@@ -56,7 +56,7 @@
                     <tbody>
                     @foreach($subcategories as $index => $subcategory)
                         <tr class="text-center">
-                            <td class="px-4 py-2 border">{{ $index + 1 }}</td>
+                            <td class="px-4 py-2 border">{{ $subcategories->firstItem() + $index }}</td>
                             <td class="px-4 py-2 border">{{ $subcategory->name }}</td>
                             <td class="px-4 py-2 border">{{ $subcategory->category->name ?? '-' }}</td>
                             <td class="px-4 py-2 border space-x-2">
@@ -66,30 +66,75 @@
                                     Edit
                                 </a>
                                  <form action="{{ route('superadmin.subcategories.destroy', $subcategory->id) }}"
-                                       method="POST" class="inline-block"
-                                       onsubmit="return confirm('Yakin ingin menghapus sub kategori ini?')">
-                                     @csrf
-                                     @method('DELETE')
-                                     <button type="submit"
-                                             class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
-                                         Hapus
-                                     </button>
-                                 </form>
+                                    method="POST" class="delete-form inline-block"> 
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                                        Hapus
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
 
                     @if ($subcategories->isEmpty())
                         <tr>
-                            <td colspan="4" class="text-center py-4">Tidak ada data sub kategori.</td>
+                            <td colspan="4" class="text-center py-4">Data tidak ada</td>
                         </tr>
                     @endif
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $subcategories->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                </div>
             </div>
         </div>
     </main>
 </div>
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('success'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
 
 </body>
 </html>

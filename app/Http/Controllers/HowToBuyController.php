@@ -28,7 +28,7 @@ class HowToBuyController extends Controller
 
         HowToBuy::create($request->all());
 
-        return redirect()->route('superadmin.howtobuys.index')->with('message', 'How to Buy step added successfully.');
+        return redirect()->route('superadmin.howtobuys.index')->with('message', 'Data berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -48,12 +48,12 @@ class HowToBuyController extends Controller
         $howtobuy = HowToBuy::findOrFail($id);
         $howtobuy->update($request->all());
 
-        return redirect()->route('superadmin.howtobuys.index')->with('message', 'How to Buy step updated successfully.');
+        return redirect()->route('superadmin.howtobuys.index')->with('message', 'Data berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         HowToBuy::destroy($id);
-        return redirect()->route('superadmin.howtobuys.index')->with('message', 'How to Buy step deleted successfully.');
+        return redirect()->route('superadmin.howtobuys.index')->with('message', 'Data berhasil dihapus');
     }
 }

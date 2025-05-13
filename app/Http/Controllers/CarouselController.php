@@ -56,7 +56,7 @@ class CarouselController extends Controller
         ]);
 
         return redirect()->route('superadmin.carousel.index')
-            ->with('success', 'Carousel berhasil ditambahkan.');
+            ->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -110,7 +110,7 @@ class CarouselController extends Controller
         $carousel->update($request->only(['judul', 'link', 'status']));
 
         return redirect()->route('superadmin.carousel.index')
-            ->with('success', 'Carousel berhasil diperbarui.');
+            ->with('success', 'Data berhasil diperbarui');
     }
 
     /**
@@ -126,7 +126,7 @@ class CarouselController extends Controller
         $carousel->delete();
 
         return redirect()->route('superadmin.carousel.index')
-            ->with('success', 'Carousel berhasil dihapus.');
+            ->with('success', 'Data berhasil dihapus');
     }
     
 }

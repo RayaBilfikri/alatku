@@ -19,14 +19,14 @@
         <div class="bg-white rounded-lg shadow p-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Data Role</h2>
-                <a href="{{ route('roles.create') }}"
+                <a href="{{ route('superadmin.roles.create') }}"
                    class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 4v16m8-8H4"/>
                     </svg>
-                    Tambah Role
+                    Tambah
                 </a>
             </div>
 
@@ -47,13 +47,13 @@
                             <td class="px-4 py-2 border">
                             <div class="flex justify-center items-center space-x-2">
                                 <!-- Tombol Edit -->
-                                <a href="{{ route('roles.edit', $role->id) }}"
+                                <a href="{{ route('superadmin.roles.edit', $role->id) }}"
                                 class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded focus:outline-none border-none">
                                     Edit
                                 </a>
 
                                 <!-- Tombol Hapus -->
-                                <form action="{{ route('roles.destroy', $role->id) }}"
+                                <form action="{{ route('superadmin.roles.destroy', $role->id) }}"
                                     method="POST" class="inline-block"
                                     onsubmit="return confirm('Yakin ingin menghapus role ini?')">
                                     @csrf
@@ -65,7 +65,7 @@
                                 </form>
 
                                 <!-- Tombol Lihat -->
-                                <a href="{{ route('roles.show', $role->id) }}"
+                                <a href="{{ route('superadmin.roles.show', $role->id) }}"
                                 class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded flex items-center justify-center focus:outline-none border-none"
                                 title="Lihat Role">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"

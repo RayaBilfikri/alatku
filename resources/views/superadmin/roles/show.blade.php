@@ -55,12 +55,12 @@
 
             <!-- Tombol Aksi -->
             <div class="flex justify-end space-x-2 mt-6">
-                <a href="{{ route('roles.index') }}"
+                <a href="{{ route('superadmin.roles.index') }}"
                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg transition font-semibold">
                     Batal
                 </a>
 
-                <a href="{{ route('roles.edit', $role->id) }}"
+                <a href="{{ route('superadmin.roles.edit', $role->id) }}"
                    class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition font-semibold">
                     Edit
                 </a>

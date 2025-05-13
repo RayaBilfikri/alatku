@@ -19,6 +19,11 @@
 
         <div class="bg-white shadow-md rounded-lg p-6 mx-auto">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Detail User</h2>
+                @if(session('success'))
+                    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
             <table class="w-full text-left table-auto border border-gray-200 rounded-lg overflow-hidden">
                 <tbody class="divide-y divide-gray-200">

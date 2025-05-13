@@ -28,8 +28,9 @@
             @endif
 
             {{-- Form Start --}}
-            <form action="{{ route('roles.store') }}" method="POST">
+            <form action="{{ route('superadmin.roles.update', $role->id) }}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <!-- Input Nama Role -->
                 <div class="mb-4">
@@ -44,7 +45,7 @@
                     <label class="block text-gray-700 font-semibold mb-2">Pilih Hak Akses</label>
                     {{-- Pilih Semua --}}
                     <div class="mb-4">
-                        <label class="flex items-centertext-sm font-bold text-gray-700 mb-2">
+                        <label class="flex items-center text-sm font-bold text-gray-700 mb-2">
                             <input type="checkbox" id="select-all" class="form-checkbox h-4 w-4 text-blue-600">
                             <span class="ml-2">Pilih Semua Hak Akses</span>
                         </label>
@@ -53,7 +54,8 @@
                         @foreach($permissions as $permission)
                             <label class="flex items-center space-x-2 text-sm">
                                 <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"
-                                    class="permission-checkbox text-blue-600 border-gray-300 rounded">
+                                    class="permission-checkbox text-blue-600 border-gray-300 rounded"
+                                    {{ in_array($permission->name, $rolePermissions) ? 'checked' : '' }}>
                                 <span>{{ ucwords(str_replace('_', ' ', $permission->name)) }}</span>
                             </label>
                         @endforeach
@@ -65,7 +67,7 @@
 
                 {{-- Action Buttons --}}
                 <div class="flex justify-end space-x-2">
-                    <a href="{{ route('roles.index') }}"
+                    <a href="{{ route('superadmin.roles.index') }}"
                         class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg transition">
                         Batal
                     </a>

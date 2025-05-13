@@ -12,10 +12,10 @@
 <div class="flex min-h-screen">
     @include('partials.sidebar')
 
-    <main class="flex-1 p-6">
+    <main class="flex-1 bg-gray-50 p-6">
         @include('partials.header')
 
-        <div class="bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto">
+        <div class="bg-white shadow-md rounded-lg p-6 mx-auto">
             <h2 class="text-2xl font-bold mb-6">Tambah User Baru</h2>
 
             <form action="{{ route('users.store') }}" method="POST">

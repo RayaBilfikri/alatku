@@ -46,10 +46,10 @@ Route::get('/ajax/products', [CatalogController::class, 'ajaxFilteredProducts'])
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 // Route untuk Role
-Route::resource('/roles', RoleController::class);
-// Route untuk User
-Route::resource('/users', UserController::class);
-
+Route::middleware(['auth', CheckSuperadmin::class])->group(function () {
+    Route::resource('roles', RoleController::class)->names('superadmin.roles');
+    Route::resource('users', UserController::class);
+});
 
 
 

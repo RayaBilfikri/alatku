@@ -262,7 +262,7 @@
         ></div>
 
         <!-- Navigation Buttons -->
-        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-0">
             <button @click="prev()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
                 ‹
             </button>
@@ -272,7 +272,7 @@
         </div>
 
         <!-- Carousel Indicators -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-0">
             <template x-for="(slide, index) in slides" :key="index">
                 <button 
                     @click="activeSlide = index"
@@ -472,10 +472,9 @@
                 @endforeach
             </div>
 
-
             <!-- Modal Register-->
-            <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
-                <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl">
+            <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] opacity-0 pointer-events-none transition-all duration-300">
+                <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl relative z-[10000]">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800">Pemberitahuan</h3>
                         <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
@@ -504,7 +503,7 @@
 
 
    <!--Article Section-->
-    <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6">
+    <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6 z-0">
         <!-- Background gradient layer (matching testimonial section) -->
 
         <!-- Content layer -->
@@ -785,6 +784,7 @@
                     logoutModalBackdrop.classList.add('opacity-100');
                     logoutModalContent.classList.remove('scale-95', 'opacity-0');
                     logoutModalContent.classList.add('scale-100', 'opacity-100');
+                    
                 }, 10);
             }
             

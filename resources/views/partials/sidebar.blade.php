@@ -47,8 +47,9 @@
     <div class="p-4 border-t">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="flex items-center w-full py-2 px-3 rounded text-sm text-red-600 hover:bg-red-100">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- Logout button trigger modal -->
+            <button type="button" onclick="showLogoutModal()" class="flex items-center w-full py-2 px-3 rounded text-sm text-red-600 hover:bg-red-100">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                 </svg>
                 Logout
@@ -56,6 +57,39 @@
         </form>
     </div>
 </aside>
+
+<!-- Hidden logout form -->
+<form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">
+    @csrf
+</form>
+
+<!-- Logout Modal -->
+<div id="logoutModal" class="fixed inset-0 z-[9999] bg-black/40 flex items-center justify-center hidden">
+    <div class="relative bg-white p-6 rounded-xl shadow-xl w-full max-w-md mx-auto transform transition-all scale-95">
+
+        <!-- Tombol close -->
+        <button onclick="hideLogoutModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg">
+            &times;
+        </button>
+
+        <!-- Icon warning -->
+        <div class="flex justify-center mb-4">
+            <svg class="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M4.93 19h14.14a2 2 0 001.74-3l-7.07-12a2 2 0 00-3.48 0l-7.07 12a2 2 0 001.74 3z"/>
+            </svg>
+        </div>
+
+        <h2 class="text-xl font-semibold text-center text-gray-800 mb-2">Konfirmasi Logout</h2>
+        <p class="text-sm text-center text-gray-600 mb-6">Apakah Anda yakin ingin keluar?</p>
+
+        <div class="flex justify-center">
+            <button onclick="document.getElementById('logoutForm').submit()" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm transition">
+                Logout
+            </button>
+        </div>
+    </div>
+</div>
+
 
 <script>
 function toggleSubmenu(button) {
@@ -77,4 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
         icon.classList.add('rotate-180');
     }
 });
+
+function showLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    modal.classList.remove('hidden');
+    setTimeout(() => modal.querySelector('div').classList.replace('scale-95', 'scale-100'), 10);
+}
+
+function hideLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    modal.querySelector('div').classList.replace('scale-100', 'scale-95');
+    setTimeout(() => modal.classList.add('hidden'), 150);
+}
+
 </script>

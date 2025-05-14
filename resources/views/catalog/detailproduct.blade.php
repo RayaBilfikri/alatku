@@ -90,7 +90,14 @@
 
         <!-- Tombol WhatsApp -->
         @php
-          $waNumber = preg_replace('/[^0-9]/', '', $product->contact->no_wa);
+          $rawNumber = preg_replace('/[^0-9]/', '', $product->contact->no_wa);
+
+          // Jika nomor diawali 0 → ganti dengan 62
+          $waNumber = str_starts_with($rawNumber, '0')
+              ? '+62' . substr($rawNumber, 1)
+              : $rawNumber;
+
+          // Pesan yang dikirim otomatis
           $waMessage = urlencode("Halo, saya tertarik dengan produk {$product->name}. Boleh minta info lebih lanjut?");
         @endphp
 

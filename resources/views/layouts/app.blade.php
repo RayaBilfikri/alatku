@@ -40,7 +40,7 @@
             <div class="absolute left-1/2 transform -translate-x-1/2 space-x-6 font-montserrat font-bold">
                 <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
                 <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
-                <a href="/cara-membeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
+                <a href="/caramembeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
                 <a href="/artikel" class="hover:text-orange-600 text-sm">Artikel</a>
             </div>
 

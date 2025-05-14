@@ -262,7 +262,7 @@
         ></div>
 
         <!-- Navigation Buttons -->
-        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-0">
             <button @click="prev()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
                 ‹
             </button>
@@ -272,7 +272,7 @@
         </div>
 
         <!-- Carousel Indicators -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-0">
             <template x-for="(slide, index) in slides" :key="index">
                 <button 
                     @click="activeSlide = index"
@@ -316,7 +316,7 @@
                 <div class="md:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2" id="carousel">
+                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2 font-montserrat" id="carousel">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
 
@@ -326,16 +326,17 @@
                                         <h3 class="font-semibold text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-sm text-gray-600 mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
                                         
-                                        <div class="flex justify-between mb-3">
-                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                                <div class="text-center">Tahun</div>
-                                                <div class="font-bold text-center">{{ $product->year_of_build }}</div>
+                                        <div class="flex justify-between gap-2 mb-3">
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-4 py-2 rounded-full min-w-[110px] flex flex-col items-center">
+                                                <span>Tahun</span>
+                                                <span class="font-bold">{{ $product->year_of_build }}</span>
                                             </div>
-                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-7 py-1 rounded-full">
-                                                <div class="text-center">Jam operasional</div>
-                                                <div class="font-bold text-center">{{ $product->hours_meter }} jam</div> 
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-4 py-2 rounded-full min-w-[140px] flex flex-col items-center">
+                                                <span>Jam operasional</span>
+                                                <span class="font-bold">{{ $product->hours_meter }} jam</span>
                                             </div>
                                         </div>
+
                                         <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
                                             Rp{{ number_format($product->harga, 0, ',', '.') }}
                                         </div>
@@ -471,10 +472,9 @@
                 @endforeach
             </div>
 
-
             <!-- Modal Register-->
-            <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
-                <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl">
+            <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] opacity-0 pointer-events-none transition-all duration-300">
+                <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl relative z-[10000]">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800">Pemberitahuan</h3>
                         <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
@@ -503,7 +503,7 @@
 
 
    <!--Article Section-->
-    <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6">
+    <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6 z-0">
         <!-- Background gradient layer (matching testimonial section) -->
 
         <!-- Content layer -->
@@ -784,6 +784,7 @@
                     logoutModalBackdrop.classList.add('opacity-100');
                     logoutModalContent.classList.remove('scale-95', 'opacity-0');
                     logoutModalContent.classList.add('scale-100', 'opacity-100');
+                    
                 }, 10);
             }
             

@@ -231,30 +231,16 @@
         });
 
         fetchAndRenderProducts();
-    });
 
-    document.getElementById('searchBtn').addEventListener('click', function () {
-        // Tunggu sebentar agar hasil pencarian sempat dimuat dulu
-        setTimeout(function () {
-            const pagination = document.getElementById('pagination');
-            if (pagination) {
-                pagination.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 300);
-    });
-    
-    searchInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            searchBtn.click(); // Pencet tombol cari (biar query jalan)
-            
-            setTimeout(function () {
-                const pagination = document.getElementById('pagination');
-                if (pagination) {
-                    pagination.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 300); // Delay untuk nunggu hasil
+        if (searchForm && productContainerWrapper) {
+            searchForm.addEventListener('submit', function () {
+                // Delay scroll agar produk sempat dimuat (jika hasil tampil setelah reload)
+                setTimeout(() => {
+                    productContainerWrapper.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            });
         }
+
     });
 </script>
 </body>

@@ -533,7 +533,7 @@
                             </p>
 
                             <!-- Tombol di posisi bawah -->
-                            <a href="#" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">
+                            <a href="{{ route('artikel.show', $article->id_articles) }}" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">
                                 Baca Selengkapnya
                             </a>
                             </div>

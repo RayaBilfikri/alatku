@@ -50,7 +50,7 @@
                             <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
                         </a>
                         <hr class="my-1">
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form id="logoutForm" method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
                                 <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
@@ -61,6 +61,53 @@
             @endguest
         </div>
     </header>
+
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Backdrop/Overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300" id="logoutModalBackdrop"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="logoutModalContent">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-4 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900">
+                    Konfirmasi Logout
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeLogoutModal">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6">
+                <div class="flex items-center mb-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-gray-700">Apakah Anda yakin ingin keluar dari sistem?</p>
+                        <p class="text-sm text-gray-500 mt-1">Anda perlu login kembali untuk mengakses fitur ulasan.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
+                <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-sm transition-colors duration-200" id="cancelLogout">
+                    Batal
+                </button>
+                <button type="button" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg text-sm transition-colors duration-200" id="confirmLogout">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Hero Section Carousel -->
@@ -711,6 +758,71 @@
         const closeBtn = document.getElementById('closeModal');
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
+        const logoutForm = document.getElementById('logoutForm');
+
+
+        if (logoutForm) {
+            const logoutButton = logoutForm.querySelector('button[type="submit"]');
+            const logoutModal = document.getElementById('logoutModal');
+            const logoutModalContent = document.getElementById('logoutModalContent');
+            const logoutModalBackdrop = document.getElementById('logoutModalBackdrop');
+            const closeLogoutModal = document.getElementById('closeLogoutModal');
+            const cancelLogout = document.getElementById('cancelLogout');
+            const confirmLogout = document.getElementById('confirmLogout');
+            
+            // Prevent the default form submission
+            logoutButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+            
+            // Function to open the modal with animation
+            function openModal() {
+                logoutModal.classList.remove('hidden');
+                // Trigger animation after a small delay to ensure the display change has applied
+                setTimeout(() => {
+                    logoutModalBackdrop.classList.add('opacity-100');
+                    logoutModalContent.classList.remove('scale-95', 'opacity-0');
+                    logoutModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+            
+            // Function to close the modal with animation
+            function closeModal() {
+                logoutModalContent.classList.remove('scale-100', 'opacity-100');
+                logoutModalContent.classList.add('scale-95', 'opacity-0');
+                logoutModalBackdrop.classList.remove('opacity-100');
+                
+                // Wait for animation to finish before hiding the modal
+                setTimeout(() => {
+                    logoutModal.classList.add('hidden');
+                }, 300);
+            }
+            
+            // Close modal when clicking close button or cancel button
+            closeLogoutModal.addEventListener('click', closeModal);
+            cancelLogout.addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside
+            logoutModal.addEventListener('click', function(e) {
+                if (e.target === logoutModal || e.target === logoutModalBackdrop) {
+                    closeModal();
+                }
+            });
+            
+            // Handle the confirmation button - submit the form
+            confirmLogout.addEventListener('click', function() {
+                logoutForm.submit();
+            });
+            
+            // Handle escape key to close the modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        }
+
         
         
         function updateActiveItem(carousel, direction) {

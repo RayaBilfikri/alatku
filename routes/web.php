@@ -31,6 +31,8 @@ Route::get('/', [WelcomeController::class, 'index'])->name('home');
 Route::get('/tentang-kami', [PageController::class, 'about'])->name('tentang-kami');
 Route::get('/caramembeli', [CaraMembeliController::class, 'index'])->name('caramembeli');
 Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel');
+Route::get('/artikel/{slug}', [ArtikelController::class, 'show'])->name('artikel.show');
+
 
 
 

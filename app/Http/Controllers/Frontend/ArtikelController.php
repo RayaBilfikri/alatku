@@ -15,4 +15,10 @@ class ArtikelController extends Controller
         // Mengirimkan data ke view artikel.index
         return view('artikel.index', compact('latestArticles'));
     }
+
+    public function show($id)
+{
+    $article = Article::findOrFail($id);
+    return view('artikel.show', compact('article'));
+}
 }

@@ -41,7 +41,7 @@
                             {!! Str::limit(strip_tags($article->konten_artikel), 80) !!}
                         </div>
                         <div class="flex justify-end">
-                            <a href="#" class="inline-block px-4 py-2 text-sm text-white bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                            <a href="{{ route('artikel.show', $article->id_articles) }}" class="inline-block px-4 py-2 text-sm text-white bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
                                 Baca Selengkapnya
                             </a>
                         </div>

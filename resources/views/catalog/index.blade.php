@@ -1,71 +1,7 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Katalog Alat</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        #scrollContainer::-webkit-scrollbar { height: 8px; }
-        #scrollContainer::-webkit-scrollbar-track { background: transparent; }
-        #scrollContainer::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.3); border-radius: 4px; }
-        #scrollContainer::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.5); }
-        #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
-        .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
-        .subkategori-item { color: #374151; } 
-    </style>
-</head>
-<body class="bg-white text-gray-800 antialiased" data-products-url="{{ route('products.ajax') }}">
-        <!-- Header lengkap dengan dropdown klikable -->
-    <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
-        <div class="flex items-center">
-            <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
-            <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
-            <nav class="ml-12 font-bold flex items-center space-x-8" style="transform: translateX(300px);">
-                <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
-                <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
-                <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
-                <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
-            </nav>
-        </div>
-        
-        <!-- Profile atau Login/Register section -->
-        <div>
-            @guest
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
-                    <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
-                </div>
-            @else
-                <div class="relative">
-                    <!-- Profile toggle button -->
-                    <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                            <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
-                        </div>
-                        <span class="font-medium">{{ Auth::user()->name }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    
-                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
-                        <a href="{{ route('ulasan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
-                            <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
-                        </a>
-                        <hr class="my-1">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
-                                <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            @endguest
-        </div>
-    </header>
+@extends('layouts.app')
 
+@section('content')
+<body class="bg-white text-gray-800 antialiased" data-products-url="{{ route('products.ajax') }}">
 <main>
     <!-- Banner -->
     <section class="bg-cover bg-center relative" style="background-image: url('/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png'); height: 300px;" aria-label="Banner Pencarian Alat">
@@ -137,7 +73,15 @@
     </section>
 </main>
 
-
+<style>
+    #scrollContainer::-webkit-scrollbar { height: 8px; }
+    #scrollContainer::-webkit-scrollbar-track { background: transparent; }
+    #scrollContainer::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.3); border-radius: 4px; }
+    #scrollContainer::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.5); }
+    #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
+    .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
+    .subkategori-item { color: #374151; } 
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const kategoriLinks = document.querySelectorAll(".kategori-link");
@@ -314,5 +258,4 @@
     });
 </script>
 </body>
-
-</html>
+@endsection

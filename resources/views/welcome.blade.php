@@ -465,13 +465,18 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
+
+                    <!-- Spacer khusus desktop -->
+                    <div class="hidden md:block md:mb-4"></div>
+
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">
                         Terbantu sekali dengan adanya website ini.
                     </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
+
+                    <div class="flex items-center mt-auto">
+                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Onana</p>
                             <p class="text-xs text-gray-500">user</p>

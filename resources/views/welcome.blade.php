@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -783,6 +784,15 @@
     .animate-slideUpFade {
     animation: slideUpFade 0.8s ease-out forwards;
     }
+
+    /* Mobile (hingga 576px) */
+    @media (max-width: 576px) { /* aturan CSS */ }
+
+    /* Tablet (577px - 768px) */
+    @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
+
+    /* Desktop (769px keatas) */
+    @media (min-width: 769px) { /* aturan CSS */ }
 
 </style>
 </html>

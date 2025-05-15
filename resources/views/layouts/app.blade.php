@@ -46,7 +46,7 @@
             </button>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold">
+            <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold mt-3">
                 <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
                 <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
                 <a href="/caramembeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>

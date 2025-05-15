@@ -200,17 +200,15 @@
                     <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                <div class="relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center ml-0 mb-6 md:mb-0 md:ml-4 shrink-0">
-                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
-  
-                                <div class="md:ml-10 text-left md:max-w-xl flex-grow">
-                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">
+                                <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                    <p class="hidden sm:block text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
                                         Jelajahi beragam peralatan industri dan konstruksi<br>
                                         untuk berbagai kebutuhan proyek.<br>
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.

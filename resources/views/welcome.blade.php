@@ -139,20 +139,14 @@
     <section 
         x-data="{ 
             activeSlide: 0,
-            // Menggabungkan slide statis dengan carousel dari database
             slides: [
-                // Slide statis
                 {
                     id: 0,
                     is_static: true,
                     judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
                     gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
-
                     link: '{{ route('catalog.index') }}'
-
-
                 },
-                // Menambahkan data carousel dari database (jika ada)
                 @if($carousels->count() > 0)
                     {
                         id: 1,
@@ -162,24 +156,17 @@
                         link: '{{ $carousels->first()->link }}'
                     }
                 @endif
-
             ],
-            
             next() { 
                 this.activeSlide = (this.activeSlide + 1) % this.slides.length;
             },
-            
             prev() { 
                 this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
             },
-            
-            // Autoplay
             autoplayInterval: null,
-            
             startAutoplay() {
                 this.autoplayInterval = setInterval(() => this.next(), 8000);
             },
-            
             stopAutoplay() {
                 clearInterval(this.autoplayInterval);
             }
@@ -188,62 +175,62 @@
         @mouseover="stopAutoplay()"
         @mouseout="startAutoplay()"
         x-cloak
-        class="relative bg-gray-100 py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
+        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
             <template x-for="(slide, index) in slides" :key="index">
-                    <div 
-                        x-show="activeSlide === index" 
-                        x-transition:enter="transition ease-out duration-500"
-                        x-transition:enter-start="opacity-0 transform translate-x-full"
-                        x-transition:enter-end="opacity-100 transform translate-x-0"
-                        x-transition:leave="transition ease-in duration-300"
-                        x-transition:leave-start="opacity-100 transform translate-x-0"
-                        x-transition:leave-end="opacity-0 transform -translate-x-full"
-                        class="absolute inset-0 w-full h-full rounded-3xl"
-                    >
-                        <!-- Background -->
-                        <img :src="slide.gambar" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
-                        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
+                <div 
+                    x-show="activeSlide === index" 
+                    x-transition:enter="transition ease-out duration-500"
+                    x-transition:enter-start="opacity-0 transform translate-x-full"
+                    x-transition:enter-end="opacity-100 transform translate-x-0"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform translate-x-0"
+                    x-transition:leave-end="opacity-0 transform -translate-x-full"
+                    class="absolute inset-0 w-full h-full rounded-3xl"
+                    style="will-change: transform, opacity;"
+                >
+                    <!-- Background -->
+                    <img :src="slide.gambar" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
-                        <!-- Content -->
-                        <div class="container mx-auto relative z-10 h-full flex items-center">
-                            <!-- Static Hero Slide -->
-                            <template x-if="slide.is_static">
-                                <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center ml-4 mb-8 md:mb-0">
-                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 ml-4 translate-y-8">
-                                    </div>
-                                    
-                                    <div class="md:ml-12 text-left md:max-w-xl flex-grow">
-                                        <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
-                                            DARI DARAT KE LAUT,<br>
-                                            KAMI SIAP MENDUKUNG ANDA!
-                                        </h1>
-                                        <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
-                                            Jelajahi beragam peralatan industri dan konstruksi<br>
-                                            untuk berbagai kebutuhan proyek.<br>
-                                            Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
-                                        </p>
-                                        <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
-                                            <button
-                                                @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
-                                                class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
-                                            >
-                                                Cari Solusi Industri Anda
-                                            </button>
-                                        </div>
+                    <!-- Content -->
+                    <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
+                        <template x-if="slide.is_static">
+                            <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
+                                <div class="relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center ml-0 mb-6 md:mb-0 md:ml-4 shrink-0">
+                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                    <div class="absolute inset-0 bg-orange-500/10"></div>
+                                </div>
+  
+                                <div class="md:ml-10 text-left md:max-w-xl flex-grow">
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">
+                                        DARI DARAT KE LAUT,<br>
+                                        KAMI SIAP MENDUKUNG ANDA!
+                                    </h1>
+                                    <p class="text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                        Jelajahi beragam peralatan industri dan konstruksi<br>
+                                        untuk berbagai kebutuhan proyek.<br>
+                                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                    </p>
+                                    <div class="absolute bottom-8 right-6 z-20">
+                                        <button
+                                            @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
+                                            class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                        >
+                                            Cari Solusi Industri Anda
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
                         </template>
 
-                        <!-- Dynamic Slide dari Database -->
                         <template x-if="!slide.is_static">
-                            <div class="w-full text-center text-white">
-                                <h2 class="text-2xl md:text-4xl font-akira font-bold mb-4" x-text="slide.judul"></h2>
+                            <div class="w-full text-center text-white px-4 sm:px-8 md:px-0">
+                                <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight" x-text="slide.judul"></h2>
                                 <template x-if="slide.link">
-                                    <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                                    <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 inline-block shadow-lg">
                                         Kunjungi
                                     </a>
                                 </template>
@@ -254,7 +241,6 @@
             </template>
         </div>
 
-        <!-- Hanya tampilkan navigasi jika ada lebih dari 1 slide -->
         @if($carousels->count() > 0)
         <!-- Touch/Mouse Swipe Area -->
         <div 
@@ -287,27 +273,39 @@
         ></div>
 
         <!-- Navigation Buttons -->
-        <div class="absolute bottom-6 right-6 flex space-x-2 z-0">
-            <button @click="prev()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+            <button 
+                @click="prev()" 
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                aria-label="Previous Slide"
+            >
                 ‹
             </button>
-            <button @click="next()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+            <button 
+                @click="next()" 
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                aria-label="Next Slide"
+            >
                 ›
             </button>
         </div>
 
         <!-- Carousel Indicators -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-0">
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
             <template x-for="(slide, index) in slides" :key="index">
                 <button 
                     @click="activeSlide = index"
                     :class="{'bg-orange-500': activeSlide === index, 'bg-white': activeSlide !== index}"
-                    class="w-3 h-3 rounded-full shadow-md transition"
+                    class="w-4 h-4 rounded-full shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-orange-400"
+                    :aria-current="activeSlide === index ? 'true' : 'false'"
+                    :aria-label="'Go to slide ' + (index + 1)"
                 ></button>
             </template>
         </div>
         @endif
     </section>
+
+
 
     <!-- Equipment Sale with Product Card Section -->
     <section id="equipment-sale" class="bg-[#525fe1] py-10 px-4 md:py-16 lg:py-20 md:px-8 lg:px-10 relative overflow-hidden z-6">
@@ -642,6 +640,10 @@
         }
     }
 
+    .icon-position {
+        transform: translateY(10%);
+    }
+
     @font-face {
         font-family: 'Akira Expanded';
         src: url('/fonts/AkiraExpanded.otf') format('opentype');
@@ -765,6 +767,21 @@
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(1.3);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-6%) scale(1.3);
+    }
+    }
+
+    .animate-slideUpFade {
+    animation: slideUpFade 0.8s ease-out forwards;
     }
 
 </style>

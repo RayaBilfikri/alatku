@@ -80,7 +80,11 @@
     #scrollContainer::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.5); }
     #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
     .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
-    .subkategori-item { color: #374151; } 
+    .subkategori-item { color: #374151; }
+    .active-kategori {
+        background-color:rgb(254, 234, 147);
+        color: black;
+    }
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -186,6 +190,11 @@
             document.querySelectorAll('.active-subcategory').forEach(el => el.classList.remove('active-subcategory'));
         }
 
+        function clearActiveCategories() {
+            document.querySelectorAll('.kategori-link').forEach(el => el.classList.remove('active-kategori'));
+        }
+
+
         kategoriLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -194,15 +203,25 @@
 
                 subList.innerHTML = "";
 
+                // Toggle category selection
                 if (currentCategory === label) {
                     currentCategory = null;
                     currentSubcategory = null;
                     subContainer.classList.add('hidden');
                     clearActiveSubcategories();
+                    clearActiveCategories();
                     fetchAndRenderProducts();
                     return;
                 }
 
+                // Update selected category
+                clearActiveCategories();
+                clearActiveSubcategories();
+                link.classList.add('active-kategori');
+                currentCategory = label;
+                currentSubcategory = null;
+
+                // Show subcategories
                 subkategoriList.forEach(name => {
                     const item = document.createElement('li');
                     item.textContent = name;
@@ -217,12 +236,10 @@
                 });
 
                 subContainer.classList.remove('hidden');
-                currentCategory = label;
-                currentSubcategory = null;
-                clearActiveSubcategories();
                 fetchAndRenderProducts();
             });
         });
+
 
         searchForm.addEventListener("submit", (e) => {
             e.preventDefault();

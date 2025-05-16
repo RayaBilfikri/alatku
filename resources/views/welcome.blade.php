@@ -3,26 +3,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
+    <link href="/src/styles.css" rel="stylesheet">
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
-        <div class="flex items-center">
-            <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
-            <!-- Navigation menu - diposisikan langsung setelah logo (lebih ke kiri) -->
-            <nav class="ml-12 font-bold flex items-center space-x-8" style="transform: translateX(300px);">
-                <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
-                <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
-                <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
-                <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
-            </nav>
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between w-full">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
+                </div>
+                
+                <!-- Navigation menu - sekarang akan ditaruh di tengah -->
+                <div class="hidden md:flex flex-1 justify-center md:translate-x-4 xl:translate-x-8">
+                    <nav class="flex items-center gap-4 xl:gap-8 font-bold">
+                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Beranda</a>
+                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Tentang Kami</a>
+                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Bagaimana cara membeli?</a>
+                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Artikel</a>
+                    </nav>
+                </div>          
+
+                <!-- Mobile menu button (only visible on mobile) -->
+                <button class="md:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile menu (hidden by default) -->
+            <div class="hidden md:hidden mt-2" id="mobile-menu">
+                <nav class="flex flex-col space-y-4 font-bold">
+                    <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
+                    <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
+                    <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
+                    <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
+                </nav>
+            </div>
         </div>
         
         <!-- Profile atau Login/Register section -->
@@ -114,20 +141,14 @@
     <section 
         x-data="{ 
             activeSlide: 0,
-            // Menggabungkan slide statis dengan carousel dari database
             slides: [
-                // Slide statis
                 {
                     id: 0,
                     is_static: true,
                     judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
                     gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
-
                     link: '{{ route('catalog.index') }}'
-
-
                 },
-                // Menambahkan data carousel dari database (jika ada)
                 @if($carousels->count() > 0)
                     {
                         id: 1,
@@ -137,24 +158,17 @@
                         link: '{{ $carousels->first()->link }}'
                     }
                 @endif
-
             ],
-            
             next() { 
                 this.activeSlide = (this.activeSlide + 1) % this.slides.length;
             },
-            
             prev() { 
                 this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
             },
-            
-            // Autoplay
             autoplayInterval: null,
-            
             startAutoplay() {
                 this.autoplayInterval = setInterval(() => this.next(), 8000);
             },
-            
             stopAutoplay() {
                 clearInterval(this.autoplayInterval);
             }
@@ -163,62 +177,61 @@
         @mouseover="stopAutoplay()"
         @mouseout="startAutoplay()"
         x-cloak
-        class="relative bg-gray-100 py-12 px-4 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
+        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
             <template x-for="(slide, index) in slides" :key="index">
-                    <div 
-                        x-show="activeSlide === index" 
-                        x-transition:enter="transition ease-out duration-500"
-                        x-transition:enter-start="opacity-0 transform translate-x-full"
-                        x-transition:enter-end="opacity-100 transform translate-x-0"
-                        x-transition:leave="transition ease-in duration-300"
-                        x-transition:leave-start="opacity-100 transform translate-x-0"
-                        x-transition:leave-end="opacity-0 transform -translate-x-full"
-                        class="absolute inset-0 w-full h-full rounded-3xl"
-                    >
-                        <!-- Background -->
-                        <img :src="slide.gambar" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
-                        <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
+                <div 
+                    x-show="activeSlide === index" 
+                    x-transition:enter="transition ease-out duration-500"
+                    x-transition:enter-start="opacity-0 transform translate-x-full"
+                    x-transition:enter-end="opacity-100 transform translate-x-0"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 transform translate-x-0"
+                    x-transition:leave-end="opacity-0 transform -translate-x-full"
+                    class="absolute inset-0 w-full h-full rounded-3xl"
+                    style="will-change: transform, opacity;"
+                >
+                    <!-- Background -->
+                    <img :src="slide.gambar" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
-                        <!-- Content -->
-                        <div class="container mx-auto relative z-10 h-full flex items-center">
-                            <!-- Static Hero Slide -->
-                            <template x-if="slide.is_static">
-                                <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                    <div class="relative bg-orange-500 rounded-full w-64 h-64 md:w-80 md:h-80 flex items-center justify-center ml-4 mb-8 md:mb-0">
-                                        <img src="/images/icon.png" alt="Icon" class="h-auto w-full max-h-[110%] object-contain mb-4 ml-4 translate-y-8">
-                                    </div>
-                                    
-                                    <div class="md:ml-12 text-left md:max-w-xl flex-grow">
-                                        <h1 class="text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-2 drop-shadow-md">
-                                            DARI DARAT KE LAUT,<br>
-                                            KAMI SIAP MENDUKUNG ANDA!
-                                        </h1>
-                                        <p class="text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl">
-                                            Jelajahi beragam peralatan industri dan konstruksi<br>
-                                            untuk berbagai kebutuhan proyek.<br>
-                                            Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
-                                        </p>
-                                        <div class="flex justify-end w-full absolute bottom-0 right-0 p-6 text-right text-lg" x-data>
-                                            <button
-                                                @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
-                                                class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold mr-6 py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300"
-                                            >
-                                                Cari Solusi Industri Anda
-                                            </button>
-                                        </div>
+                    <!-- Content -->
+                    <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
+                        <template x-if="slide.is_static">
+                            <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
+                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                    <div class="absolute inset-0 bg-orange-500/10"></div>
+                                </div>
+                                <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl md:text-base font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
+                                        DARI DARAT KE LAUT,<br>
+                                        KAMI SIAP MENDUKUNG ANDA!
+                                    </h1>
+                                    <p class="hidden sm:block md:hidden lg:block text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                        Jelajahi beragam peralatan industri dan konstruksi<br>
+                                        untuk berbagai kebutuhan proyek.<br>
+                                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                    </p>
+
+                                    <div class="absolute bottom-8 right-6 z-20">
+                                        <button
+                                            @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
+                                            class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                        >
+                                            Cari Solusi Industri Anda
+                                        </button>
                                     </div>
                                 </div>
+                            </div>
                         </template>
 
-                        <!-- Dynamic Slide dari Database -->
                         <template x-if="!slide.is_static">
-                            <div class="w-full text-center text-white">
-                                <h2 class="text-2xl md:text-4xl font-akira font-bold mb-4" x-text="slide.judul"></h2>
+                            <div class="w-full text-center text-white px-4 sm:px-8 md:px-0">
+                                <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight" x-text="slide.judul"></h2>
                                 <template x-if="slide.link">
-                                    <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-lg transition-all font-montserrat duration-300">
+                                    <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 inline-block shadow-lg">
                                         Kunjungi
                                     </a>
                                 </template>
@@ -229,7 +242,6 @@
             </template>
         </div>
 
-        <!-- Hanya tampilkan navigasi jika ada lebih dari 1 slide -->
         @if($carousels->count() > 0)
         <!-- Touch/Mouse Swipe Area -->
         <div 
@@ -262,108 +274,118 @@
         ></div>
 
         <!-- Navigation Buttons -->
-        <div class="absolute bottom-6 right-6 flex space-x-2 z-0">
-            <button @click="prev()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+            <button 
+                @click="prev()" 
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                aria-label="Previous Slide"
+            >
                 ‹
             </button>
-            <button @click="next()" class="bg-white/80 hover:bg-white text-gray-800 font-bold px-3 py-2 rounded-full shadow">
+            <button 
+                @click="next()" 
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                aria-label="Next Slide"
+            >
                 ›
             </button>
         </div>
 
         <!-- Carousel Indicators -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-0">
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
             <template x-for="(slide, index) in slides" :key="index">
                 <button 
                     @click="activeSlide = index"
                     :class="{'bg-orange-500': activeSlide === index, 'bg-white': activeSlide !== index}"
-                    class="w-3 h-3 rounded-full shadow-md transition"
+                    class="w-4 h-4 rounded-full shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-orange-400"
+                    :aria-current="activeSlide === index ? 'true' : 'false'"
+                    :aria-label="'Go to slide ' + (index + 1)"
                 ></button>
             </template>
         </div>
         @endif
     </section>
 
+
+
     <!-- Equipment Sale with Product Card Section -->
-    <section id="equipment-sale" class="bg-[#525fe1] py-16 px-8 md:py-20 md:px-10 relative overflow-hidden z-6">
-        <!-- Background circles -->
-        <div class="absolute -left-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
-        <div class="absolute -right-24 top-0 w-72 h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
+    <section id="equipment-sale" class="bg-[#525fe1] py-10 px-4 md:py-16 lg:py-20 md:px-8 lg:px-10 relative overflow-hidden z-6">
+        <!-- Background circles - adjusted for better mobile appearance -->
+        <div class="absolute -left-16 sm:-left-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
+        <div class="absolute -right-16 sm:-right-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
         
         <div class="container mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <!-- Left side content -->
-                <div class="text-white mb-8 md:mb-0 md:w-1/3 font montserrat">
-                    <h2 class="text-3xl font-bold mb-2">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
-                    <p class="text-base mb-8 opacity-90 font-montserrat font-semibold">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
+                <!-- Left side content - improved mobile spacing -->
+                <div class="text-white mb-6 md:mb-0 w-full md:w-full lg:w-1/3 font montserrat text-center lg:text-left">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
+                    <p class="text-sm sm:text-base mb-6 lg:mb-8 opacity-90 font-montserrat font-semibold">
                         Lihat koleksi alat berat dan kapal siap kerja 
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
 
                     <a href="{{ route('catalog.index') }}"
-                        class="relative inline-flex items-center overflow-hidden text-white px-5 py-2 rounded-full font-medium text-sm group">
+                        class="relative inline-flex items-center overflow-hidden text-white px-4 sm:px-5 py-2 rounded-full font-medium text-sm group">
                         <span class="absolute inset-0 bg-gradient-to-r from-[#f86f03] to-[#ffa41b] transition-transform duration-500 ease-in-out group-hover:from-[#ffa41b] group-hover:to-[#f86f03]"></span>
                         <span class="relative z-10 flex items-center">
                             Lihat produk selengkapnya
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-500 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 ml-2 transition-transform duration-500 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </span>
                     </a>
                 </div>
                 
-                <!-- Right side carousel with improved animation -->
-                <div class="md:w-2/3 relative">
+                <!-- Right side carousel with improved mobile responsiveness -->
+                <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container ml-14 px-4 py-2 font-montserrat" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
-
-
-                                    <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-48 object-cover">
-                                    <div class="p-4">
-                                        <h3 class="font-semibold text-base text-gray-800">{{ $product->name }}</h3>
-                                        <p class="text-sm text-gray-600 mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                    <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                    <div class="p-3 sm:p-4">
+                                        <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
+                                        <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
                                         
-                                        <div class="flex justify-between gap-2 mb-3">
-                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-4 py-2 rounded-full min-w-[110px] flex flex-col items-center">
-                                                <span>Tahun</span>
-                                                <span class="font-bold">{{ $product->year_of_build }}</span>
+                                        <div class="flex justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[90px] sm:min-w-[110px] flex flex-col items-center">
+                                                <span class="text-[10px] sm:text-xs">Tahun</span>
+                                                <span class="font-bold text-xs sm:text-sm">{{ $product->year_of_build }}</span>
                                             </div>
-                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-4 py-2 rounded-full min-w-[140px] flex flex-col items-center">
-                                                <span>Jam operasional</span>
-                                                <span class="font-bold">{{ $product->hours_meter }} jam</span>
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[120px] sm:min-w-[140px] flex flex-col items-center">
+                                                <span class="text-[10px] sm:text-xs">Jam operasional</span>
+                                                <span class="font-bold text-xs sm:text-sm">{{ $product->hours_meter }} jam</span>
                                             </div>
                                         </div>
 
-                                        <div class="text-center font-bold text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-4 py-2 rounded-lg mt-3">
+                                        <div class="text-center font-bold text-sm sm:text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg mt-2 sm:mt-3">
                                             Rp{{ number_format($product->harga, 0, ',', '.') }}
                                         </div>
                                     </div>
                                 </a>
                             @empty
-                                <div class="min-w-full flex flex-col items-center justify-center py-12 text-gray-500">
+                                <div class="min-w-full flex flex-col items-center justify-center py-8 sm:py-12 text-gray-500">
                                     <!-- Ilustrasi SVG keranjang kosong -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 sm:w-32 sm:h-32 mb-3 sm:mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
                                     </svg>
-                                    <p class="text-lg font-semibold text-white">Belum ada produk saat ini</p>
-                                    <p class="text-sm text-white">Yuk tambahkan produk agar tampil di sini!</p>
+                                    <p class="text-base sm:text-lg font-semibold text-white">Belum ada produk saat ini</p>
+                                    <p class="text-xs sm:text-sm text-white">Yuk tambahkan produk agar tampil di sini!</p>
                                 </div>
                             @endforelse
                         </div>
                     </div>
 
-                    <!-- Navigation buttons -->
+                    <!-- Navigation buttons - improved mobile positioning -->
                     @if ($ProductCard->isNotEmpty()) <!-- Only show buttons if there are products -->
-                        <button class="carousel-prev absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 hover:opacity-100 transition-opacity hidden md:block ml-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button class="carousel-prev hidden sm:block absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
-                        <button class="carousel-next absolute -right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-2 shadow-lg z-10 opacity-100 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button class="carousel-next absolute right-0 sm:-right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 opacity-100 hover:opacity-100 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -392,12 +414,19 @@
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
-            <a href="javascript:void(0)" id="selengkapnyaBtn" class="absolute top-0 right-0 -mt-8 group inline-flex items-center px-5 py-2.5 rounded-full text-white font-medium bg-[#F86F03] hover:bg-[#e56703] transition-all duration-300 shadow-lg transform hover:-translate-y-1">
-                Selengkapnya
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </a>
+                <a href="javascript:void(0)" id="selengkapnyaBtn"
+                    class="absolute right-0 
+                            top-[-3.5rem] sm:top-[-4.5rem] md:top-[-2rem] 
+                            group inline-flex items-center px-5 py-2.5 
+                            rounded-full text-white font-medium 
+                            bg-[#F86F03] hover:bg-[#e56703] 
+                            transition-all duration-300 shadow-lg 
+                            transform hover:-translate-y-1">
+                    Selengkapnya
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
                 <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
                 <p class="text-white text-lg mt-12 font-montserrat">
                     Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
@@ -410,14 +439,14 @@
                 <!-- Testimonial 1 -->
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
                         <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Kobel</p>
-                            <p class="text-xs text-gray-500">user</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
                         </div>
                     </div>
                 </div>
@@ -425,29 +454,34 @@
                 <!-- Testimonial 2 -->
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
                     <div class="flex items-center">
                         <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Alisson</p>
-                            <p class="text-xs text-gray-500">user</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+
+                    <!-- Spacer khusus desktop -->
+                    <div class="hidden md:block md:mb-4"></div>
+
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Terbantu sekali dengan adanya website ini.
                     </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Chris Septian">
+
+                    <div class="flex items-center mt-auto">
+                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Onana</p>
-                            <p class="text-xs text-gray-500">user</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
                         </div>
                     </div>
                 </div>
@@ -458,14 +492,14 @@
                 @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <div class="text-3xl text-gray-300 mb-4">"</div>
-                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                             {{ $testimonial->content }}
                         </p>
                         <div class="flex items-center">
                             <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
                             <div>
-                                <p class="text-sm font-semibold text-gray-800">{{ $testimonial->user->name }}</p>
-                                <p class="text-xs text-gray-500">{{ $testimonial->user->usertype }}</p>
+                                <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
+                                <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
                             </div>
                         </div>
                     </div>
@@ -489,10 +523,10 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <p class="text-lg text-gray-700">Daftar untuk melanjutkan.</p>
+                        <p class="text-lg text-gray-700 md:text-base">Daftar untuk melanjutkan.</p>
                     </div>
                     <div class="flex justify-center">
-                        <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
+                        <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg md:text-base hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
                             Daftar Sekarang
                         </a>
                     </div>
@@ -526,14 +560,14 @@
 
                             <!-- Konten -->
                             <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="text-black font-bold text-lg mb-2 mt-4">{{ $article->judul }}</h3>
+                            <h3 class="text-black font-bold text-lg mb-2 mt-4 md:text-base">{{ $article->judul }}</h3>
 
-                            <p class="text-black text-sm mb-4 flex-grow">
+                            <p class="text-black text-sm mb-4 flex-grow md:text-base">
                                 {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
                             </p>
 
                             <!-- Tombol di posisi bawah -->
-                            <a href="{{ route('artikel.show', $article->id_articles) }}" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">
+                            <a href="{{ route('artikel.show', $article->id_articles) }}" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition md:text-base">
                                 Baca Selengkapnya
                             </a>
                             </div>
@@ -544,8 +578,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <h3 class="text-black font-bold text-xl mt-4 mb-2">Tidak Ada Artikel</h3>
-                            <p class="text-black">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
+                            <h3 class="text-black font-bold text-xl mt-4 mb-2 md:text-base">Tidak Ada Artikel</h3>
+                            <p class="text-black md:text-base">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
                         </div>
                     @endif
                 </div>
@@ -617,6 +651,10 @@
         .shadow-left-only {
             box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
         }
+    }
+
+    .icon-position {
+        transform: translateY(10%);
     }
 
     @font-face {
@@ -743,6 +781,30 @@
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
+    @keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(1.3);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-6%) scale(1.3);
+    }
+    }
+
+    .animate-slideUpFade {
+    animation: slideUpFade 0.8s ease-out forwards;
+    }
+
+    /* Mobile (hingga 576px) */
+    @media (max-width: 576px) { /* aturan CSS */ }
+
+    /* Tablet (577px - 768px) */
+    @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
+
+    /* Desktop (769px keatas) */
+    @media (min-width: 769px) { /* aturan CSS */ }
 
 </style>
 </html>
@@ -973,6 +1035,11 @@
 
         prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
         nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+    });
+
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
     });
 
     });

@@ -126,9 +126,10 @@
                     class="flex-grow border-none focus:ring-0 focus:outline-none text-gray-700"
                 >
                 <button type="submit" class="ml-4 bg-[#F86F03] rounded-full p-2 text-white hover:bg-opacity-90 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="transform: rotate(90deg);">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
+
                 </button>
             </form>
         </div>

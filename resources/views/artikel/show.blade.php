@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+
 @section('content')
-<div class="container mx-auto py-10 px-4 bg-gray-100 min-h-screen">
+
+<div class="w-full min-h-screen bg-gray-100 py-10 px-4">
     <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
         <!-- Gambar Artikel -->
         @if($article->gambar)
@@ -34,6 +36,7 @@
     </div>
 </div>
 @endsection
+
 
 @push('styles')
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">

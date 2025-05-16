@@ -144,6 +144,33 @@
 
     <!-- Hover Dropdown for Account in Navbar-->
     <style>
+        /* Surface Pro 7 Specific Adjustments */
+        @media (min-width: 912px) and (max-width: 1368px) {
+            /* Keep existing structure with slight adjustments */
+            .container {
+                max-width: 98%;
+            }
+            
+            /* Adjust spacing specifically for Surface Pro 7 */
+            .md\:ml-16 {
+                margin-left: 2rem;
+            }
+            
+            .space-x-6 > * + * {
+                margin-left: 1rem;
+            }
+            
+            /* Fix for auth buttons on Surface Pro 7 */
+            .md\:block.ml-auto.pr-6 {
+                padding-right: 0.75rem;
+            }
+            
+            /* Fix for profile dropdown */
+            #profileDropdownToggle .space-x-3 > * + * {
+                margin-left: 0.5rem;
+            }
+        }
+
         #profileDropdown a:hover, 
         #profileDropdown button:hover,
         #mobileProfileDropdown a:hover,
@@ -186,6 +213,35 @@
 
     <!-- JS Dropdown logic for desktop -->
     <script>
+        // Surface Pro 7 specific adjustments
+        function handleSurfacePro() {
+            const isSurfacePro = window.matchMedia('(min-width: 912px) and (max-width: 1368px)').matches;
+            
+            if (isSurfacePro) {
+                // Apply Surface Pro specific adjustments without changing structure
+                const navLinks = document.querySelectorAll('.md\\:flex .space-x-6 a');
+                navLinks.forEach(link => {
+                    link.style.fontSize = '0.8rem'; // Slightly smaller font on Surface Pro
+                });
+                
+                // Fix buttons if necessary
+                const buttons = document.querySelectorAll('.md\\:block.ml-auto a');
+                if (buttons) {
+                    buttons.forEach(button => {
+                        if (button.classList.contains('px-7')) {
+                            button.classList.replace('px-7', 'px-5');
+                        }
+                    });
+                }
+            }
+        }
+        
+        // Call once on load
+        document.addEventListener('DOMContentLoaded', handleSurfacePro);
+        
+        // Call on resize
+        window.addEventListener('resize', handleSurfacePro);
+
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
 

@@ -34,7 +34,7 @@
     <!-- Header dengan Font Montserrat -->
     <header class="bg-gray-100 shadow-md">
         <nav class="container mx-auto px-5 py-5 flex items-center relative">
-            <div class="font-bold text-xl ml-0 md:ml-6 z-20">
+            <div class="font-bold text-xl ml-0 md:ml-6 z-20 flex">
                 <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
             </div>
 

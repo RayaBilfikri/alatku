@@ -205,14 +205,14 @@
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
-                                    <h1 class="text-xl sm:text-2xl md:text-3xl md:text-base font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="hidden sm:block md:hidden lg:block text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
-                                        Jelajahi beragam peralatan industri dan konstruksi<br>
-                                        untuk berbagai kebutuhan proyek.<br>
-                                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                    <p class="hidden md:block text-sm md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                    Jelajahi beragam peralatan industri dan konstruksi<br>
+                                    untuk berbagai kebutuhan proyek.<br>
+                                    Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
 
                                     <div class="absolute bottom-8 right-6 z-20">

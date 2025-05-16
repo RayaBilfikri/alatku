@@ -24,15 +24,15 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center  md:translate-x-8">
-                    <nav class="flex items-center space-x-8 font-bold">
-                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
-                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
-                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
-                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
+                <div class="hidden md:flex flex-1 justify-center md:translate-x-4 xl:translate-x-8">
+                    <nav class="flex items-center gap-4 xl:gap-8 font-bold">
+                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Beranda</a>
+                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Tentang Kami</a>
+                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Bagaimana cara membeli?</a>
+                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Artikel</a>
                     </nav>
-                </div>
-                
+                </div>          
+
                 <!-- Mobile menu button (only visible on mobile) -->
                 <button class="md:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -205,15 +205,16 @@
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
-                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl md:text-base font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="hidden sm:block text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                    <p class="hidden sm:block md:hidden lg:block text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
                                         Jelajahi beragam peralatan industri dan konstruksi<br>
                                         untuk berbagai kebutuhan proyek.<br>
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
+
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button
                                             @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
@@ -339,7 +340,7 @@
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
@@ -438,14 +439,14 @@
                 <!-- Testimonial 1 -->
                 <div class="bg-white rounded-xl testimonial-card p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                     <div class="flex items-center">
                         <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Kobel</p>
-                            <p class="text-xs text-gray-500">user</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
                         </div>
                     </div>
                 </div>
@@ -453,14 +454,14 @@
                 <!-- Testimonial 2 -->
                 <div class="bg-white rounded-xl shadow-lg p-6">
                     <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
                     <div class="flex items-center">
                         <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Alisson</p>
-                            <p class="text-xs text-gray-500">user</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
                         </div>
                     </div>
                 </div>
@@ -472,7 +473,7 @@
                     <!-- Spacer khusus desktop -->
                     <div class="hidden md:block md:mb-4"></div>
 
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Terbantu sekali dengan adanya website ini.
                     </p>
 
@@ -480,7 +481,7 @@
                         <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
                         <div>
                             <p class="text-sm font-semibold text-gray-800">Onana</p>
-                            <p class="text-xs text-gray-500">user</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
                         </div>
                     </div>
                 </div>
@@ -491,14 +492,14 @@
                 @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <div class="text-3xl text-gray-300 mb-4">"</div>
-                        <p class="text-gray-700 text-sm leading-relaxed mb-6">
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                             {{ $testimonial->content }}
                         </p>
                         <div class="flex items-center">
                             <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
                             <div>
-                                <p class="text-sm font-semibold text-gray-800">{{ $testimonial->user->name }}</p>
-                                <p class="text-xs text-gray-500">{{ $testimonial->user->usertype }}</p>
+                                <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
+                                <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
                             </div>
                         </div>
                     </div>
@@ -522,10 +523,10 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <p class="text-lg text-gray-700">Daftar untuk melanjutkan.</p>
+                        <p class="text-lg text-gray-700 md:text-base">Daftar untuk melanjutkan.</p>
                     </div>
                     <div class="flex justify-center">
-                        <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
+                        <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg md:text-base hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
                             Daftar Sekarang
                         </a>
                     </div>
@@ -559,14 +560,14 @@
 
                             <!-- Konten -->
                             <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="text-black font-bold text-lg mb-2 mt-4">{{ $article->judul }}</h3>
+                            <h3 class="text-black font-bold text-lg mb-2 mt-4 md:text-base">{{ $article->judul }}</h3>
 
-                            <p class="text-black text-sm mb-4 flex-grow">
+                            <p class="text-black text-sm mb-4 flex-grow md:text-base">
                                 {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
                             </p>
 
                             <!-- Tombol di posisi bawah -->
-                            <a href="{{ route('artikel.show', $article->id_articles) }}" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition">
+                            <a href="{{ route('artikel.show', $article->id_articles) }}" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition md:text-base">
                                 Baca Selengkapnya
                             </a>
                             </div>
@@ -577,8 +578,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <h3 class="text-black font-bold text-xl mt-4 mb-2">Tidak Ada Artikel</h3>
-                            <p class="text-black">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
+                            <h3 class="text-black font-bold text-xl mt-4 mb-2 md:text-base">Tidak Ada Artikel</h3>
+                            <p class="text-black md:text-base">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
                         </div>
                     @endif
                 </div>

@@ -205,7 +205,7 @@
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
-                                    <h1 class="text-xl sm:text-2xl md:text-3xl md:text-base font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>

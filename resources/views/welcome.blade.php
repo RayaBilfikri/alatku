@@ -24,17 +24,17 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center md:translate-x-4 xl:translate-x-8">
+                <div class="hidden lg:flex flex-1 justify-center lg:translate-x-4 xl:translate-x-8">
                     <nav class="flex items-center gap-4 xl:gap-8 font-bold">
-                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Beranda</a>
-                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Tentang Kami</a>
-                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Bagaimana cara membeli?</a>
-                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Artikel</a>
+                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Beranda</a>
+                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Tentang Kami</a>
+                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Bagaimana cara membeli?</a>
+                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Artikel</a>
                     </nav>
-                </div>          
+                </div>
 
-                <!-- Mobile menu button (only visible on mobile) -->
-                <button class="md:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button">
+                <!-- Mobile menu button and tablets (only visible on mobile) -->
+                <button class="block lg:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -42,7 +42,7 @@
             </div>
             
             <!-- Mobile menu (hidden by default) -->
-            <div class="hidden md:hidden mt-2" id="mobile-menu">
+            <div class="block lg:hidden mt-2" id="mobile-menu">
                 <nav class="flex flex-col space-y-4 font-bold">
                     <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
@@ -209,11 +209,12 @@
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="hidden md:block text-sm md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
-                                    Jelajahi beragam peralatan industri dan konstruksi<br>
-                                    untuk berbagai kebutuhan proyek.<br>
-                                    Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                    <p class="hidden xl:block lg:block text-white text-lg font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                        Jelajahi beragam peralatan industri dan konstruksi<br>
+                                        untuk berbagai kebutuhan proyek.<br>
+                                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
+
 
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button

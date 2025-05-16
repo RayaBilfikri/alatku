@@ -209,10 +209,10 @@
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="hidden sm:block md:hidden lg:block text-sm sm:text-base md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
-                                        Jelajahi beragam peralatan industri dan konstruksi<br>
-                                        untuk berbagai kebutuhan proyek.<br>
-                                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                    <p class="hidden md:block text-sm md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                    Jelajahi beragam peralatan industri dan konstruksi<br>
+                                    untuk berbagai kebutuhan proyek.<br>
+                                    Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
 
                                     <div class="absolute bottom-8 right-6 z-20">

@@ -17,32 +17,32 @@
     <!-- Header lengkap dengan dropdown klikable -->
     <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
         <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between w-full">
+            <div class="flex items-center justify-between px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden lg:flex flex-1 justify-center lg:translate-x-4 xl:translate-x-8">
-                    <nav class="flex items-center gap-4 xl:gap-8 font-bold">
-                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Beranda</a>
-                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Tentang Kami</a>
-                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Bagaimana cara membeli?</a>
-                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm lg:text-base">Artikel</a>
-                    </nav>
+                <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
+                    <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
+                    <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
+                    <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>
+                    <a href="{{ route('artikel') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Artikel</a>
                 </div>
 
                 <!-- Mobile menu button and tablets (only visible on mobile) -->
-                <button class="block lg:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <button class="block md:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button" aria-label="Toggle menu">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
             
             <!-- Mobile menu (hidden by default) -->
-            <div class="block lg:hidden mt-2" id="mobile-menu">
+            <div class="hidden lg:hidden mt-2" id="mobile-menu">
                 <nav class="flex flex-col space-y-4 font-bold">
                     <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>

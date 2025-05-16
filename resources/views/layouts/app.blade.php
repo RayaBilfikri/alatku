@@ -34,8 +34,27 @@
     <!-- Header dengan Font Montserrat -->
     <header class="bg-gray-100 shadow-md">
         <nav class="container mx-auto px-5 py-5 flex items-center relative">
-            <div class="font-bold text-xl ml-0 md:ml-6 z-20 flex">
-                <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
+
+
+            <div class="flex items-center px-4 md:px-6 w-full max-w-screen-xl mx-auto">
+                <!-- Logo kiri -->
+                <div class="font-bold text-xl z-20 flex items-center flex-shrink-0">
+                    <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
+                </div>
+
+                <!-- Spacer kiri supaya navbar bisa benar-benar di tengah -->
+                <div class="hidden md:block flex-grow" style="flex-grow: 1.8;"></div>
+
+                <!-- Navbar tengah -->
+                <nav class="hidden md:flex space-x-6 font-montserrat font-bold max-w-xl mx-auto">
+                    <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
+                    <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
+                    <a href="/caramembeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
+                    <a href="/artikel" class="hover:text-orange-600 text-sm">Artikel</a>
+                </nav>
+
+                <!-- Spacer kanan -->
+                <div class="hidden md:block flex-grow" style="flex-grow: 1.2;"></div>
             </div>
 
             <!-- Hamburger Menu untuk Mobile -->
@@ -45,13 +64,8 @@
                 <span class="hamburger-line block w-6 h-0.5 bg-black"></span>
             </button>
 
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
-                <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
-                <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
-                <a href="/caramembeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
-                <a href="/artikel" class="hover:text-orange-600 text-sm">Artikel</a>
-            </div>
+
+
 
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden">

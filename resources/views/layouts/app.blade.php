@@ -68,7 +68,7 @@
 
 
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden">
+            <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden ">
                 <div class="pt-20 pb-5 px-6 flex flex-col space-y-5 font-montserrat font-bold">
                     <a href="/" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Beranda</a>
                     <a href="/tentang-kami" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Tentang Kami</a>
@@ -306,15 +306,26 @@
         if (hamburgerButton && mobileMenu) {
             hamburgerButton.addEventListener('click', function() {
                 hamburgerButton.classList.toggle('active');
+
                 if (mobileMenu.classList.contains('active')) {
+                    // Menu sedang terbuka, akan ditutup
                     mobileMenu.classList.remove('active');
+
+                    // Aktifkan scroll halaman setelah menu tutup
+                    document.body.classList.remove('overflow-hidden');
+
                     setTimeout(() => {
                         mobileMenu.classList.add('h-0');
                     }, 10);
                 } else {
+                    // Menu sedang tertutup, akan dibuka
                     mobileMenu.classList.remove('h-0');
+
                     setTimeout(() => {
                         mobileMenu.classList.add('active');
+
+                        // Non-scroll halaman saat menu dibuka
+                        document.body.classList.add('overflow-hidden');
                     }, 10);
                 }
             });
@@ -325,12 +336,15 @@
                 item.addEventListener('click', () => {
                     hamburgerButton.classList.remove('active');
                     mobileMenu.classList.remove('active');
+                    document.body.classList.remove('overflow-hidden'); // Enable scroll
+
                     setTimeout(() => {
                         mobileMenu.classList.add('h-0');
                     }, 10);
                 });
             });
         }
+
     </script>
 
     @yield('footer')

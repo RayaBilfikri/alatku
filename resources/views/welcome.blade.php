@@ -389,14 +389,17 @@
                     </div>
 
                     <!-- Navigation buttons - improved mobile positioning -->
-                    @if ($ProductCard->isNotEmpty()) <!-- Only show buttons if there are products -->
-                        <button class="carousel-prev hidden sm:block absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    @if ($ProductCard->isNotEmpty())
+                        <!-- Tombol Prev -->
+                        <button class="carousel-prev absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
-                        <button class="carousel-next absolute right-0 sm:-right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 opacity-100 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+                        <!-- Tombol Next -->
+                        <button class="carousel-next absolute right-2 sm:right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -869,6 +872,7 @@
         const profileDropdown = document.getElementById('profileDropdown');
         const logoutForm = document.getElementById('logoutForm');
 
+
         if (logoutForm) {
             const logoutButton = logoutForm.querySelector('button[type="submit"]');
             const logoutModal = document.getElementById('logoutModal');
@@ -966,6 +970,19 @@
 
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
+
+            let timeout;
+        
+            window.addEventListener("resize", () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    // Paksa snap ke elemen aktif setelah resize/minimize
+                    const activeItem = carousel.querySelector(".carousel-item.active");
+                    if (activeItem) {
+                        activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                    }
+                }, 150); // debounce agar tidak terlalu sering
+            });
 
         }
 
@@ -1088,22 +1105,6 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const carousel = document.getElementById("carousel");
-
-        let timeout;
-        window.addEventListener("resize", () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                // Paksa snap ke elemen aktif setelah resize/minimize
-                const activeItem = carousel.querySelector(".carousel-item.active");
-                if (activeItem) {
-                    activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-                }
-            }, 150); // debounce agar tidak terlalu sering
-        });
     });
 
 

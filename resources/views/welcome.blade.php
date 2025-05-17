@@ -860,6 +860,14 @@
 </html>
 
 <script>
+
+    document.querySelectorAll('#carousel').forEach(carousel => {
+        const activeItem = carousel.querySelector('.carousel-item.active');
+        if (activeItem) {
+            activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+        }
+    });
+
     
     document.addEventListener("DOMContentLoaded", function () {
         const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
@@ -871,6 +879,8 @@
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
         const logoutForm = document.getElementById('logoutForm');
+
+
 
 
         if (logoutForm) {
@@ -942,6 +952,7 @@
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
+            
 
             
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
@@ -971,18 +982,6 @@
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
 
-            let timeout;
-        
-            window.addEventListener("resize", () => {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => {
-                    // Paksa snap ke elemen aktif setelah resize/minimize
-                    const activeItem = carousel.querySelector(".carousel-item.active");
-                    if (activeItem) {
-                        activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-                    }
-                }, 150); // debounce agar tidak terlalu sering
-            });
 
         }
 

@@ -219,7 +219,7 @@
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="hidden xl:block lg:block text-white text-lg font-medium font-montserrat drop-shadow-xl leading-relaxed">
+                                    <p class="hidden xl:block lg:block text-white text-lg font-medium font-montserrat drop-shadow-xl hide-on-ipad leading-relaxed">
                                         Jelajahi beragam peralatan industri dan konstruksi<br>
                                         untuk berbagai kebutuhan proyek.<br>
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
@@ -650,6 +650,13 @@
 
 </body>
 <style>
+
+    @media screen and (min-width: 1024px) and (max-width: 1112px) {
+        .hide-on-ipad {
+        display: none !important;
+        }
+    }
+
     .shadow-text {
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
     }

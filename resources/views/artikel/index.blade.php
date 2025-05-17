@@ -20,10 +20,10 @@
                         @else
                             <div class="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 transition-transform duration-300 hover:scale-110"></div>
                         @endif
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 right-0 p-3 z-10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-o"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3 z-5">
                             <h2 class="text-white font-semibold font-montserrat line-clamp-2 text-lg">{{ $article->judul }}</h2>
-                            <div class="text-xs text-gray-200 mt-1">
+                            <div class="text-xs text-gray-200 mt-1 z-5">
                                 {{ \Carbon\Carbon::parse($article->tanggal_publish)->format('d M Y') }}
                             </div>
                         </div>

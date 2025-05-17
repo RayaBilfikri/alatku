@@ -10,45 +10,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <link href="/src/styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
-    <header class="flex justify-between items-center px-6 py-4 bg-gray-100">
+    <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
         <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between w-full">
+            <div class="flex items-center justify-between px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center md:translate-x-4 xl:translate-x-8">
-                    <nav class="flex items-center gap-4 xl:gap-8 font-bold">
-                        <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Beranda</a>
-                        <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Tentang Kami</a>
-                        <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Bagaimana cara membeli?</a>
-                        <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm md:text-base">Artikel</a>
-                    </nav>
-                </div>          
+                <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
+                    <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
+                    <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
+                    <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>
+                    <a href="{{ route('artikel') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Artikel</a>
+                </div>
 
-                <!-- Mobile menu button (only visible on mobile) -->
-                <button class="md:hidden text-gray-500 hover:text-gray-800 focus:outline-none" id="mobile-menu-button">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <!-- Mobile menu button -->
+                <button @click="open = !open"
+                    :class="{ 'menu-open': open }"
+                    class="block md:hidden text-gray-500 hover:text-gray-800 focus:outline-none"
+                    aria-label="Toggle menu">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path class="line line1" d="M4 6h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                        <path class="line line2" d="M4 12h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                        <path class="line line3" d="M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                     </svg>
                 </button>
             </div>
             
-            <!-- Mobile menu (hidden by default) -->
-            <div class="hidden md:hidden mt-2" id="mobile-menu">
-                <nav class="flex flex-col space-y-4 font-bold">
-                    <a href="{{ route('home') }}" class="hover:text-orange-600 font-montserrat text-sm">Beranda</a>
-                    <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
-                    <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
-                    <a href="{{ route('artikel') }}" class="hover:text-orange-600 font-montserrat text-sm">Artikel</a>
-                </nav>
+            <!-- Mobile menu (toggle via Alpine) -->
+            <div x-show="open"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2"
+                class="md:hidden mt-2 font-bold space-y-4"
+                @click.away="open = false">
+                <a href="{{ route('home') }}" class="block hover:text-orange-600 font-montserrat text-sm">Beranda</a>
+                <a href="{{ route('tentang-kami') }}" class="block hover:text-orange-600 font-montserrat text-sm">Tentang Kami</a>
+                <a href="{{ route('caramembeli') }}" class="block hover:text-orange-600 font-montserrat text-sm">Bagaimana cara membeli?</a>
+                <a href="{{ route('artikel') }}" class="block hover:text-orange-600 font-montserrat text-sm">Artikel</a>
             </div>
         </div>
         
@@ -209,11 +219,12 @@
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
-                                    <p class="hidden md:block text-sm md:text-lg text-white font-medium font-montserrat drop-shadow-xl leading-relaxed">
-                                    Jelajahi beragam peralatan industri dan konstruksi<br>
-                                    untuk berbagai kebutuhan proyek.<br>
-                                    Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
+                                    <p class="hidden xl:block lg:block text-white text-lg font-medium font-montserrat drop-shadow-xl hide-on-ipad leading-relaxed">
+                                        Jelajahi beragam peralatan industri dan konstruksi<br>
+                                        untuk berbagai kebutuhan proyek.<br>
+                                        Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
+
 
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button
@@ -340,7 +351,7 @@
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
@@ -639,8 +650,44 @@
 
 </body>
 <style>
+
+    @media screen and (min-width: 1024px) and (max-width: 1112px) {
+        .hide-on-ipad {
+        display: none !important;
+        }
+    }
+
     .shadow-text {
         text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+        from { opacity: 1; transform: translateY(0); }
+        to   { opacity: 0; transform: translateY(-10px); }
+    }
+
+    .animate-slide-down {
+        animation: slideDown 0.3s ease forwards;
+    }
+    .animate-slide-up {
+        animation: slideUp 0.3s ease forwards;
+    }
+
+    .line {
+        transition: all 0.3s ease;
+    }
+    .menu-open .line1 {
+        transform: translateY(6px) rotate(45deg);
+    }
+    .menu-open .line2 {
+        opacity: 0;
+    }
+    .menu-open .line3 {
+        transform: translateY(-6px) rotate(-45deg);
     }
 
     @layer utilities {
@@ -821,7 +868,6 @@
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
         const logoutForm = document.getElementById('logoutForm');
-
 
         if (logoutForm) {
             const logoutButton = logoutForm.querySelector('button[type="submit"]');
@@ -1024,24 +1070,40 @@
                 updateActiveItem(carousel, 'next');
             });
         });
-    // Set kondisi tombol saat halaman pertama kali dimuat
-    document.querySelectorAll('#carousel').forEach(carousel => {
-        const items = carousel.querySelectorAll('.carousel-item');
-        const activeItem = carousel.querySelector('.carousel-item.active');
-        const currentIndex = Array.from(items).indexOf(activeItem);
+        // Set kondisi tombol saat halaman pertama kali dimuat
+        document.querySelectorAll('#carousel').forEach(carousel => {
+            const items = carousel.querySelectorAll('.carousel-item');
+            const activeItem = carousel.querySelector('.carousel-item.active');
+            const currentIndex = Array.from(items).indexOf(activeItem);
 
-        const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
-        const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
 
-        prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
-        nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+            prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+            nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+        });
+
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
     });
 
-    document.getElementById('mobile-menu-button').addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.toggle('hidden');
-    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const carousel = document.getElementById("carousel");
 
+        let timeout;
+        window.addEventListener("resize", () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                // Paksa snap ke elemen aktif setelah resize/minimize
+                const activeItem = carousel.querySelector(".carousel-item.active");
+                if (activeItem) {
+                    activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                }
+            }, 150); // debounce agar tidak terlalu sering
+        });
     });
 
 

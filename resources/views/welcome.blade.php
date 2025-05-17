@@ -351,9 +351,9 @@
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-[1.02] carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
@@ -1070,24 +1070,40 @@
                 updateActiveItem(carousel, 'next');
             });
         });
-    // Set kondisi tombol saat halaman pertama kali dimuat
-    document.querySelectorAll('#carousel').forEach(carousel => {
-        const items = carousel.querySelectorAll('.carousel-item');
-        const activeItem = carousel.querySelector('.carousel-item.active');
-        const currentIndex = Array.from(items).indexOf(activeItem);
+        // Set kondisi tombol saat halaman pertama kali dimuat
+        document.querySelectorAll('#carousel').forEach(carousel => {
+            const items = carousel.querySelectorAll('.carousel-item');
+            const activeItem = carousel.querySelector('.carousel-item.active');
+            const currentIndex = Array.from(items).indexOf(activeItem);
 
-        const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
-        const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
 
-        prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
-        nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+            prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+            nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+        });
+
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
     });
 
-    document.getElementById('mobile-menu-button').addEventListener('click', function() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenu.classList.toggle('hidden');
-    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const carousel = document.getElementById("carousel");
 
+        let timeout;
+        window.addEventListener("resize", () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                // Paksa snap ke elemen aktif setelah resize/minimize
+                const activeItem = carousel.querySelector(".carousel-item.active");
+                if (activeItem) {
+                    activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                }
+            }, 150); // debounce agar tidak terlalu sering
+        });
     });
 
 

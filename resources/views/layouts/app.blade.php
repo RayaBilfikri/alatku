@@ -38,9 +38,10 @@
 
             <div class="flex items-center px-4 md:px-6 w-full max-w-screen-xl mx-auto">
                 <!-- Logo kiri -->
-                <div class="font-bold text-xl z-20 flex items-center flex-shrink-0">
+                <a href="/" class="font-bold text-xl z-20 flex items-center flex-shrink-0">
                     <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
-                </div>
+                </a>
+
 
                 <!-- Spacer kiri supaya navbar bisa benar-benar di tengah -->
                 <div class="hidden md:block flex-grow" style="flex-grow: 1.8;"></div>

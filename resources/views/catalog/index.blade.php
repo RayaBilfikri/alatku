@@ -80,11 +80,7 @@
     #scrollContainer::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.5); }
     #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
     .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
-    .subkategori-item { color: #374151; }
-    .active-kategori {
-        background-color:rgb(254, 234, 147);
-        color: black;
-    }
+    .subkategori-item { color: #374151; } 
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -190,11 +186,6 @@
             document.querySelectorAll('.active-subcategory').forEach(el => el.classList.remove('active-subcategory'));
         }
 
-        function clearActiveCategories() {
-            document.querySelectorAll('.kategori-link').forEach(el => el.classList.remove('active-kategori'));
-        }
-
-
         kategoriLinks.forEach(link => {
             link.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -202,7 +193,6 @@
                 currentSubcategory = null;
                 currentKeyword = null;
                 fetchAndRenderProducts();
-
 
                 // Tampilkan subkategori
                 const subcategories = JSON.parse(link.dataset.subkategori.replace(/&quot;/g,'"'));
@@ -218,49 +208,14 @@
                 } else {
                     subContainer.classList.add('hidden');
                     subList.innerHTML = "";
-
-                // Toggle category selection
-                if (currentCategory === label) {
-                    currentCategory = null;
-                    currentSubcategory = null;
-                    subContainer.classList.add('hidden');
-                    clearActiveSubcategories();
-                    clearActiveCategories();
-                    fetchAndRenderProducts();
-                    return;
-
                 }
             });
         });
 
 
-
         subList.addEventListener("click", (e) => {
             if (e.target.matches(".subkategori-item")) {
                 currentSubcategory = e.target.dataset.sub;
-
-                // Update selected category
-                clearActiveCategories();
-                clearActiveSubcategories();
-                link.classList.add('active-kategori');
-                currentCategory = label;
-                currentSubcategory = null;
-
-                // Show subcategories
-                subkategoriList.forEach(name => {
-                    const item = document.createElement('li');
-                    item.textContent = name;
-                    item.className = "subkategori-item cursor-pointer px-3 py-1 rounded-full bg-gray-100 hover:bg-orange-400 hover:text-white";
-                    item.addEventListener('click', () => {
-                        clearActiveSubcategories();
-                        item.classList.add('active-subcategory');
-                        currentSubcategory = name;
-                        fetchAndRenderProducts();
-                    });
-                    subList.appendChild(item);
-                });
-
-                subContainer.classList.remove('hidden');
                 fetchAndRenderProducts();
 
                 // Highlight
@@ -272,9 +227,6 @@
 
 
         searchForm.addEventListener("submit", e => {
-
-        searchForm.addEventListener("submit", (e) => {
-
             e.preventDefault();
             currentKeyword = searchInput.value;
             currentCategory = null;

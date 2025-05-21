@@ -26,17 +26,27 @@
                 </div>
 
                 <!-- Gambar -->
-                <div class="mb-6 flex items-center space-x-6">
-                    <label for="gambar" class="w-40 text-sm font-medium">Gambar</label>
-                    <input type="file" id="gambar" name="gambar"
-                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                <div class="mb-6">
+                    <div class="flex items-center space-x-6">
+                        <label for="gambar" class="w-40 text-sm font-medium">Gambar</label>
+                        <div class="flex-1">
+                            <input type="file" id="gambar" name="gambar"
+                                class="w-full border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                            @error('gambar')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Tanggal Publish -->
                 <div class="mb-6 flex items-center space-x-6">
                     <label for="tanggal_publish" class="w-40 text-sm font-medium">Tanggal Publish</label>
                     <input type="date" id="tanggal_publish" name="tanggal_publish"
-                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
+                        @error('tanggal_publish')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                 </div>
 
                 <!-- Tombol -->

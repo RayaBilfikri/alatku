@@ -98,18 +98,4 @@
     });
 </script>
 
-<!-- notif berhasil -->
-@if (session('success'))
-    <script>
-        $(document).ready(function () {
-            Swal.fire({
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                timer: 2500,
-                showConfirmButton: false
-            });
-        });
-    </script>
-@endif
+

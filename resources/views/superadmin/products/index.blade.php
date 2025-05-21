@@ -52,7 +52,7 @@
                     <tbody>
                         @forelse($products as $index => $product)
                             <tr class="text-center">
-                                <td class="px-4 py-2 border">{{ $index + 1 }}</td>
+                                <td class="px-4 py-2 border">{{ $products->firstItem() + $index }}</td>
                                 <td class="px-4 py-2 border">{{ $product->name }}</td>
                                 <td class="px-4 py-2 border">{{ $product->subCategory->category->name ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $product->subCategory->name ?? '-' }}</td>

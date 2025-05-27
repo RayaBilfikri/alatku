@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-    <link href="/src/styles.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
@@ -62,8 +61,8 @@
             </div>
         </div>
         
-        <!-- Profile atau Login/Register section -->
-        <div>
+       <!-- Profile atau Login/Register section -->
+        <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}">
             @guest
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
@@ -426,6 +425,7 @@
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
                 <a href="javascript:void(0)" id="selengkapnyaBtn"
+                    data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
                     class="absolute right-0 
                             top-[-3.5rem] sm:top-[-4.5rem] md:top-[-2rem] 
                             group inline-flex items-center px-5 py-2.5 
@@ -909,7 +909,8 @@
 
     
     document.addEventListener("DOMContentLoaded", function () {
-        const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
+        const authStatus = document.getElementById('authStatus');
+        const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
         const prevButtons = document.querySelectorAll('.carousel-prev');
         const nextButtons = document.querySelectorAll('.carousel-next');
         const modalBtn = document.getElementById('selengkapnyaBtn');
@@ -1052,15 +1053,19 @@
             }
             
             // Event listener untuk tombol
-            modalBtn.addEventListener('click', function(e) {
-                @auth
-                    // Jika user sudah login, arahkan langsung ke halaman ulasan
-                    window.location.href = "{{ route('ulasan.index') }}";
-                @else
-                    // Jika belum login, tampilkan modal
-                    openModal();
-                @endauth
-            });
+            if (selengkapnyaBtn) {
+                const isLoggedIn = selengkapnyaBtn.dataset.loggedIn === 'true';
+
+                selengkapnyaBtn.addEventListener('click', function () {
+                    if (isLoggedIn) {
+                        window.location.href = "{{ route('ulasan.index') }}";
+                    } else {
+                        modal.classList.remove('opacity-0', 'pointer-events-none');
+                        modal.classList.add('opacity-100');
+                    }
+                });
+            }
+
             
             closeBtn.addEventListener('click', closeModal);
             
@@ -1145,15 +1150,4 @@
 
     });
 
-
-    tailwind.config = {
-        theme: {
-            extend: {
-            fontFamily: {
-                montserrat: ['Montserrat', 'sans-serif'],
-                akira: ['"Akira Expanded"', 'sans-serif'],
-            },
-            },
-        },
-        }
 </script>

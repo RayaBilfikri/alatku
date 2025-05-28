@@ -1,39 +1,53 @@
-@extends('layouts.superadmin')
+@extends('layouts.backend')
 
 @section('content')
-<div class="flex h-screen">
-    @include('partials.sidebar')
-
-    <main class="flex-1 bg-gray-50 p-6 overflow-y-auto">
-        <div class="bg-white p-6 rounded shadow">
-            <h2 class="text-xl font-bold mb-4">Edit Artikel</h2>
-            <form action="{{ route('articles.update', $article->id_articles) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Edit Artikel</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('superadmin.articles.update', $article->id_articles) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <div>
-                    <label class="block font-semibold">Judul</label>
-                    <input type="text" name="judul" value="{{ $article->judul }}" class="w-full border px-4 py-2 rounded" required>
+
+                <div class="mb-3">
+                    <label for="judul" class="form-label">Judul</label>
+                    <input type="text" id="judul" name="judul" required
+                           value="{{ old('judul', $article->judul) }}"
+                           class="form-control" placeholder="Masukkan judul artikel">
                 </div>
-                <div>
-                    <label class="block font-semibold">Konten</label>
-                    <textarea name="konten_artikel" rows="5" class="w-full border px-4 py-2 rounded" required>{{ $article->konten_artikel }}</textarea>
+
+                <div class="mb-3">
+                    <label for="konten_artikel" class="form-label">Konten</label>
+                    <textarea id="konten_artikel" name="konten_artikel" rows="5" required
+                              class="form-control" placeholder="Masukkan konten artikel">{{ old('konten_artikel', $article->konten_artikel) }}</textarea>
                 </div>
-                <div>
-                    <label class="block font-semibold">Gambar</label>
+
+                <div class="mb-3">
+                    <label for="gambar" class="form-label">Gambar</label>
+                    <input type="file" id="gambar" name="gambar" accept="image/*"
+                           class="form-control">
                     @if ($article->gambar)
-                        <img src="{{ asset('storage/' . $article->gambar) }}" class="w-48 mb-2 rounded" alt="Gambar Lama">
+                        <div class="mt-2">
+                            <img src="{{ asset('storage/' . $article->gambar) }}" alt="Gambar Lama" style="height: 60px;">
+                        </div>
                     @endif
-                    <input type="file" name="gambar" class="w-full border px-4 py-2 rounded">
                 </div>
-                <div>
-                    <label class="block font-semibold">Tanggal Publish</label>
-                    <input type="date" name="tanggal_publish" value="{{ $article->tanggal_publish }}" class="w-full border px-4 py-2 rounded" required>
+
+                <div class="mb-3">
+                    <label for="tanggal_publish" class="form-label">Tanggal Publish</label>
+                    <input type="date" id="tanggal_publish" name="tanggal_publish" required
+                           value="{{ old('tanggal_publish', $article->tanggal_publish) }}"
+                           class="form-control">
                 </div>
-                <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Update</button>
+
+                <div class="d-flex justify-content-start gap-2">
+                    <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                    <a href="{{ route('superadmin.articles.index') }}" class="btn btn-danger btn-sm">Batal</a>
                 </div>
             </form>
         </div>
-    </main>
+    </div>
 </div>
 @endsection

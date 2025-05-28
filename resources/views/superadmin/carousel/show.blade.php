@@ -1,4 +1,4 @@
-@extends('layouts.superadmin')
+<!-- @extends('layouts.superadmin')
 
 @section('content')
 <div class="p-6 max-w-xl mx-auto">
@@ -31,4 +31,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection -->

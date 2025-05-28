@@ -1,56 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Kontak</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body class="bg-gray-100 font-sans">
+@extends('layouts.backend')
 
-<div class="flex min-h-screen">
-    <!-- Sidebar -->
-    @include('partials.sidebar')
+@section('content')
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Edit Kontak</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('superadmin.contacts.update', $contact->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
-    <!-- Main content -->
-    <main class="flex-1 bg-gray-50 p-6">
-        <!-- Header -->
-        @include('partials.header')
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama</label>
+                        <input type="text" id="name" name="name" required
+                               value="{{ old('name', $contact->name) }}"
+                               class="form-control" placeholder="Masukkan nama kontak">
+                    </div>
 
-        <!-- Form Edit Kontak -->
-        <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Edit Kontak</h2>
-            <form action="{{ route('superadmin.contacts.update', $contact->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="mb-6 flex items-center space-x-6">
-                    <label for="name" class="w-40 text-sm font-medium">Nama</label>
-                    <input type="text" id="name" name="name" required
-                           value="{{ old('name', $contact->name) }}"
-                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
-                </div>
+                    <div class="mb-3">
+                        <label for="no_wa" class="form-label">Nomor</label>
+                        <input type="text" id="no_wa" name="no_wa" required
+                               value="{{ old('no_wa', $contact->no_wa) }}"
+                               class="form-control" placeholder="08xxxxxx">
+                    </div>
 
-                <div class="mb-6 flex items-center space-x-6">
-                    <label for="no_wa" class="w-40 text-sm font-medium">Nomor Kontak</label>
-                    <input type="text" id="no_wa" name="no_wa" required
-                           value="{{ old('no_wa', $contact->no_wa) }}"
-                           class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
-                </div>
-
-                <div class="flex justify-start space-x-4">
-                    <button type="submit"
-                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md">
-                        Perbarui
-                    </button>
-                    <a href="{{ route('superadmin.contacts.index') }}"
-                       class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md">
-                        Batal
-                    </a>
-                </div>
-            </form>
+                    <div class="d-flex justify-content-start gap-2">
+                        <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                        <a href="{{ route('superadmin.contacts.index') }}" class="btn btn-danger btn-sm">Batal</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </main>
-</div>
-</body>
-</html>
+    </div>
+@endsection

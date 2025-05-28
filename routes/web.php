@@ -77,7 +77,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/products/save', [ProductController::class, 'save'])->name('admin/products/save');
 
     Route::get('/admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasan');
-    Route::resource('/admin/article', ArticleController::class)->names('admin.article');
 });
 
 require __DIR__.'/auth.php';
@@ -90,10 +89,11 @@ Route::prefix('api')->group(function(){
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 //route article
-Route::resource('articles', ArticleController::class);
+// Route::resource('articles', ArticleController::class);
 
 // route tentang kami 
 
+// Route Superadmin
 Route::middleware([CheckSuperadmin::class])->group(function () {
     // FITUR ABIM
     // Route kontak terbaru
@@ -122,25 +122,8 @@ Route::middleware([CheckSuperadmin::class])->group(function () {
         Route::delete('/{id}', [UlasanController::class, 'destroy'])->name('destroy');
     });
 
-    // Route kategori
-    // Route::prefix('categories')->name('superadmin.categories.')->group(function () {
-    //     Route::get('/', [CategoryController::class, 'index'])->name('index');
-    //     Route::get('/create', [CategoryController::class, 'create'])->name('create');
-    //     Route::post('/', [CategoryController::class, 'store'])->name('store');
-    //     Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
-    //     Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
-    //     Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
-    // });
-
-    // Route sub kategori
-    // Route::prefix('subcategories')->name('superadmin.subcategories.')->group(function () {
-    //     Route::get('/', [SubCategoryController::class, 'index'])->name('index');
-    //     Route::get('/create', [SubCategoryController::class, 'create'])->name('create');
-    //     Route::post('/', [SubCategoryController::class, 'store'])->name('store');
-    //     Route::get('/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('edit');
-    //     Route::put('/{subcategory}', [SubCategoryController::class, 'update'])->name('update');
-    //     Route::delete('/{subcategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
-    // });
+    // Route kelola artikel
+    Route::resource('/articles', ArticleController::class)->names('superadmin.articles')->except(['show']);
 
     //route carousel
     Route::get('/carousel', [CarouselController::class, 'index'])->name('superadmin.carousel.index');
@@ -150,6 +133,7 @@ Route::middleware([CheckSuperadmin::class])->group(function () {
     Route::put('/carousel/{id}', [CarouselController::class, 'update'])->name('superadmin.carousel.update');
     Route::delete('/carousel/{id}', [CarouselController::class, 'destroy'])->name('superadmin.carousel.destroy');
 });
+
 // Ulasan Routes - hanya bisa diakses jika user sudah login
 Route::middleware([RedirectToRegister::class])->group(function () {
     Route::get('/ulasan', [App\Http\Controllers\UlasanController::class, 'index'])->name('ulasan.index');

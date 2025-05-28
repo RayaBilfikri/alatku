@@ -110,7 +110,7 @@ class CarouselController extends Controller
         $carousel->update($request->only(['judul', 'link', 'status']));
 
         return redirect()->route('superadmin.carousel.index')
-            ->with('success', 'Data berhasil diperbarui');
+            ->with('success', 'Data berhasil disimpan');
     }
 
     /**

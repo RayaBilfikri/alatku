@@ -33,7 +33,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        return redirect()->route('superadmin.categories.index')->with('message', 'Data berhasil ditambahkan');
+        return redirect()->route('superadmin.categories.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -59,12 +59,12 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('superadmin.categories.index')->with('message', 'Data berhasil diperbarui');
+        return redirect()->route('superadmin.categories.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function destroy($id)
     {
         Category::destroy($id);
-        return redirect()->route('superadmin.categories.index')->with('message', 'Data berhasil dihapus');
+        return redirect()->route('superadmin.categories.index')->with('success', 'Data berhasil dihapus');
     }
 }

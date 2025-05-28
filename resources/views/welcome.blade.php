@@ -155,7 +155,7 @@
                     id: 0,
                     is_static: true,
                     judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
-                    gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
+                    gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp',
                     link: '{{ route('catalog.index') }}'
                 },
                 @if($carousels->count() > 0)

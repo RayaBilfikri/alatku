@@ -1,46 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Kelola Kategori</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('resources/app.css') }}">
-</head>
-<body class="bg-gray-100 font-sans">
+@extends('layouts.backend')
 
-<div class="flex h-screen">
-    @include('partials.sidebar')
-
-    <main class="flex-1 bg-gray-50 p-6">
-        @include('partials.header')
-
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Data Kategori</h2>
-                <a href="{{ route('superadmin.categories.create') }}"
-                   class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 4v16m8-8H4"/>
-                    </svg>
-                    Tambah 
-                </a>
+@section('content')
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Data Kategori</h4>
             </div>
-
-            <div class="overflow-x-auto rounded shadow border">
-                <table class="min-w-full bg-white">
-                    <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-4 py-2 border">No</th>
-                        <th class="px-4 py-2 border">Nama Kategori</th>
-                        <th class="px-4 py-2 border">Ikon</th>
-                        <th class="px-4 py-2 border">Aksi</th>
-                    </tr>
+            <div class="card-body">
+                <div class="flex justify-end mb-4">
+                    <a href="{{ route('superadmin.categories.create') }}" class="btn btn-primary btn-sm">
+                        Tambah
+                    </a>
+                </div>
+                <table class="table table-bordered" id="table">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 border">No</th>
+                            <th class="px-4 py-2 border">Nama Kategori</th>
+                            <th class="px-4 py-2 border">Ikon</th>
+                            <th class="px-4 py-2 border">Aksi</th>
+                        </tr>
                     </thead>
                     <tbody>
+                    
+                        @forelse($categories as $index => $category)
+                            <tr class="text-center">
+                                <td class="px-4 py-2 border">{{ $index + 1 }}</td>
+                                <td class="px-4 py-2 border">{{ $category->name }}</td>
+                                <td class="px-4 py-2 border">
+                                    @if ($category->icon)
+                                        <img src="{{ asset('storage/' . $category->icon) }}" alt="Icon" style="height: 50px;">
+                                    @else
+                                        <span class="text-muted"><i>Gambar tidak tersedia</i></span>
+
                     @foreach($categories as $index => $category)
                         <tr class="text-center">
                             <td class="px-4 py-2 border">{{ $categories->firstItem() + $index }}</td>
@@ -79,17 +71,47 @@
                                                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                             </svg>
                                         </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
 
-                    @if ($categories->isEmpty())
-                        <tr>
-                            <td colspan="4" class="text-center py-4">Data tidak ada</td>
-                        </tr>
-                    @endif
+                                    @endif
+                                </td>
+                                <td class="px-4 py-2 border text-center">
+                                    <div class="d-inline-flex gap-2">
+                                        <!-- Button lihat gambar -->
+                                        @if ($category->icon)
+                                            <button type="button"
+                                                    class="btn btn-warning btn-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#imageModal"
+                                                    data-image="{{ asset('storage/' . $category->icon) }}">
+                                                Lihat
+                                            </button>
+                                        @else
+                                            <button type="button"
+                                                    class="btn btn-secondary btn-sm"
+                                                    disabled>
+                                                Lihat
+                                            </button>
+                                        @endif
+
+                                        <a href="{{ route('superadmin.categories.edit', $category->id) }}"
+                                           class="btn btn-success btn-sm">Edit</a>
+
+                                        <form action="{{ route('superadmin.categories.destroy', $category->id) }}"
+                                              method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm btn-delete">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-4">Data tidak ada</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="mt-4">
@@ -97,73 +119,34 @@
                 </div>
             </div>
         </div>
-    </main>
-</div>
-
-<!-- Modal for viewing icon -->
-<div id="iconModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded">
-        <button onclick="closeModal()" class="text-gray-500 hover:text-red-500">X</button>
-        <img id="modalIcon" src="" alt="Icon" class="max-w-md mx-auto mt-4">
     </div>
-</div>
 
-<script>
-    function showModal(iconUrl) {
-        const modal = document.getElementById('iconModal');
-        const modalImage = document.getElementById('modalIcon');
-        modalImage.src = iconUrl;
-        modal.classList.remove('hidden');
-    }
+    <!-- Modal untuk menampilkan gambar -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="imageModalLabel">Ikon Kategori</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+            <img id="modalImage" src="" alt="Ikon" class="img-fluid" style="max-height: 300px;">
+        </div>
+        </div>
+    </div>
+    </div>
 
-    function closeModal() {
-        const modal = document.getElementById('iconModal');
-        modal.classList.add('hidden');
-    }
-</script>
-
-<!-- sweet alert -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    $(document).ready(function () {
-        $('.delete-form').on('submit', function (e) {
-            e.preventDefault(); // Mencegah form submit langsung
-
-            const form = this; // Simpan referensi form
-
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        });
-    });
-</script>
-
-<!-- notif berhasil -->
-@if (session('message'))
+    @push('scripts')
     <script>
-        $(document).ready(function () {
-            Swal.fire({
-                title: 'Berhasil!',
-                text: '{{ session('message') }}',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                timer: 2500,
-                showConfirmButton: false
-            });
+        const imageModal = document.getElementById('imageModal');
+        imageModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const imageSrc = button.getAttribute('data-image');
+            const modalImage = imageModal.querySelector('#modalImage');
+            modalImage.src = imageSrc;
         });
     </script>
-@endif
+    @endpush
 
-</body>
-</html>
+
+@endsection

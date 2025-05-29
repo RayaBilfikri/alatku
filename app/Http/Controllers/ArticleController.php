@@ -11,12 +11,12 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::latest()->get();
-        return view('articles.index', compact('articles'));
+        return view('superadmin.articles.index', compact('articles'));
     }
 
     public function create()
     {
-        return view('articles.create');
+        return view('superadmin.articles.create');
     }
 
     public function store(Request $request)
@@ -42,13 +42,13 @@ class ArticleController extends Controller
 
         Article::create($validated);
 
-        return redirect()->route('articles.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('superadmin.articles.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     public function edit($id)
     {
         $article = Article::findOrFail($id);
-        return view('articles.edit', compact('article'));
+        return view('superadmin.articles.edit', compact('article'));
     }
 
     public function update(Request $request, $id)
@@ -79,7 +79,7 @@ class ArticleController extends Controller
 
         $article->update($validated);
 
-        return redirect()->route('articles.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('superadmin.articles.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function destroy($id)
@@ -90,6 +90,6 @@ class ArticleController extends Controller
         }
         $article->delete();
 
-        return redirect()->route('articles.index')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('superadmin.articles.index')->with('success', 'Data berhasil dihapus');
     }
 }

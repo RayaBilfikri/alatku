@@ -1,180 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Produk</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body class="bg-gray-100 font-sans">
+@extends('layouts.backend')
 
-<div class="flex min-h-screen">
-    <!-- Sidebar -->
-    @include('partials.sidebar')
-
-    <!-- Main content -->
-    <main class="flex-1 bg-gray-50 p-6">
-        <!-- Header -->
-        @include('partials.header')
-
-        <!-- Form Edit Produk -->
-        <div class="bg-white p-6 rounded shadow-md w-full lg:max-w-7xl mx-auto">
-            <h2 class="text-2xl font-semibold mb-6 text-center">Edit Produk</h2>
+@section('content')
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Edit Produk</h4>
+        </div>
+        <div class="card-body">
             <form action="{{ route('superadmin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                <div class="row">
+                    <!-- Kolom 1 -->
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Produk</label>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $product->name) }}" required>
+                        </div>
 
-                <!-- Nama Produk -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="name" class="w-40 text-sm font-medium">Nama Produk</label>
-                    <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required
-                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
-                </div>
+                        <div class="mb-3">
+                            <label for="gambar" class="form-label">Gambar Produk</label>
+                            <input type="file" id="gambar" name="gambar" class="form-control" accept="image/*">
+                            @if($product->gambar)
+                                <p class="mt-2">
+                                    Gambar saat ini: <br>
+                                    <img src="{{ Storage::url($product->gambar) }}" alt="Gambar Produk" class="img-fluid" style="max-width: 200px;">
+                                </p>
+                            @endif
+                        </div>
 
-                <!-- Gambar Produk -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="gambar" class="w-40 text-sm font-medium">Gambar Produk</label>
-                    <input type="file" id="gambar" name="gambar" accept="image/jpeg, image/png, image/jpg"
-                        class="flex-1 border border-gray-300 rounded px-4 py-3">
-                </div>
+                        <div class="mb-3">
+                            <label for="sub_images" class="form-label">Sub Gambar (Max 3)</label>
+                            <input type="file" name="sub_images[]" id="sub_images" class="form-control" accept="image/*" multiple onchange="limitFiles(this)">
+                        </div>
 
-                <!-- Sub Gambar -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="sub_images[]" class="w-40 text-sm font-medium">Sub Gambar</label>
-                    <input type="file" id="sub_images" name="sub_images[]" accept="image/jpeg, image/png, image/jpg" multiple
-                        class="flex-1 border border-gray-300 rounded px-4 py-3" onchange="limitFiles(this)">
-                </div>
+                        <div class="mb-3">
+                            <label for="serial_number" class="form-label">Serial Number</label>
+                            <input type="text" id="serial_number" name="serial_number" class="form-control" value="{{ old('serial_number', $product->serial_number) }}">
+                        </div>
 
-                
+                        <div class="mb-3">
+                            <label for="brosur" class="form-label">Brosur (PDF)</label>
+                            <input type="file" id="brosur" name="brosur" class="form-control" accept="application/pdf">
+                            @if($product->brosur)
+                                <p class="text-muted mt-2">
+                                    Brosur yang sudah diunggah: <a href="{{ Storage::url($product->brosur) }}" target="_blank" class="text-primary">Lihat</a>
+                                </p>
+                            @endif
+                        </div>
+                    </div>
 
+                    <!-- Kolom 2 -->
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Kategori</label>
+                            <select name="category_id" id="category_id" class="form-control" required>
+                                <option value="">Pilih Kategori</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ (old('category_id', $product->category_id) == $category->id) ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                <!-- Kategori -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="category_id" class="w-40 text-sm font-medium">Kategori</label>
-                    <select name="category_id" id="category_id" required
-                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
-                        <option value="">Pilih Kategori</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
+                        <div class="mb-3">
+                            <label for="sub_category_id" class="form-label">Sub Kategori</label>
+                            <select name="sub_category_id" id="sub_category_id" class="form-control" required>
+                                <option value="">Pilih Sub Kategori</option>
+                                @foreach($subCategories as $subCategory)
+                                    <option value="{{ $subCategory->id }}" {{ (old('sub_category_id', $product->sub_category_id) == $subCategory->id) ? 'selected' : '' }}>
+                                        {{ $subCategory->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    </select>
-                </div>
+                        <div class="mb-3">
+                            <label for="contact_id" class="form-label">Kontak</label>
+                            <select name="contact_id" id="contact_id" class="form-control" required>
+                                <option value="">Pilih Kontak</option>
+                                @foreach($contacts as $contact)
+                                    <option value="{{ $contact->id }}" {{ (old('contact_id', $product->contact_id) == $contact->id) ? 'selected' : '' }}>
+                                        {{ $contact->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                <!-- Sub Kategori -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="sub_category_id" class="w-40 text-sm font-medium">Sub Kategori</label>
-                    <select name="sub_category_id" id="sub_category_id" required
-                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
-                        <option value="">Pilih Sub Kategori</option>
-                        @foreach($subCategories as $subCategory)
-                            <option value="{{ $subCategory->id }}" {{ $product->sub_category_id == $subCategory->id ? 'selected' : '' }}>
-                                {{ $subCategory->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                        <div class="mb-3">
+                            <label for="year_of_build" class="form-label">Tahun Pembuatan</label>
+                            <select name="year_of_build" id="year_of_build" class="form-select" required>
+                                <option value="">Pilih Tahun</option>
+                                @for ($year = date('Y'); $year >= 1950; $year--)
+                                    <option value="{{ $year }}" {{ (old('year_of_build', $product->year_of_build) == $year) ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                        </div>
 
-                <!-- Kontak -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="contact_id" class="w-40 text-sm font-medium">Kontak</label>
-                    <select name="contact_id" id="contact_id" required
-                        class="flex-1 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring focus:border-blue-300">
-                        <option value="">Pilih Kontak</option>
-                        @foreach($contacts as $contact)
-                            <option value="{{ $contact->id }}" {{ $product->contact_id == $contact->id ? 'selected' : '' }}>
-                                {{ $contact->no_wa }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                        <div class="mb-3">
+                            <label for="hours_meter" class="form-label">Hours Meter</label>
+                            <input type="number" id="hours_meter" name="hours_meter" class="form-control" value="{{ old('hours_meter', $product->hours_meter) }}">
+                        </div>
+                    </div>
 
-                <!-- Serial Number -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="serial_number" class="w-40 text-sm font-medium">Serial Number</label>
-                    <input type="text" id="serial_number" name="serial_number" value="{{ old('serial_number', $product->serial_number) }}"
-                        class="flex-1 border border-gray-300 rounded px-4 py-3">
-                </div>
+                    <!-- Kolom 3 -->
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stok</label>
+                            <input type="number" id="stock" name="stock" class="form-control" value="{{ old('stock', $product->stock) }}" required>
+                        </div>
 
-                <!-- Tahun Pembuatan (Custom Dropdown) -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label class="w-40 text-sm font-medium text-gray-700">Tahun Pembuatan</label>
-                    <div x-data="{ open: false, selected: '{{ $product->year_of_build }}' }" class="relative flex-1">
-                        <button @click="open = !open" type="button"
-                            class="w-full bg-white border border-gray-300 rounded px-4 py-3 text-left">
-                            <span x-text="selected || 'Pilih Tahun'"></span>
-                        </button>
-                        <ul x-show="open" @click.away="open = false"
-                            class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow max-h-60 overflow-y-auto">
-                            @for ($year = date('Y'); $year >= 1950; $year--)
-                                <li @click="selected = '{{ $year }}'; open = false"
-                                    class="px-4 py-2 hover:bg-blue-100 cursor-pointer">{{ $year }}</li>
-                            @endfor
-                        </ul>
-                        <input type="hidden" name="year_of_build" :value="selected">
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Harga</label>
+                            <input type="text" id="harga" name="harga" class="form-control" value="{{ old('harga', number_format($product->harga, 0, ',', '.')) }}" required oninput="formatRupiah(this)">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Deskripsi</label>
+                            <textarea id="description" name="description" class="form-control" rows="6">{{ old('description', $product->description) }}</textarea>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Hours Meter -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="hours_meter" class="w-40 text-sm font-medium">Hours Meter</label>
-                    <input type="number" id="hours_meter" name="hours_meter" value="{{ old('hours_meter', $product->hours_meter) }}"
-                        class="flex-1 border border-gray-300 rounded px-4 py-3">
-                </div>
-
-                <!-- Stok -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="stock" class="w-40 text-sm font-medium">Stok</label>
-                    <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" required
-                        class="flex-1 border border-gray-300 rounded px-4 py-3">
-                </div>
-
-                <!-- Harga -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="harga" class="w-40 text-sm font-medium">Harga</label>
-                    <input type="number" id="harga" name="harga" value="{{ old('harga', $product->harga) }}" required
-                        class="flex-1 border border-gray-300 rounded px-4 py-3">
-                </div>
-
-                <!-- Deskripsi -->
-                <div class="mb-4">
-                    <label for="description" class="block text-sm font-medium mb-2">Deskripsi</label>
-                    <textarea id="description" name="description" rows="4"
-                        class="w-full border border-gray-300 rounded px-4 py-3">{{ old('description', $product->description) }}</textarea>
-                </div>
-
-                <!-- Brosur -->
-                <div class="mb-4 flex items-center space-x-6">
-                    <label for="brosur" class="w-40 text-sm font-medium">Brosur (PDF)</label>
-                    <input type="file" id="brosur" name="brosur" accept="application/pdf"
-                        class="flex-1 border border-gray-300 rounded px-4 py-3">
-                    @if($product->brosur)
-                        <p class="text-sm text-gray-500 mt-2">Brosur yang sudah diunggah: <a href="{{ Storage::url($product->brosur) }}" class="text-blue-500" target="_blank">Lihat</a></p>
-                    @endif
-                </div>
-
                 <!-- Tombol -->
-                <div class="flex justify-start space-x-4 mt-6">
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-md">
-                        Perbarui
-                    </button>
-                    <a href="{{ route('superadmin.products.index') }}"
-                        class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md">
-                        Batal
-                    </a>
+                <div class="d-flex justify-content-start gap-2 mt-3">
+                    <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                    <a href="{{ route('superadmin.products.index') }}" class="btn btn-danger btn-sm">Batal</a>
                 </div>
             </form>
         </div>
-    </main>
+    </div>
 </div>
-
-<!-- CDN Alpine.js -->
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
 
 <script>
     function limitFiles(input) {
@@ -183,7 +142,30 @@
             input.value = ''; // reset input
         }
     }
-</script>
 
-</body>
-</html>
+    function formatRupiah(el) {
+        let value = el.value.replace(/[^,\d]/g, '').toString();
+        let split = value.split(',');
+        let sisa = split[0].length % 3;
+        let rupiah = split[0].substr(0, sisa);
+        let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        el.value = 'Rp ' + rupiah;
+    }
+
+    // Saat submit form, hapus "Rp " dan titik dari input harga supaya backend dapat nilai murni
+    document.querySelector('form').addEventListener('submit', function(e) {
+        let hargaInput = document.getElementById('harga');
+        let val = hargaInput.value;
+
+        val = val.replace(/Rp\s?/g, '').replace(/\./g, '');
+        hargaInput.value = val;
+    });
+</script>
+@endsection

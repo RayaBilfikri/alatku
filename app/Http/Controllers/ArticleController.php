@@ -26,6 +26,14 @@ class ArticleController extends Controller
             'konten_artikel' => 'required',
             'tanggal_publish' => 'required|date',
             'gambar' => 'nullable|image|max:2048',
+        ], [
+            'judul.required' => 'Judul wajib diisi.',
+            'judul.max' => 'Judul maksimal 255 karakter.',
+            'konten_artikel.required' => 'Konten artikel wajib diisi.',
+            'tanggal_publish.required' => 'Tanggal publish wajib diisi.',
+            'tanggal_publish.date' => 'Tanggal publish harus berupa tanggal yang valid.',
+            'gambar.image' => 'File yang diunggah harus berupa gambar.',
+            'gambar.max' => 'Ukuran gambar maksimal hanya 2MB.',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -52,6 +60,14 @@ class ArticleController extends Controller
             'konten_artikel' => 'required',
             'tanggal_publish' => 'required|date',
             'gambar' => 'nullable|image|max:2048',
+        ], [
+            'judul.required' => 'Judul wajib diisi.',
+            'judul.max' => 'Judul maksimal 255 karakter.',
+            'konten_artikel.required' => 'Konten artikel wajib diisi.',
+            'tanggal_publish.required' => 'Tanggal publish wajib diisi.',
+            'tanggal_publish.date' => 'Tanggal publish harus berupa tanggal yang valid.',
+            'gambar.image' => 'File yang diunggah harus berupa gambar.',
+            'gambar.max' => 'Ukuran gambar maksimal 2MB.',
         ]);
 
         if ($request->hasFile('gambar')) {

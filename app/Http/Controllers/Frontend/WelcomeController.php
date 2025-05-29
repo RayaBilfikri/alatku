@@ -12,15 +12,16 @@ class WelcomeController
 {
     public function index()
     {
-        // Data dari HeroController
+        // Data untuk HeroController
         $carousels = Carousel::where('status', 'aktif')
                         ->latest('id_carousel')
                         ->take(1)
                         ->get();
         
-        // Data dari CardController
+        // Data untuk ProductCardController
         $ProductCard = Product::latest()->take(4)->get();
 
+        // Data untuk ulasan dinamis
         $Testimonials = Ulasan::with('user')
             ->where('status', 'approved')
             ->latest()

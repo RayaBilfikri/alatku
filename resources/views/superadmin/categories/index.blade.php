@@ -22,6 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    
                         @forelse($categories as $index => $category)
                             <tr class="text-center">
                                 <td class="px-4 py-2 border">{{ $index + 1 }}</td>
@@ -31,6 +32,46 @@
                                         <img src="{{ asset('storage/' . $category->icon) }}" alt="Icon" style="height: 50px;">
                                     @else
                                         <span class="text-muted"><i>Gambar tidak tersedia</i></span>
+
+                    @foreach($categories as $index => $category)
+                        <tr class="text-center">
+                            <td class="px-4 py-2 border">{{ $categories->firstItem() + $index }}</td>
+                            <td class="px-4 py-2 border">{{ $category->name }}</td>
+                            <td class="px-4 py-2 border">
+                                @if($category->icon)
+                                    <img src="{{ asset('storage/' . $category->icon) }}" alt="Icon" class="h-20 mx-auto">
+                                @else
+
+                                @endif
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center items-center space-x-2">
+                                    <a href="{{ route('superadmin.categories.edit', $category->id) }}"
+                                       class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded focus:outline-none border-none">Edit</a>
+
+                                    <form action="{{ route('superadmin.categories.destroy', $category->id) }}"
+                                        method="POST"
+                                        class="delete-form inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded focus:outline-none border-none">
+                                            Hapus
+                                        </button>
+                                    </form>
+
+                                    @if($category->icon)
+                                        <button onclick="showModal('{{ asset('storage/' . $category->icon) }}')"
+                                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded flex items-center justify-center focus:outline-none border-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                        </button>
+
                                     @endif
                                 </td>
                                 <td class="px-4 py-2 border text-center">
@@ -73,6 +114,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $categories->links('pagination::tailwind') }}
+                </div>
             </div>
         </div>
     </div>

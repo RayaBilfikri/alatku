@@ -7,9 +7,11 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $categories = Category::paginate(5);
+
         return view('superadmin.categories.index', compact('categories'));
     }
 

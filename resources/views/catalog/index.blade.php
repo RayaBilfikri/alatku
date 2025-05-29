@@ -4,7 +4,7 @@
 <body class="bg-white text-gray-800 antialiased" data-products-url="{{ route('products.ajax') }}">
 <main>
     <!-- Banner -->
-    <section class="bg-cover bg-center relative" style="background-image: url('/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png'); height: 300px;" aria-label="Banner Pencarian Alat">
+    <section class="bg-cover bg-center relative" style="background-image: url('/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp'); height: 300px;" aria-label="Banner Pencarian Alat">
         <div class="absolute inset-0 bg-gray-700 bg-opacity-70 flex flex-col justify-center items-center text-white text-center px-4">
             <h1 class="text-3xl md:text-4xl font-bold mb-2">Langsung Temukan, Langsung Kerja!</h1>
             <p class="mb-4">Cari alat yang anda butuhkan dengan cepat dan mulai proyek Anda tanpa hambatan.</p>
@@ -80,11 +80,7 @@
     #scrollContainer::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.5); }
     #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
     .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
-    .subkategori-item { color: #374151; }
-    .active-kategori {
-        background-color:rgb(254, 234, 147);
-        color: black;
-    }
+    .subkategori-item { color: #374151; } 
 </style>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -190,64 +186,54 @@
             document.querySelectorAll('.active-subcategory').forEach(el => el.classList.remove('active-subcategory'));
         }
 
-        function clearActiveCategories() {
-            document.querySelectorAll('.kategori-link').forEach(el => el.classList.remove('active-kategori'));
-        }
-
-
         kategoriLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener("click", (e) => {
                 e.preventDefault();
-                const label = link.dataset.kategori;
-                const subkategoriList = JSON.parse(link.dataset.subkategori.replace(/'/g, '"'));
-
-                subList.innerHTML = "";
-
-                // Toggle category selection
-                if (currentCategory === label) {
-                    currentCategory = null;
-                    currentSubcategory = null;
-                    subContainer.classList.add('hidden');
-                    clearActiveSubcategories();
-                    clearActiveCategories();
-                    fetchAndRenderProducts();
-                    return;
-                }
-
-                // Update selected category
-                clearActiveCategories();
-                clearActiveSubcategories();
-                link.classList.add('active-kategori');
-                currentCategory = label;
+                currentCategory = link.dataset.kategori;
                 currentSubcategory = null;
-
-                // Show subcategories
-                subkategoriList.forEach(name => {
-                    const item = document.createElement('li');
-                    item.textContent = name;
-                    item.className = "subkategori-item cursor-pointer px-3 py-1 rounded-full bg-gray-100 hover:bg-orange-400 hover:text-white";
-                    item.addEventListener('click', () => {
-                        clearActiveSubcategories();
-                        item.classList.add('active-subcategory');
-                        currentSubcategory = name;
-                        fetchAndRenderProducts();
-                    });
-                    subList.appendChild(item);
-                });
-
-                subContainer.classList.remove('hidden');
+                currentKeyword = null;
                 fetchAndRenderProducts();
+
+                // Tampilkan subkategori
+                const subcategories = JSON.parse(link.dataset.subkategori.replace(/&quot;/g,'"'));
+                if (subcategories.length) {
+                    subContainer.classList.remove('hidden');
+                    subList.innerHTML = subcategories.map(sub => `
+                        <li>
+                            <button class="subkategori-item px-4 py-2 bg-gray-200 rounded-full hover:bg-orange-400 hover:text-white focus:outline-none" data-sub="${sub}">
+                                ${sub}
+                            </button>
+                        </li>
+                    `).join("");
+                } else {
+                    subContainer.classList.add('hidden');
+                    subList.innerHTML = "";
+                }
             });
         });
 
 
-        searchForm.addEventListener("submit", (e) => {
+        subList.addEventListener("click", (e) => {
+            if (e.target.matches(".subkategori-item")) {
+                currentSubcategory = e.target.dataset.sub;
+                fetchAndRenderProducts();
+
+                // Highlight
+                subList.querySelectorAll("button").forEach(btn => btn.classList.remove("active-subcategory"));
+                e.target.classList.add("active-subcategory");
+            }
+        });
+
+
+
+        searchForm.addEventListener("submit", e => {
             e.preventDefault();
-            currentKeyword = searchInput.value.trim();
+            currentKeyword = searchInput.value;
+            currentCategory = null;
+            currentSubcategory = null;
             fetchAndRenderProducts();
         });
 
-        fetchAndRenderProducts();
 
         if (searchForm && productContainerWrapper) {
             searchForm.addEventListener('submit', function () {
@@ -257,6 +243,8 @@
                 }, 300);
             });
         }
+
+        fetchAndRenderProducts();
 
     });
 </script>

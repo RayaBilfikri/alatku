@@ -44,6 +44,7 @@
                                                     </button>
                                                 </form>
 
+
                                                 <form action="{{ route('superadmin.ulasans.reject', $ulasan->id) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     @method('PUT')
@@ -52,6 +53,61 @@
                                                     </button>
                                                 </form>
                                             @endif
+
+            <div class="overflow-x-auto rounded shadow border">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 border">No</th>
+                        <th class="px-4 py-2 border">Nama Pengirim</th>
+                        <th class="px-4 py-2 border">Isi Ulasan</th>
+                        <th class="px-4 py-2 border">Status</th>
+                        <th class="px-4 py-2 border">Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($ulasans as $index => $ulasan)
+                        <tr class="text-center">
+                            <td class="px-4 py-2 border">{{ $ulasans->firstItem() + $index }}</td>
+                            <td class="px-4 py-2 border">{{ $ulasan->user->name ?? 'Anonim' }}</td>
+                            <td class="px-4 py-2 border text-left">{{ $ulasan->content }}</td>
+                            <td class="px-4 py-2 border capitalize">
+                                @if($ulasan->status === 'approved')
+                                    <span class="text-green-600 font-semibold">Disetujui</span>
+                                @elseif($ulasan->status === 'pending')
+                                    <span class="text-yellow-500 font-semibold">Menunggu</span>
+                                @else
+                                    <span class="text-red-600 font-semibold">Ditolak</span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-2 border space-x-2">
+                                @if ($ulasan->status === 'pending')
+                                    <form action="{{ route('superadmin.ulasans.approve', $ulasan->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+                                            Setujui
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('superadmin.ulasans.reject', $ulasan->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded">
+                                            Tolak
+                                        </button>
+                                    </form>
+                                @endif
+
+                                @if ($ulasan->status === 'approved')
+                                    <form action="{{ route('superadmin.ulasans.destroy', $ulasan->id) }}" method="POST" class="delete-form inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                                            Hapus
+                                        </button>
+                                    </form>
+
 
                                             @if ($ulasan->status === 'approved')
                                                 <form action="{{ route('superadmin.ulasans.destroy', $ulasan->id) }}" method="POST" class="d-inline">

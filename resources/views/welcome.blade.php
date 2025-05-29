@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-    <link href="/src/styles.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
@@ -62,8 +61,8 @@
             </div>
         </div>
         
-        <!-- Profile atau Login/Register section -->
-        <div>
+       <!-- Profile atau Login/Register section -->
+        <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}">
             @guest
                 <div class="flex items-center space-x-4">
                     <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
@@ -156,7 +155,7 @@
                     id: 0,
                     is_static: true,
                     judul: 'DARI DARAT KE LAUT, KAMI SIAP MENDUKUNG ANDA!',
-                    gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.png',
+                    gambar: '/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp',
                     link: '{{ route('catalog.index') }}'
                 },
                 @if($carousels->count() > 0)
@@ -187,7 +186,7 @@
         @mouseover="stopAutoplay()"
         @mouseout="startAutoplay()"
         x-cloak
-        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-hidden min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
+        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
@@ -320,7 +319,7 @@
 
 
     <!-- Equipment Sale with Product Card Section -->
-    <section id="equipment-sale" class="bg-[#525fe1] py-10 px-4 md:py-16 lg:py-20 md:px-8 lg:px-10 relative overflow-hidden z-6">
+    <section id="equipment-sale" class="bg-gray-100 py-10 px-4 md:py-16 lg:py-20 md:px-8 lg:px-10 relative z-6">
         <!-- Background circles - adjusted for better mobile appearance -->
         <div class="absolute -left-16 sm:-left-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-16 sm:-right-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
@@ -328,22 +327,19 @@
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
-                <div class="text-white mb-6 md:mb-0 w-full md:w-full lg:w-1/3 font montserrat text-center lg:text-left">
+                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 font montserrat text-center lg:text-left">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-2">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
                     <p class="text-sm sm:text-base mb-6 lg:mb-8 opacity-90 font-montserrat font-semibold">
                         Lihat koleksi alat berat dan kapal siap kerja 
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
 
-                    <a href="{{ route('catalog.index') }}"
-                        class="relative inline-flex items-center overflow-hidden text-white px-4 sm:px-5 py-2 rounded-full font-medium text-sm group">
-                        <span class="absolute inset-0 bg-gradient-to-r from-[#f86f03] to-[#ffa41b] transition-transform duration-500 ease-in-out group-hover:from-[#ffa41b] group-hover:to-[#f86f03]"></span>
-                        <span class="relative z-10 flex items-center">
-                            Lihat produk selengkapnya
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 ml-2 transition-transform duration-500 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
+                <a href="{{ route('catalog.index') }}"
+                        class="btn-special inline-flex items-center bg-black text-white px-6 py-3 rounded-full font-medium text-base shadow-md hover:bg-gray-800 transition-colors">
+                        <span>Lihat produk selengkapnya</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="arrow-icon h-5 w-5 sm:h-6 sm:w-6 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
                     </a>
                 </div>
                 
@@ -429,6 +425,7 @@
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
                 <a href="javascript:void(0)" id="selengkapnyaBtn"
+                    data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
                     class="absolute right-0 
                             top-[-3.5rem] sm:top-[-4.5rem] md:top-[-2rem] 
                             group inline-flex items-center px-5 py-2.5 
@@ -747,7 +744,49 @@
         z-index: 10;
         box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
     }
-    
+
+    /* Tambahkan ini di CSS Anda */
+    .btn-special {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .btn-special:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #333333 0%, #000000 100%);
+        transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+        z-index: -1;
+    }
+
+    .btn-special:hover:before {
+        width: 100%;
+    }
+
+    .btn-special:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .btn-special:active {
+        transform: translateY(1px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .arrow-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-special:hover .arrow-icon {
+        transform: translateX(5px);
+    }
+        
     
     .testimonial-section {
         width: 100%;
@@ -860,9 +899,18 @@
 </html>
 
 <script>
+
+    document.querySelectorAll('#carousel').forEach(carousel => {
+        const activeItem = carousel.querySelector('.carousel-item.active');
+        if (activeItem) {
+            activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+        }
+    });
+
     
     document.addEventListener("DOMContentLoaded", function () {
-        const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
+        const authStatus = document.getElementById('authStatus');
+        const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
         const prevButtons = document.querySelectorAll('.carousel-prev');
         const nextButtons = document.querySelectorAll('.carousel-next');
         const modalBtn = document.getElementById('selengkapnyaBtn');
@@ -871,6 +919,8 @@
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
         const logoutForm = document.getElementById('logoutForm');
+
+
 
 
         if (logoutForm) {
@@ -942,6 +992,7 @@
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
+            
 
             
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
@@ -971,18 +1022,6 @@
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
 
-            let timeout;
-        
-            window.addEventListener("resize", () => {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => {
-                    // Paksa snap ke elemen aktif setelah resize/minimize
-                    const activeItem = carousel.querySelector(".carousel-item.active");
-                    if (activeItem) {
-                        activeItem.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-                    }
-                }, 150); // debounce agar tidak terlalu sering
-            });
 
         }
 
@@ -1014,15 +1053,19 @@
             }
             
             // Event listener untuk tombol
-            modalBtn.addEventListener('click', function(e) {
-                @auth
-                    // Jika user sudah login, arahkan langsung ke halaman ulasan
-                    window.location.href = "{{ route('ulasan.index') }}";
-                @else
-                    // Jika belum login, tampilkan modal
-                    openModal();
-                @endauth
-            });
+            if (selengkapnyaBtn) {
+                const isLoggedIn = selengkapnyaBtn.dataset.loggedIn === 'true';
+
+                selengkapnyaBtn.addEventListener('click', function () {
+                    if (isLoggedIn) {
+                        window.location.href = "{{ route('ulasan.index') }}";
+                    } else {
+                        modal.classList.remove('opacity-0', 'pointer-events-none');
+                        modal.classList.add('opacity-100');
+                    }
+                });
+            }
+
             
             closeBtn.addEventListener('click', closeModal);
             
@@ -1107,15 +1150,4 @@
 
     });
 
-
-    tailwind.config = {
-        theme: {
-            extend: {
-            fontFamily: {
-                montserrat: ['Montserrat', 'sans-serif'],
-                akira: ['"Akira Expanded"', 'sans-serif'],
-            },
-            },
-        },
-        }
 </script>

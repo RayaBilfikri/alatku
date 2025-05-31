@@ -30,6 +30,7 @@
     </div>
 @endif
 
+
     <div class="container mx-auto px-4 py-6">
         <div class="flex items-center mb-6">
             <a href="{{ route('home') }}" class="flex items-center text-gray-800 hover:text-gray-600">
@@ -58,6 +59,9 @@
                     <div class="mb-1">
                         <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
                         <span class="text-xs text-gray-500">{{ $ulasan->user->type ?? 'user' }}</span>
+                        <div class="review-meta">
+                            <span class="text-xs text-gray-400">{{ $ulasan->created_at->diffForHumans() }}</span>
+                        </div>
                     </div>
 
                     <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
@@ -67,6 +71,12 @@
             </div>
         @endforeach
 
+
+        <!--data injection-->
+        <div id="user-data"
+            data-name="{{ auth()->user()->name }}"
+            data-type="{{ Auth::user()->usertype }}">
+        </div>
 
         <!-- Popup for Pending Review -->
         <div id="pendingReviewPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden font-montserrat">
@@ -81,21 +91,22 @@
         </div>
 
         <!-- Popup for Viewing Pending Reviews -->
-        <div id="viewPendingReviewsPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden font-montserrat">
-            <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full">
+        <div id="viewPendingReviewsPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden font-montserrat popup-backdrop">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full popup-content">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-medium">Ulasan Tertunda</h3>
-                    <button id="closePendingReviewsPopup" class="text-gray-500 hover:text-gray-700">
+                    <button id="closePendingReviewsPopup" class="text-gray-500 hover:text-gray-700 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
                 
-                <div class="overflow-y-auto max-h-[300px] space-y-4 pr-2">
-                    <!-- Pending review sample -->
-                    @foreach ($pendingReviews as $ulasan)
-                        <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat">
+                <!-- Content with Reviews -->
+                @if(count($pendingReviews) > 0)
+                <div id="reviewsContent" class="overflow-y-auto max-h-[300px] space-y-4 pr-2">
+                    @foreach ($pendingReviews as $index => $ulasan)
+                        <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat review-item">
                             <div class="flex-shrink-0 mr-4">
                                 <img src="{{ '/images/user.png' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
                             </div>
@@ -112,6 +123,16 @@
                         </div>
                     @endforeach
                 </div>
+                @else
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-12 empty-state">
+                    <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Tidak Ada Ulasan Tertunda</h3>
+                    <p class="text-gray-500">Semua ulasan telah disetujui atau ditolak.</p>
+                </div>
+                @endif
             </div>
         </div>
 
@@ -143,6 +164,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         const ulasanForm = document.getElementById('ulasanForm');
         const ulasanInput = document.getElementById('ulasanInput');
+        const userDataDiv = document.getElementById('user-data');
+        const loggedInUserName = userDataDiv.dataset.name;
+        const loggedInUserType = userDataDiv.dataset.type;
         const pendingReviewPopup = document.getElementById('pendingReviewPopup');
         const closePendingPopup = document.getElementById('closePendingPopup');
         const btnLihatUlasanTertunda = document.getElementById('btnLihatUlasanTertunda');
@@ -150,8 +174,6 @@
         const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const url = "{{ route('ulasan.store') }}";
-        const loggedInUserName = @json(auth()->user()->name);
-        const loggedInUserType = @json(Auth::user()->usertype);
         const notifications = document.querySelectorAll('#notification-container .notification-item');
     
         
@@ -251,19 +273,7 @@
             }, 300);
         }, 3000);
     });
-
-        
-    });
-
-    tailwind.config = {
-        theme: {
-            extend: {
-            fontFamily: {
-                montserrat: ['Montserrat', 'sans-serif'],
-
-            },
-            },
-        },
-        }
+     
+});
 </script>
 @endpush

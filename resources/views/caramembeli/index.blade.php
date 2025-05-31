@@ -16,7 +16,7 @@
             @foreach ($steps as $step)
             <div class="bg-white rounded-2xl shadow-md p-6 flex items-start space-x-4 hover:shadow-lg transition-shadow duration-300">
                 <div class="flex-shrink-0">
-                    <div class="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-semibold shadow">
+                    <div class="w-12 h-12 rounded-full bg-blue-700 text-white flex items-center justify-center text-lg font-semibold shadow">
                         {{ $step->step_number }}
                     </div>
                 </div>

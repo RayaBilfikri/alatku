@@ -141,7 +141,7 @@
         $(document).ready(function () {
             Swal.fire({
                 title: 'Berhasil!',
-                text: '{{ session('message') }}',
+                text: 'message',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 timer: 2500,

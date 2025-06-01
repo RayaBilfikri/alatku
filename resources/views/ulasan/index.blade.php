@@ -33,11 +33,13 @@
 
     <div class="container mx-auto px-4 py-6">
         <div class="flex items-center mb-6">
-            <a href="{{ route('home') }}" class="flex items-center text-gray-800 hover:text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                <span class="ml-2 text-xl font-medium">Ulasan</span>
+            <a href="{{ route('home') }}" class="group flex items-center text-gray-800 hover:text-orange-600 transition-colors duration-200">
+                <div class="p-2 rounded-full group-hover:bg-blue-50 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <span class="ml-1 text-xl font-medium">Ulasan</span>
             </a>
             
             <button id="btnLihatUlasanTertunda" class="ml-auto bg-[#F86F03] text-white px-4 py-2 rounded-full drop-shadow-xl flex items-center font-montserrat hover:bg-orange-600">

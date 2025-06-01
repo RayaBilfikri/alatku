@@ -47,29 +47,78 @@
                 </svg>
             </button>
         </div>
-
+        
         <!-- Review Section -->
-        @foreach ($approvedReviews as $ulasan)
-            <div id="ulasanList" class="flex items-start space-x-4 max-w-[1241px] font-montserrat mb-4">
-                <div class="flex-shrink-0">
-                    <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
-                </div>
+        @if($approvedReviews->count() > 0)
+            @foreach ($approvedReviews as $ulasan)
+                <div id="ulasanList" class="flex items-start space-x-4 max-w-[1241px] font-montserrat mb-4">
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                    </div>
 
-                <div class="flex-grow">
-                    <div class="mb-1">
-                        <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
-                        <span class="text-xs text-gray-500">{{ $ulasan->user->type ?? 'user' }}</span>
-                        <div class="review-meta">
-                            <span class="text-xs text-gray-400">{{ $ulasan->created_at->diffForHumans() }}</span>
+                    <div class="flex-grow">
+                        <div class="mb-1">
+                            <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
+                            <span class="text-xs text-gray-500">{{ $ulasan->user->type ?? 'user' }}</span>
+                            <div class="review-meta">
+                                <span class="text-xs text-gray-400">{{ $ulasan->created_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
+                            <p class="text-gray-600 p-4">{{ $ulasan->content }}</p>
                         </div>
                     </div>
+                </div>
+            @endforeach
+        @else
 
-                    <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
-                        <p class="text-gray-600 p-4">{{ $ulasan->content }}</p>
+            <div class="flex flex-col items-center justify-center py-16 px-4 max-w-[1241px] mx-auto font-montserrat">
+                <!-- Empty State Illustration -->
+                <div class="relative mb-8">
+                    <div class="w-32 h-32 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center shadow-lg">
+                        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
                     </div>
+                    <!-- Floating dots animation -->
+                    <div class="absolute -top-2 -right-2 w-4 h-4 bg-yellow-300 rounded-full animate-bounce"></div>
+                    <div class="absolute -bottom-1 -left-3 w-3 h-3 bg-pink-300 rounded-full animate-pulse"></div>
+                    <div class="absolute top-4 -left-4 w-2 h-2 bg-blue-300 rounded-full animate-ping"></div>
+                </div>
+
+                <!-- Main Message -->
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-3">
+                        Belum Ada Ulasan yang Diterima
+                    </h3>
+                    <p class="text-gray-500 text-lg leading-relaxed max-w-md mx-auto">
+                        Sabar ya! Ulasan sedang dalam proses moderasi. 
+                        <span class="inline-block animate-bounce">⏳</span>
+                    </p>
+                </div>
+
+                <!-- Fun Loading Animation -->
+                <div class="flex items-center space-x-2 mb-6">
+                    <div class="flex space-x-1">
+                        <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0s"></div>
+                        <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                    </div>
+                    <span class="text-sm text-gray-400 font-medium">Tunggu saja!</span>
+                </div>
+
+                <!-- Encouraging Message -->
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 text-center border border-blue-100 shadow-sm">
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        <span class="font-semibold text-blue-600">Tips:</span> 
+                        Ulasan yang berkualitas akan segera muncul di sini setelah diverifikasi tim kami
+                        <span class="inline-block ml-1">✨</span>
+                    </p>
                 </div>
             </div>
-        @endforeach
+        @endif
 
 
         <!--data injection-->
@@ -83,7 +132,7 @@
             <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-medium">Status</h3>
-                    <span class="bg-[#F86F03] text-white px-3 py-1 rounded">Pending</span>
+                    <span class="bg-[#F86F03] text-white px-3 py-1 rounded-full">Pending</span>
                 </div>
                 <p class="text-gray-600 mb-4">Ulasan Anda sedang dalam proses peninjauan dan menunggu persetujuan sebelum ditampilkan</p>
                 <button id="closePendingPopup" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md w-full">Close</button>
@@ -92,7 +141,7 @@
 
         <!-- Popup for Viewing Pending Reviews -->
         <div id="viewPendingReviewsPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden font-montserrat popup-backdrop">
-            <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full popup-content">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full popup-content transition-all duration-300 transform scale-95 opacity-0">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-medium">Ulasan Tertunda</h3>
                     <button id="closePendingReviewsPopup" class="text-gray-500 hover:text-gray-700 transition-colors">
@@ -118,7 +167,7 @@
                                 <p class="text-gray-600 ml-2">{{ $ulasan->content }}</p>
                             </div>
                             <div class="ml-4 flex-shrink-0">
-                                <span class="bg-[#F86F03] text-white px-3 py-1 rounded">Pending</span>
+                                <span class="bg-[#F86F03] text-white px-3 py-1 rounded-full">Pending</span>
                             </div>
                         </div>
                     @endforeach
@@ -162,118 +211,111 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const ulasanForm = document.getElementById('ulasanForm');
-        const ulasanInput = document.getElementById('ulasanInput');
-        const userDataDiv = document.getElementById('user-data');
-        const loggedInUserName = userDataDiv.dataset.name;
-        const loggedInUserType = userDataDiv.dataset.type;
-        const pendingReviewPopup = document.getElementById('pendingReviewPopup');
-        const closePendingPopup = document.getElementById('closePendingPopup');
-        const btnLihatUlasanTertunda = document.getElementById('btnLihatUlasanTertunda');
-        const viewPendingReviewsPopup = document.getElementById('viewPendingReviewsPopup');
-        const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        const url = "{{ route('ulasan.store') }}";
-        const notifications = document.querySelectorAll('#notification-container .notification-item');
-    
-        
+    const ulasanForm = document.getElementById('ulasanForm');
+    const ulasanInput = document.getElementById('ulasanInput');
+    const userDataDiv = document.getElementById('user-data');
+    const loggedInUserName = userDataDiv.dataset.name;
+    const loggedInUserType = userDataDiv.dataset.type;
+    const viewPendingReviewsPopup = document.getElementById('viewPendingReviewsPopup');
+    const popupContent = viewPendingReviewsPopup.querySelector('.popup-content');
+    const pendingReviewPopup = document.getElementById('pendingReviewPopup');
+    const closePendingPopup = document.getElementById('closePendingPopup');
+    const btnLihatUlasanTertunda = document.getElementById('btnLihatUlasanTertunda');
+    const closePendingReviewsPopup = document.getElementById('closePendingReviewsPopup');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const url = "{{ route('ulasan.store') }}";
+    const notifications = document.querySelectorAll('#notification-container .notification-item');
 
-        // Submit review
-        ulasanForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const content = ulasanInput.value.trim();
-            
-            if (content === '') return;
-            
-            // Send review to backend
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json', 
-                },
-                body: JSON.stringify({
-                    content: content
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Clear input
-                ulasanInput.value = '';
-                
-                // Show pending review popup
-                pendingReviewPopup.classList.remove('hidden');
+    // Fungsi buka popup dengan animasi
+    function openPendingReviewsPopup() {
+        viewPendingReviewsPopup.classList.remove('hidden');
+        setTimeout(() => {
+            popupContent.classList.remove('scale-95', 'opacity-0');
+            popupContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
 
-                // Show "Lihat ulasan tertunda" button
-                btnLihatUlasanTertunda.classList.remove('hidden');
-
-                // Tambahkan langsung ke popup ulasan tertunda
-                const container = viewPendingReviewsPopup.querySelector('.overflow-y-auto');
-                
-                const newReview = document.createElement('div');
-                newReview.className = "bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat";
-                newReview.innerHTML = `
-                    <div class="flex-shrink-0 mr-4">
-                        <img src="${window.location.origin}/images/user.png" alt="User Avatar" class="w-12 h-12 rounded-full">
-                    </div>
-                    <div class="flex-grow">
-                        <div class="flex items-center mb-1">
-                        <h3 class="font-medium text-gray-800">${loggedInUserName}</h3>
-                        </div>
-                        <span class="text-xs text-gray-500">${loggedInUserType}</span>
-                        <p class="text-gray-600 ml-2">${content}</p>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                        <span class="bg-[#F86F03] text-white px-3 py-1 rounded">Pending</span>
-                    </div>
-                `;
-                
-                // Sisipkan di paling atas
-                container.prepend(newReview);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-
-        // Close pending review popup
-        closePendingPopup.addEventListener('click', function() {
-            pendingReviewPopup.classList.add('hidden');
-        });
-
-        // Open pending reviews popup
-        btnLihatUlasanTertunda.addEventListener('click', function() {
-            viewPendingReviewsPopup.classList.remove('hidden');
-        });
-
-        // Close pending reviews popup
-        closePendingReviewsPopup.addEventListener('click', function() {
+    // Fungsi tutup popup dengan animasi
+    function closePendingReviewsPopupFunc() {
+        popupContent.classList.remove('scale-100', 'opacity-100');
+        popupContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
             viewPendingReviewsPopup.classList.add('hidden');
-        });
+        }, 300);
+    }
 
-            notifications.forEach((notification) => {
-        // Fade in animation
+    // Submit review
+    ulasanForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const content = ulasanInput.value.trim();
+        if (content === '') return;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json', 
+            },
+            body: JSON.stringify({ content: content })
+        })
+        .then(response => response.json())
+        .then(data => {
+            ulasanInput.value = '';
+            pendingReviewPopup.classList.remove('hidden');
+            btnLihatUlasanTertunda.classList.remove('hidden');
+
+            const container = viewPendingReviewsPopup.querySelector('.overflow-y-auto');
+            const newReview = document.createElement('div');
+            newReview.className = "bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat";
+            newReview.innerHTML = `
+                <div class="flex-shrink-0 mr-4">
+                    <img src="${window.location.origin}/images/user.png" alt="User Avatar" class="w-12 h-12 rounded-full">
+                </div>
+                <div class="flex-grow">
+                    <div class="flex items-center mb-1">
+                    <h3 class="font-medium text-gray-800">${loggedInUserName}</h3>
+                    </div>
+                    <span class="text-xs text-gray-500">${loggedInUserType}</span>
+                    <p class="text-gray-600 ml-2">${content}</p>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                    <span class="bg-[#F86F03] text-white px-3 py-1 rounded">Pending</span>
+                </div>
+            `;
+            container.prepend(newReview);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    // Close pending review popup
+    closePendingPopup.addEventListener('click', function() {
+        pendingReviewPopup.classList.add('hidden');
+    });
+
+    // Event buka/tutup popup dengan animasi
+    btnLihatUlasanTertunda.addEventListener('click', openPendingReviewsPopup);
+    closePendingReviewsPopup.addEventListener('click', closePendingReviewsPopupFunc);
+
+    // Animasi notifikasi (tetap sama)
+    notifications.forEach((notification) => {
         notification.style.opacity = '0';
         notification.style.transition = 'opacity 0.3s ease-in-out';
-        
         setTimeout(() => {
             notification.style.opacity = '1';
         }, 100);
-        
-        // Auto dismiss after 3 seconds
         setTimeout(() => {
             notification.style.opacity = '0';
             notification.style.transform = 'translateY(-10px)';
             notification.style.transition = 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out';
-            
             setTimeout(() => {
                 notification.remove();
             }, 300);
         }, 3000);
     });
-     
 });
+
 </script>
 @endpush

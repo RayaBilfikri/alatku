@@ -32,15 +32,15 @@
                     }
                 </script>
             </div> 
-            <a href="/categories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
-            <a href="/articles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
-            <a href="/subcategories" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
-            <a href="/products" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
-            <a href="/ulasans" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
-            <a href="/carousel" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
-            <a href="/contacts" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
-            <a href="/howtobuys" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
-            <a href="/websiteprofiles" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
+            <a href="#s" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kategori</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Artikel</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Sub Kategori</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Produk</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Ulasan</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Carousel</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Kontak</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Cara Membeli</a>
+            <a href="#" class="block py-2 px-3 rounded hover:bg-orange-100">Kelola Profile Website</a>
         </nav>
     </div>
     <!-- Logout button -->

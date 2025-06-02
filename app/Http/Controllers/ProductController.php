@@ -189,7 +189,7 @@ class ProductController extends Controller
         }
 
         // Redirect ke halaman produk dengan pesan sukses
-        return redirect()->route('superadmin.products.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('superadmin.products.index')->with('success', 'Data berhasil disimpan');
     }
 
 

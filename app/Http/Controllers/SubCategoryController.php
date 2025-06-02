@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
             'categories_id' => $request->categories_id,
         ]);
 
-        return redirect()->route('superadmin.subcategories.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('superadmin.subcategories.index')->with('success', 'Data berhasil disimpan');
     }
 
     public function destroy(SubCategory $subcategory)

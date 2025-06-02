@@ -110,7 +110,7 @@ class UlasanController extends Controller
         $ulasan->notified = false; 
         $ulasan->save();
         
-        return redirect()->route('superadmin.ulasans.index')->with('message', 'Ulasan disetujui');
+        return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan disetujui');
         
     }
 
@@ -124,7 +124,7 @@ class UlasanController extends Controller
         $ulasan->notified = false;
         $ulasan->save();
 
-        return redirect()->route('superadmin.ulasans.index')->with('message', 'Ulasan ditolak');
+        return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan ditolak');
     }
 
     /**
@@ -139,6 +139,6 @@ class UlasanController extends Controller
         }
 
         $ulasan->delete();
-        return redirect()->route('superadmin.ulasans.index')->with('message', 'Ulasan berhasil dihapus');
+        return redirect()->route('superadmin.ulasans.index')->with('success', 'Ulasan berhasil dihapus');
     }
 }

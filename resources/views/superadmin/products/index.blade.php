@@ -1,45 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Kelola Produk</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-</head>
+@extends('layouts.backend')
 
-<body class="bg-gray-100 font-sans">
-<div class="flex h-screen">
-    @include('partials.sidebar')
-
-    <main class="flex-1 bg-gray-50 p-6">
-        @include('partials.header')
-        
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Data Produk</h2>
-
-                <!-- Form Search -->
-                <form method="GET" action="{{ route('superadmin.products.index') }}" class="flex gap-2">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari produk..."
-                        class="border px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-300">
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                        Cari
-                    </button>
-                </form>
-
-                <!-- Tombol Tambah -->
-                <a href="{{ route('superadmin.products.create') }}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Tambah 
-                </a>
+@section('content')
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Data Produk</h4>
             </div>
+            <div class="card-body">
+                <div class="flex justify-end mb-4">
+                    <a href="{{ route('superadmin.products.create') }}" class="btn btn-primary btn-sm">
+                        Tambah
+                    </a>
+                </div>
 
-            <div class="overflow-x-auto rounded shadow border">
-                <table class="min-w-full bg-white">
-                    <thead class="bg-gray-100">
+                <table class="table table-bordered" id="table">
+                    <thead>
                         <tr>
                             <th class="px-4 py-2 border">No</th>
                             <th class="px-4 py-2 border">Nama Produk</th>
@@ -57,178 +32,169 @@
                                 <td class="px-4 py-2 border">{{ $product->subCategory->category->name ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $product->subCategory->name ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $product->contact->no_wa ?? '-' }}</td>
-                                <td class="px-4 py-2 border">
-                                    <div class="flex justify-center gap-2">
-                                        <a href="{{ route('superadmin.products.edit', $product->id) }}" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">Edit</a>
-                                        <form action="{{ route('superadmin.products.destroy', $product->id) }}" method="POST" class="delete-form inline-block">
+                                <td class="px-4 py-2 border text-center">
+                                    <div class="d-inline-flex gap-2">
+                                        @if ($product->gambar)
+                                            <button type="button"
+                                                class="btn btn-warning btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#productDetailModal"
+                                                data-name="{{ $product->name }}"
+                                                data-serial_number="{{ $product->serial_number }}"
+                                                data-year_of_build="{{ $product->year_of_build ?? '-' }}"
+                                                data-hours_meter="{{ $product->hours_meter ?? '-' }}"
+                                                data-stock="{{ $product->stock }}"
+                                                data-harga="{{ number_format($product->harga, 2, ',', '.') }}"
+                                                data-description="{{ $product->description ?? '-' }}"
+                                                data-gambar="{{ asset('storage/' . $product->gambar) }}"
+                                                data-brosur="{{ $product->brosur ? asset('storage/' . $product->brosur) : '' }}"
+                                                data-sub_images='@json($product->images->map(fn($img) => asset("storage/".$img->image_path)))'
+                                                data-category="{{ $product->subCategory->category->name ?? '-' }}"
+                                                data-sub_category="{{ $product->subCategory->name ?? '-' }}"
+                                                data-contact="{{ $product->contact->no_wa ?? '-' }}"
+                                            >
+                                                Lihat
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                                Lihat
+                                            </button>
+                                        @endif
+
+                                        <a href="{{ route('superadmin.products.edit', $product->id) }}"
+                                           class="btn btn-success btn-sm">Edit</a>
+
+                                        <form action="{{ route('superadmin.products.destroy', $product->id) }}"
+                                              method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                                            <button type="submit" class="btn btn-danger btn-sm btn-delete">
                                                 Hapus
                                             </button>
                                         </form>
-
-
-                                        @if($product->gambar)
-                                            <button onclick="showModal('{{ asset('storage/' . $product->gambar) }}', {
-                                                name: '{{ $product->name }}',
-                                                subCategory: '{{ $product->subCategory->name ?? '-' }}',
-                                                category: '{{ $product->subCategory->category->name ?? '-' }}',
-                                                serialNumber: '{{ $product->serial_number }}',
-                                                yearOfBuild: '{{ $product->year_of_build }}',
-                                                stock: '{{ $product->stock }}',
-                                                contact: '{{ $product->contact->no_wa ?? '-' }}',
-                                                brosur: '{{ asset('storage/' . $product->brosur) }}',
-                                                subImages: [
-                                                    @foreach ($product->images as $subImage)
-                                                        '{{ asset('storage/' . $subImage->image_path) }}',
-                                                    @endforeach
-                                                ]
-                                            })" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded flex items-center justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                            </button>
-                                        @endif
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-4 text-gray-500">
-                                    Data tidak ada 
-                                    <strong>{{ request('search') }}</strong>
-                                </td>
+                                <td colspan="6" class="text-center py-4">Data tidak ada</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+
                 <div class="mt-4">
-                    {{ $products->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                    {{ $products->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
                 </div>
             </div>
         </div>
-    </main>
-</div>
+    </div>
 
-<!-- Modal -->
-<div id="imageModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg relative max-w-3xl w-full overflow-auto">
-        <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-600 transition duration-300 text-2xl">&times;</button>
-        <img id="modalImage" src="" alt="Gambar Produk" class="w-[500px] h-[300px] object-contain bg-white mx-auto rounded-md shadow-lg transition-transform duration-300 hover:scale-105" />
-        <div id="subImagesContainer" class="flex justify-center gap-4 mt-6 flex-wrap"></div>
-        <div class="mt-4 flex justify-center">
-            <button onclick="restoreMainImage()" class="bg-blue-600 text-white px-2 py-1 rounded-md hover:bg-blue-700 transition">🔙 Gambar Utama</button>
-        </div>
-        <div id="productInfo" class="mt-6 space-y-4">
-            <h3 class="font-bold text-3xl text-gray-800" id="productName"></h3>
-            <div class="grid grid-cols-2 gap-4">
-                <p class="text-lg text-gray-700"><span class="font-semibold mr-2">📁 Kategori:</span><span id="category"></span></p>
-                <p class="text-lg text-gray-700"><span class="font-semibold mr-2">📂 Sub Kategori:</span><span id="subCategory"></span></p>
-                <p class="text-lg text-gray-700"><span class="font-semibold mr-2">🔢 Nomor Seri:</span><span id="serialNumber"></span></p>
-                <p class="text-lg text-gray-700"><span class="font-semibold mr-2">📅 Tahun Pembuatan:</span><span id="yearOfBuild"></span></p>
-                <p class="text-lg text-gray-700"><span class="font-semibold mr-2">📦 Stok:</span><span id="stock"></span></p>
-                <p class="text-lg text-gray-700"><span class="font-semibold mr-2">📞 Kontak:</span><span id="contact"></span></p>
-                <p class="text-lg text-gray-700 col-span-2"><span class="font-semibold mr-2">📄 Brosur:</span><a href="#" id="brosurLink" class="text-blue-600 underline hover:text-blue-800">excavator.pdf</a></p>
+    <!-- Modal Detail Produk -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productDetailModalLabel">Detail Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body d-flex gap-3">
+                    <div style="flex: 1;">
+                        <img id="modalGambar" src="" alt="Gambar Produk" class="img-fluid" style="max-height: 300px;">
+                        <div id="modalSubImages" class="d-flex gap-2 mt-3 flex-wrap"></div>
+                    </div>
+                    <div style="flex: 2;">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr><th>Nama Produk</th><td id="modalName"></td></tr>
+                                <tr><th>Kategori</th><td id="modalCategory"></td></tr>
+                                <tr><th>Sub Kategori</th><td id="modalSubCategory"></td></tr>
+                                <tr><th>Kontak WA</th><td id="modalContact"></td></tr>
+                                <tr><th>Serial Number</th><td id="modalSerialNumber"></td></tr>
+                                <tr><th>Tahun Buat</th><td id="modalYearOfBuild"></td></tr>
+                                <tr><th>Jam Meter</th><td id="modalHoursMeter"></td></tr>
+                                <tr><th>Stok</th><td id="modalStock"></td></tr>
+                                <tr><th>Harga</th><td id="modalHarga"></td></tr>
+                                <tr><th>Deskripsi</th><td id="modalDescription" class="text-break"></td></tr>
+                                <tr><th>Brosur</th><td id="modalBrosur"></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-function showModal(imageUrl, product) {
-    document.getElementById('modalImage').src = imageUrl;
-    window.originalImageSrc = imageUrl;
-
-    document.getElementById('productName').textContent = product.name;
-    document.getElementById('subCategory').textContent = product.subCategory;
-    document.getElementById('category').textContent = product.category;
-    document.getElementById('serialNumber').textContent = product.serialNumber || '-';
-    document.getElementById('yearOfBuild').textContent = product.yearOfBuild || 'N/A';
-    document.getElementById('stock').textContent = product.stock;
-    document.getElementById('contact').textContent = product.contact;
-
-    const brosurLink = document.getElementById('brosurLink');
-    if (product.brosur) {
-        brosurLink.textContent = product.brosur.split('/').pop();
-        brosurLink.href = product.brosur;
-    } else {
-        brosurLink.textContent = '-';
-        brosurLink.removeAttribute('href');
-    }
-
-    const subImagesContainer = document.getElementById('subImagesContainer');
-    subImagesContainer.innerHTML = '';
-    if (product.subImages && product.subImages.length > 0) {
-        product.subImages.forEach(subImageUrl => {
-            const img = document.createElement('img');
-            img.src = subImageUrl;
-            img.className = "w-20 h-20 object-cover rounded cursor-pointer border hover:scale-105 transition";
-            img.onclick = () => modalImage.src = subImageUrl;
-            subImagesContainer.appendChild(img);
-        });
-    } else {
-        const noImageMessage = document.createElement('p');
-        noImageMessage.textContent = "Tidak ada sub gambar tersedia.";
-        noImageMessage.className = "text-gray-500 text-center w-full mt-4";
-        subImagesContainer.appendChild(noImageMessage);
-    }
-
-    document.getElementById('imageModal').classList.remove('hidden');
-}
-
-function closeModal() {
-    document.getElementById('imageModal').classList.add('hidden');
-}
-
-function restoreMainImage() {
-    document.getElementById('modalImage').src = window.originalImageSrc;
-}
-</script>
-
-<!-- sweet alert -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    $(document).ready(function () {
-        $('.delete-form').on('submit', function (e) {
-            e.preventDefault(); // Mencegah form submit langsung
-
-            const form = this; // Simpan referensi form
-
-            Swal.fire({
-                title: 'Yakin ingin menghapus?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        });
-    });
-</script>
-
-<!-- notif berhasil -->
-@if (session('success'))
+    @push('scripts')
     <script>
-        $(document).ready(function () {
-            Swal.fire({
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                timer: 2500,
-                showConfirmButton: false
-            });
+        const productDetailModal = document.getElementById('productDetailModal');
+        productDetailModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+
+            const name = button.getAttribute('data-name');
+            const category = button.getAttribute('data-category');
+            const subCategory = button.getAttribute('data-sub_category');
+            const contact = button.getAttribute('data-contact');
+            const serialNumber = button.getAttribute('data-serial_number');
+            const yearOfBuild = button.getAttribute('data-year_of_build');
+            const hoursMeter = button.getAttribute('data-hours_meter');
+            const stock = button.getAttribute('data-stock');
+            const harga = button.getAttribute('data-harga');
+            const description = button.getAttribute('data-description');
+            const gambar = button.getAttribute('data-gambar');
+            const brosur = button.getAttribute('data-brosur');
+            const subImagesJson = button.getAttribute('data-sub_images');
+
+            productDetailModal.querySelector('#modalName').textContent = name;
+            productDetailModal.querySelector('#modalCategory').textContent = category;
+            productDetailModal.querySelector('#modalSubCategory').textContent = subCategory;
+            productDetailModal.querySelector('#modalContact').textContent = contact;
+            productDetailModal.querySelector('#modalSerialNumber').textContent = serialNumber;
+            productDetailModal.querySelector('#modalYearOfBuild').textContent = yearOfBuild;
+            productDetailModal.querySelector('#modalHoursMeter').textContent = hoursMeter;
+            productDetailModal.querySelector('#modalStock').textContent = stock;
+            productDetailModal.querySelector('#modalHarga').textContent = harga;
+            productDetailModal.querySelector('#modalDescription').textContent = description;
+
+            const modalGambar = productDetailModal.querySelector('#modalGambar');
+            if (gambar) {
+                modalGambar.src = gambar;
+                modalGambar.style.display = 'block';
+            } else {
+                modalGambar.style.display = 'none';
+            }
+
+            const brosurTd = productDetailModal.querySelector('#modalBrosur');
+            if (brosur) {
+                brosurTd.innerHTML = `<a href="${brosur}" target="_blank" rel="noopener noreferrer">Lihat Brosur</a>`;
+            } else {
+                brosurTd.textContent = '-';
+            }
+
+            const modalSubImages = productDetailModal.querySelector('#modalSubImages');
+            modalSubImages.innerHTML = '';
+
+            if (subImagesJson) {
+                try {
+                    const subImages = JSON.parse(subImagesJson);
+                    if (Array.isArray(subImages)) {
+                        subImages.forEach(src => {
+                            const img = document.createElement('img');
+                            img.src = src;
+                            img.alt = 'Sub Image';
+                            img.style.width = '70px';
+                            img.style.height = '70px';
+                            img.style.objectFit = 'cover';
+                            img.style.border = '1px solid #ccc';
+                            img.style.borderRadius = '4px';
+                            modalSubImages.appendChild(img);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Gagal parsing sub_images JSON:', error);
+                }
+            }
         });
     </script>
-@endif
-
-</body>
-</html>
+    @endpush
+@endsection

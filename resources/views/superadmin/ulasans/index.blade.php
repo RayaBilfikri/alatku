@@ -132,5 +132,56 @@
                 </div>
             </div>
         </div>
+
+    </main>
+</div>
+
+<!-- sweet alert -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        $('.delete-form').on('submit', function (e) {
+            e.preventDefault(); // Mencegah form submit langsung
+
+            const form = this; // Simpan referensi form
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+<!-- notif berhasil -->
+@if (session('message'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'message',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                timer: 2500,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
+
+</body>
+</html>
+
     </div>
 @endsection
+

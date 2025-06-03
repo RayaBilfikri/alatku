@@ -22,7 +22,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
                         @forelse($categories as $index => $category)
                             <tr class="text-center">
                                 <td class="px-4 py-2 border">{{ $index + 1 }}</td>
@@ -32,46 +31,6 @@
                                         <img src="{{ asset('storage/' . $category->icon) }}" alt="Icon" style="height: 50px;">
                                     @else
                                         <span class="text-muted"><i>Gambar tidak tersedia</i></span>
-
-                    @foreach($categories as $index => $category)
-                        <tr class="text-center">
-                            <td class="px-4 py-2 border">{{ $categories->firstItem() + $index }}</td>
-                            <td class="px-4 py-2 border">{{ $category->name }}</td>
-                            <td class="px-4 py-2 border">
-                                @if($category->icon)
-                                    <img src="{{ asset('storage/' . $category->icon) }}" alt="Icon" class="h-20 mx-auto">
-                                @else
-
-                                @endif
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center items-center space-x-2">
-                                    <a href="{{ route('superadmin.categories.edit', $category->id) }}"
-                                       class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded focus:outline-none border-none">Edit</a>
-
-                                    <form action="{{ route('superadmin.categories.destroy', $category->id) }}"
-                                        method="POST"
-                                        class="delete-form inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded focus:outline-none border-none">
-                                            Hapus
-                                        </button>
-                                    </form>
-
-                                    @if($category->icon)
-                                        <button onclick="showModal('{{ asset('storage/' . $category->icon) }}')"
-                                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded flex items-center justify-center focus:outline-none border-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                            </svg>
-                                        </button>
-
                                     @endif
                                 </td>
                                 <td class="px-4 py-2 border text-center">
@@ -97,7 +56,7 @@
                                            class="btn btn-success btn-sm">Edit</a>
 
                                         <form action="{{ route('superadmin.categories.destroy', $category->id) }}"
-                                              method="POST" class="d-inline">
+                                              method="POST" class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm btn-delete">
@@ -115,7 +74,7 @@
                     </tbody>
                 </table>
                 <div class="mt-4">
-                    {{ $categories->links('pagination::tailwind') }}
+                    {{ $categories->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
                 </div>
             </div>
         </div>
@@ -123,21 +82,44 @@
 
     <!-- Modal untuk menampilkan gambar -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="imageModalLabel">Ikon Kategori</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Ikon Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="Ikon" class="img-fluid" style="max-height: 300px;">
+                </div>
+            </div>
         </div>
-        <div class="modal-body text-center">
-            <img id="modalImage" src="" alt="Ikon" class="img-fluid" style="max-height: 300px;">
-        </div>
-        </div>
-    </div>
     </div>
 
     @push('scripts')
     <script>
+        // Sweet Alert untuk konfirmasi hapus
+        $(document).ready(function () {
+            $('.delete-form').on('submit', function (e) {
+                e.preventDefault();
+                const form = this;
+
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+
+        // Modal image handler
         const imageModal = document.getElementById('imageModal');
         imageModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
@@ -147,6 +129,4 @@
         });
     </script>
     @endpush
-
-
 @endsection

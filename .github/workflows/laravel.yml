@@ -2,20 +2,35 @@ on:
   push:
     branches:
       - main
-name: ?? Deploy website on push
+name: 🚀 Deploy website on push
 
 jobs:
   web-deploy:
-    name: ?? Deploy website
+    name: 🚀 Deploy website
     runs-on: ubuntu-latest
     steps:
-    # Checkout the repository
-    - name: ?? Get latest code
-      uses: actions/checkout@v4
-    # sync files via FTP
-    - name: ?? Sync files via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USER }}
-        password: ${{ secrets.FTP_PASS }}
+      # Checkout the repository
+      - name: 📥 Get latest code
+        uses: actions/checkout@v4
+
+      # Setup Node.js (untuk build Vite)
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Install dependencies
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      # Build Vite assets
+      - name: 🛠️ Build Vite assets
+        run: npm run build
+
+      # Sync files via FTP
+      - name: 📤 Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}

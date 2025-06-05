@@ -1,34 +1,36 @@
-on: 
+name: 🚀 Deploy Laravel App with Vite
+
+on:
   push:
     branches:
       - main
-name: 🚀 Deploy website on push
 
 jobs:
-  web-deploy:
-    name: 🚀 Deploy website
+  deploy:
+    name: 🎯 Deploy Laravel
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout the repository
-      - name: 📥 Get latest code
+      - name: 📥 Checkout Code
         uses: actions/checkout@v4
 
-      # Setup Node.js (untuk build Vite)
-      - name: 🟢 Setup Node.js
+      - name: ♻️ Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
-      # Install dependencies
-      - name: 📦 Install dependencies
-        run: npm ci
+      - name: 🔁 Clean Node Modules
+        run: |
+          rm -rf node_modules package-lock.json
 
-      # Build Vite assets
-      - name: 🛠️ Build Vite assets
+      - name: 📦 Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: 🛠️ Build Assets
         run: npm run build
 
-      # Sync files via FTP
-      - name: 📤 Sync files via FTP
+      - name: 🧳 Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}

@@ -47,18 +47,23 @@
     <div class="flex flex-col md:flex-row gap-6 mb-6 w-full max-w-screen-lg mx-auto">
       <!-- Kiri (Gambar Produk) - 60% di md ke atas -->
       <div class="w-full md-w-70 bg-orange-100 rounded-xl p-4 shadow-md">
-        <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}"
-            class="w-full h-72 object-cover rounded-md mb-4">
+        <!-- Gambar Utama -->
+        <img id="mainImage" src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}"
+            class="w-full h-72 object-cover rounded-md mb-4 transition-opacity duration-300 ease-in-out" />
 
+        <!-- Daftar Thumbnail -->
         @if($product->images && $product->images->count())
-          <div class="flex gap-2 overflow-x-auto">
+          <div id="thumbnails" class="flex gap-2 overflow-x-auto">
             @foreach($product->images as $image)
-              <img src="{{ asset('storage/' . $image->image_path) }}"
-                  class="w-24 h-20 object-cover rounded border" alt="">
+              <img src="{{ asset('storage/' . $image->image_path) }}" alt=""
+                  class="thumbnail w-24 h-20 object-cover rounded border cursor-pointer hover:scale-105 hover:brightness-110 transition-transform duration-200 ease-in-out"
+                  onclick="switchImages(this)" />
             @endforeach
           </div>
         @endif
       </div>
+
+
 
       <!-- Kanan (Info Produk) - 40% di md ke atas -->
       <div class="w-full md-w-30 bg-white rounded-xl p-6 shadow-lg border border-orange-200 space-y-4 flex flex-col
@@ -146,3 +151,35 @@
 
 </body>
 </html>
+
+<script>
+const mainImage = document.getElementById('mainImage');
+
+function switchImages(thumbnail) {
+  if (!mainImage || !thumbnail) return;
+
+  // Jika thumbnail yang diklik sudah sama dengan gambar utama, abaikan
+  if (thumbnail.src === mainImage.src) return;
+
+  // Animasi fade out gambar utama
+  mainImage.style.opacity = 0;
+  thumbnail.style.opacity = 0.7; // efek klik pada thumbnail
+
+  setTimeout(() => {
+    // Tukar src dan alt antara gambar utama dan thumbnail
+    const tempSrc = mainImage.src;
+    const tempAlt = mainImage.alt;
+
+    mainImage.src = thumbnail.src;
+    mainImage.alt = thumbnail.alt || mainImage.alt;
+
+    thumbnail.src = tempSrc;
+    thumbnail.alt = tempAlt || thumbnail.alt;
+
+    // Kembalikan opacity
+    mainImage.style.opacity = 1;
+    thumbnail.style.opacity = 1;
+  }, 300);
+}
+
+</script>

@@ -566,8 +566,8 @@
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
-                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 font montserrat text-center lg:text-left">
-                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
+                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-montserrat">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
                     <p class="text-sm sm:text-base mb-6 lg:mb-8 opacity-90 font-montserrat font-semibold">
                         Lihat koleksi alat berat dan kapal siap kerja 
                         yang cocok untuk semua kebutuhan lapangan Anda.

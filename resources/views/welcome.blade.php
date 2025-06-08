@@ -6,11 +6,250 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
     @vite('resources/css/app.css')
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+
+    <style>
+        @media screen and (min-width: 1024px) and (max-width: 1112px) {
+            .hide-on-ipad {
+            display: none !important;
+            }
+        }
+        .shadow-text {
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity: 1; transform: translateY(0); }
+            to   { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .animate-slide-down {
+            animation: slideDown 0.3s ease forwards;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.3s ease forwards;
+        }
+
+        .line {
+            transition: all 0.3s ease;
+        }
+        .menu-open .line1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .menu-open .line2 {
+            opacity: 0;
+        }
+        .menu-open .line3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        @layer utilities {
+            .shadow-right-only {
+                box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.3);
+            }
+
+            .shadow-left-only {
+                box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .icon-position {
+            transform: translateY(10%);
+        }
+
+        @font-face {
+            font-family: 'Akira Expanded';
+            src: url('/fonts/AkiraExpanded.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        [x-cloak] { display: none !important; }
+
+        /* Hide scrollbar */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .carousel-wrapper {
+            position: relative;
+            padding: 10px;
+            margin: -10px;
+            overflow: visible;
+        }
+        /* Item styling with scale effect */
+        .carousel-item {
+            transform: scale(0.85);
+            opacity: 0.85;
+            transition: all 0.4s ease;
+            transform-origin: center;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); 
+        }
+        .carousel-item.active {
+            transform: scale(1);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tambahkan ini di CSS Anda */
+        .btn-special {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .btn-special:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #333333 0%, #000000 100%);
+            transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-special:hover:before {
+            width: 100%;
+        }
+
+        .btn-special:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-special:active {
+            transform: translateY(1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-special:hover .arrow-icon {
+            transform: translateX(5px);
+        }
+            
+        .testimonial-section {
+            width: 100%;
+            position: relative; 
+            z-index: 10;
+            overflow: visible; 
+        }
+
+        section {
+            overflow-x: clip;
+            overflow-clip-margin: 0px;
+        }
+
+        /* Left eclipse */
+        .left-eclipse {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #F86F03, #FFA41B);
+            box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3);
+            top: -100px;
+            left: -250px;
+            z-index: 6;
+        }
+
+        /* Right multi-layer eclipse */
+        .right-eclipse-back {
+            width: 1051px;
+            height: 1051px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #FFA41B, #F86F03);
+            top: 50%;
+            right: -525px;
+            transform: translateY(-50%);
+
+        }
+
+        .right-eclipse-middle {
+            width: 938px;
+            height: 938px;
+            border-radius: 50%;
+            background: #FFA41B;
+            top: 50%;
+            right: -469px;
+            transform: translateY(-50%);
+
+        }
+
+        .right-eclipse-front {
+            width: 353px;
+            height: 353px;
+            border-radius: 50%;
+            background: #F86F03;
+            top: 50%;
+            right: -176px;
+            transform: translateY(-50%);
+            box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .testimonial-section .text-center {
+            position: relative;
+            z-index: 10; 
+        }
+
+        #profileDropdown a:hover, 
+        #profileDropdown button:hover {
+            font-weight: 500;
+            transform: translateX(2px);
+            transition: transform 0.2s ease;
+        }
+
+        /* Tambahan efek bayangan saat dropdown muncul */
+        #profileDropdown:not(.hidden) {
+            animation: fadeIn 0.2s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpFade {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(1.3);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(-6%) scale(1.3);
+        }
+        }
+
+        .animate-slideUpFade {
+        animation: slideUpFade 0.8s ease-out forwards;
+        }
+
+        /* Mobile (hingga 576px) */
+        @media (max-width: 576px) { /* aturan CSS */ }
+
+        /* Tablet (577px - 768px) */
+        @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
+
+        /* Desktop (769px keatas) */
+        @media (min-width: 769px) { /* aturan CSS */ }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -649,264 +888,15 @@
     </footer>
 
 </body>
-<style>
-
-    @media screen and (min-width: 1024px) and (max-width: 1112px) {
-        .hide-on-ipad {
-        display: none !important;
-        }
-    }
-
-    .shadow-text {
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
-    }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideUp {
-        from { opacity: 1; transform: translateY(0); }
-        to   { opacity: 0; transform: translateY(-10px); }
-    }
-
-    .animate-slide-down {
-        animation: slideDown 0.3s ease forwards;
-    }
-    .animate-slide-up {
-        animation: slideUp 0.3s ease forwards;
-    }
-
-    .line {
-        transition: all 0.3s ease;
-    }
-    .menu-open .line1 {
-        transform: translateY(6px) rotate(45deg);
-    }
-    .menu-open .line2 {
-        opacity: 0;
-    }
-    .menu-open .line3 {
-        transform: translateY(-6px) rotate(-45deg);
-    }
-
-    @layer utilities {
-        .shadow-right-only {
-            box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        .shadow-left-only {
-            box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
-        }
-    }
-
-    .icon-position {
-        transform: translateY(10%);
-    }
-
-    @font-face {
-        font-family: 'Akira Expanded';
-        src: url('/fonts/AkiraExpanded.otf') format('opentype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    [x-cloak] { display: none !important; }
-
-    /* Hide scrollbar */
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .carousel-wrapper {
-        position: relative;
-        padding: 10px;
-        margin: -10px;
-        overflow: visible;
-    }
-
-    /* Item styling with scale effect */
-    .carousel-item {
-        transform: scale(0.85);
-        opacity: 0.85;
-        transition: all 0.4s ease;
-        transform-origin: center;
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); 
-    }
-
-    .carousel-item.active {
-        transform: scale(1);
-        opacity: 1;
-        z-index: 10;
-        box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Tambahkan ini di CSS Anda */
-    .btn-special {
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .btn-special:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 100%;
-        background: linear-gradient(90deg, #333333 0%, #000000 100%);
-        transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-        z-index: -1;
-    }
-
-    .btn-special:hover:before {
-        width: 100%;
-    }
-
-    .btn-special:hover {
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        transform: translateY(-2px);
-    }
-
-    .btn-special:active {
-        transform: translateY(1px);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .arrow-icon {
-        transition: transform 0.3s ease;
-    }
-
-    .btn-special:hover .arrow-icon {
-        transform: translateX(5px);
-    }
-        
-    
-    .testimonial-section {
-        width: 100%;
-        position: relative; 
-        z-index: 10;
-        overflow: visible; 
-    }
-
-
-    section {
-        overflow-x: clip;
-        overflow-clip-margin: 0px;
-    }
-
-    /* Left eclipse */
-    .left-eclipse {
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        background: linear-gradient(to bottom, #F86F03, #FFA41B);
-        box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3);
-        top: -100px;
-        left: -250px;
-        z-index: 6;
-    }
-
-    /* Right multi-layer eclipse */
-    .right-eclipse-back {
-        width: 1051px;
-        height: 1051px;
-        border-radius: 50%;
-        background: linear-gradient(to bottom, #FFA41B, #F86F03);
-        top: 50%;
-        right: -525px;
-        transform: translateY(-50%);
-
-    }
-
-    .right-eclipse-middle {
-        width: 938px;
-        height: 938px;
-        border-radius: 50%;
-        background: #FFA41B;
-        top: 50%;
-        right: -469px;
-        transform: translateY(-50%);
-
-    }
-
-    .right-eclipse-front {
-        width: 353px;
-        height: 353px;
-        border-radius: 50%;
-        background: #F86F03;
-        top: 50%;
-        right: -176px;
-        transform: translateY(-50%);
-        box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
-
-    }
-
-    .testimonial-section .text-center {
-        position: relative;
-        z-index: 10; 
-    }
-
-    #profileDropdown a:hover, 
-    #profileDropdown button:hover {
-        font-weight: 500;
-        transform: translateX(2px);
-        transition: transform 0.2s ease;
-    }
-
-    /* Tambahan efek bayangan saat dropdown muncul */
-    #profileDropdown:not(.hidden) {
-        animation: fadeIn 0.2s ease-out;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(20px) scale(1.3);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(-6%) scale(1.3);
-    }
-    }
-
-    .animate-slideUpFade {
-    animation: slideUpFade 0.8s ease-out forwards;
-    }
-
-    /* Mobile (hingga 576px) */
-    @media (max-width: 576px) { /* aturan CSS */ }
-
-    /* Tablet (577px - 768px) */
-    @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
-
-    /* Desktop (769px keatas) */
-    @media (min-width: 769px) { /* aturan CSS */ }
-
-</style>
 </html>
 
 <script>
-
     document.querySelectorAll('#carousel').forEach(carousel => {
         const activeItem = carousel.querySelector('.carousel-item.active');
         if (activeItem) {
             activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
         }
     });
-
     
     document.addEventListener("DOMContentLoaded", function () {
         const authStatus = document.getElementById('authStatus');
@@ -919,9 +909,6 @@
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
         const logoutForm = document.getElementById('logoutForm');
-
-
-
 
         if (logoutForm) {
             const logoutButton = logoutForm.querySelector('button[type="submit"]');
@@ -986,30 +973,21 @@
             });
         }
 
-        
-        
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
             
-
-            
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-
-            
             if (newIndex < 0 || newIndex >= items.length) return;
 
-            
             activeItem.classList.remove('active', 'scale-105', 'z-10');
             activeItem.classList.add('scale-100');
 
-           
             const newItem = items[newIndex];
             newItem.classList.add('active', 'scale-105', 'z-10');
             newItem.classList.remove('scale-100');
-
-            
+  
             const itemWidth = newItem.offsetWidth;
             carousel.scrollBy({
                 left: direction === 'next' ? itemWidth : -itemWidth,
@@ -1021,8 +999,6 @@
 
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
-
-
         }
 
         if (modalBtn && modal && closeBtn) {
@@ -1149,5 +1125,4 @@
         });
 
     });
-
 </script>

@@ -70,10 +70,10 @@
             hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 ease-in-out">
         <h2 class="text-2xl font-bold text-gray-900 font-montserrat">{{ $product->name }}</h2>
 
-        <p class="text-sm text-gray-700 font-montserrat">Serial number:
+        <p class="text-sm text-gray-700 font-montserrat font-medium">Serial number:
           <span class="font-semibold text-gray-900 font-montserrat">{{ $product->serial_number }}</span>
         </p>
-        <p class="text-sm text-gray-700 font-montserrat">Stok:
+        <p class="text-sm text-gray-700 font-medium font-montserrat">Stok:
           <span class="font-semibold text-gray-900 font-montserrat">{{ $product->stock }}</span>
         </p>
 
@@ -131,7 +131,7 @@
     <!-- Deskripsi Produk (Full Width di Bawah) -->
     <div class="bg-white p-6 rounded-xl shadow-lg border border-orange-200">
       <h3 class="font-bold text-lg mb-4 text-gray-900 font-montserrat">Deskripsi Produk</h3>
-      <p class="text-sm text-gray-700 leading-relaxed font-montserrat mb-4">
+      <p class="text-sm text-gray-700 leading-relaxed font-montserrat font-medium mb-4">
         {{ $product->description }}
       </p>
       @if ($product->brosur)

@@ -12,6 +12,25 @@
     <script src="//unpkg.com/alpinejs" defer></script>
 
     <style>
+        .logo-alatku {
+            height: 120px;          
+            width: auto;
+            max-width: 320px;       
+            transition: height 0.3s, max-width 0.3s;
+        }
+
+        @media (max-width: 1024px) {
+            .logo-alatku {
+                height: 80px;         /* Ukuran sedang di tablet */
+                max-width: 200px;
+            }
+        }
+        @media (max-width: 640px) {
+            .logo-alatku {
+                height: 48px;         /* Ukuran kecil di mobile */
+                max-width: 120px;
+            }
+        }
         @media screen and (min-width: 1024px) and (max-width: 1112px) {
             .hide-on-ipad {
             display: none !important;
@@ -259,7 +278,7 @@
             <div class="flex items-center justify-between px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
+                    <img src="/images/alatku.png" alt="alatKu Logo" class="logo-alatku object-contain">
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->

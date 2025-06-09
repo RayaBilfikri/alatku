@@ -15,17 +15,30 @@ class CategoryController extends Controller
         return view('superadmin.categories.index', compact('categories'));
     }
 
+
     public function create()
     {
         return view('superadmin.categories.create');
     }
 
+
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'icon' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'icon' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+            ],
+            [
+                'name.required'  => 'Nama wajib diisi.',
+                'name.string'    => 'Nama harus berupa teks.',
+                'name.max'       => 'Nama maksimal 255 karakter.',
+                'icon.required'  => 'Ikon wajib diunggah.',
+                'icon.image'     => 'Ikon harus berupa file gambar.',
+                'icon.mimes'     => 'Format ikon harus jpg, jpeg, png, svg, atau gif.',
+                'icon.max'       => 'Ukuran ikon maksimal 2 MB.',
+            ]
+        );
 
         $data = $request->only(['name']);
 
@@ -38,18 +51,30 @@ class CategoryController extends Controller
         return redirect()->route('superadmin.categories.index')->with('success', 'Data berhasil ditambahkan');
     }
 
+
     public function edit($id)
     {
         $category = Category::findOrFail($id);
         return view('superadmin.categories.edit', compact('category'));
     }
 
+
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'icon' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'icon' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
+            ],
+            [
+                'name.required' => 'Nama wajib diisi.',
+                'name.string'   => 'Nama harus berupa teks.',
+                'name.max'      => 'Nama maksimal 255 karakter.',
+                'icon.image'    => 'Ikon harus berupa file gambar.',
+                'icon.mimes'    => 'Format ikon harus jpg, jpeg, png, svg, atau gif.',
+                'icon.max'      => 'Ukuran ikon maksimal 2 MB.',
+            ]
+        );
 
         $category = Category::findOrFail($id);
 
@@ -63,6 +88,7 @@ class CategoryController extends Controller
 
         return redirect()->route('superadmin.categories.index')->with('success', 'Data berhasil disimpan');
     }
+
 
     public function destroy($id)
     {

@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Models\Product;
-use App\Models\Ulasan; // Ganti jika nama model ulasan kamu berbeda
+use App\Models\Ulasan;
 
-class DashboardController extends Controller
+class DashboardController extends Controller implements HasMiddleware
 {
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth'),
+            new Middleware('role:admin|superadmin'),
+        ];
+    }
+
     public function index()
     {
-        $user = Auth::user();
+        $totalProductCount = Product::count();
+        $pendingReviewCount = Ulasan::where('status', 'pending')->count();
 
-        if ($user->role === 'superadmin') {
-            // Jumlah total produk
-            $totalProductCount = Product::count();
-
-            // Jumlah ulasan yang status-nya "pending"
-            $pendingReviewCount = Ulasan::where('status', 'pending')->count();
-
-            return view('dashboard', compact('totalProductCount', 'pendingReviewCount'));
-        }
-
-        return redirect('/');
+        return view('dashboard', compact('totalProductCount', 'pendingReviewCount'));
     }
 }

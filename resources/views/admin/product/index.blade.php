@@ -8,10 +8,13 @@
         </div>
         <div class="card-body">
             <div class="flex justify-end mb-4">
+                <!-- <a href="{{ route('superadmin.products.create') }}" class="btn btn-primary btn-sm">
+                    Tambah
+                </a> -->
                 @role('superadmin')
-                <a href="{{ route('superadmin.products.create') }}" class="shadow btn btn-primary btn-sm">Tambah</a>
+                <a href="{{ route('superadmin.products.create') }}" class="btn btn-primary btn-sm">Tambah</a>
                 @elserole('admin')
-                <a href="{{ route('admin.products.create') }}" class="shadow btn btn-primary btn-sm">Tambah</a>
+                <a href="{{ route('admin.products.create') }}" class="btn btn-primary btn-sm">Tambah</a>
                 @endrole
                 <div class="table-responsive">
                     <table class="table table-bordered" id="table">
@@ -37,7 +40,7 @@
                                     <div class="d-inline-flex gap-2">
                                         @if ($product->gambar)
                                         <button type="button"
-                                            class="shadow btn btn-warning btn-sm"
+                                            class="btn btn-warning btn-sm"
                                             data-bs-toggle="modal"
                                             data-bs-target="#productDetailModal"
                                             data-name="{{ $product->name }}"
@@ -61,36 +64,23 @@
                                         </button>
                                         @endif
 
-                                        @role('superadmin')
                                         <a href="{{ route('superadmin.products.edit', $product->id) }}"
-                                            class="shadow btn btn-success btn-sm">Edit</a>
-                                        @else
-                                        <a href="{{ route('superadmin.products.edit', $product->id) }}"
-                                            class="btn btn-success btn-sm" disabled style="pointer-events: none; opacity: 0.6;">Edit</a>
-                                        @endrole
+                                            class="btn btn-success btn-sm">Edit</a>
 
                                         <form action="{{ route('superadmin.products.destroy', $product->id) }}"
                                             method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-
-                                            @role('superadmin')
-                                            <button type="submit" class="shadow btn btn-danger btn-sm btn-delete">
+                                            <button type="submit" class="btn btn-danger btn-sm btn-delete">
                                                 Hapus
                                             </button>
-                                            @else
-                                            <button type="submit" class="shadow btn btn-danger btn-sm btn-delete" disabled style="pointer-events: none; opacity: 0.6;">
-                                                Hapus
-                                            </button>
-                                            @endrole
                                         </form>
                                     </div>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan=" 6" class="text-center py-4">Data tidak ada
-                                </td>
+                                <td colspan="6" class="text-center py-4">Data tidak ada</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -103,6 +93,7 @@
             </div>
         </div>
 
+        <!-- Modal Detail Produk -->
         <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">

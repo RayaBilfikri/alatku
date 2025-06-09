@@ -1,6 +1,7 @@
 <!-- resources/views/welcome.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
+
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
@@ -22,7 +24,7 @@
                 <div class="flex items-center">
                     <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
                 </div>
-                
+
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
                 <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
                     <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
@@ -43,7 +45,7 @@
                     </svg>
                 </button>
             </div>
-            
+
             <!-- Mobile menu (toggle via Alpine) -->
             <div x-show="open"
                 x-transition:enter="transition ease-out duration-200"
@@ -60,40 +62,40 @@
                 <a href="{{ route('artikel') }}" class="block hover:text-orange-600 font-montserrat text-sm">Artikel</a>
             </div>
         </div>
-        
-       <!-- Profile atau Login/Register section -->
+
+        <!-- Profile atau Login/Register section -->
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}">
             @guest
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
-                    <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
-                </div>
+            <div class="flex items-center space-x-4">
+                <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
+                <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+            </div>
             @else
-                <div class="relative">
-                    <!-- Profile toggle button -->
-                    <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                            <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
-                        </div>
-                        <span class="font-medium">{{ Auth::user()->name }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
+            <div class="relative">
+                <!-- Profile toggle button -->
+                <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                    <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                        <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
                     </div>
-                    
-                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
-                        <a href="{{ route('ulasan.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
-                            <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
-                        </a>
-                        <hr class="my-1">
-                        <form id="logoutForm" method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
-                                <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
-                            </button>
-                        </form>
-                    </div>
+                    <span class="font-medium">{{ Auth::user()->name }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
                 </div>
+
+                <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                    <a href="{{ route('ulasan.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                        <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
+                    </a>
+                    <hr class="my-1">
+                    <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                            <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
             @endguest
         </div>
     </header>
@@ -103,7 +105,7 @@
     <div id="logoutModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
         <!-- Backdrop/Overlay -->
         <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300" id="logoutModalBackdrop"></div>
-        
+
         <!-- Modal Content -->
         <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="logoutModalContent">
             <!-- Modal Header -->
@@ -117,7 +119,7 @@
                     </svg>
                 </button>
             </div>
-            
+
             <!-- Modal Body -->
             <div class="p-6">
                 <div class="flex items-center mb-4">
@@ -132,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Modal Footer -->
             <div class="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
                 <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-sm transition-colors duration-200" id="cancelLogout">
@@ -147,7 +149,7 @@
 
 
     <!-- Hero Section Carousel -->
-    <section 
+    <section
         x-data="{ 
             activeSlide: 0,
             slides: [
@@ -186,13 +188,12 @@
         @mouseover="stopAutoplay()"
         @mouseout="startAutoplay()"
         x-cloak
-        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
-    >
+        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]">
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
             <template x-for="(slide, index) in slides" :key="index">
-                <div 
-                    x-show="activeSlide === index" 
+                <div
+                    x-show="activeSlide === index"
                     x-transition:enter="transition ease-out duration-500"
                     x-transition:enter-start="opacity-0 transform translate-x-full"
                     x-transition:enter-end="opacity-100 transform translate-x-0"
@@ -200,8 +201,7 @@
                     x-transition:leave-start="opacity-100 transform translate-x-0"
                     x-transition:leave-end="opacity-0 transform -translate-x-full"
                     class="absolute inset-0 w-full h-full rounded-3xl"
-                    style="will-change: transform, opacity;"
-                >
+                    style="will-change: transform, opacity;">
                     <!-- Background -->
                     <img :src="slide.gambar" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
@@ -210,11 +210,11 @@
                     <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0"> <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
-                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
+                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
@@ -228,8 +228,7 @@
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button
                                             @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
-                                            class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
-                                        >
+                                            class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg">
                                             Cari Solusi Industri Anda
                                         </button>
                                     </div>
@@ -254,7 +253,7 @@
 
         @if($carousels->count() > 0)
         <!-- Touch/Mouse Swipe Area -->
-        <div 
+        <div
             class="absolute inset-0 z-10 pointer-events-none"
 
             x-on:mousedown="startX = $event.clientX"
@@ -280,23 +279,20 @@
                 endX: 0,
                 touchStartX: 0,
                 touchEndX: 0
-            }"
-        ></div>
+            }"></div>
 
         <!-- Navigation Buttons -->
         <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
-            <button 
-                @click="prev()" 
+            <button
+                @click="prev()"
                 class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
-                aria-label="Previous Slide"
-            >
+                aria-label="Previous Slide">
                 ‹
             </button>
-            <button 
-                @click="next()" 
+            <button
+                @click="next()"
                 class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
-                aria-label="Next Slide"
-            >
+                aria-label="Next Slide">
                 ›
             </button>
         </div>
@@ -304,13 +300,12 @@
         <!-- Carousel Indicators -->
         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
             <template x-for="(slide, index) in slides" :key="index">
-                <button 
+                <button
                     @click="activeSlide = index"
                     :class="{'bg-orange-500': activeSlide === index, 'bg-white': activeSlide !== index}"
                     class="w-4 h-4 rounded-full shadow-md transition focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-orange-400"
                     :aria-current="activeSlide === index ? 'true' : 'false'"
-                    :aria-label="'Go to slide ' + (index + 1)"
-                ></button>
+                    :aria-label="'Go to slide ' + (index + 1)"></button>
             </template>
         </div>
         @endif
@@ -323,18 +318,18 @@
         <!-- Background circles - adjusted for better mobile appearance -->
         <div class="absolute -left-16 sm:-left-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-16 sm:-right-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
-        
+
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
                 <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 font montserrat text-center lg:text-left">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-2">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
                     <p class="text-sm sm:text-base mb-6 lg:mb-8 opacity-90 font-montserrat font-semibold">
-                        Lihat koleksi alat berat dan kapal siap kerja 
+                        Lihat koleksi alat berat dan kapal siap kerja
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
 
-                <a href="{{ route('catalog.index') }}"
+                    <a href="{{ route('catalog.index') }}"
                         class="btn-special inline-flex items-center bg-black text-white px-6 py-3 rounded-full font-medium text-base shadow-md hover:bg-gray-800 transition-colors">
                         <span>Lihat produk selengkapnya</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="arrow-icon h-5 w-5 sm:h-6 sm:w-6 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -342,165 +337,165 @@
                         </svg>
                     </a>
                 </div>
-                
+
                 <!-- Right side carousel with improved mobile responsiveness -->
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
-                                    <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
-                                    <div class="p-3 sm:p-4">
-                                        <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
-                                        <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
-                                        
-                                        <div class="flex justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
-                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[90px] sm:min-w-[110px] flex flex-col items-center">
-                                                <span class="text-[10px] sm:text-xs">Tahun</span>
-                                                <span class="font-bold text-xs sm:text-sm">{{ $product->year_of_build }}</span>
-                                            </div>
-                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[120px] sm:min-w-[140px] flex flex-col items-center">
-                                                <span class="text-[10px] sm:text-xs">Jam operasional</span>
-                                                <span class="font-bold text-xs sm:text-sm">{{ $product->hours_meter }} jam</span>
-                                            </div>
-                                        </div>
+                            <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                <div class="p-3 sm:p-4">
+                                    <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
+                                    <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
 
-                                        <div class="text-center font-bold text-sm sm:text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg mt-2 sm:mt-3">
-                                            Rp{{ number_format($product->harga, 0, ',', '.') }}
+                                    <div class="flex justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[90px] sm:min-w-[110px] flex flex-col items-center">
+                                            <span class="text-[10px] sm:text-xs">Tahun</span>
+                                            <span class="font-bold text-xs sm:text-sm">{{ $product->year_of_build }}</span>
+                                        </div>
+                                        <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[120px] sm:min-w-[140px] flex flex-col items-center">
+                                            <span class="text-[10px] sm:text-xs">Jam operasional</span>
+                                            <span class="font-bold text-xs sm:text-sm">{{ $product->hours_meter }} jam</span>
                                         </div>
                                     </div>
-                                </a>
-                            @empty
-                                <div class="min-w-full flex flex-col items-center justify-center py-8 sm:py-12 text-gray-500">
-                                    <!-- Ilustrasi SVG keranjang kosong -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 sm:w-32 sm:h-32 mb-3 sm:mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
-                                    </svg>
-                                    <p class="text-base sm:text-lg font-semibold text-white">Belum ada produk saat ini</p>
-                                    <p class="text-xs sm:text-sm text-white">Yuk tambahkan produk agar tampil di sini!</p>
+
+                                    <div class="text-center font-bold text-sm sm:text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg mt-2 sm:mt-3">
+                                        Rp{{ number_format($product->harga, 0, ',', '.') }}
+                                    </div>
                                 </div>
+                            </a>
+                            @empty
+                            <div class="min-w-full flex flex-col items-center justify-center py-8 sm:py-12 text-gray-500">
+                                <!-- Ilustrasi SVG keranjang kosong -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 sm:w-32 sm:h-32 mb-3 sm:mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+                                </svg>
+                                <p class="text-base sm:text-lg font-semibold text-white">Belum ada produk saat ini</p>
+                                <p class="text-xs sm:text-sm text-white">Yuk tambahkan produk agar tampil di sini!</p>
+                            </div>
                             @endforelse
                         </div>
                     </div>
 
                     <!-- Navigation buttons - improved mobile positioning -->
                     @if ($ProductCard->isNotEmpty())
-                        <!-- Tombol Prev -->
-                        <button class="carousel-prev absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
+                    <!-- Tombol Prev -->
+                    <button class="carousel-prev absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
 
-                        <!-- Tombol Next -->
-                        <button class="carousel-next absolute right-2 sm:right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                    <!-- Tombol Next -->
+                    <button class="carousel-next absolute right-2 sm:right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
                     @endif
                 </div>
             </div>
         </div>
     </section>
 
-    
+
     <!-- Ulasan / Pendapat Section -->
     <section class="bg-gradient-to-b from-[#F86F03] to-[#FFA41B] py-12">
         <div class="testimonial-section relative overflow-hidden">
-        <!-- Background gradient layer -->
-        <div class="bg-gradient absolute inset-0"></div>
-        
-        <!-- Left eclipse layer -->
-        <div class="left-eclipse absolute"></div>
-        
-        <!-- Right multi-layer eclipse -->
-        <div class="right-eclipse-back absolute"></div>
-        <div class="right-eclipse-middle absolute"></div>
-        <div class="right-eclipse-front absolute"></div>
-        
-        <!-- Content layer -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <!-- Testimonial heading -->
-            <div class="text-center mb-12 relative">
-                <a href="javascript:void(0)" id="selengkapnyaBtn"
-                    data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
-                    class="absolute right-0 
+            <!-- Background gradient layer -->
+            <div class="bg-gradient absolute inset-0"></div>
+
+            <!-- Left eclipse layer -->
+            <div class="left-eclipse absolute"></div>
+
+            <!-- Right multi-layer eclipse -->
+            <div class="right-eclipse-back absolute"></div>
+            <div class="right-eclipse-middle absolute"></div>
+            <div class="right-eclipse-front absolute"></div>
+
+            <!-- Content layer -->
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <!-- Testimonial heading -->
+                <div class="text-center mb-12 relative">
+                    <a href="javascript:void(0)" id="selengkapnyaBtn"
+                        data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
+                        class="absolute right-0 
                             top-[-3.5rem] sm:top-[-4.5rem] md:top-[-2rem] 
                             group inline-flex items-center px-5 py-2.5 
                             rounded-full text-white font-medium 
                             bg-[#F86F03] hover:bg-[#e56703] 
                             transition-all duration-300 shadow-lg 
                             transform hover:-translate-y-1">
-                    Selengkapnya
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </a>
-                <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
-                <p class="text-white text-lg mt-12 font-montserrat">
-                    Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
-                    terpercaya untuk menyelesaikan proyek mereka dengan sukses.
-                </p>
-            </div>
-            
-            <!-- Testimonial cards - top row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
-                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
+                        Selengkapnya
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
+                    <p class="text-white text-lg mt-12 font-montserrat">
+                        Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat
+                        terpercaya untuk menyelesaikan proyek mereka dengan sukses.
                     </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Kobel</p>
-                            <p class="text-xs text-gray-500 md:text-base">user</p>
+                </div>
+
+                <!-- Testimonial cards - top row -->
+                <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white rounded-xl testimonial-card p-6">
+                        <div class="text-3xl text-gray-300 mb-4">"</div>
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                            Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
+                        </p>
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/kobel.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Andy Herman">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800">Kobel</p>
+                                <p class="text-xs text-gray-500 md:text-base">user</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="text-3xl text-gray-300 mb-4">"</div>
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                            "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
+                        </p>
+                        <div class="flex items-center">
+                            <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800">Alisson</p>
+                                <p class="text-xs text-gray-500 md:text-base">user</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full">
+                        <div class="text-3xl text-gray-300 mb-4">"</div>
+
+                        <!-- Spacer khusus desktop -->
+                        <div class="hidden md:block md:mb-4"></div>
+
+                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                            Terbantu sekali dengan adanya website ini.
+                        </p>
+
+                        <div class="flex items-center mt-auto">
+                            <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
+                            <div>
+                                <p class="text-sm font-semibold text-gray-800">Onana</p>
+                                <p class="text-xs text-gray-500 md:text-base">user</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
-                        "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
-                    </p>
-                    <div class="flex items-center">
-                        <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Alisson</p>
-                            <p class="text-xs text-gray-500 md:text-base">user</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
 
-                    <!-- Spacer khusus desktop -->
-                    <div class="hidden md:block md:mb-4"></div>
-
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
-                        Terbantu sekali dengan adanya website ini.
-                    </p>
-
-                    <div class="flex items-center mt-auto">
-                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">Onana</p>
-                            <p class="text-xs text-gray-500 md:text-base">user</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Testimonial cards - bottom row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
-                @foreach ($Testimonials as $testimonial)
+                <!-- Testimonial cards - bottom row -->
+                <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
+                    @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6">
                         <div class="text-3xl text-gray-300 mb-4">"</div>
                         <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
@@ -514,40 +509,40 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
 
-            <!-- Modal Register-->
-            <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] opacity-0 pointer-events-none transition-all duration-300">
-                <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl relative z-[10000]">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-gray-800">Pemberitahuan</h3>
-                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="text-center mb-6">
-                        <div class="mb-4 flex justify-center">
-                            <svg class="w-12 h-12 text-[#F86F03]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
+                <!-- Modal Register-->
+                <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] opacity-0 pointer-events-none transition-all duration-300">
+                    <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl relative z-[10000]">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-gray-800">Pemberitahuan</h3>
+                            <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
                         </div>
-                        <p class="text-lg text-gray-700 md:text-base">Daftar untuk melanjutkan.</p>
-                    </div>
-                    <div class="flex justify-center">
-                        <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg md:text-base hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
-                            Daftar Sekarang
-                        </a>
+                        <div class="text-center mb-6">
+                            <div class="mb-4 flex justify-center">
+                                <svg class="w-12 h-12 text-[#F86F03]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <p class="text-lg text-gray-700 md:text-base">Daftar untuk melanjutkan.</p>
+                        </div>
+                        <div class="flex justify-center">
+                            <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg md:text-base hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
+                                Daftar Sekarang
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
 
-   <!--Article Section-->
+    <!--Article Section-->
     <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6 z-0">
         <!-- Background gradient layer (matching testimonial section) -->
 
@@ -560,17 +555,17 @@
                         Temukan tips dan informasi terbaru tentang alat konstruksi
                     </p>
                 </div>
-                
+
                 <!-- Article cards using the dynamic data from the database -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative mt-8">
                     @if($latestArticles->count() > 0)
-                        @foreach ($latestArticles as $article)
-                        <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
-                            <!-- Gambar -->
-                            <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
+                    @foreach ($latestArticles as $article)
+                    <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
+                        <!-- Gambar -->
+                        <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
-                            <!-- Konten -->
-                            <div class="p-4 flex flex-col flex-grow">
+                        <!-- Konten -->
+                        <div class="p-4 flex flex-col flex-grow">
                             <h3 class="text-black font-bold text-lg mb-2 mt-4 md:text-base">{{ $article->judul }}</h3>
 
                             <p class="text-black text-sm mb-4 flex-grow md:text-base">
@@ -581,17 +576,17 @@
                             <a href="{{ route('artikel.show', $article->id_articles) }}" class="mt-auto flex justify-center bg-orange-400 text-white py-2 px-4 rounded-full text-sm font-medium hover:bg-orange-600 transition md:text-base">
                                 Baca Selengkapnya
                             </a>
-                            </div>
                         </div>
-                        @endforeach
+                    </div>
+                    @endforeach
                     @else
-                        <div class="col-span-1 md:col-span-4 bg-orange-200 rounded-xl shadow-lg p-8 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <h3 class="text-black font-bold text-xl mt-4 mb-2 md:text-base">Tidak Ada Artikel</h3>
-                            <p class="text-black md:text-base">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
-                        </div>
+                    <div class="col-span-1 md:col-span-4 bg-orange-200 rounded-xl shadow-lg p-8 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 class="text-black font-bold text-xl mt-4 mb-2 md:text-base">Tidak Ada Artikel</h3>
+                        <p class="text-black md:text-base">Maaf, saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti.</p>
+                    </div>
                     @endif
                 </div>
             </div>
@@ -607,10 +602,10 @@
                 <div class="flex flex-col items-center md:items-start">
                     <h2 class="text-3xl font-bold font-montserrat text-[#FFA41B] mb-4">ALATKU</h2>
                     <p class="text-gray-300 text-center md:text-left">
-                       Solusi terpercaya untuk kebutuhan alat konstruksi Anda
+                        Solusi terpercaya untuk kebutuhan alat konstruksi Anda
                     </p>
                 </div>
-                
+
                 <!-- Contact Information -->
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kontak Kami</h3>
@@ -628,7 +623,7 @@
                         <p class="text-gray-300">+62 813 4886 9922</p>
                     </div>
                 </div>
-                
+
                 <!-- Website and Social Media -->
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kunjungi Kami</h3>
@@ -640,7 +635,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <!-- Copyright Section -->
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
                 <p class="text-gray-400">© 2025 alatKu. Hak Cipta Dilindungi di bawah naungan PT. Inti Teknologi Berdikari.</p>
@@ -650,29 +645,45 @@
 
 </body>
 <style>
-
     @media screen and (min-width: 1024px) and (max-width: 1112px) {
         .hide-on-ipad {
-        display: none !important;
+            display: none !important;
         }
     }
 
     .shadow-text {
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        /* Horizontal, Vertical, Blur Radius, Color */
     }
 
     @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
+
     @keyframes slideUp {
-        from { opacity: 1; transform: translateY(0); }
-        to   { opacity: 0; transform: translateY(-10px); }
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
     }
 
     .animate-slide-down {
         animation: slideDown 0.3s ease forwards;
     }
+
     .animate-slide-up {
         animation: slideUp 0.3s ease forwards;
     }
@@ -680,12 +691,15 @@
     .line {
         transition: all 0.3s ease;
     }
+
     .menu-open .line1 {
         transform: translateY(6px) rotate(45deg);
     }
+
     .menu-open .line2 {
         opacity: 0;
     }
+
     .menu-open .line3 {
         transform: translateY(-6px) rotate(-45deg);
     }
@@ -711,12 +725,15 @@
         font-style: normal;
     }
 
-    [x-cloak] { display: none !important; }
+    [x-cloak] {
+        display: none !important;
+    }
 
     /* Hide scrollbar */
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
     }
+
     .hide-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -735,7 +752,7 @@
         opacity: 0.85;
         transition: all 0.4s ease;
         transform-origin: center;
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); 
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .carousel-item.active {
@@ -786,13 +803,13 @@
     .btn-special:hover .arrow-icon {
         transform: translateX(5px);
     }
-        
-    
+
+
     .testimonial-section {
         width: 100%;
-        position: relative; 
+        position: relative;
         z-index: 10;
-        overflow: visible; 
+        overflow: visible;
     }
 
 
@@ -850,10 +867,10 @@
 
     .testimonial-section .text-center {
         position: relative;
-        z-index: 10; 
+        z-index: 10;
     }
 
-    #profileDropdown a:hover, 
+    #profileDropdown a:hover,
     #profileDropdown button:hover {
         font-weight: 500;
         transform: translateX(2px);
@@ -867,48 +884,65 @@
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     @keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(20px) scale(1.3);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(-6%) scale(1.3);
-    }
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(1.3);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(-6%) scale(1.3);
+        }
     }
 
     .animate-slideUpFade {
-    animation: slideUpFade 0.8s ease-out forwards;
+        animation: slideUpFade 0.8s ease-out forwards;
     }
 
     /* Mobile (hingga 576px) */
-    @media (max-width: 576px) { /* aturan CSS */ }
+    @media (max-width: 576px) {
+        /* aturan CSS */
+    }
 
     /* Tablet (577px - 768px) */
-    @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
+    @media (min-width: 577px) and (max-width: 768px) {
+        /* aturan CSS */
+    }
 
     /* Desktop (769px keatas) */
-    @media (min-width: 769px) { /* aturan CSS */ }
-
+    @media (min-width: 769px) {
+        /* aturan CSS */
+    }
 </style>
+
 </html>
 
 <script>
-
     document.querySelectorAll('#carousel').forEach(carousel => {
         const activeItem = carousel.querySelector('.carousel-item.active');
         if (activeItem) {
-            activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+            activeItem.scrollIntoView({
+                behavior: 'auto',
+                inline: 'center',
+                block: 'nearest'
+            });
         }
     });
 
-    
-    document.addEventListener("DOMContentLoaded", function () {
+
+    document.addEventListener("DOMContentLoaded", function() {
         const authStatus = document.getElementById('authStatus');
         const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
         const prevButtons = document.querySelectorAll('.carousel-prev');
@@ -931,13 +965,13 @@
             const closeLogoutModal = document.getElementById('closeLogoutModal');
             const cancelLogout = document.getElementById('cancelLogout');
             const confirmLogout = document.getElementById('confirmLogout');
-            
+
             // Prevent the default form submission
             logoutButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 openModal();
             });
-            
+
             // Function to open the modal with animation
             function openModal() {
                 logoutModal.classList.remove('hidden');
@@ -946,38 +980,38 @@
                     logoutModalBackdrop.classList.add('opacity-100');
                     logoutModalContent.classList.remove('scale-95', 'opacity-0');
                     logoutModalContent.classList.add('scale-100', 'opacity-100');
-                    
+
                 }, 10);
             }
-            
+
             // Function to close the modal with animation
             function closeModal() {
                 logoutModalContent.classList.remove('scale-100', 'opacity-100');
                 logoutModalContent.classList.add('scale-95', 'opacity-0');
                 logoutModalBackdrop.classList.remove('opacity-100');
-                
+
                 // Wait for animation to finish before hiding the modal
                 setTimeout(() => {
                     logoutModal.classList.add('hidden');
                 }, 300);
             }
-            
+
             // Close modal when clicking close button or cancel button
             closeLogoutModal.addEventListener('click', closeModal);
             cancelLogout.addEventListener('click', closeModal);
-            
+
             // Close modal when clicking outside
             logoutModal.addEventListener('click', function(e) {
                 if (e.target === logoutModal || e.target === logoutModalBackdrop) {
                     closeModal();
                 }
             });
-            
+
             // Handle the confirmation button - submit the form
             confirmLogout.addEventListener('click', function() {
                 logoutForm.submit();
             });
-            
+
             // Handle escape key to close the modal
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) {
@@ -986,36 +1020,36 @@
             });
         }
 
-        
-        
+
+
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
-            
 
-            
+
+
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
 
-            
+
             if (newIndex < 0 || newIndex >= items.length) return;
 
-            
+
             activeItem.classList.remove('active', 'scale-105', 'z-10');
             activeItem.classList.add('scale-100');
 
-           
+
             const newItem = items[newIndex];
             newItem.classList.add('active', 'scale-105', 'z-10');
             newItem.classList.remove('scale-100');
 
-            
+
             const itemWidth = newItem.offsetWidth;
             carousel.scrollBy({
                 left: direction === 'next' ? itemWidth : -itemWidth,
                 behavior: 'smooth'
             });
-            
+
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
             const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
 
@@ -1026,12 +1060,12 @@
         }
 
         if (modalBtn && modal && closeBtn) {
-        // Fungsi untuk membuka modal dengan animasi
-            
+            // Fungsi untuk membuka modal dengan animasi
+
             function openModal() {
                 modal.classList.remove('opacity-0', 'pointer-events-none');
                 modal.classList.add('opacity-100');
-                
+
                 // Animasi untuk konten modal
                 const modalContent = modal.querySelector('div');
                 setTimeout(() => {
@@ -1039,24 +1073,24 @@
                     modalContent.classList.add('scale-100');
                 }, 50);
             }
-            
+
             // Fungsi untuk menutup modal dengan animasi
             function closeModal() {
                 const modalContent = modal.querySelector('div');
                 modalContent.classList.remove('scale-100');
                 modalContent.classList.add('scale-95');
-                
+
                 setTimeout(() => {
                     modal.classList.remove('opacity-100');
                     modal.classList.add('opacity-0', 'pointer-events-none');
                 }, 200);
             }
-            
+
             // Event listener untuk tombol
             if (selengkapnyaBtn) {
                 const isLoggedIn = selengkapnyaBtn.dataset.loggedIn === 'true';
 
-                selengkapnyaBtn.addEventListener('click', function () {
+                selengkapnyaBtn.addEventListener('click', function() {
                     if (isLoggedIn) {
                         window.location.href = "{{ route('ulasan.index') }}";
                     } else {
@@ -1066,16 +1100,16 @@
                 });
             }
 
-            
+
             closeBtn.addEventListener('click', closeModal);
-            
+
             // Tutup modal saat klik di luar modal
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     closeModal();
                 }
             });
-            
+
             // Tutup modal dengan tombol ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
@@ -1086,7 +1120,7 @@
 
         if (profileDropdownToggle && profileDropdown) {
             let isDropdownOpen = false;
-            
+
             // Toggle dropdown saat tombol profil diklik
             profileDropdownToggle.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1097,7 +1131,7 @@
                 }
                 isDropdownOpen = !isDropdownOpen;
             });
-            
+
             // Tutup dropdown ketika mengklik di luar dropdown
             document.addEventListener('click', function(event) {
                 if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
@@ -1105,7 +1139,7 @@
                     isDropdownOpen = false;
                 }
             });
-            
+
             // Mencegah dropdown tertutup saat mengklik pada dropdown itu sendiri
             profileDropdown.addEventListener('click', function(e) {
                 // Jangan tutup dropdown jika mengklik di dalam menu dropdown
@@ -1115,17 +1149,17 @@
                 }
             });
         }
-        
+
 
         prevButtons.forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 const carousel = this.closest('.relative').querySelector('#carousel');
                 updateActiveItem(carousel, 'prev');
             });
         });
 
         nextButtons.forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 const carousel = this.closest('.relative').querySelector('#carousel');
                 updateActiveItem(carousel, 'next');
             });
@@ -1149,5 +1183,4 @@
         });
 
     });
-
 </script>

@@ -129,6 +129,7 @@
             padding: 10px;
             margin: -10px;
             overflow: visible;
+            min-height: 350px;
         }
         /* Item styling with scale effect */
         .carousel-item {
@@ -198,6 +199,43 @@
         section {
             overflow-x: clip;
             overflow-clip-margin: 0px;
+        }
+
+        .equipment-sale-bg::before,
+        .equipment-sale-bg::after {
+            content: '';
+            position: absolute;
+            width: 12rem;
+            height: 12rem;
+            border-radius: 50%;
+            background: linear-gradient(to right, #f86f03, #ffa41b);
+            opacity: 0.9;
+        }
+
+        .equipment-sale-bg::before {
+            left: -4rem;
+            top: 0;
+        }
+
+        .equipment-sale-bg::after {
+            right: -4rem;
+            top: 0;
+        }
+
+        @media (min-width: 640px) {
+            .equipment-sale-bg::before,
+            .equipment-sale-bg::after {
+                width: 18rem;
+                height: 18rem;
+            }
+            
+            .equipment-sale-bg::before {
+                left: -6rem;
+            }
+            
+            .equipment-sale-bg::after {
+                right: -6rem;
+            }
         }
 
         /* Left eclipse */
@@ -690,6 +728,7 @@
 
                     <!-- Navigation buttons - improved mobile positioning -->
                     @if ($ProductCard->isNotEmpty())
+                        <link rel="preload" as="image" href="{{ asset('storage/' . $ProductCard->first()->gambar) }}">
                         <!-- Tombol Prev -->
                         <button class="carousel-prev absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">

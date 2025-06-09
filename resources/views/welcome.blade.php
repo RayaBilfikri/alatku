@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
@@ -317,7 +318,7 @@
             <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
+                    <img loading="lazy" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
@@ -500,7 +501,7 @@
                     style="will-change: transform, opacity;"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <img :src="slide.gambar" loading="lazy" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
@@ -648,7 +649,7 @@
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
-                                    <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                    <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
@@ -866,7 +867,7 @@
                         @foreach ($latestArticles as $article)
                         <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
                             <!-- Gambar -->
-                            <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
+                            <img src="{{ asset('storage/' . $article->gambar) }}" loading="lazy" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
                             <!-- Konten -->
                             <div class="p-4 flex flex-col flex-grow">

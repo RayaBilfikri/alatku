@@ -128,6 +128,7 @@
         }
         /* Item styling with scale effect */
         .carousel-item {
+            will-change: transform;
             transform: scale(0.85);
             opacity: 0.85;
             transition: all 0.4s ease;
@@ -646,10 +647,10 @@
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
-                                    <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-sm overflow-hidden carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                    <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full aspect-[4/3]  object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>

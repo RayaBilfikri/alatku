@@ -1370,17 +1370,9 @@
     document.querySelectorAll('#carousel').forEach(carousel => {
         const activeItem = carousel.querySelector('.carousel-item.active');
         if (activeItem) {
-            activeItem.scrollIntoView({
-                behavior: 'auto',
-                inline: 'center',
-                block: 'nearest'
-            });
+            activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
         }
     });
-
-
-    document.addEventListener("DOMContentLoaded", function() {
-
     
     document.addEventListener("DOMContentLoaded", function () {
         const authStatus = document.getElementById('authStatus');
@@ -1402,13 +1394,13 @@
             const closeLogoutModal = document.getElementById('closeLogoutModal');
             const cancelLogout = document.getElementById('cancelLogout');
             const confirmLogout = document.getElementById('confirmLogout');
-
+            
             // Prevent the default form submission
             logoutButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 openModal();
             });
-
+            
             // Function to open the modal with animation
             function openModal() {
                 logoutModal.classList.remove('hidden');
@@ -1417,38 +1409,38 @@
                     logoutModalBackdrop.classList.add('opacity-100');
                     logoutModalContent.classList.remove('scale-95', 'opacity-0');
                     logoutModalContent.classList.add('scale-100', 'opacity-100');
-
+                    
                 }, 10);
             }
-
+            
             // Function to close the modal with animation
             function closeModal() {
                 logoutModalContent.classList.remove('scale-100', 'opacity-100');
                 logoutModalContent.classList.add('scale-95', 'opacity-0');
                 logoutModalBackdrop.classList.remove('opacity-100');
-
+                
                 // Wait for animation to finish before hiding the modal
                 setTimeout(() => {
                     logoutModal.classList.add('hidden');
                 }, 300);
             }
-
+            
             // Close modal when clicking close button or cancel button
             closeLogoutModal.addEventListener('click', closeModal);
             cancelLogout.addEventListener('click', closeModal);
-
+            
             // Close modal when clicking outside
             logoutModal.addEventListener('click', function(e) {
                 if (e.target === logoutModal || e.target === logoutModalBackdrop) {
                     closeModal();
                 }
             });
-
+            
             // Handle the confirmation button - submit the form
             confirmLogout.addEventListener('click', function() {
                 logoutForm.submit();
             });
-
+            
             // Handle escape key to close the modal
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) {
@@ -1457,32 +1449,10 @@
             });
         }
 
-
-
-
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
             let currentIndex = Array.from(items).indexOf(activeItem);
-
-
-
-            let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-
-
-            if (newIndex < 0 || newIndex >= items.length) return;
-
-
-            activeItem.classList.remove('active', 'scale-105', 'z-10');
-            activeItem.classList.add('scale-100');
-
-
-            const newItem = items[newIndex];
-            newItem.classList.add('active', 'scale-105', 'z-10');
-            newItem.classList.remove('scale-100');
-
-
-
             
             let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
             if (newIndex < 0 || newIndex >= items.length) return;
@@ -1499,7 +1469,7 @@
                 left: direction === 'next' ? itemWidth : -itemWidth,
                 behavior: 'smooth'
             });
-
+            
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
             const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
 
@@ -1508,12 +1478,12 @@
         }
 
         if (modalBtn && modal && closeBtn) {
-            // Fungsi untuk membuka modal dengan animasi
-
+        // Fungsi untuk membuka modal dengan animasi
+            
             function openModal() {
                 modal.classList.remove('opacity-0', 'pointer-events-none');
                 modal.classList.add('opacity-100');
-
+                
                 // Animasi untuk konten modal
                 const modalContent = modal.querySelector('div');
                 setTimeout(() => {
@@ -1521,24 +1491,24 @@
                     modalContent.classList.add('scale-100');
                 }, 50);
             }
-
+            
             // Fungsi untuk menutup modal dengan animasi
             function closeModal() {
                 const modalContent = modal.querySelector('div');
                 modalContent.classList.remove('scale-100');
                 modalContent.classList.add('scale-95');
-
+                
                 setTimeout(() => {
                     modal.classList.remove('opacity-100');
                     modal.classList.add('opacity-0', 'pointer-events-none');
                 }, 200);
             }
-
+            
             // Event listener untuk tombol
             if (selengkapnyaBtn) {
                 const isLoggedIn = selengkapnyaBtn.dataset.loggedIn === 'true';
 
-                selengkapnyaBtn.addEventListener('click', function() {
+                selengkapnyaBtn.addEventListener('click', function () {
                     if (isLoggedIn) {
                         window.location.href = "{{ route('ulasan.index') }}";
                     } else {
@@ -1548,16 +1518,16 @@
                 });
             }
 
-
+            
             closeBtn.addEventListener('click', closeModal);
-
+            
             // Tutup modal saat klik di luar modal
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     closeModal();
                 }
             });
-
+            
             // Tutup modal dengan tombol ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
@@ -1568,7 +1538,7 @@
 
         if (profileDropdownToggle && profileDropdown) {
             let isDropdownOpen = false;
-
+            
             // Toggle dropdown saat tombol profil diklik
             profileDropdownToggle.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1579,7 +1549,7 @@
                 }
                 isDropdownOpen = !isDropdownOpen;
             });
-
+            
             // Tutup dropdown ketika mengklik di luar dropdown
             document.addEventListener('click', function(event) {
                 if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
@@ -1587,7 +1557,7 @@
                     isDropdownOpen = false;
                 }
             });
-
+            
             // Mencegah dropdown tertutup saat mengklik pada dropdown itu sendiri
             profileDropdown.addEventListener('click', function(e) {
                 // Jangan tutup dropdown jika mengklik di dalam menu dropdown
@@ -1597,17 +1567,17 @@
                 }
             });
         }
-
+        
 
         prevButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const carousel = this.closest('.relative').querySelector('#carousel');
                 updateActiveItem(carousel, 'prev');
             });
         });
 
         nextButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const carousel = this.closest('.relative').querySelector('#carousel');
                 updateActiveItem(carousel, 'next');
             });
@@ -1631,5 +1601,4 @@
         });
 
     });
-</script>
 </script>

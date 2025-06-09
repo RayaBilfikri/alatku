@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
+    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -105,10 +106,13 @@
 
         @font-face {
             font-family: 'Akira Expanded';
-            src: url('/fonts/AkiraExpanded.otf') format('opentype');
+            src: url('/fonts/AkiraExpanded.woff2') format('woff2'),
+                 url('/fonts/AkiraExpanded.woff') format('woff');
             font-weight: normal;
             font-style: normal;
+            font-display: swap; /* fallback text */
         }
+
 
         [x-cloak] { display: none !important; }
 

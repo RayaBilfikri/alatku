@@ -317,7 +317,7 @@
             <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="/images/alatku.png" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
+                    <img src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
@@ -507,7 +507,8 @@
                     <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                   
+                                    <img src="/images/icon.webp" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
@@ -745,8 +746,8 @@
             <!-- Testimonial cards - top row -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
@@ -760,8 +761,8 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
@@ -775,16 +776,11 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-
-                    <!-- Spacer khusus desktop -->
-                    <div class="hidden md:block md:mb-4"></div>
-
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
+                    <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
                     </p>
-
                     <div class="flex items-center mt-auto">
                         <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
                         <div>
@@ -795,19 +791,25 @@
                 </div>
             </div>
             
-            <!-- Testimonial cards - bottom row -->
+            <!-- Testimonial cards - bottom DYNAMIC -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
                 @foreach ($Testimonials as $testimonial)
-                    <div class="bg-white rounded-xl shadow-lg p-6">
-                        <div class="text-3xl text-gray-300 mb-4">"</div>
-                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
-                            {{ $testimonial->content }}
-                        </p>
-                        <div class="flex items-center">
-                            <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
-                                <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                        <div class="flex flex-col h-full">
+                            <!-- Kutipan + Konten -->
+                            <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->
+                                <div class="text-2xl text-gray-300 mb-2 leading-none">“</div>
+                                <p class="text-gray-700 text-sm leading-relaxed md:text-base">
+                                    {{ $testimonial->content }}
+                                </p>
+                            </div>
+                            <!-- Profil -->
+                            <div class="flex items-center mt-auto pt-4">
+                                <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
+                                    <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>

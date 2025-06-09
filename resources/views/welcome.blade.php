@@ -314,14 +314,14 @@
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
         <div class="container mx-auto px-2 sm:px-4 md:px-6">
-            <div class="flex items-center flex-shrink-0 justify-between px-2 sm:px-4 py-3 lg:px-8">
+            <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <img src="/images/alatku.png" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
+                <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold overflow-hidden">
                     <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
                     <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>

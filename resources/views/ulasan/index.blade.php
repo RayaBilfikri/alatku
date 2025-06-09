@@ -54,7 +54,7 @@
             @foreach ($approvedReviews as $ulasan)
                 <div id="ulasanList" class="flex items-start space-x-2 sm:space-x-4 max-w-[1241px] font-montserrat mb-4">
                     <div class="flex-shrink-0">
-                        <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                        <img src="{{ asset('images/user.webp') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
                     </div>
 
                     <div class="flex-grow">
@@ -158,7 +158,7 @@
                     @foreach ($pendingReviews as $index => $ulasan)
                         <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat review-item">
                             <div class="flex-shrink-0 mr-4">
-                                <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex-shrink-0">
+                                <img src="{{ asset('images/user.webp') }}" alt="User Avatar" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex-shrink-0">
                             </div>
                             <div class="flex-grow">
                                 <div class="flex items-center mb-1">
@@ -270,7 +270,7 @@
             newReview.className = "bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat";
             newReview.innerHTML = `
                 <div class="flex-shrink-0 mr-4">
-                    <img src="${window.location.origin}/images/user.png" alt="User Avatar" class="w-12 h-12 rounded-full">
+                    <img src="${window.location.origin}/images/user.webp" alt="User Avatar" class="w-12 h-12 rounded-full">
                 </div>
                 <div class="flex-grow">
                     <div class="flex items-center mb-1">

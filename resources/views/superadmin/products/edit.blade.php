@@ -11,138 +11,168 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <!-- Kolom 1 -->
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Produk</label>
-                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $product->name) }}" required>
+                            <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $product->name) }}">
+                            @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Gambar Produk</label>
-                            <input type="file" id="gambar" name="gambar" class="form-control" accept="image/*">
+                            <input type="file" id="gambar" name="gambar" class="form-control @error('gambar') is-invalid @enderror" accept="image/*">
                             @if($product->gambar)
-                                <p class="mt-2">
-                                    Gambar saat ini: <br>
-                                    <img src="{{ Storage::url($product->gambar) }}" alt="Gambar Produk" class="img-fluid" style="max-width: 200px;">
-                                </p>
+                            <p class="mt-2">
+                                Gambar saat ini: <br>
+                                <img src="{{ Storage::url($product->gambar) }}" alt="Gambar Produk" class="img-fluid" style="max-width: 200px;">
+                            </p>
                             @endif
+                            @error('gambar')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="sub_images" class="form-label">Sub Gambar (Max 3)</label>
-                            <input type="file" name="sub_images[]" id="sub_images" class="form-control" accept="image/*" multiple onchange="limitFiles(this)">
+                            <input type="file" name="sub_images[]" id="sub_images" class="form-control @error('sub_images') is-invalid @enderror" accept="image/*" multiple onchange="limitFiles(this)">
+                            @error('sub_images')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="serial_number" class="form-label">Serial Number</label>
-                            <input type="text" id="serial_number" name="serial_number" class="form-control" value="{{ old('serial_number', $product->serial_number) }}">
+                            <input type="text" id="serial_number" name="serial_number" class="form-control @error('serial_number') is-invalid @enderror" value="{{ old('serial_number', $product->serial_number) }}">
+                            @error('serial_number')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="brosur" class="form-label">Brosur (PDF)</label>
-                            <input type="file" id="brosur" name="brosur" class="form-control" accept="application/pdf">
+                            <input type="file" id="brosur" name="brosur" class="form-control @error('brosur') is-invalid @enderror" accept="application/pdf">
                             @if($product->brosur)
-                                <p class="text-muted mt-2">
-                                    Brosur yang sudah diunggah: <a href="{{ Storage::url($product->brosur) }}" target="_blank" class="text-primary">Lihat</a>
-                                </p>
+                            <p class="text-muted mt-2">
+                                Brosur yang sudah diunggah: <a href="{{ Storage::url($product->brosur) }}" target="_blank" class="text-primary">Lihat</a>
+                            </p>
                             @endif
+                            @error('brosur')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
-                    <!-- Kolom 2 -->
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="category_id" class="form-label">Kategori</label>
-                            <select name="category_id" id="category_id" class="form-control" required>
+                            <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                                 <option value="">Pilih Kategori</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ (old('category_id', $product->category_id) == $category->id) ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
+                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="sub_category_id" class="form-label">Sub Kategori</label>
-                            <select name="sub_category_id" id="sub_category_id" class="form-control" required>
+                            <select name="sub_category_id" id="sub_category_id" class="form-control @error('sub_category_id') is-invalid @enderror">
                                 <option value="">Pilih Sub Kategori</option>
                                 @foreach($subCategories as $subCategory)
-                                    <option value="{{ $subCategory->id }}" {{ (old('sub_category_id', $product->sub_category_id) == $subCategory->id) ? 'selected' : '' }}>
-                                        {{ $subCategory->name }}
-                                    </option>
+                                <option value="{{ $subCategory->id }}" {{ old('sub_category_id', $product->sub_category_id) == $subCategory->id ? 'selected' : '' }}>
+                                    {{ $subCategory->name }}
+                                </option>
                                 @endforeach
                             </select>
+                            @error('sub_category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="contact_id" class="form-label">Kontak</label>
-                            <select name="contact_id" id="contact_id" class="form-control" required>
+                            <select name="contact_id" id="contact_id" class="form-control @error('contact_id') is-invalid @enderror">
                                 <option value="">Pilih Kontak</option>
                                 @foreach($contacts as $contact)
-                                    <option value="{{ $contact->id }}" {{ (old('contact_id', $product->contact_id) == $contact->id) ? 'selected' : '' }}>
-                                        {{ $contact->name }}
-                                    </option>
+                                <option value="{{ $contact->id }}" {{ old('contact_id', $product->contact_id) == $contact->id ? 'selected' : '' }}>
+                                    {{ $contact->name }}
+                                </option>
                                 @endforeach
                             </select>
+                            @error('contact_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="year_of_build" class="form-label">Tahun Pembuatan</label>
-                            <select name="year_of_build" id="year_of_build" class="form-select" required>
+                            <select name="year_of_build" id="year_of_build" class="form-select @error('year_of_build') is-invalid @enderror">
                                 <option value="">Pilih Tahun</option>
                                 @for ($year = date('Y'); $year >= 1950; $year--)
-                                    <option value="{{ $year }}" {{ (old('year_of_build', $product->year_of_build) == $year) ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
+                                <option value="{{ $year }}" {{ old('year_of_build', $product->year_of_build) == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
                                 @endfor
                             </select>
+                            @error('year_of_build')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="hours_meter" class="form-label">Hours Meter</label>
-                            <input type="number" id="hours_meter" name="hours_meter" class="form-control" value="{{ old('hours_meter', $product->hours_meter) }}">
+                            <input type="number" id="hours_meter" name="hours_meter" class="form-control @error('hours_meter') is-invalid @enderror" value="{{ old('hours_meter', $product->hours_meter) }}">
+                            @error('hours_meter')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
-                    <!-- Kolom 3 -->
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="stock" class="form-label">Stok</label>
-                            <input type="number" id="stock" name="stock" class="form-control" value="{{ old('stock', $product->stock) }}" required>
+                            <input type="number" id="stock" name="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $product->stock) }}">
+                            @error('stock')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
-                            <input type="text" id="harga" name="harga" class="form-control" value="{{ old('harga', number_format($product->harga, 0, ',', '.')) }}" required oninput="formatRupiah(this)">
+                            <input type="text" id="harga" name="harga" class="form-control @error('harga') is-invalid @enderror"
+                                value="{{ old('harga', $product->harga) }}" oninput="formatRupiah(this)">
+
+                            @error('harga')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Deskripsi</label>
-                            <textarea id="description" name="description" class="form-control" rows="6">{{ old('description', $product->description) }}</textarea>
+                            <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" rows="6">{{ old('description', $product->description) }}</textarea>
+                            @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
 
-                <!-- Tombol -->
                 <div class="d-flex justify-content-start gap-2 mt-3">
-                    <button type="submit" class="btn btn-success btn-sm">Simpan</button>
-                    <a href="{{ route('superadmin.products.index') }}" class="btn btn-danger btn-sm">Batal</a>
+                    <button type="submit" class="shadow btn btn-success btn-sm">Simpan</button>
+                    <a href="{{ route('superadmin.products.index') }}" class="shadow btn btn-danger btn-sm">Batal</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script>
-    function limitFiles(input) {
-        if (input.files.length > 3) {
-            alert('Maksimal 3 gambar yang boleh diunggah.');
-            input.value = ''; // reset input
-        }
-    }
-
+<!-- <script>
     function formatRupiah(el) {
         let value = el.value.replace(/[^,\d]/g, '').toString();
         let split = value.split(',');
@@ -156,16 +186,55 @@
         }
 
         rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-        el.value = 'Rp ' + rupiah;
+        el.value = rupiah ? 'Rp ' + rupiah : '';
     }
 
-    // Saat submit form, hapus "Rp " dan titik dari input harga supaya backend dapat nilai murni
+    // Event input tetap untuk user experience
+    document.getElementById('harga').addEventListener('input', function(e) {
+        formatRupiah(this);
+    });
+
+    // Event submit: hapus semua karakter non-angka sebelum submit
     document.querySelector('form').addEventListener('submit', function(e) {
         let hargaInput = document.getElementById('harga');
-        let val = hargaInput.value;
+        if (hargaInput) {
+            // Hapus Rp, titik, koma, spasi
+            let val = hargaInput.value.replace(/[^0-9]/g, '');
+            hargaInput.value = val;
+        }
+    });
+</script> -->
 
-        val = val.replace(/Rp\s?/g, '').replace(/\./g, '');
-        hargaInput.value = val;
+<script>
+    function formatRupiah(el) {
+        let value = el.value.replace(/[^,\d]/g, '').toString();
+        let split = value.split(',');
+        let sisa = split[0].length % 3;
+        let rupiah = split[0].substr(0, sisa);
+        let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            let separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+        el.value = rupiah ? 'Rp ' + rupiah : '';
+    }
+    document.getElementById('harga').addEventListener('input', function(e) {
+        formatRupiah(this);
+    });
+
+    document.querySelectorAll('form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            let hargaInput = form.querySelector('#harga');
+            if (hargaInput) {
+                let val = hargaInput.value;
+                val = val.replace(/Rp\s?/g, '').replace(/\./g, '').replace(/,/g, '');
+                hargaInput.value = val;
+            }
+        });
     });
 </script>
+
 @endsection

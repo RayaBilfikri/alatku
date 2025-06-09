@@ -10,7 +10,7 @@
             <div class="row">
                 <!-- Total Produk -->
                 <div class="col-md-6 col-xl-3 mb-3">
-                    <div class="border rounded p-3 bg-primary">
+                    <div class="shadow border rounded p-3 bg-primary">
                         <h6 class="mb-2 fw-normal text-white "><b>Total Produk</b></h6>
                         <h4 class="mb-3 text-white">
                             {{ $totalProductCount }}
@@ -21,7 +21,7 @@
 
                 <!-- Ulasan Menunggu -->
                 <div class="col-md-6 col-xl-3 mb-3">
-                    <div class="border rounded p-3 bg-success">
+                    <div class="shadow border rounded p-3 bg-success">
                         <h6 class="mb-2 fw-normal text-white"><b>Ulasan Menunggu</b></h6>
                         <h4 class="mb-3 text-white">
                             {{ $pendingReviewCount }}
@@ -29,7 +29,7 @@
                         <p class="mb-0 text-white text-sm">Ulasan yang belum ditinjau</p>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 </div>

@@ -39,12 +39,26 @@ class CarouselController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'link' => 'nullable|string',
-            'status' => 'required|in:aktif,nonaktif',
-        ]);
+        $request->validate(
+            [
+                'judul' => 'required|string|max:255',
+                'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'link' => 'nullable|string',
+                'status' => 'required|in:aktif,nonaktif',
+            ],
+            [
+                'judul.required'  => 'Judul wajib diisi.',
+                'judul.string'    => 'Judul harus berupa teks.',
+                'judul.max'       => 'Judul maksimal 255 karakter.',
+                'gambar.required' => 'Gambar wajib diunggah.',
+                'gambar.image'    => 'File yang diunggah harus berupa gambar.',
+                'gambar.mimes'    => 'Format gambar harus jpeg, png, atau jpg.',
+                'gambar.max'      => 'Ukuran gambar maksimal 2 MB.',
+                'link.string'     => 'Link harus berupa teks.',
+                'status.required' => 'Status wajib dipilih.',
+                'status.in'       => 'Status harus diisi dengan nilai aktif atau nonaktif.',
+            ]
+        );
 
         $path = $request->file('gambar')->store('carousel', 'public');
 
@@ -95,10 +109,20 @@ class CarouselController extends Controller
         $carousel = Carousel::findOrFail($id);
 
         $request->validate([
-            'judul' => 'sometimes|required|string|max:255',
-            'gambar' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'link' => 'nullable|string',
             'status' => 'required|in:aktif,nonaktif',
+        ], [
+            'judul.required'  => 'Judul wajib diisi.',
+            'judul.string'    => 'Judul harus berupa teks.',
+            'judul.max'       => 'Judul maksimal 255 karakter.',
+            'gambar.image'    => 'File yang diunggah harus berupa gambar.',
+            'gambar.mimes'    => 'Format gambar harus jpeg, png, atau jpg.',
+            'gambar.max'      => 'Ukuran gambar maksimal 2 MB.',
+            'link.string'     => 'Link harus berupa teks.',
+            'status.required' => 'Status wajib dipilih.',
+            'status.in'       => 'Status harus diisi dengan nilai aktif atau nonaktif.',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -128,5 +152,4 @@ class CarouselController extends Controller
         return redirect()->route('superadmin.carousel.index')
             ->with('success', 'Data berhasil dihapus');
     }
-    
 }

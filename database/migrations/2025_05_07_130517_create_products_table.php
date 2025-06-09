@@ -22,7 +22,7 @@ return new class extends Migration
             $table->year('year_of_build')->nullable();
             $table->string('hours_meter')->nullable();
             $table->integer('stock');
-            $table->decimal('harga', 12, 2);
+            $table->decimal('harga', 15, 2);
             $table->text('description')->nullable();
             $table->string('brosur')->nullable();
             $table->timestamps();

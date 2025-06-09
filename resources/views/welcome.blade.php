@@ -4,29 +4,327 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+
+    <style>
+        .logo-alatku {
+            height: 120px;          
+            width: auto;
+            max-width: 320px;       
+            transition: height 0.3s, max-width 0.3s;
+        }
+
+        @media (max-width: 1024px) {
+            .logo-alatku {
+                height: 80px;         /* Ukuran sedang di tablet */
+                max-width: 200px;
+            }
+        }
+        @media (max-width: 640px) {
+            .logo-alatku {
+                height: 48px;         /* Ukuran kecil di mobile */
+                max-width: 120px;
+            }
+        }
+        @media screen and (min-width: 1024px) and (max-width: 1112px) {
+            .hide-on-ipad {
+            display: none !important;
+            }
+        }
+        @media (max-width: 380px) {
+            .logo-alatku {
+                height: 32px;         
+                max-width: 80px;
+            }
+        }
+
+        /* Khusus untuk Galaxy Z Fold 5 dan perangkat sejenisnya */
+        @media (max-width: 350px) {
+            .logo-alatku {
+                height: 28px;         
+                max-width: 70px;
+            }
+            
+            .auth-buttons a {
+                padding: 0.25rem 0.75rem;
+                font-size: 0.75rem;
+            }
+        }
+        .shadow-text {
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity: 1; transform: translateY(0); }
+            to   { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .animate-slide-down {
+            animation: slideDown 0.3s ease forwards;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.3s ease forwards;
+        }
+
+        .line {
+            transition: all 0.3s ease;
+        }
+        .menu-open .line1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .menu-open .line2 {
+            opacity: 0;
+        }
+        .menu-open .line3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        @layer utilities {
+            .shadow-right-only {
+                box-shadow: 10px 0 20px -5px rgba(0, 0, 0, 0.3);
+            }
+
+            .shadow-left-only {
+                box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .icon-position {
+            transform: translateY(10%);
+        }
+
+        @font-face {
+            font-family: 'Akira Expanded';
+            src: url('/fonts/AkiraExpanded.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        [x-cloak] { display: none !important; }
+
+        /* Hide scrollbar */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .carousel-wrapper {
+            position: relative;
+            padding: 10px;
+            margin: -10px;
+            overflow: visible;
+        }
+        /* Item styling with scale effect */
+        .carousel-item {
+            transform: scale(0.85);
+            opacity: 0.85;
+            transition: all 0.4s ease;
+            transform-origin: center;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); 
+        }
+        .carousel-item.active {
+            transform: scale(1);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tambahkan ini di CSS Anda */
+        .btn-special {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .btn-special:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #333333 0%, #000000 100%);
+            transition: all 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-special:hover:before {
+            width: 100%;
+        }
+
+        .btn-special:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-special:active {
+            transform: translateY(1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-special:hover .arrow-icon {
+            transform: translateX(5px);
+        }
+            
+        .testimonial-section {
+            width: 100%;
+            position: relative; 
+            z-index: 10;
+            overflow: visible; 
+        }
+
+        section {
+            overflow-x: clip;
+            overflow-clip-margin: 0px;
+        }
+
+        /* Left eclipse */
+        .left-eclipse {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #F86F03, #FFA41B);
+            box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.3);
+            top: -100px;
+            left: -250px;
+            z-index: 6;
+        }
+
+        /* Right multi-layer eclipse */
+        .right-eclipse-back {
+            width: 1051px;
+            height: 1051px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #FFA41B, #F86F03);
+            top: 50%;
+            right: -525px;
+            transform: translateY(-50%);
+
+        }
+
+        .right-eclipse-middle {
+            width: 938px;
+            height: 938px;
+            border-radius: 50%;
+            background: #FFA41B;
+            top: 50%;
+            right: -469px;
+            transform: translateY(-50%);
+
+        }
+
+        .right-eclipse-front {
+            width: 353px;
+            height: 353px;
+            border-radius: 50%;
+            background: #F86F03;
+            top: 50%;
+            right: -176px;
+            transform: translateY(-50%);
+            box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .testimonial-section .text-center {
+            position: relative;
+            z-index: 10; 
+        }
+
+        #profileDropdown a:hover, 
+        #profileDropdown button:hover {
+            font-weight: 500;
+            transform: translateX(2px);
+            transition: transform 0.2s ease;
+        }
+
+        /* Tambahan efek bayangan saat dropdown muncul */
+        #profileDropdown:not(.hidden) {
+            animation: fadeIn 0.2s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpFade {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(1.3);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(-6%) scale(1.3);
+        }
+        }
+
+        .animate-slideUpFade {
+        animation: slideUpFade 0.8s ease-out forwards;
+        }
+
+        /* Mobile (hingga 576px) */
+        @media (max-width: 576px) { /* aturan CSS */ }
+
+        /* Tablet (577px - 768px) */
+        @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
+
+        /* Desktop (769px keatas) */
+        @media (min-width: 769px) { /* aturan CSS */ }
+
+        @media screen and (min-device-width: 280px) and (max-device-width: 2800px) and (orientation: portrait) {
+            /* Atur ulang padding, margin, atau ukuran elemen khusus untuk foldable */
+            .container {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+        }
+
+        .container {
+            width: -webkit-fill-available;
+            max-width: 100%;
+            padding-left: 1rem;  /* 16px */
+            padding-right: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }
+
+
+    </style>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between px-4 py-3 lg:px-8">
+        <div class="container mx-auto px-2 sm:px-4 md:px-6">
+            <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="/images/alatku.png" alt="alatKu Logo" class="h-20 w-auto object-contain">
+                    <img loading="lazy" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
+                <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold overflow-hidden">
                     <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
                     <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>
@@ -36,7 +334,7 @@
                 <!-- Mobile menu button -->
                 <button @click="open = !open"
                     :class="{ 'menu-open': open }"
-                    class="block md:hidden text-gray-500 hover:text-gray-800 focus:outline-none"
+                    class="block md:hidden text-gray-500 hover:text-gray-800 focus:outline-none mobile-menu-btn flex-shrink-0"
                     aria-label="Toggle menu">
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path class="line line1" d="M4 6h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
@@ -76,6 +374,39 @@
                 <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
                     <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
                         <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+
+        
+       <!-- Profile atau Login/Register section -->
+        <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
+            @guest
+                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons">
+                    <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
+                    <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+                </div>
+            @else
+                <div class="relative">
+                    <!-- Profile toggle button -->
+                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                            <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-medium">{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    
+                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                        <a href="{{ route('ulasan.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                            <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
+                        </a>
+                        <hr class="my-1">
+                        <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                                <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
+                            </button>
+                        </form>
                     </div>
                     <span class="font-medium">{{ Auth::user()->name }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -203,7 +534,7 @@
                     class="absolute inset-0 w-full h-full rounded-3xl"
                     style="will-change: transform, opacity;">
                     <!-- Background -->
-                    <img :src="slide.gambar" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <img :src="slide.gambar" loading="lazy" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
@@ -211,6 +542,8 @@
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
                                 <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0"> <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                   
+                                    <img src="/images/icon.webp" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
@@ -322,8 +655,8 @@
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
-                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 font montserrat text-center lg:text-left">
-                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
+                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-montserrat">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
                     <p class="text-sm sm:text-base mb-6 lg:mb-8 opacity-90 font-montserrat font-semibold">
                         Lihat koleksi alat berat dan kapal siap kerja
                         yang cocok untuk semua kebutuhan lapangan Anda.
@@ -354,6 +687,22 @@
                                         <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[90px] sm:min-w-[110px] flex flex-col items-center">
                                             <span class="text-[10px] sm:text-xs">Tahun</span>
                                             <span class="font-bold text-xs sm:text-sm">{{ $product->year_of_build }}</span>
+
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                    <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                    <div class="p-3 sm:p-4">
+                                        <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
+                                        <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
+                                        
+                                        <div class="flex justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[90px] sm:min-w-[110px] flex flex-col items-center">
+                                                <span class="text-[10px] sm:text-xs">Tahun</span>
+                                                <span class="font-bold text-xs sm:text-sm">{{ $product->year_of_build }}</span>
+                                            </div>
+                                            <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[120px] sm:min-w-[140px] flex flex-col items-center">
+                                                <span class="text-[10px] sm:text-xs">Jam operasional</span>
+                                                <span class="font-bold text-xs sm:text-sm">{{ $product->hours_meter }} jam</span>
+                                            </div>
                                         </div>
                                         <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[120px] sm:min-w-[140px] flex flex-col items-center">
                                             <span class="text-[10px] sm:text-xs">Jam operasional</span>
@@ -364,6 +713,16 @@
                                     <div class="text-center font-bold text-sm sm:text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg mt-2 sm:mt-3">
                                         Rp{{ number_format($product->harga, 0, ',', '.') }}
                                     </div>
+
+                                </a>
+                            @empty
+                                <div class="min-w-full flex flex-col items-center justify-center py-8 sm:py-12 text-gray-500">
+                                    <!-- Ilustrasi SVG keranjang kosong -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 sm:w-32 sm:h-32 mb-3 sm:mb-4 text-[#FFA41B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.35 2.7A1 1 0 007.5 17h9a1 1 0 00.85-1.47L17 13M10 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
+                                    </svg>
+                                    <p class="text-base sm:text-lg font-semibold text-black">Belum ada produk saat ini</p>
+                                    <p class="text-xs sm:text-sm text-black">Yuk tambahkan produk agar tampil di sini!</p>
                                 </div>
                             </a>
                             @empty
@@ -437,6 +796,26 @@
                     <p class="text-white text-lg mt-12 font-montserrat">
                         Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat
                         terpercaya untuk menyelesaikan proyek mereka dengan sukses.
+
+                    Selengkapnya
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
+                <p class="text-white text-lg mt-12 font-montserrat">
+                    Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
+                    terpercaya untuk menyelesaikan proyek mereka dengan sukses.
+                </p>
+            </div>
+            
+            <!-- Testimonial cards - top row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                        Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
                 </div>
 
@@ -506,6 +885,58 @@
                             <div>
                                 <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
                                 <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                        "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
+                    </p>
+                    <div class="flex items-center">
+                        <img src="{{ asset('images/alisson.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Zendaya">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Alisson</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
+                    <p class="text-gray-700 text-sm leading-relaxed md:text-base">
+                        Terbantu sekali dengan adanya website ini.
+                    </p>
+                    <div class="flex items-center mt-auto">
+                        <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">Onana</p>
+                            <p class="text-xs text-gray-500 md:text-base">user</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial cards - bottom DYNAMIC -->
+            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
+                @foreach ($Testimonials as $testimonial)
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                        <div class="flex flex-col h-full">
+                            <!-- Kutipan + Konten -->
+                            <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->
+                                <div class="text-2xl text-gray-300 mb-2 leading-none">“</div>
+                                <p class="text-gray-700 text-sm leading-relaxed md:text-base">
+                                    {{ $testimonial->content }}
+                                </p>
+                            </div>
+                            <!-- Profil -->
+                            <div class="flex items-center mt-auto pt-4">
+                                <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
+                                    <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -563,6 +994,11 @@
                     <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
                         <!-- Gambar -->
                         <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
+
+                        @foreach ($latestArticles as $article)
+                        <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
+                            <!-- Gambar -->
+                            <img src="{{ asset('storage/' . $article->gambar) }}" loading="lazy" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
                         <!-- Konten -->
                         <div class="p-4 flex flex-col flex-grow">
@@ -927,6 +1363,7 @@
     }
 </style>
 
+
 </html>
 
 <script>
@@ -943,6 +1380,9 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
         const authStatus = document.getElementById('authStatus');
         const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
         const prevButtons = document.querySelectorAll('.carousel-prev');
@@ -953,9 +1393,6 @@
         const profileDropdownToggle = document.getElementById('profileDropdownToggle');
         const profileDropdown = document.getElementById('profileDropdown');
         const logoutForm = document.getElementById('logoutForm');
-
-
-
 
         if (logoutForm) {
             const logoutButton = logoutForm.querySelector('button[type="submit"]');
@@ -1022,6 +1459,7 @@
 
 
 
+
         function updateActiveItem(carousel, direction) {
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
@@ -1044,6 +1482,18 @@
             newItem.classList.remove('scale-100');
 
 
+
+            
+            let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+            if (newIndex < 0 || newIndex >= items.length) return;
+
+            activeItem.classList.remove('active', 'scale-105', 'z-10');
+            activeItem.classList.add('scale-100');
+
+            const newItem = items[newIndex];
+            newItem.classList.add('active', 'scale-105', 'z-10');
+            newItem.classList.remove('scale-100');
+  
             const itemWidth = newItem.offsetWidth;
             carousel.scrollBy({
                 left: direction === 'next' ? itemWidth : -itemWidth,
@@ -1055,8 +1505,6 @@
 
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
-
-
         }
 
         if (modalBtn && modal && closeBtn) {
@@ -1183,4 +1631,5 @@
         });
 
     });
+</script>
 </script>

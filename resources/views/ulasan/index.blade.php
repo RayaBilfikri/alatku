@@ -42,6 +42,33 @@
             <span class="ml-1 text-xl font-medium">Ulasan</span>
         </a>
 
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex items-center mb-6 flex-wrap gap-2 sm:gap-0 sm:flex-nowrap">
+            <a href="{{ route('home') }}" class="group flex items-center text-gray-800 hover:text-orange-600 transition-colors duration-200">
+                <div class="p-2 rounded-full group-hover:bg-blue-50 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </div>
+                <span class="ml-1 text-xl font-medium">Ulasan</span>
+            </a>
+            
+            <button id="btnLihatUlasanTertunda" class="ml-auto bg-[#F86F03] text-white px-4 py-2 rounded-full drop-shadow-xl flex items-center font-montserrat hover:bg-orange-600">
+                Lihat ulasan tertunda
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Review Section -->
+        @if($approvedReviews->count() > 0)
+            @foreach ($approvedReviews as $ulasan)
+                <div id="ulasanList" class="flex items-start space-x-2 sm:space-x-4 max-w-[1241px] font-montserrat mb-4">
+                    <div class="flex-shrink-0">
+                        <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                    </div>
+
         <button id="btnLihatUlasanTertunda" class="ml-auto bg-[#F86F03] text-white px-4 py-2 rounded-full drop-shadow-xl flex items-center font-montserrat hover:bg-orange-600">
             Lihat ulasan tertunda
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,6 +77,7 @@
         </button>
     </div>
 
+
     <!-- Review Section -->
     @if($approvedReviews->count() > 0)
     @foreach ($approvedReviews as $ulasan)
@@ -57,6 +85,29 @@
         <div class="flex-shrink-0">
             <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
         </div>
+
+                        <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
+                            <p class="text-gray-600 p-3 sm:p-4 text-sm sm:text-base">{{ $ulasan->content }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @else
+
+            <div class="flex flex-col items-center justify-center py-16 px-4 max-w-[1241px] mx-auto font-montserrat">
+                <!-- Empty State Illustration -->
+                <div class="relative mb-8">
+                    <div class="w-32 h-32 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center shadow-lg">
+                        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <!-- Floating dots animation -->
+                    <div class="absolute -top-2 -right-2 w-4 h-4 bg-yellow-300 rounded-full animate-bounce"></div>
+                    <div class="absolute -bottom-1 -left-3 w-3 h-3 bg-pink-300 rounded-full animate-pulse"></div>
+                    <div class="absolute top-4 -left-4 w-2 h-2 bg-blue-300 rounded-full animate-ping"></div>
+                </div>
 
         <div class="flex-grow">
             <div class="mb-1">
@@ -149,6 +200,45 @@
                 <button id="closePendingReviewsPopup" class="text-gray-500 hover:text-gray-700 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+
+        <!-- Popup for Viewing Pending Reviews -->
+        <div id="viewPendingReviewsPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden font-montserrat popup-backdrop">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full popup-content transition-all duration-300 transform scale-95 opacity-0">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-medium">Ulasan Tertunda</h3>
+                    <button id="closePendingReviewsPopup" class="text-gray-500 hover:text-gray-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Content with Reviews -->
+                @if(count($pendingReviews) > 0)
+                <div id="reviewsContent" class="overflow-y-auto max-h-[300px] space-y-4 pr-2">
+                    @foreach ($pendingReviews as $index => $ulasan)
+                        <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat review-item">
+                            <div class="flex-shrink-0 mr-4">
+                                <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex-shrink-0">
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex items-center mb-1">
+                                    <h3 class="font-medium text-gray-800">{{ $ulasan->user->name }}</h3>
+                                </div>
+                                <span class="text-xs text-gray-500">{{ $ulasan->user->type ?? 'user' }}</span>
+                                <p class="text-gray-600 ml-2">{{ $ulasan->content }}</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0">
+                                <span class="bg-[#F86F03] text-white px-3 py-1 rounded-full">Pending</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                @else
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-12 empty-state">
+                    <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </button>
             </div>
@@ -203,6 +293,24 @@
 
             </button>
         </form>
+
+        <!-- Review Input Field -->
+        <div class="fixed bottom-8 left-0 right-0 flex justify-center font-montserrat">
+            <form id="ulasanForm" class="flex items-center bg-white w-full max-w-[1380px] h-[75px] rounded-full shadow-md px-6 mx-4">
+                <input 
+                    type="text" 
+                    id="ulasanInput" 
+                    name="content" 
+                    placeholder="Berikan tanggapan anda mengenai produk dan layanan kami . . . . ." 
+                    class="flex-grow border-none focus:ring-0 focus:outline-none text-gray-700"
+                >
+                <button type="submit" class="ml-2 sm:ml-4 bg-[#F86F03] rounded-full p-1.5 sm:p-2 text-white hover:bg-opacity-90 transition flex-shrink-0">         
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="transform: rotate(90deg);">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 @endsection

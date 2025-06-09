@@ -200,6 +200,7 @@
               <i class="ti ti-wallet"></i>
               <span>Billing</span>
             </a> -->
+
                   <!-- Logout Form (disembunyikan) -->
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -215,6 +216,16 @@
                 </div>
                 <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
                   <!-- <a href="#!" class="dropdown-item">
+
+            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">
+              <i class="ti ti-power"></i>
+              <span>Logout</span>
+            </a>
+            
+          </div>
+          <div class="tab-pane fade" id="drp-tab-2" role="tabpanel" aria-labelledby="drp-t2" tabindex="0">
+            <!-- <a href="#!" class="dropdown-item">
+
               <i class="ti ti-help"></i>
               <span>Support</span>
             </a>
@@ -378,6 +389,57 @@
 
   <!-- Untuk menampilkan gambar -->
   @stack('scripts')
+
+
+  <!-- jees logout-->  
+  <script>
+    // Pastikan Bootstrap JS sudah dimuat
+    document.getElementById('btn-logout').addEventListener('click', function(event) {
+      event.preventDefault();
+      var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+      logoutModal.show();
+    });
+
+    document.getElementById('confirm-logout').addEventListener('click', function() {
+      // Buat form POST logout secara dinamis dan submit
+      var form = document.createElement('form');
+      form.method = 'POST';
+      form.action = '{{ route("logout") }}';
+
+      // Tambahkan CSRF token
+      var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = '_token';
+      input.value = csrfToken;
+      form.appendChild(input);
+
+      document.body.appendChild(form);
+      form.submit();
+    });
+  </script>
+
+  <!-- Modal konfirmasi logout -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+          Apakah Anda yakin ingin logout?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" class="btn btn-danger">Ya, Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 <!-- [Body] end -->

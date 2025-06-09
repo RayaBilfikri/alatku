@@ -48,6 +48,10 @@
                             data-kategori="{{ $category->name }}"
                             data-subkategori="{{ $category->subCategories->pluck('name') }}"
                             aria-label="Kategori {{ $category->name }}"
+                            data-aos="slide-up"
+                            data-aos-delay="100"
+                            data-aos-once="false"
+                            data-aos-mirror="true"
                         >
                             <img src="{{ asset('storage/' . $category->icon) }}" alt="{{ $category->name }}" class="h-30 mb-2" loading="lazy" />
                             <span class="text-sm font-medium break-words leading-tight">{{ $category->name }}</span>
@@ -69,7 +73,7 @@
             <h2 class="text-xl md:text-2xl font-semibold mb-2 text-black">Temukan Alat Siap Pakai Untuk Pekerjaaan Anda</h2>
             <p class="text-black">Jelajahi koleksi peralatan industri dan konstruksi berkualitas untuk menunjang pekerjaan Anda</p>
         </div>
-        <section id="productContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-label="Daftar Produk"></section>
+        <section id="productContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" aria-label="Daftar Produk"></section>
     </section>
 </main>
 
@@ -82,6 +86,7 @@
     .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
     .subkategori-item { color: #374151; } 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const kategoriLinks = document.querySelectorAll(".kategori-link");
@@ -142,7 +147,7 @@
 
         function renderProduct(item) {
             return `
-            <div class="flex">
+            <div class="flex" data-aos="fade-up" data-aos-delay="200" data-aos-offset="100">
                 <a href="/catalog/${item.id}" class="block w-full h-full" aria-label="Lihat detail produk ${item.name}">
                     <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:scale-105 flex flex-col">
                         <div class="px-4 pt-4">
@@ -247,6 +252,13 @@
         fetchAndRenderProducts();
 
     });
+    
+    AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: true,
+    });
+
 </script>
 </body>
 @endsection

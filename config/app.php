@@ -123,4 +123,10 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // config/app.php
+    'providers' => [
+        // ... other providers
+        App\Providers\CustomExceptionServiceProvider::class,
+    ],
+
 ];

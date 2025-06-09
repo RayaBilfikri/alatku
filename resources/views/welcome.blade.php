@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
@@ -314,14 +315,14 @@
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
         <div class="container mx-auto px-2 sm:px-4 md:px-6">
-            <div class="flex items-center flex-shrink-0 justify-between px-2 sm:px-4 py-3 lg:px-8">
+            <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="/images/alatku.png" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
+                    <img loading="lazy" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center md:ml-16 space-x-6 font-montserrat font-bold mt-3">
+                <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold overflow-hidden">
                     <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
                     <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>
@@ -500,14 +501,15 @@
                     style="will-change: transform, opacity;"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <img :src="slide.gambar" loading="lazy" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
                     <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
-                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                    <img src="/images/icon.png" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                   
+                                    <img src="/images/icon.webp" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
@@ -647,7 +649,7 @@
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
-                                    <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                    <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
@@ -745,8 +747,8 @@
             <!-- Testimonial cards - top row -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
                     </p>
@@ -760,8 +762,8 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
                     </p>
@@ -775,16 +777,11 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full">
-                    <div class="text-3xl text-gray-300 mb-4">"</div>
-
-                    <!-- Spacer khusus desktop -->
-                    <div class="hidden md:block md:mb-4"></div>
-
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="text-3xl text-gray-300 mb-4">“</div>
+                    <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
                     </p>
-
                     <div class="flex items-center mt-auto">
                         <img src="{{ asset('images/onana.jpg') }}" class="w-10 h-10 rounded-full mr-4" alt="Onana">
                         <div>
@@ -795,19 +792,25 @@
                 </div>
             </div>
             
-            <!-- Testimonial cards - bottom row -->
+            <!-- Testimonial cards - bottom DYNAMIC -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
                 @foreach ($Testimonials as $testimonial)
-                    <div class="bg-white rounded-xl shadow-lg p-6">
-                        <div class="text-3xl text-gray-300 mb-4">"</div>
-                        <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
-                            {{ $testimonial->content }}
-                        </p>
-                        <div class="flex items-center">
-                            <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
-                            <div>
-                                <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
-                                <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                        <div class="flex flex-col h-full">
+                            <!-- Kutipan + Konten -->
+                            <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->
+                                <div class="text-2xl text-gray-300 mb-2 leading-none">“</div>
+                                <p class="text-gray-700 text-sm leading-relaxed md:text-base">
+                                    {{ $testimonial->content }}
+                                </p>
+                            </div>
+                            <!-- Profil -->
+                            <div class="flex items-center mt-auto pt-4">
+                                <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                                <div class="flex flex-col justify-end">
+                                    <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
+                                    <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -864,7 +867,7 @@
                         @foreach ($latestArticles as $article)
                         <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
                             <!-- Gambar -->
-                            <img src="{{ asset('storage/' . $article->gambar) }}" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
+                            <img src="{{ asset('storage/' . $article->gambar) }}" loading="lazy" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
 
                             <!-- Konten -->
                             <div class="p-4 flex flex-col flex-grow">

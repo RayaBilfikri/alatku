@@ -1,1 +1,1 @@
-<img src="{{ asset('images/alatku.png') }}" alt="Alatku - Heavy Equipment, Spare Parts, Marine Machinery" {{ $attributes }} style="max-height: 180px; width: auto; transform: scale(1.5);" />
+<img src="{{ asset('images/alatku.webp') }}" alt="Alatku - Heavy Equipment, Spare Parts, Marine Machinery" {{ $attributes }} style="max-height: 180px; width: auto; transform: scale(1.5);" />

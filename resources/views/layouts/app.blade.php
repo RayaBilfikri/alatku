@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alatku</title>
 
@@ -40,7 +41,7 @@
 
             <div class="flex items-center px-4 md:px-6 w-full max-w-screen-xl mx-auto">
                 <!-- Logo kiri -->
-                <a href="/" class="font-bold text-xl z-20 flex items-center flex-shrink-0">
+                <a href="{{ route('home') }}" class="font-bold text-xl z-20 flex items-center flex-shrink-0">
                     <span class="text-blue-800">alat</span><span class="text-orange-400">Ku</span>
                 </a>
 
@@ -50,7 +51,7 @@
 
                 <!-- Navbar tengah -->
                 <nav class="hidden md:flex space-x-6 font-montserrat font-bold max-w-xl mx-auto">
-                    <a href="/" class="hover:text-orange-600 text-sm">Beranda</a>
+                    <a href="{{ route('home') }}" class="hover:text-orange-600 text-sm">Beranda</a>
                     <a href="/tentang-kami" class="hover:text-orange-600 text-sm">Tentang Kami</a>
                     <a href="/caramembeli" class="hover:text-orange-600 text-sm">Bagaimana cara membeli?</a>
                     <a href="/artikel" class="hover:text-orange-600 text-sm">Artikel</a>
@@ -73,7 +74,7 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden ">
                 <div class="pt-20 pb-5 px-6 flex flex-col space-y-5 font-montserrat font-bold">
-                    <a href="/" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Beranda</a>
+                    <a href="{{ route('home') }}" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Beranda</a>
                     <a href="/tentang-kami" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Tentang Kami</a>
                     <a href="/caramembeli" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Bagaimana cara membeli?</a>
                     <a href="/artikel" class="hover:text-orange-600 text-lg border-b border-gray-200 pb-2">Artikel</a>

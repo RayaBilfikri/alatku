@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -34,6 +34,25 @@
         @media screen and (min-width: 1024px) and (max-width: 1112px) {
             .hide-on-ipad {
             display: none !important;
+            }
+        }
+        @media (max-width: 380px) {
+            .logo-alatku {
+                height: 32px;         
+                max-width: 80px;
+            }
+        }
+
+        /* Khusus untuk Galaxy Z Fold 5 dan perangkat sejenisnya */
+        @media (max-width: 350px) {
+            .logo-alatku {
+                height: 28px;         
+                max-width: 70px;
+            }
+            
+            .auth-buttons a {
+                padding: 0.25rem 0.75rem;
+                font-size: 0.75rem;
             }
         }
         .shadow-text {
@@ -268,17 +287,37 @@
 
         /* Desktop (769px keatas) */
         @media (min-width: 769px) { /* aturan CSS */ }
+
+        @media screen and (min-device-width: 280px) and (max-device-width: 2800px) and (orientation: portrait) {
+            /* Atur ulang padding, margin, atau ukuran elemen khusus untuk foldable */
+            .container {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+        }
+
+        .container {
+            width: -webkit-fill-available;
+            max-width: 100%;
+            padding-left: 1rem;  /* 16px */
+            padding-right: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }
+
+
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between px-4 py-3 lg:px-8">
+        <div class="container mx-auto px-2 sm:px-4 md:px-6">
+            <div class="flex items-center flex-shrink-0 justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="/images/alatku.png" alt="alatKu Logo" class="logo-alatku object-contain">
+                    <img src="/images/alatku.png" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
@@ -292,7 +331,7 @@
                 <!-- Mobile menu button -->
                 <button @click="open = !open"
                     :class="{ 'menu-open': open }"
-                    class="block md:hidden text-gray-500 hover:text-gray-800 focus:outline-none"
+                    class="block md:hidden text-gray-500 hover:text-gray-800 focus:outline-none mobile-menu-btn flex-shrink-0"
                     aria-label="Toggle menu">
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path class="line line1" d="M4 6h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
@@ -320,16 +359,16 @@
         </div>
         
        <!-- Profile atau Login/Register section -->
-        <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}">
+        <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons">
                     <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
                     <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
                 </div>
             @else
                 <div class="relative">
                     <!-- Profile toggle button -->
-                    <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer">
                         <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
                             <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
                         </div>

@@ -30,9 +30,8 @@
     </div>
 @endif
 
-
     <div class="container mx-auto px-4 py-6">
-        <div class="flex items-center mb-6">
+        <div class="flex items-center mb-6 flex-wrap gap-2 sm:gap-0 sm:flex-nowrap">
             <a href="{{ route('home') }}" class="group flex items-center text-gray-800 hover:text-orange-600 transition-colors duration-200">
                 <div class="p-2 rounded-full group-hover:bg-blue-50 transition-colors duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,7 +52,7 @@
         <!-- Review Section -->
         @if($approvedReviews->count() > 0)
             @foreach ($approvedReviews as $ulasan)
-                <div id="ulasanList" class="flex items-start space-x-4 max-w-[1241px] font-montserrat mb-4">
+                <div id="ulasanList" class="flex items-start space-x-2 sm:space-x-4 max-w-[1241px] font-montserrat mb-4">
                     <div class="flex-shrink-0">
                         <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-12 h-12 rounded-full">
                     </div>
@@ -68,7 +67,7 @@
                         </div>
 
                         <div class="bg-white rounded-md shadow-[4px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
-                            <p class="text-gray-600 p-4">{{ $ulasan->content }}</p>
+                            <p class="text-gray-600 p-3 sm:p-4 text-sm sm:text-base">{{ $ulasan->content }}</p>
                         </div>
                     </div>
                 </div>
@@ -159,7 +158,7 @@
                     @foreach ($pendingReviews as $index => $ulasan)
                         <div class="bg-white rounded-lg border border-gray-200 p-4 flex items-start w-full max-w-[782px] font-montserrat review-item">
                             <div class="flex-shrink-0 mr-4">
-                                <img src="{{ '/images/user.png' }}" alt="User Avatar" class="w-12 h-12 rounded-full">
+                                <img src="{{ asset('images/user.png') }}" alt="User Avatar" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex-shrink-0">
                             </div>
                             <div class="flex-grow">
                                 <div class="flex items-center mb-1">
@@ -197,11 +196,10 @@
                     placeholder="Berikan tanggapan anda mengenai produk dan layanan kami . . . . ." 
                     class="flex-grow border-none focus:ring-0 focus:outline-none text-gray-700"
                 >
-                <button type="submit" class="ml-4 bg-[#F86F03] rounded-full p-2 text-white hover:bg-opacity-90 transition">
+                <button type="submit" class="ml-2 sm:ml-4 bg-[#F86F03] rounded-full p-1.5 sm:p-2 text-white hover:bg-opacity-90 transition flex-shrink-0">         
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="transform: rotate(90deg);">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
-
                 </button>
             </form>
         </div>

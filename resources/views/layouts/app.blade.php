@@ -68,9 +68,6 @@
                 <span class="hamburger-line block w-6 h-0.5 bg-black"></span>
             </button>
 
-
-
-
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden ">
                 <div class="pt-20 pb-5 px-6 flex flex-col space-y-5 font-montserrat font-bold">
@@ -90,9 +87,9 @@
                 @else
                     <div class="relative">
                         <!-- Profile toggle button -->
-                        <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                        <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-100 hover:h-12 hover:shadow-md rounded-md transition duration-200">
                             <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                                <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                                <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-contain">
                             </div>
                             <span class="font-medium">{{ Auth::user()->name }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -127,7 +124,7 @@
                     <div id="mobileProfileToggle" class="relative">
                         <div class="flex items-center space-x-1 cursor-pointer">
                             <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                                <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                                <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

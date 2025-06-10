@@ -356,6 +356,14 @@
 
 
     </style>
+
+    @if($carousels->count() > 0)
+        {{-- Jika slide pertama dari database --}}
+        <link rel="preload" as="image" href="{{ asset('storage/' . $carousels->first()->gambar) }}" />
+    @else
+        {{-- Jika slide pertama adalah gambar statis --}}
+        <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
+    @endif
 </head>
 <body class="bg-gray-100 text-gray-800">
 

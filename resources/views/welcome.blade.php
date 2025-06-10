@@ -559,7 +559,7 @@
                     if (!this.isHovered && !this.isTransitioning) { // ← LOGIKA BARU
                         this.next();
                     }
-                }, 8000);
+                }, 10000);
             },
             stopAutoplay() {
                 if (this.autoplayInterval) { // ← TAMBAHAN BARU

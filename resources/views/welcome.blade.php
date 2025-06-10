@@ -1223,9 +1223,16 @@
             nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
         });
 
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+        document.addEventListener('DOMContentLoaded', function() {
+            const tombolMenuMobile = document.getElementById('mobile-menu-button');
+            if (tombolMenuMobile) {
+                tombolMenuMobile.addEventListener('click', function() {
+                    const menuMobile = document.getElementById('mobile-menu');
+                    if (menuMobile) {
+                        menuMobile.classList.toggle('hidden');
+                    }
+                });
+            }
         });
 
     });

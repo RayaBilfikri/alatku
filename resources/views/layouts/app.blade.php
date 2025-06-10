@@ -68,9 +68,6 @@
                 <span class="hamburger-line block w-6 h-0.5 bg-black"></span>
             </button>
 
-
-
-
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden ">
                 <div class="pt-20 pb-5 px-6 flex flex-col space-y-5 font-montserrat font-bold">
@@ -90,7 +87,7 @@
                 @else
                     <div class="relative">
                         <!-- Profile toggle button -->
-                        <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                        <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-100 hover:h-12 hover:shadow-md rounded-md transition duration-200">
                             <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
                                 <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
                             </div>

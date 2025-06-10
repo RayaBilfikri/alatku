@@ -661,7 +661,8 @@
         <template x-if="slides.length > 1">
             <!-- Touch/Mouse Swipe Area -->
             <div 
-                class="absolute inset-0 z-30"
+                class="absolute inset-0 z-10 pointer-events-auto"
+                  :class="{ 'pointer-events-auto': isDragging, 'pointer-events-none': !isDragging }"
                 x-data="{ startX: 0, endX: 0, touchStartX: 0, touchEndX: 0, isDragging: false }"
                 @mousedown.prevent="isDragging = true; startX = $event.clientX;"
                 @mouseup="if (!isDragging) return; ..."

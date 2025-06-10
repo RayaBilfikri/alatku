@@ -373,7 +373,7 @@
             <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img loading="lazy" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
+                    <img loading="eager" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
@@ -563,7 +563,7 @@
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
                                 <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                   
-                                    <img src="/images/icon.webp" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                    <img src="/images/icon.webp" loading="eager" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">

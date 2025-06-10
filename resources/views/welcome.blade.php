@@ -113,6 +113,10 @@
             font-display: swap; /* fallback text */
         }
 
+        .absolute.bottom-8.right-6.z-20 {
+            contain: layout;
+            will-change: transform;
+        }
 
         [x-cloak] { display: none !important; }
 
@@ -543,7 +547,7 @@
                     style="will-change: transform, opacity;"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" loading="lazy" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <img :src="slide.gambar" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->

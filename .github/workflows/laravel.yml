@@ -30,6 +30,20 @@ jobs:
       - name: 🛠️ Build Assets
         run: npm run build
 
+      - name: ⚙️ Setup PHP & Laravel Optimize
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'  # sesuaikan versi PHP
+          extensions: mbstring, xml, bcmath, curl, fileinfo
+
+      - name: 🧹 Laravel Optimize Clear & Cache
+        run: |
+          composer install --no-dev --optimize-autoloader
+          php artisan optimize:clear
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
       - name: 🧳 Upload to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

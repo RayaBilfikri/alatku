@@ -128,7 +128,7 @@
         }
         /* Item styling with scale effect */
         .carousel-item {
-            transform: scale(0.85);
+            transform: scale(0.90);
             opacity: 0.85;
             transition: all 0.4s ease;
             transform-origin: center;
@@ -648,7 +648,7 @@
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 carousel-item {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 ease-in-out {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
@@ -1049,11 +1049,7 @@
             newItem.classList.add('active', 'scale-105', 'z-10');
             newItem.classList.remove('scale-100');
   
-            const itemWidth = newItem.offsetWidth;
-            carousel.scrollBy({
-                left: direction === 'next' ? itemWidth : -itemWidth,
-                behavior: 'smooth'
-            });
+            newItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
             const nextButton = carousel.closest('.relative').querySelector('.carousel-next');

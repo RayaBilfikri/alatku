@@ -59,6 +59,7 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           local-dir: public/
           exclude: |
+            .user.ini
             **/.git*
             **/.git*/**
             **/node_modules/**

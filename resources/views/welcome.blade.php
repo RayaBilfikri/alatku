@@ -329,7 +329,7 @@
             border-radius: 3px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (pointer:coarse) {
             .carousel-prev,
             .carousel-next {
                 display: none !important;

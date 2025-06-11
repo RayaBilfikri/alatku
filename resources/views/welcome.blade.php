@@ -128,6 +128,19 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        .hero-container {
+            contain: layout style paint;
+        }
+
+        .hero-slide {
+            will-change: auto;
+            transform: translateZ(0);
+        }
+
+        .transitioning {
+            pointer-events: none;
+        }
         .carousel-wrapper {
             position: relative;
             padding: 10px;
@@ -135,7 +148,7 @@
             overflow: visible;
             min-height: 350px;
         }
-        /* Item styling with scale effect */
+        
         .carousel-item {
             will-change: transform;
             transform: scale(0.85);
@@ -151,7 +164,7 @@
             box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Tambahkan ini di CSS Anda */
+        
         .btn-special {
             position: relative;
             overflow: hidden;
@@ -502,6 +515,7 @@
     <section 
         x-data="{ 
             activeSlide: 0,
+            isTransitioning: false,
             slides: [
                 {
                     id: 0,
@@ -521,24 +535,63 @@
                 @endif
             ],
             next() { 
+                if (this.isTransitioning) return; // ← TAMBAHAN BARU
+                this.isTransitioning = true; // ← TAMBAHAN BARU
                 this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+                setTimeout(() => { // ← TAMBAHAN BARU
+                    this.isTransitioning = false;
+                }, 500);
             },
             prev() { 
+                if (this.isTransitioning) return; // ← TAMBAHAN BARU
+                this.isTransitioning = true; // ← TAMBAHAN BARU
                 this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+                setTimeout(() => { // ← TAMBAHAN BARU
+                    this.isTransitioning = false;
+                }, 500);
             },
             autoplayInterval: null,
+            isHovered: false,
             startAutoplay() {
-                this.autoplayInterval = setInterval(() => this.next(), 8000);
+                if (this.slides.length <= 1) return; // ← TAMBAHAN BARU
+                this.stopAutoplay(); // ← TAMBAHAN BARU
+                this.autoplayInterval = setInterval(() => {
+                    if (!this.isHovered && !this.isTransitioning) { // ← LOGIKA BARU
+                        this.next();
+                    }
+                }, 10000);
             },
             stopAutoplay() {
-                clearInterval(this.autoplayInterval);
+                if (this.autoplayInterval) { // ← TAMBAHAN BARU
+                    clearInterval(this.autoplayInterval);
+                    this.autoplayInterval = null; // ← TAMBAHAN BARU
+                }
+            },
+            handleMouseEnter() { // ← FUNGSI BARU
+                this.isHovered = true;
+                this.stopAutoplay();
+            },
+            handleMouseLeave() { // ← FUNGSI BARU
+                this.isHovered = false;
+                this.startAutoplay();
             }
         }"
-        x-init="startAutoplay()"
-        @mouseover="stopAutoplay()"
-        @mouseout="startAutoplay()"
+        x-init="
+            $nextTick(() => {
+                if (slides.length > 1) { // ← KONDISI BARU
+                    startAutoplay();
+                }
+            });
+            
+            // Cleanup on component destroy ← TAMBAHAN BARU
+            $watch('$el', () => {
+                return () => stopAutoplay();
+            });
+        "
+        @mouseenter="handleMouseEnter()"
+        @mouseleave="handleMouseLeave()"
         x-cloak
-        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
+        class="hero-carousel relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
@@ -551,8 +604,8 @@
                     x-transition:leave="transition ease-in duration-300"
                     x-transition:leave-start="opacity-100 transform translate-x-0"
                     x-transition:leave-end="opacity-0 transform -translate-x-full"
-                    class="absolute inset-0 w-full h-full rounded-3xl"
-                    style="will-change: transform, opacity;"
+                    class="hero-slide absolute inset-0 w-full h-full rounded-3xl"
+                     :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
                     <img :src="slide.gambar" loading="eager" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
@@ -605,49 +658,48 @@
             </template>
         </div>
 
-        @if($carousels->count() > 0)
-        <!-- Touch/Mouse Swipe Area -->
-        <div 
-            class="absolute inset-0 z-10 pointer-events-none"
+        <template x-if="slides.length > 1">
+            <!-- Touch/Mouse Swipe Area -->
+            <div 
+                class="absolute inset-0 z-10 pointer-events-auto"
+                  :class="{ 'pointer-events-auto': isDragging, 'pointer-events-none': !isDragging }"
+                x-data="{ startX: 0, endX: 0, touchStartX: 0, touchEndX: 0, isDragging: false }"
+                @mousedown.prevent="isDragging = true; startX = $event.clientX;"
+                @mouseup="if (!isDragging) return;"
+                style="touch-action: pan-y;"
 
-            x-on:mousedown="startX = $event.clientX"
-            x-on:mouseup="
-                endX = $event.clientX;
-                if (startX - endX > 50) {
-                    next();
-                } else if (endX - startX > 50) {
-                    prev();
-                }
-            "
-            x-on:touchstart="touchStartX = $event.changedTouches[0].screenX"
-            x-on:touchend="
-                touchEndX = $event.changedTouches[0].screenX;
-                if (touchStartX - touchEndX > 50) {
-                    next();
-                } else if (touchEndX - touchStartX > 50) {
-                    prev();
-                }
-            "
-            x-data="{
-                startX: 0,
-                endX: 0,
-                touchStartX: 0,
-                touchEndX: 0
-            }"
-        ></div>
+                x-on:touchstart="touchStartX = $event.changedTouches[0].screenX"
+                x-on:touchend="
+                    touchEndX = $event.changedTouches[0].screenX;
+                    if (touchStartX - touchEndX > 50) {
+                        next();
+                    } else if (touchEndX - touchStartX > 50) {
+                        prev();
+                    }
+                "
+                x-data="{
+                    startX: 0,
+                    endX: 0,
+                    touchStartX: 0,
+                    touchEndX: 0
+                }"
+            ></div>
+        </template>
 
         <!-- Navigation Buttons -->
         <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
             <button 
                 @click="prev()" 
-                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                :disabled="isTransitioning"
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Previous Slide"
             >
                 ‹
             </button>
             <button 
                 @click="next()" 
-                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                :disabled="isTransitioning"
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Next Slide"
             >
                 ›
@@ -666,7 +718,6 @@
                 ></button>
             </template>
         </div>
-        @endif
     </section>
 
 

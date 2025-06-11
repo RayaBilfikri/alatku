@@ -9,10 +9,20 @@ jobs:
   deploy:
     name: 🎯 Deploy Laravel
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: 📥 Checkout Code
         uses: actions/checkout@v4
+
+      - name: ⚙️ Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, bcmath, curl, fileinfo, tokenizer, json
+          tools: composer
+
+      - name: 📦 Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
       - name: ♻️ Setup Node
         uses: actions/setup-node@v4
@@ -24,21 +34,17 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
 
-      - name: 📦 Install Dependencies
+      - name: 📦 Install NPM Dependencies
         run: npm install --legacy-peer-deps
 
       - name: 🛠️ Build Assets
         run: npm run build
 
-      - name: ⚙️ Setup PHP & Laravel Optimize
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'  # sesuaikan versi PHP
-          extensions: mbstring, xml, bcmath, curl, fileinfo
+      - name: 🔧 Fix Exception Views
+        run: php artisan fix:exception-views
 
-      - name: 🧹 Laravel Optimize Clear & Cache
+      - name: 🧹 Laravel Optimize & Cache
         run: |
-          composer install --no-dev --optimize-autoloader
           php artisan optimize:clear
           php artisan config:cache
           php artisan route:cache
@@ -50,3 +56,16 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
+          # Exclude development files
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            tests/
+            .env.example
+            .gitignore
+            README.md
+            package.json
+            package-lock.json
+            webpack.mix.js
+            vite.config.js

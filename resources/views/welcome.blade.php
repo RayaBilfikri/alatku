@@ -430,7 +430,7 @@
        <!-- Profile atau Login/Register section -->
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
-                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons">
+                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
                     <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
                     <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
                 </div>
@@ -940,7 +940,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <p class="text-lg text-gray-700 md:text-base">Daftar untuk melanjutkan.</p>
+                        <p class="text-lg text-gray-700 md:text-lg">Daftar untuk melanjutkan.</p>
                     </div>
                     <div class="flex justify-center">
                         <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg md:text-base hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">

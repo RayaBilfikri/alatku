@@ -80,7 +80,7 @@
                     
             <div class="hidden md:block ml-auto pr-6">
                 @guest
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4 font-semibold">
                         <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
                         <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
                     </div>
@@ -116,7 +116,7 @@
             </div>
 
             <!-- Mobile Auth Buttons -->
-            <div class="md:hidden flex ml-auto z-20">
+            <div class="md:hidden flex ml-auto z-20 font-semibold">
                 @guest
                     <a href="{{ route('login') }}" class="px-4 py-1 mr-2 text-sm rounded-full border border-black bg-white hover:bg-gray-300 transition-transform duration-200">Login</a>
                     <a href="{{ route('register') }}" class="px-4 py-1 text-sm rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200">Register</a>

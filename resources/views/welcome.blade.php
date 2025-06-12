@@ -304,7 +304,6 @@
                 transform: scale(1);
                 opacity: 1;
                 z-index: 10;
-                box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
             }
         }
 

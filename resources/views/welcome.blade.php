@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
+    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -105,24 +106,61 @@
 
         @font-face {
             font-family: 'Akira Expanded';
-            src: url('/fonts/AkiraExpanded.otf') format('opentype');
+            src: url('/fonts/AkiraExpanded.woff2') format('woff2'),
+                 url('/fonts/AkiraExpanded.woff') format('woff');
             font-weight: normal;
             font-style: normal;
+            font-display: swap; /* fallback text */
+        }
+
+        .absolute.bottom-8.right-6.z-20 {
+            contain: layout;
+            will-change: transform;
         }
 
         [x-cloak] { display: none !important; }
+
+
+        /* Hide scrollbar */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hero-container {
+            contain: layout style paint;
+        }
+
+        .hero-slide {
+            will-change: auto;
+            transform: translateZ(0);
+        }
+
+        .transitioning {
+            pointer-events: none;
+        }
 
         .carousel-wrapper {
             position: relative;
             padding: 10px;
             margin: -10px;
             overflow: visible;
+            min-height: 350px;
         }
-        /* Item styling with scale effect */
+        
         .carousel-item {
+
             transform: scale(0.90);
             will-change: transform, opacity;
             filter: blur(1.5px);
+
+            will-change: transform;
+            transform: scale(0.85);
+            opacity: 0.85;
+
             transition: all 0.4s ease;
             transform-origin: center;
         }
@@ -132,7 +170,7 @@
             z-index: 10;
         }
 
-        /* Tambahkan ini di CSS Anda */
+        
         .btn-special {
             position: relative;
             overflow: hidden;
@@ -184,6 +222,43 @@
         section {
             overflow-x: clip;
             overflow-clip-margin: 0px;
+        }
+
+        .equipment-sale-bg::before,
+        .equipment-sale-bg::after {
+            content: '';
+            position: absolute;
+            width: 12rem;
+            height: 12rem;
+            border-radius: 50%;
+            background: linear-gradient(to right, #f86f03, #ffa41b);
+            opacity: 0.9;
+        }
+
+        .equipment-sale-bg::before {
+            left: -4rem;
+            top: 0;
+        }
+
+        .equipment-sale-bg::after {
+            right: -4rem;
+            top: 0;
+        }
+
+        @media (min-width: 640px) {
+            .equipment-sale-bg::before,
+            .equipment-sale-bg::after {
+                width: 18rem;
+                height: 18rem;
+            }
+            
+            .equipment-sale-bg::before {
+                left: -6rem;
+            }
+            
+            .equipment-sale-bg::after {
+                right: -6rem;
+            }
         }
 
         /* Left eclipse */
@@ -335,6 +410,14 @@
             }
         }
     </style>
+
+    @if($carousels->count() > 0)
+        {{-- Jika slide pertama dari database --}}
+        <link rel="preload" as="image" href="{{ asset('storage/' . $carousels->first()->gambar) }}" />
+    @else
+        {{-- Jika slide pertama adalah gambar statis --}}
+        <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
+    @endif
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -344,7 +427,7 @@
             <div class="flex items-center justify-between px-2 sm:px-4 py-3 lg:px-8">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img loading="lazy" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
+                    <img loading="eager" src="/images/alatku.webp" alt="alatKu Logo" class="logo-alatku object-contain max-w-full h-auto"/>
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
@@ -388,16 +471,15 @@
        <!-- Profile atau Login/Register section -->
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
-                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons">
+                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
                     <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
                     <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
                 </div>
             @else
                 <div class="relative">
                     <!-- Profile toggle button -->
-                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer">
-                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                            <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-100 h-10 hover:h-12 hover:shadow-md rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                        <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <span class="font-medium">{{ Auth::user()->name }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -474,6 +556,7 @@
     <section 
         x-data="{ 
             activeSlide: 0,
+            isTransitioning: false,
             slides: [
                 {
                     id: 0,
@@ -493,24 +576,63 @@
                 @endif
             ],
             next() { 
+                if (this.isTransitioning) return; // ← TAMBAHAN BARU
+                this.isTransitioning = true; // ← TAMBAHAN BARU
                 this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+                setTimeout(() => { // ← TAMBAHAN BARU
+                    this.isTransitioning = false;
+                }, 500);
             },
             prev() { 
+                if (this.isTransitioning) return; // ← TAMBAHAN BARU
+                this.isTransitioning = true; // ← TAMBAHAN BARU
                 this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+                setTimeout(() => { // ← TAMBAHAN BARU
+                    this.isTransitioning = false;
+                }, 500);
             },
             autoplayInterval: null,
+            isHovered: false,
             startAutoplay() {
-                this.autoplayInterval = setInterval(() => this.next(), 8000);
+                if (this.slides.length <= 1) return; // ← TAMBAHAN BARU
+                this.stopAutoplay(); // ← TAMBAHAN BARU
+                this.autoplayInterval = setInterval(() => {
+                    if (!this.isHovered && !this.isTransitioning) { // ← LOGIKA BARU
+                        this.next();
+                    }
+                }, 10000);
             },
             stopAutoplay() {
-                clearInterval(this.autoplayInterval);
+                if (this.autoplayInterval) { // ← TAMBAHAN BARU
+                    clearInterval(this.autoplayInterval);
+                    this.autoplayInterval = null; // ← TAMBAHAN BARU
+                }
+            },
+            handleMouseEnter() { // ← FUNGSI BARU
+                this.isHovered = true;
+                this.stopAutoplay();
+            },
+            handleMouseLeave() { // ← FUNGSI BARU
+                this.isHovered = false;
+                this.startAutoplay();
             }
         }"
-        x-init="startAutoplay()"
-        @mouseover="stopAutoplay()"
-        @mouseout="startAutoplay()"
+        x-init="
+            $nextTick(() => {
+                if (slides.length > 1) { // ← KONDISI BARU
+                    startAutoplay();
+                }
+            });
+            
+            // Cleanup on component destroy ← TAMBAHAN BARU
+            $watch('$el', () => {
+                return () => stopAutoplay();
+            });
+        "
+        @mouseenter="handleMouseEnter()"
+        @mouseleave="handleMouseLeave()"
         x-cloak
-        class="relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
+        class="hero-carousel relative bg-gray-100 py-12 px-4 sm:px-6 md:px-8 overflow-visible min-h-[400px] mx-auto my-8 rounded-3xl max-w-[90%]"
     >
         <!-- Slide Container -->
         <div class="relative w-full h-full min-h-[400px]">
@@ -523,11 +645,11 @@
                     x-transition:leave="transition ease-in duration-300"
                     x-transition:leave-start="opacity-100 transform translate-x-0"
                     x-transition:leave-end="opacity-0 transform -translate-x-full"
-                    class="absolute inset-0 w-full h-full rounded-3xl"
-                    style="will-change: transform, opacity;"
+                    class="hero-slide absolute inset-0 w-full h-full rounded-3xl"
+                     :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" loading="lazy" alt="" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <img :src="slide.gambar" loading="eager" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
@@ -535,7 +657,7 @@
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
                                 <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                   
-                                    <img src="/images/icon.webp" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
+                                    <img src="/images/icon.webp" loading="eager" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
                                 <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
@@ -577,49 +699,48 @@
             </template>
         </div>
 
-        @if($carousels->count() > 0)
-        <!-- Touch/Mouse Swipe Area -->
-        <div 
-            class="absolute inset-0 z-10 pointer-events-none"
+        <template x-if="slides.length > 1">
+            <!-- Touch/Mouse Swipe Area -->
+            <div 
+                class="absolute inset-0 z-10 pointer-events-auto"
+                  :class="{ 'pointer-events-auto': isDragging, 'pointer-events-none': !isDragging }"
+                x-data="{ startX: 0, endX: 0, touchStartX: 0, touchEndX: 0, isDragging: false }"
+                @mousedown.prevent="isDragging = true; startX = $event.clientX;"
+                @mouseup="if (!isDragging) return;"
+                style="touch-action: pan-y;"
 
-            x-on:mousedown="startX = $event.clientX"
-            x-on:mouseup="
-                endX = $event.clientX;
-                if (startX - endX > 50) {
-                    next();
-                } else if (endX - startX > 50) {
-                    prev();
-                }
-            "
-            x-on:touchstart="touchStartX = $event.changedTouches[0].screenX"
-            x-on:touchend="
-                touchEndX = $event.changedTouches[0].screenX;
-                if (touchStartX - touchEndX > 50) {
-                    next();
-                } else if (touchEndX - touchStartX > 50) {
-                    prev();
-                }
-            "
-            x-data="{
-                startX: 0,
-                endX: 0,
-                touchStartX: 0,
-                touchEndX: 0
-            }"
-        ></div>
+                x-on:touchstart="touchStartX = $event.changedTouches[0].screenX"
+                x-on:touchend="
+                    touchEndX = $event.changedTouches[0].screenX;
+                    if (touchStartX - touchEndX > 50) {
+                        next();
+                    } else if (touchEndX - touchStartX > 50) {
+                        prev();
+                    }
+                "
+                x-data="{
+                    startX: 0,
+                    endX: 0,
+                    touchStartX: 0,
+                    touchEndX: 0
+                }"
+            ></div>
+        </template>
 
         <!-- Navigation Buttons -->
         <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
             <button 
                 @click="prev()" 
-                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                :disabled="isTransitioning"
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Previous Slide"
             >
                 ‹
             </button>
             <button 
                 @click="next()" 
-                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400"
+                :disabled="isTransitioning"
+                class="bg-white/90 hover:bg-white text-gray-800 font-bold px-4 py-3 rounded-full shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Next Slide"
             >
                 ›
@@ -638,7 +759,6 @@
                 ></button>
             </template>
         </div>
-        @endif
     </section>
 
 
@@ -672,10 +792,12 @@
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
+
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
@@ -711,6 +833,7 @@
 
                     <!-- Navigation buttons - improved mobile positioning -->
                     @if ($ProductCard->isNotEmpty())
+                        <link rel="preload" as="image" href="{{ asset('storage/' . $ProductCard->first()->gambar) }}">
                         <!-- Tombol Prev -->
                         <button class="carousel-prev hidden md:block absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -832,7 +955,7 @@
                             </div>
                             <!-- Profil -->
                             <div class="flex items-center mt-auto pt-4">
-                                <img src="{{ asset('images/user.png') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
+                                <img src="{{ asset('images/user.webp') }}" class="w-10 h-10 rounded-full mr-4" alt="{{ $testimonial->user->name }}">
                                 <div class="flex flex-col justify-end">
                                     <p class="text-sm font-semibold text-gray-800 md:text-base">{{ $testimonial->user->name }}</p>
                                     <p class="text-xs text-gray-500 md:text-base">{{ $testimonial->user->usertype }}</p>
@@ -860,7 +983,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <p class="text-lg text-gray-700 md:text-base">Daftar untuk melanjutkan.</p>
+                        <p class="text-lg text-gray-700 md:text-lg">Daftar untuk melanjutkan.</p>
                     </div>
                     <div class="flex justify-center">
                         <a href="{{ route('register') }}" class="px-6 py-2 bg-[#F86F03] text-white font-medium rounded-lg md:text-base hover:bg-[#e56703] transition-all duration-300 transform hover:-translate-y-1">
@@ -1205,9 +1328,16 @@
             nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
         });
 
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
+        document.addEventListener('DOMContentLoaded', function() {
+            const tombolMenuMobile = document.getElementById('mobile-menu-button');
+            if (tombolMenuMobile) {
+                tombolMenuMobile.addEventListener('click', function() {
+                    const menuMobile = document.getElementById('mobile-menu');
+                    if (menuMobile) {
+                        menuMobile.classList.toggle('hidden');
+                    }
+                });
+            }
         });
 
     });

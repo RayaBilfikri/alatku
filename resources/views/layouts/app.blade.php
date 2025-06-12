@@ -11,6 +11,8 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- AOS Animation Scroll -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
   <!-- Tailwind CSS -->
   @vite('resources/css/app.css')
@@ -66,9 +68,6 @@
                 <span class="hamburger-line block w-6 h-0.5 bg-black"></span>
             </button>
 
-
-
-
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="fixed top-0 left-0 w-full h-0 overflow-hidden bg-white z-10 transition-all duration-300 md:hidden ">
                 <div class="pt-20 pb-5 px-6 flex flex-col space-y-5 font-montserrat font-bold">
@@ -81,16 +80,16 @@
                     
             <div class="hidden md:block ml-auto pr-6">
                 @guest
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4 font-semibold">
                         <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
                         <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
                     </div>
                 @else
                     <div class="relative">
                         <!-- Profile toggle button -->
-                        <div id="profileDropdownToggle" class="flex items-center space-x-3 cursor-pointer">
+                        <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-100 hover:h-12 hover:shadow-md rounded-md transition duration-200">
                             <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                                <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                                <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-contain">
                             </div>
                             <span class="font-medium">{{ Auth::user()->name }}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -117,7 +116,7 @@
             </div>
 
             <!-- Mobile Auth Buttons -->
-            <div class="md:hidden flex ml-auto z-20">
+            <div class="md:hidden flex ml-auto z-20 font-semibold">
                 @guest
                     <a href="{{ route('login') }}" class="px-4 py-1 mr-2 text-sm rounded-full border border-black bg-white hover:bg-gray-300 transition-transform duration-200">Login</a>
                     <a href="{{ route('register') }}" class="px-4 py-1 text-sm rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200">Register</a>
@@ -125,7 +124,7 @@
                     <div id="mobileProfileToggle" class="relative">
                         <div class="flex items-center space-x-1 cursor-pointer">
                             <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                                <img src="{{ '/images/user.png' }}" alt="Profile" class="w-full h-full object-cover">
+                                <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />

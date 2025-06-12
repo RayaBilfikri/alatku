@@ -32,7 +32,7 @@ class CatalogController extends Controller
 
         $product = Product::with('images')->findOrFail($id);
 
-       $product = Product::with('images')->findOrFail($id);
+        $product = Product::with('images')->findOrFail($id);
 
 
         return view('catalog.detailproduct', compact('product'));
@@ -49,12 +49,12 @@ class CatalogController extends Controller
         if (!empty($keyword)) {
             $query->where(function ($q) use ($keyword) {
                 $q->where('name', 'like', '%' . $keyword . '%')
-                ->orWhereHas('subCategory', function ($q2) use ($keyword) {
-                    $q2->where('name', 'like', '%' . $keyword . '%');
-                })
-                ->orWhereHas('subCategory.category', function ($q3) use ($keyword) {
-                    $q3->where('name', 'like', '%' . $keyword . '%');
-                });
+                    ->orWhereHas('subCategory', function ($q2) use ($keyword) {
+                        $q2->where('name', 'like', '%' . $keyword . '%');
+                    })
+                    ->orWhereHas('subCategory.category', function ($q3) use ($keyword) {
+                        $q3->where('name', 'like', '%' . $keyword . '%');
+                    });
             });
         }
 
@@ -93,12 +93,12 @@ class CatalogController extends Controller
         if ($request->has('q') && $request->q) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->q . '%')
-                ->orWhereHas('subCategory', function ($q2) use ($request) {
-                    $q2->where('name', 'like', '%' . $request->q . '%');
-                })
-                ->orWhereHas('subCategory.category', function ($q3) use ($request) {
-                    $q3->where('name', 'like', '%' . $request->q . '%');
-                });
+                    ->orWhereHas('subCategory', function ($q2) use ($request) {
+                        $q2->where('name', 'like', '%' . $request->q . '%');
+                    })
+                    ->orWhereHas('subCategory.category', function ($q3) use ($request) {
+                        $q3->where('name', 'like', '%' . $request->q . '%');
+                    });
             });
         }
 

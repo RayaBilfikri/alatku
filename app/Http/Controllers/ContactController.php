@@ -25,6 +25,13 @@ class ContactController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             'no_wa' => 'required|string|max:100',
+        ], [
+            'name.required'  => 'Nama wajib diisi.',
+            'name.string'    => 'Nama harus berupa teks.',
+            'name.max'       => 'Nama maksimal 200 karakter.',
+            'no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'no_wa.string'   => 'Nomor WhatsApp harus berupa teks.',
+            'no_wa.max'      => 'Nomor WhatsApp maksimal 100 karakter.',
         ]);
 
         Contact::create($request->all());
@@ -43,6 +50,13 @@ class ContactController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             'no_wa' => 'required|string|max:100',
+        ], [
+            'name.required'  => 'Nama wajib diisi.',
+            'name.string'    => 'Nama harus berupa teks.',
+            'name.max'       => 'Nama maksimal 200 karakter.',
+            'no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'no_wa.string'   => 'Nomor WhatsApp harus berupa teks.',
+            'no_wa.max'      => 'Nomor WhatsApp maksimal 100 karakter.',
         ]);
 
         $contact = Contact::findOrFail($id);
@@ -50,7 +64,7 @@ class ContactController extends Controller
 
         return redirect()->route('superadmin.contacts.index')->with('success', 'Data berhasil disimpan');
     }
-    
+
 
     public function destroy($id)
     {

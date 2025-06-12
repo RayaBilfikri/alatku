@@ -40,7 +40,7 @@
             <div class="bg-gray-100 p-8 md:p-10 max-w-4xl mx-auto">
                 <!-- Ganti SVG dengan Gambar PNG -->
                 <div class="flex justify-center items-center mb-8">
-                    <img src="{{ asset('/images/alatku.png') }}" alt="Logo alatKu" class="max-w-xs mx-auto">
+                    <img src="{{ asset('/images/alatku.webp') }}" alt="Logo alatKu" class="max-w-xs mx-auto">
                 </div>
 
                 <!-- Konten Tentang Kami -->

@@ -30,39 +30,43 @@ class RoleSeeder extends Seeder
 
         // Daftar modul dan aksi untuk membuat permission
         $modules = [
-            'Pengguna', 'Role', 'Kategori', 'Sub Kategori', 'Produk',
-            'carousel', 'Kontak', 'Cara Membeli', 'Profil Website', 'ulasan',
+            'users',
+            'articles',
+            'categories',
+            'subcategories',
+            'products',
+            'carousel',
+            'contacts',
+            'howtobuys',
+            'ulasans',
         ];
 
-        $actions = ['Buat', 'edit', 'Hapus'];
+        $actions = ['create', 'edit', 'delete'];
 
         // Generate semua permissions
         $permissions = [];
         foreach ($modules as $module) {
             foreach ($actions as $action) {
                 $permissions[] = "$action $module";
-                Permission::firstOrCreate([
+                Permission::create([
                     'name' => "$action $module",
                     'guard_name' => 'web',
                 ]);
             }
         }
 
-        // Role: Superadmin (akses penuh)
         $superAdmin = Role::firstOrCreate(['name' => 'superadmin', 'guard_name' => 'web']);
-        $superAdmin->givePermissionTo(Permission::all());
+        $superAdmin->syncPermissions(Permission::all());
 
-        // Role: Broker (akses terbatas, misalnya hanya ke kategori dan sub kategori)
-        $broker = Role::firstOrCreate(['name' => 'broker', 'guard_name' => 'web']);
-        $brokerPermissions = [
-            'Buat Kategori', 'edit Kategori', 'Hapus Kategori',
-            'Buat Sub Kategori', 'edit Sub Kategori', 'Hapus Sub Kategori',
+        $admin = Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        $adminPermissions = [
+            'create products',
         ];
-        $broker->givePermissionTo($brokerPermissions);
+        $admin->syncPermissions($adminPermissions);
 
         // Role: User (tanpa permission)
-        Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
+        Role::create(['name' => 'user', 'guard_name' => 'web']);
 
-        $this->command->info('Seeder Role & Permission berhasil dijalankan ulang.');
+        $this->command->info('Seeder Role & Permission berhasil!');
     }
 }

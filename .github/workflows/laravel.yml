@@ -1,21 +1,73 @@
-on: 
+name: 🚀 Deploy Laravel App with Vite
+
+on:
   push:
     branches:
       - main
-name: ?? Deploy website on push
 
 jobs:
-  web-deploy:
-    name: ?? Deploy website
+  deploy:
+    name: 🎯 Deploy Laravel
     runs-on: ubuntu-latest
+
     steps:
-    # Checkout the repository
-    - name: ?? Get latest code
-      uses: actions/checkout@v4
-    # sync files via FTP
-    - name: ?? Sync files via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USER }}
-        password: ${{ secrets.FTP_PASS }}
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, bcmath, curl, fileinfo, tokenizer, json
+          tools: composer
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: 📦 Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: ♻️ Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: 🔁 Clean Node Modules
+        run: |
+          rm -rf node_modules package-lock.json
+
+      - name: 📦 Install NPM Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: 🛠️ Build Assets
+        run: npm run build
+
+      - name: 🔧 Fix Exception Views
+        run: php artisan fix:exception-views
+
+      - name: 🧳 Upload to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: public/
+          exclude: |
+            .user.ini
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            tests/
+            .env.example
+            .gitignore
+            README.md
+            package.json
+            package-lock.json
+            webpack.mix.js
+            vite.config.js

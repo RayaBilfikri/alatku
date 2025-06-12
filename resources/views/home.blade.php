@@ -1,1 +1,1 @@
-<ul></ul> Home <h1></h1>
+<ul></ul> Tampilan home <h1></h1>

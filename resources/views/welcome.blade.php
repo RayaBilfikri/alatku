@@ -661,8 +661,6 @@
                                         untuk berbagai kebutuhan proyek.<br>
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
-
-
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button
                                             @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
@@ -1036,7 +1034,6 @@
         </div>
     </section>
 
-
     <!-- Footer Section -->
     <footer class="bg-gray-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -1067,7 +1064,7 @@
                     </div>
                 </div>
                 
-                <!-- Website and Social Media -->
+                <!-- Website -->
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kunjungi Kami</h3>
                     <a href="https://www.alatku.com" class="flex items-center mb-3 hover:text-[#FFA41B] transition">
@@ -1328,6 +1325,5 @@
                 });
             }
         });
-
     });
 </script>

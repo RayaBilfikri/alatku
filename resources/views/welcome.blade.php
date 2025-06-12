@@ -378,7 +378,7 @@
             border-radius: 3px;
         }
 
-        @media (max-width: 768px) and (pointer:coarse) {
+        @media (max-width: 768px) {
             .carousel-prev,
             .carousel-next {
                 display: none !important;
@@ -1079,13 +1079,6 @@
 </html>
 
 <script>
-    document.querySelectorAll('#carousel').forEach(carousel => {
-        const activeItem = carousel.querySelector('.carousel-item.active');
-        if (activeItem) {
-            activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-        }
-    });
-    
     document.addEventListener("DOMContentLoaded", function () {
         const authStatus = document.getElementById('authStatus');
         const isLoggedIn = authStatus?.dataset.loggedIn === 'true';

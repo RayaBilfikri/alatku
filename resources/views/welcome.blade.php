@@ -651,9 +651,9 @@
                                 </div>
                                 <div class="order-2 md:order-none md:ml-4 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
                                     <h1 class="text-lg sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight
-                                        max-w-full sm:max-w-md md:max-w-none 
-                                        [@media_screen_and_(min-width:768px)]:max-w-sm [@media_screen_and_(min-width:768px)]:text-xl
+                                        max-w-full sm:max-w-md md:max-w-xl
                                     ">
+
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>

@@ -406,11 +406,11 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold overflow-hidden">
-                    <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
-                    <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
-                    <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>
-                    <a href="{{ route('artikel') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Artikel</a>
+                <div class="navigation hidden md:flex flex-1 justify-center space-x-4 font-montserrat font-bold overflow-hidden">
+                    <a href="{{ route('home') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Beranda</a>
+                    <a href="{{ route('tentang-kami') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Tentang Kami</a>
+                    <a href="{{ route('caramembeli') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Bagaimana cara membeli?</a>
+                    <a href="{{ route('artikel') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Artikel</a>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -446,13 +446,13 @@
        <!-- Profile atau Login/Register section -->
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
-                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
+                <div class="auth-buttons flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
                     <a href="{{ route('login') }}"
-                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 md:text-base text-sm rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 sm:text-base">
                         Login
                     </a>
                     <a href="{{ route('register') }}"
-                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 text-sm md:text-base rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 sm:text-base">
                         Register
                     </a>
                 </div>

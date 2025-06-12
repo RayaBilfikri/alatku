@@ -1079,189 +1079,243 @@
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const carousels = document.querySelectorAll('#carousel');
-    const prevButtons = document.querySelectorAll('.carousel-prev');
-    const nextButtons = document.querySelectorAll('.carousel-next');
-    const authStatus = document.getElementById('authStatus');
-    const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
-    const modalBtn = document.getElementById('selengkapnyaBtn');
-    const modal = document.getElementById('registerModal');
-    const closeBtn = document.getElementById('closeModal');
-    const profileDropdownToggle = document.getElementById('profileDropdownToggle');
-    const profileDropdown = document.getElementById('profileDropdown');
-    const logoutForm = document.getElementById('logoutForm');
-
-    function scrollToActiveItem(carousel) {
+    document.querySelectorAll('#carousel').forEach(carousel => {
         const activeItem = carousel.querySelector('.carousel-item.active');
         if (activeItem) {
             activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
         }
-    }
-
-    function updateNavButtons(carousel, currentIndex, length) {
-        const wrapper = carousel.closest('.relative');
-        if (!wrapper) return;
-        const prev = wrapper.querySelector('.carousel-prev');
-        const next = wrapper.querySelector('.carousel-next');
-        if (prev) prev.style.display = currentIndex === 0 ? 'none' : 'block';
-        if (next) next.style.display = currentIndex === length - 1 ? 'none' : 'block';
-    }
-
-    function updateActiveItem(carousel, direction) {
-        const items = carousel.querySelectorAll('.carousel-item');
-        const activeItem = carousel.querySelector('.carousel-item.active');
-        const currentIndex = Array.from(items).indexOf(activeItem);
-        const newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-        if (newIndex < 0 || newIndex >= items.length) return;
-
-        activeItem.classList.remove('active', 'scale-105', 'z-10');
-        activeItem.classList.add('scale-100');
-
-        const newItem = items[newIndex];
-        newItem.classList.add('active', 'scale-105', 'z-10');
-        newItem.classList.remove('scale-100');
-
-        if (window.innerWidth > 640) {
-            newItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        }
-
-        updateNavButtons(carousel, newIndex, items.length);
-    }
-
-    carousels.forEach(carousel => {
-        scrollToActiveItem(carousel);
-
-        const items = carousel.querySelectorAll('.carousel-item');
-        const activeItem = carousel.querySelector('.carousel-item.active');
-        const currentIndex = Array.from(items).indexOf(activeItem);
-        updateNavButtons(carousel, currentIndex, items.length);
     });
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const authStatus = document.getElementById('authStatus');
+        const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
+        const prevButtons = document.querySelectorAll('.carousel-prev');
+        const nextButtons = document.querySelectorAll('.carousel-next');
+        const modalBtn = document.getElementById('selengkapnyaBtn');
+        const modal = document.getElementById('registerModal');
+        const closeBtn = document.getElementById('closeModal');
+        const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const logoutForm = document.getElementById('logoutForm');
 
-    prevButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const carousel = btn.closest('.relative')?.querySelector('#carousel');
-            if (carousel) updateActiveItem(carousel, 'prev');
-        });
-    });
-
-    nextButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const carousel = btn.closest('.relative')?.querySelector('#carousel');
-            if (carousel) updateActiveItem(carousel, 'next');
-        });
-    });
-
-    if (modalBtn && modal && closeBtn) {
-        const modalContent = modal.querySelector('div');
-
-        function openModal() {
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.classList.add('opacity-100');
-            setTimeout(() => {
-                modalContent?.classList.remove('scale-95');
-                modalContent?.classList.add('scale-100');
-            }, 50);
-        }
-
-        function closeModal() {
-            modalContent?.classList.remove('scale-100');
-            modalContent?.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.remove('opacity-100');
-                modal.classList.add('opacity-0', 'pointer-events-none');
-            }, 200);
-        }
-
-        modalBtn.addEventListener('click', () => {
-            if (modalBtn.dataset.loggedIn === 'true') {
-                window.location.href = "{{ route('ulasan.index') }}";
-            } else {
+        if (logoutForm) {
+            const logoutButton = logoutForm.querySelector('button[type="submit"]');
+            const logoutModal = document.getElementById('logoutModal');
+            const logoutModalContent = document.getElementById('logoutModalContent');
+            const logoutModalBackdrop = document.getElementById('logoutModalBackdrop');
+            const closeLogoutModal = document.getElementById('closeLogoutModal');
+            const cancelLogout = document.getElementById('cancelLogout');
+            const confirmLogout = document.getElementById('confirmLogout');
+            
+            // Prevent the default form submission
+            logoutButton.addEventListener('click', function(e) {
+                e.preventDefault();
                 openModal();
+            });
+            
+            // Function to open the modal with animation
+            function openModal() {
+                logoutModal.classList.remove('hidden');
+                // Trigger animation after a small delay to ensure the display change has applied
+                setTimeout(() => {
+                    logoutModalBackdrop.classList.add('opacity-100');
+                    logoutModalContent.classList.remove('scale-95', 'opacity-0');
+                    logoutModalContent.classList.add('scale-100', 'opacity-100');
+                    
+                }, 10);
             }
-        });
-
-        closeBtn.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) closeModal();
-        });
-    }
-
-    if (logoutForm) {
-        const logoutButton = logoutForm.querySelector('button[type="submit"]');
-        const logoutModal = document.getElementById('logoutModal');
-        const logoutModalContent = document.getElementById('logoutModalContent');
-        const logoutModalBackdrop = document.getElementById('logoutModalBackdrop');
-        const closeLogoutModal = document.getElementById('closeLogoutModal');
-        const cancelLogout = document.getElementById('cancelLogout');
-        const confirmLogout = document.getElementById('confirmLogout');
-
-        function openLogoutModal() {
-            logoutModal.classList.remove('hidden');
-            setTimeout(() => {
-                logoutModalBackdrop?.classList.add('opacity-100');
-                logoutModalContent?.classList.replace('scale-95', 'scale-100');
-                logoutModalContent?.classList.replace('opacity-0', 'opacity-100');
-            }, 10);
+            
+            // Function to close the modal with animation
+            function closeModal() {
+                logoutModalContent.classList.remove('scale-100', 'opacity-100');
+                logoutModalContent.classList.add('scale-95', 'opacity-0');
+                logoutModalBackdrop.classList.remove('opacity-100');
+                
+                // Wait for animation to finish before hiding the modal
+                setTimeout(() => {
+                    logoutModal.classList.add('hidden');
+                }, 300);
+            }
+            
+            // Close modal when clicking close button or cancel button
+            closeLogoutModal.addEventListener('click', closeModal);
+            cancelLogout.addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside
+            logoutModal.addEventListener('click', function(e) {
+                if (e.target === logoutModal || e.target === logoutModalBackdrop) {
+                    closeModal();
+                }
+            });
+            
+            // Handle the confirmation button - submit the form
+            confirmLogout.addEventListener('click', function() {
+                logoutForm.submit();
+            });
+            
+            // Handle escape key to close the modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
         }
 
-        function closeLogoutModalFn() {
-            logoutModalContent?.classList.replace('scale-100', 'scale-95');
-            logoutModalContent?.classList.replace('opacity-100', 'opacity-0');
-            logoutModalBackdrop?.classList.remove('opacity-100');
-            setTimeout(() => logoutModal.classList.add('hidden'), 300);
+        function updateActiveItem(carousel, direction) {
+            const items = carousel.querySelectorAll('.carousel-item');
+            const activeItem = carousel.querySelector('.carousel-item.active');
+            let currentIndex = Array.from(items).indexOf(activeItem);
+            
+            let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+            if (newIndex < 0 || newIndex >= items.length) return;
+
+            activeItem.classList.remove('active', 'scale-105', 'z-10');
+            activeItem.classList.add('scale-100');
+
+            const newItem = items[newIndex];
+            newItem.classList.add('active', 'scale-105', 'z-10');
+            newItem.classList.remove('scale-100');
+  
+            if (window.innerWidth > 640) {
+                // Only apply scrollIntoView & scaling for desktop
+                newItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+            
+            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+
+            prevButton.style.display = newIndex === 0 ? 'none' : 'block';
+            nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
         }
 
-        logoutButton?.addEventListener('click', e => {
-            e.preventDefault();
-            openLogoutModal();
+        if (modalBtn && modal && closeBtn) {
+        // Fungsi untuk membuka modal dengan animasi
+            
+            function openModal() {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                
+                // Animasi untuk konten modal
+                const modalContent = modal.querySelector('div');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 50);
+            }
+            
+            // Fungsi untuk menutup modal dengan animasi
+            function closeModal() {
+                const modalContent = modal.querySelector('div');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                
+                setTimeout(() => {
+                    modal.classList.remove('opacity-100');
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                }, 200);
+            }
+            
+            // Event listener untuk tombol
+            if (selengkapnyaBtn) {
+                const isLoggedIn = selengkapnyaBtn.dataset.loggedIn === 'true';
+
+                selengkapnyaBtn.addEventListener('click', function () {
+                    if (isLoggedIn) {
+                        window.location.href = "{{ route('ulasan.index') }}";
+                    } else {
+                        modal.classList.remove('opacity-0', 'pointer-events-none');
+                        modal.classList.add('opacity-100');
+                    }
+                });
+            }
+
+            
+            closeBtn.addEventListener('click', closeModal);
+            
+            // Tutup modal saat klik di luar modal
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Tutup modal dengan tombol ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
+                    closeModal();
+                }
+            });
+        }
+
+        if (profileDropdownToggle && profileDropdown) {
+            let isDropdownOpen = false;
+            
+            // Toggle dropdown saat tombol profil diklik
+            profileDropdownToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isDropdownOpen) {
+                    profileDropdown.classList.add('hidden');
+                } else {
+                    profileDropdown.classList.remove('hidden');
+                }
+                isDropdownOpen = !isDropdownOpen;
+            });
+            
+            // Tutup dropdown ketika mengklik di luar dropdown
+            document.addEventListener('click', function(event) {
+                if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.add('hidden');
+                    isDropdownOpen = false;
+                }
+            });
+            
+            // Mencegah dropdown tertutup saat mengklik pada dropdown itu sendiri
+            profileDropdown.addEventListener('click', function(e) {
+                // Jangan tutup dropdown jika mengklik di dalam menu dropdown
+                // kecuali jika itu tombol submit (logout)
+                if (!e.target.matches('button[type="submit"]')) {
+                    e.stopPropagation();
+                }
+            });
+        }
+        
+
+        prevButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const carousel = this.closest('.relative').querySelector('#carousel');
+                updateActiveItem(carousel, 'prev');
+            });
         });
 
-        closeLogoutModal?.addEventListener('click', closeLogoutModalFn);
-        cancelLogout?.addEventListener('click', closeLogoutModalFn);
-        logoutModal?.addEventListener('click', e => {
-            if (e.target === logoutModal || e.target === logoutModalBackdrop) closeLogoutModalFn();
+        nextButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const carousel = this.closest('.relative').querySelector('#carousel');
+                updateActiveItem(carousel, 'next');
+            });
+        });
+        // Set kondisi tombol saat halaman pertama kali dimuat
+        document.querySelectorAll('#carousel').forEach(carousel => {
+            const items = carousel.querySelectorAll('.carousel-item');
+            const activeItem = carousel.querySelector('.carousel-item.active');
+            const currentIndex = Array.from(items).indexOf(activeItem);
+
+            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
+            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
+
+            prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+            nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
         });
 
-        confirmLogout?.addEventListener('click', () => logoutForm.submit());
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) closeLogoutModalFn();
-        });
-    }
-
-    const mobileToggle = document.getElementById('mobile-menu-button');
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', () => {
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu) mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-    // Profile dropdown
-    if (profileDropdownToggle && profileDropdown) {
-        let isDropdownOpen = false;
-
-        profileDropdownToggle.addEventListener('click', function (e) {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('hidden');
-            isDropdownOpen = !isDropdownOpen;
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
-                profileDropdown.classList.add('hidden');
-                isDropdownOpen = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            const tombolMenuMobile = document.getElementById('mobile-menu-button');
+            if (tombolMenuMobile) {
+                tombolMenuMobile.addEventListener('click', function() {
+                    const menuMobile = document.getElementById('mobile-menu');
+                    if (menuMobile) {
+                        menuMobile.classList.toggle('hidden');
+                    }
+                });
             }
         });
-
-        profileDropdown.addEventListener('click', function (e) {
-            if (!e.target.matches('button[type="submit"]')) e.stopPropagation();
-        });
-    }
-});
+    });
 </script>

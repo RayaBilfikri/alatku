@@ -1,6 +1,6 @@
 <!-- resources/views/welcome.blade.php -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">

@@ -653,7 +653,6 @@
                                     <h1 class="text-lg sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight
                                         max-w-full sm:max-w-md md:max-w-xl
                                     ">
-
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>

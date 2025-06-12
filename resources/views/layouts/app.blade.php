@@ -81,8 +81,14 @@
             <div class="hidden md:block ml-auto pr-6">
                 @guest
                     <div class="flex items-center space-x-4 font-semibold">
-                        <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
-                        <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+                    <a href="{{ route('login') }}"
+                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        Register
+                    </a>
                     </div>
                 @else
                     <div class="relative">

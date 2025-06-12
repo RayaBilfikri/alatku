@@ -120,16 +120,6 @@
 
         [x-cloak] { display: none !important; }
 
-
-        /* Hide scrollbar */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
         .hero-container {
             contain: layout style paint;
         }
@@ -152,15 +142,9 @@
         }
         
         .carousel-item {
-
             transform: scale(0.90);
             will-change: transform, opacity;
             filter: blur(1.5px);
-
-            will-change: transform;
-            transform: scale(0.85);
-            opacity: 0.85;
-
             transition: all 0.4s ease;
             transform-origin: center;
         }
@@ -169,7 +153,6 @@
             filter: none;
             z-index: 10;
         }
-
         
         .btn-special {
             position: relative;
@@ -472,8 +455,14 @@
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
                 <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
-                    <a href="{{ route('login') }}" class="px-7 py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110">Login</a>
-                    <a href="{{ route('register') }}" class="px-7 py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110">Register</a>
+                    <a href="{{ route('login') }}"
+                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        Register
+                    </a>
                 </div>
             @else
                 <div class="relative">
@@ -660,8 +649,10 @@
                                     <img src="/images/icon.webp" loading="eager" alt="Icon" class="w-full h-full object-contain mt-28 animate-slideUpFade">
                                     <div class="absolute inset-0 bg-orange-500/10"></div>
                                 </div>
-                                <div class="order-2 md:order-none md:ml-10 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
-                                    <h1 class="text-xl sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight">          
+                                <div class="order-2 md:order-none md:ml-4 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
+                                    <h1 class="text-lg sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight
+                                        max-w-full sm:max-w-md md:max-w-xl
+                                    ">
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
                                     </h1>
@@ -670,8 +661,6 @@
                                         untuk berbagai kebutuhan proyek.<br>
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
-
-
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button
                                             @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
@@ -794,10 +783,8 @@
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
-
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
@@ -1047,7 +1034,6 @@
         </div>
     </section>
 
-
     <!-- Footer Section -->
     <footer class="bg-gray-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -1078,7 +1064,7 @@
                     </div>
                 </div>
                 
-                <!-- Website and Social Media -->
+                <!-- Website -->
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kunjungi Kami</h3>
                     <a href="https://www.alatku.com" class="flex items-center mb-3 hover:text-[#FFA41B] transition">
@@ -1339,6 +1325,5 @@
                 });
             }
         });
-
     });
 </script>

@@ -1,6 +1,6 @@
 <!-- resources/views/welcome.blade.php -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
@@ -356,17 +356,9 @@
             box-sizing: border-box;
         }
 
-        /* Active item (hanya non-mobile) */
-        @media (min-width: 641px) {
-            .carousel-item.active {
-                transform: scale(1);
-                opacity: 1;
-                z-index: 10;
-            }
-        }
 
         /* Mobile: disable efek zoom, biar geser lancar */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .carousel-item {
                 transform: none !important;
                 opacity: 1 !important;
@@ -386,7 +378,7 @@
             border-radius: 3px;
         }
 
-        @media (max-width: 768px) and (pointer:coarse) {
+        @media (max-width: 768px) {
             .carousel-prev,
             .carousel-next {
                 display: none !important;
@@ -414,11 +406,11 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="hidden md:flex flex-1 justify-center space-x-6 font-montserrat font-bold overflow-hidden">
-                    <a href="{{ route('home') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Beranda</a>
-                    <a href="{{ route('tentang-kami') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Tentang Kami</a>
-                    <a href="{{ route('caramembeli') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Bagaimana cara membeli?</a>
-                    <a href="{{ route('artikel') }}" class="hover:text-orange-600 text-xs sm:text-sm md:text-sm lg:text-sm">Artikel</a>
+                <div class="navigation hidden md:flex flex-1 justify-center space-x-4 font-montserrat font-bold overflow-hidden">
+                    <a href="{{ route('home') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Beranda</a>
+                    <a href="{{ route('tentang-kami') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Tentang Kami</a>
+                    <a href="{{ route('caramembeli') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Bagaimana cara membeli?</a>
+                    <a href="{{ route('artikel') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Artikel</a>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -454,13 +446,13 @@
        <!-- Profile atau Login/Register section -->
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
-                <div class="flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
+                <div class="auth-buttons flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
                     <a href="{{ route('login') }}"
-                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 md:text-base text-sm rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 sm:text-base">
                         Login
                     </a>
                     <a href="{{ route('register') }}"
-                        class="px-4 py-2 sm:px-7 sm:py-2 rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 text-sm sm:text-base">
+                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 text-sm md:text-base rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 sm:text-base">
                         Register
                     </a>
                 </div>
@@ -783,7 +775,7 @@
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
@@ -859,20 +851,20 @@
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Testimonial heading -->
             <div class="text-center mb-12 relative">
-                <a href="javascript:void(0)" id="selengkapnyaBtn"
+                <button type="button" id="selengkapnyaBtn"
                     data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
                     class="absolute right-0 
-                            top-[-3.5rem] sm:top-[-4.5rem] md:top-[-2rem] 
-                            group inline-flex items-center px-5 py-2.5 
-                            rounded-full text-white font-medium 
-                            bg-[#F86F03] hover:bg-[#e56703] 
-                            transition-all duration-300 shadow-lg 
-                            transform hover:-translate-y-1">
+                        top-[-3.5rem] sm:top-[-4.5rem] md:top-[-2rem] 
+                        group inline-flex items-center px-5 py-2.5 
+                        rounded-full text-white font-medium 
+                        bg-[#F86F03] hover:bg-[#e56703] 
+                        transition-all duration-300 shadow-lg 
+                        transform hover:-translate-y-1">
                     Selengkapnya
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
-                </a>
+                </button>
                 <h2 class="text-4xl font-bold font-montserrat text-white">Pendapat Mereka, Bukti Kami</h2>
                 <p class="text-white text-lg mt-12 font-montserrat">
                     Dengarkan pengalaman langsung dari pelanggan kami yang telah menggunakan alat 
@@ -1087,13 +1079,6 @@
 </html>
 
 <script>
-    document.querySelectorAll('#carousel').forEach(carousel => {
-        const activeItem = carousel.querySelector('.carousel-item.active');
-        if (activeItem) {
-            activeItem.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-        }
-    });
-    
     document.addEventListener("DOMContentLoaded", function () {
         const authStatus = document.getElementById('authStatus');
         const isLoggedIn = authStatus?.dataset.loggedIn === 'true';

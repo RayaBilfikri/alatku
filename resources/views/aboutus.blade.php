@@ -35,7 +35,7 @@
 @endpush
 
 @section('content')
-    <section class="bg-gray-100 min-h-screen py-10">
+    <section class="bg-gray-100 min-h-screen py-10 pt-20">
         <div class="container mx-auto px-6 md:px-12 mt-12">
             <div class="bg-gray-100 p-8 md:p-10 max-w-4xl mx-auto">
                 <!-- Ganti SVG dengan Gambar PNG -->

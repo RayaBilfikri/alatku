@@ -5,7 +5,7 @@
 <main>
     <!-- Banner -->
     <section class="bg-cover bg-center relative" style="background-image: url('/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp'); height: 300px;" aria-label="Banner Pencarian Alat">
-        <div class="absolute inset-0 bg-gray-700 bg-opacity-70 flex flex-col justify-center items-center text-white text-center px-4">
+        <div class="absolute inset-0 bg-gray-700 bg-opacity-70 flex flex-col justify-center items-center text-white text-center px-4 pt-20">
             <h1 class="text-3xl md:text-4xl font-bold mb-2">Langsung Temukan, Langsung Kerja!</h1>
             <p class="mb-4">Cari alat yang anda butuhkan dengan cepat dan mulai proyek Anda tanpa hambatan.</p>
             <form action="{{ route('search') }}" method="GET" class="flex w-full max-w-xl" aria-label="Form pencarian alat">

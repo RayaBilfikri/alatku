@@ -5,7 +5,7 @@
 <div class="bg-gray-100 min-h-screen w-full px-4 sm:px-6 lg:px-8 py-12"> 
     
 
-    <div class="max-w-4xl mx-auto mt-8"> 
+    <div class="max-w-4xl mx-auto mt-8 pt-20"> 
         
         <div class="text-center mb-10">
             <h1 class="text-4xl font-bold text-gray-800 mb-4">Cara Membeli</h1>

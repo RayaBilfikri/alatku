@@ -874,7 +874,7 @@
             <!-- Testimonial cards - top row -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8 motion-reduce:animate-none motion-reduce:scale-100">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out hover:shadow-xl cursor-pointer">
+                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out  cursor-pointer">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
@@ -889,7 +889,7 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out hover:shadow-xl cursor-pointer">
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out  cursor-pointer">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
@@ -922,7 +922,7 @@
             <!-- Testimonial cards - bottom DYNAMIC -->
             <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 motion-reduce:scale-100 motion-reduce:animate-none">
                 @foreach ($Testimonials as $testimonial)
-                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out hover:shadow-xl cursor-pointer">
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out  cursor-pointer">
                         <div class="flex flex-col h-full">
                             <!-- Kutipan + Konten -->
                             <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->

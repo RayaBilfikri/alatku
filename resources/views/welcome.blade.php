@@ -254,6 +254,8 @@
             top: -65px;
             left: -250px;
             z-index: 6;
+            will-change: transform;
+            contain: layout style paint;
         }
 
         /* Right multi-layer eclipse */
@@ -264,8 +266,9 @@
             background: linear-gradient(to bottom, #FFA41B, #F86F03);
             top: 50%;
             right: -525px;
-            transform: translateY(-50%);
-
+            transform: translateY(-50%) translateZ(0);
+            will-change: transform;
+            contain: layout style paint;
         }
 
         .right-eclipse-middle {
@@ -275,8 +278,9 @@
             background: #FFA41B;
             top: 50%;
             right: -469px;
-            transform: translateY(-50%);
-
+            transform: translateY(-50%) translateZ(0);
+            will-change: transform;
+            contain: layout style paint;
         }
 
         .right-eclipse-front {
@@ -286,8 +290,10 @@
             background: #F86F03;
             top: 50%;
             right: -176px;
-            transform: translateY(-50%);
+            transform: translateY(-50%) translateZ(0);
             box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+            will-change: transform;
+            contain: layout style paint;
 
         }
 
@@ -393,7 +399,7 @@
         <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
     @endif
 </head>
-<body class="bg-gray-100 text-gray-800 scroll-smooth">
+<body class="bg-gray-100 text-gray-800 scroll scroll-smooth">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
@@ -864,7 +870,7 @@
                         rounded-full text-white font-medium 
                         bg-[#F86F03] hover:bg-[#e56703] 
                         transition-all duration-300 shadow-lg 
-                        transform hover:-translate-y-1 motion-reduce:transition-none">
+                        transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:animate-none">
                     Selengkapnya
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />

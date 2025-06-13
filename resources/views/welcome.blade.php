@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
-
+    <script src="https://unpkg.com/motion@latest/dist/motion.min.js" defer></script>
     <style>
         .logo-alatku {
             height: 120px;          
@@ -762,7 +762,7 @@
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
-                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
+                <div data-section="equiptment-left" class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-montserrat">
                         Alat Siap Pakai,<span class="block">Proyek Siap Jalan</span>
                     </h2>
@@ -786,7 +786,7 @@
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="motion-reduce:transition-none motion-reduce:scale-100 flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" data-carousel-item class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
@@ -1310,16 +1310,15 @@
             nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const tombolMenuMobile = document.getElementById('mobile-menu-button');
-            if (tombolMenuMobile) {
-                tombolMenuMobile.addEventListener('click', function() {
-                    const menuMobile = document.getElementById('mobile-menu');
-                    if (menuMobile) {
-                        menuMobile.classList.toggle('hidden');
-                    }
-                });
-            }
-        });
+        const tombolMenuMobile = document.getElementById('mobile-menu-button');
+        if (tombolMenuMobile) {
+            tombolMenuMobile.addEventListener('click', function() {
+                const menuMobile = document.getElementById('mobile-menu');
+                if (menuMobile) {
+                    menuMobile.classList.toggle('hidden');
+                }
+            });
+        }
+   
     });
 </script>

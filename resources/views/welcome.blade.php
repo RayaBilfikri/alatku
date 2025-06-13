@@ -1167,11 +1167,7 @@
             const newItem = items[newIndex];
             newItem.classList.add('active', 'scale-105', 'z-10');
             newItem.classList.remove('scale-100');
-  
-            if (window.innerWidth > 640) {
-                // Only apply scrollIntoView & scaling for desktop
-                newItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-            }
+            
             
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
             const nextButton = carousel.closest('.relative').querySelector('.carousel-next');

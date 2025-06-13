@@ -464,7 +464,7 @@
             @else
                 <div class="relative">
                     <!-- Profile toggle button -->
-                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-100 h-10 hover:h-12 hover:shadow-md rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
                         <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <span class="font-medium">{{ Auth::user()->name }}</span>

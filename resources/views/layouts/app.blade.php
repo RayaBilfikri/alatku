@@ -81,7 +81,7 @@
                     @else
                         <div class="relative">
                             <!-- Profile toggle button -->
-                            <div id="profileDropdownToggle" class="flex items-center space-x-2 xl:space-x-3 cursor-pointer hover:bg-gray-100 hover:h-12 hover:shadow-md rounded-md transition duration-200 px-3 py-2">
+                            <div id="profileDropdownToggle" class="flex items-center space-x-2 xl:space-x-3 cursor-pointer rounded-md transition duration-200 px-3 py-2">
                                 <div class="w-9 h-9 xl:w-10 xl:h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
                                     <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-contain">
                                 </div>

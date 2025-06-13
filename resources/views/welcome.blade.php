@@ -445,13 +445,13 @@
        <!-- Profile atau Login/Register section -->
         <div id="authStatus" data-logged-in="{{ auth()->check() ? 'true' : 'false' }}" class="flex-shrink-0">
             @guest
-                <div class="auth-buttons flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat">
+                <div class="auth-buttons flex items-center space-x-2 sm:space-x-4 auth-buttons font-semibold font-montserrat ">
                     <a href="{{ route('login') }}"
-                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 md:text-base text-sm rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 sm:text-base">
+                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 md:text-base text-sm rounded-full border-2 border-black bg-white hover:bg-gray-300 transition-transform duration-200 hover:scale-110 motion-reduce:scale-100 sm:text-base">
                         Login
                     </a>
                     <a href="{{ route('register') }}"
-                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 text-sm md:text-base rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 sm:text-base">
+                        class="px-4 py-2 sm:px-5 sm:py-1.5 md:px-6 md:py-2 text-sm md:text-base rounded-full bg-[#F86F03] text-white hover:bg-[#e56703] transition-transform duration-200 hover:scale-110 motion-reduce:scale-100 sm:text-base">
                         Register
                     </a>
                 </div>
@@ -633,7 +633,7 @@
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
-                    <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10">
+                    <div class="container mx-auto relative z-10 h-full flex items-center px-4 sm:px-6 md:px-10 motion-reduce:transition-none">
                         <template x-if="slide.is_static">
                             <div class="flex flex-col md:flex-row items-center gap-x-7 md:items-start w-full">
                                 <div class="order-1 md:order-none relative rounded-full w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 bg-orange-500 overflow-hidden flex items-center justify-center mx-auto md:mx-0 ml-0 mb-6 md:mb-0 md:ml-4 shrink-0 -mt-16 sm:-mt-20 md:mt-0 left-1/2 md:left-auto transform -translate-x-1/2 md:-translate-x-0">                                   
@@ -655,7 +655,7 @@
                                     <div class="absolute bottom-8 right-6 z-20">
                                         <button
                                             @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
-                                            class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                            class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
                                         >
                                             Cari Solusi Industri Anda
                                         </button>
@@ -665,7 +665,7 @@
                         </template>
 
                         <template x-if="!slide.is_static">
-                            <div class="w-full text-center text-white px-4 sm:px-8 md:px-0">
+                            <div class="w-full text-center text-white px-4 sm:px-8 md:px-0 motion-reduce:transition-none">
                                 <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight" x-text="slide.judul"></h2>
                                 <template x-if="slide.link">
                                     <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 inline-block shadow-lg">
@@ -708,7 +708,7 @@
         </template>
 
         <!-- Navigation Buttons -->
-        <div class="absolute bottom-6 right-6 flex space-x-2 z-20">
+        <div class="absolute bottom-6 right-6 flex space-x-2 z-20 motion-reduce:transition-none">
             <button 
                 @click="prev()" 
                 :disabled="isTransitioning"
@@ -728,7 +728,7 @@
         </div>
 
         <!-- Carousel Indicators -->
-        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20 motion-reduce:transition-none">
             <template x-for="(slide, index) in slides" :key="index">
                 <button 
                     @click="activeSlide = index"
@@ -759,8 +759,8 @@
                         yang cocok untuk semua kebutuhan lapangan Anda.
                     </p>
 
-                <a href="{{ route('catalog.index') }}"
-                        class="btn-special inline-flex items-center bg-black text-white px-6 py-3 rounded-full font-medium text-base shadow-md hover:bg-gray-800 transition-colors">
+                    <a href="{{ route('catalog.index') }}"
+                        class="btn-special inline-flex items-center bg-black text-white px-6 py-3 rounded-full font-medium text-base shadow-md hover:bg-gray-800 motion-reduce:transition-none transition-colors">
                         <span>Lihat produk selengkapnya</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="arrow-icon h-5 w-5 sm:h-6 sm:w-6 ml-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -772,7 +772,7 @@
                 <div class="w-full lg:w-2/3 relative">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="motion-reduce:transition-none motion-reduce:scale-100 flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
@@ -849,7 +849,7 @@
         <!-- Content layer -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Testimonial heading -->
-            <div class="text-center mb-12 relative">
+            <div class="text-center mb-12 relative motion-reduce:transition-none">
                 <button type="button" id="selengkapnyaBtn"
                     data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
                     class="absolute right-0 
@@ -872,9 +872,9 @@
             </div>
             
             <!-- Testimonial cards - top row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8 motion-reduce:animate-none motion-reduce:scale-100">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out hover:shadow-xl cursor-pointer">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
@@ -889,7 +889,7 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out hover:shadow-xl cursor-pointer">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
@@ -904,7 +904,7 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:shadow-lg cursor-pointer">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
@@ -920,9 +920,9 @@
             </div>
             
             <!-- Testimonial cards - bottom DYNAMIC -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 motion-reduce:scale-100 motion-reduce:animate-none">
                 @foreach ($Testimonials as $testimonial)
-                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-105 hover:shadow-xl cursor-pointer">
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out hover:shadow-xl cursor-pointer">
                         <div class="flex flex-col h-full">
                             <!-- Kutipan + Konten -->
                             <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->

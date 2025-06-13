@@ -1166,8 +1166,7 @@
 
             const newItem = items[newIndex];
             newItem.classList.add('active', 'scale-105', 'z-10');
-            newItem.classList.remove('scale-100');
-            
+            newItem.classList.remove('scale-100');  
             
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
             const nextButton = carousel.closest('.relative').querySelector('.carousel-next');

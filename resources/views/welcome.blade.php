@@ -653,12 +653,16 @@
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
                                     <div class="absolute bottom-8 right-6 z-20">
-                                        <button
-                                            @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
-                                            class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
-                                        >
-                                            Cari Solusi Industri Anda
-                                        </button>
+                                    <button
+                                        @click="
+                                            setTimeout(() => {
+                                                document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' });
+                                            }, 100);
+                                        "
+                                        class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                    >
+                                        Cari Solusi Industri Anda
+                                    </button>
                                     </div>
                                 </div>
                             </div>
@@ -753,7 +757,9 @@
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
                 <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
-                    <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-montserrat">Alat Siap Pakai,<br>Proyek Siap Jalan</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-montserrat">
+                        Alat Siap Pakai,<span class="block">Proyek Siap Jalan</span>
+                    </h2>
                     <p class="text-sm sm:text-base mb-6 lg:mb-8 opacity-90 font-montserrat font-semibold">
                         Lihat koleksi alat berat dan kapal siap kerja 
                         yang cocok untuk semua kebutuhan lapangan Anda.

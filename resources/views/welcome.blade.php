@@ -144,7 +144,7 @@
         .carousel-item {
             transform: scale(0.90);
             will-change: transform, opacity;
-            filter: blur(1.5px);
+            filter: blur(1px);
             transition: all 0.4s ease;
             transform-origin: center;
         }

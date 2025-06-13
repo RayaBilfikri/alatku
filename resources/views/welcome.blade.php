@@ -864,7 +864,7 @@
                         rounded-full text-white font-medium 
                         bg-[#F86F03] hover:bg-[#e56703] 
                         transition-all duration-300 shadow-lg 
-                        transform hover:-translate-y-1">
+                        transform hover:-translate-y-1 motion-reduce:transition-none">
                     Selengkapnya
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />

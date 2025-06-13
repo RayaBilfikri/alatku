@@ -47,19 +47,19 @@
                 <div id="desktop-nav" class="flex-1 justify-center">
                     <div class="flex space-x-6 xl:space-x-8 font-montserrat font-bold">
                         <a href="{{ route('home') }}" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Beranda
                         </a>
                         <a href="/tentang-kami" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Tentang Kami
                         </a>
                         <a href="/caramembeli" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Bagaimana cara membeli?
                         </a>
                         <a href="/artikel" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Artikel
                         </a>
                     </div>

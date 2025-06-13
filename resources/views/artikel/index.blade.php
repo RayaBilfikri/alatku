@@ -3,9 +3,7 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-
-
-    <div class="max-w-6xl mx-auto mt-8">
+    <div class="max-w-6xl mx-auto mt-8 pt-20">
         <!-- Judul -->
         <h1 class="text-4xl font-bold text-center mb-10 font-montserrat pt-6">Artikel Terbaru</h1>
 

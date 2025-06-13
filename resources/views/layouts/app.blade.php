@@ -35,8 +35,8 @@
 </head>
 <body class="font-montserrat">
     <!-- Header dengan Font Montserrat -->
-    <header class="bg-gray-100 shadow-md">
-        <nav class="container mx-auto px-5 py-5 flex items-center relative">
+    <header class="fixed top-0 w-full z-50 bg-white/20 backdrop-blur-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center px-4 md:px-6 w-full max-w-screen-xl mx-auto">
                 <!-- Logo kiri -->
                 <a href="{{ route('home') }}" class="font-bold text-xl z-20 flex items-center flex-shrink-0">
@@ -47,19 +47,19 @@
                 <div id="desktop-nav" class="flex-1 justify-center">
                     <div class="flex space-x-6 xl:space-x-8 font-montserrat font-bold">
                         <a href="{{ route('home') }}" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Beranda
                         </a>
                         <a href="/tentang-kami" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Tentang Kami
                         </a>
                         <a href="/caramembeli" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Bagaimana cara membeli?
                         </a>
                         <a href="/artikel" 
-                        class="hover:text-orange-600 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
+                        class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Artikel
                         </a>
                     </div>

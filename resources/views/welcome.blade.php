@@ -653,12 +653,25 @@
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
                                     <div class="absolute bottom-8 right-6 z-20">
-                                        <button
-                                            @click="document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' })"
-                                            class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
-                                        >
-                                            Cari Solusi Industri Anda
-                                        </button>
+                                    <button
+                                        @click="
+                                            const target = document.querySelector('#equipment-sale');
+                                            if (target) {
+                                                target.scrollIntoView({ behavior: 'smooth' });
+                                            } else {
+                                                // Coba ulangi setelah delay jika belum ada
+                                                setTimeout(() => {
+                                                    const retryTarget = document.querySelector('#equipment-sale');
+                                                    if (retryTarget) {
+                                                        retryTarget.scrollIntoView({ behavior: 'smooth' });
+                                                    }
+                                                }, 300); // bisa disesuaikan delay-nya
+                                            }
+                                        "
+                                        class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                    >
+                                        Cari Solusi Industri Anda
+                                    </button>
                                     </div>
                                 </div>
                             </div>

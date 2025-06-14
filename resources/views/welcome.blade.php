@@ -19,6 +19,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+        // ✅ Copy paste script dari artifact ke sini
+        const throttledScroll = throttle(handleScroll, 16);
+        window.addEventListener('scroll', throttledScroll, { passive: true });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM initialization
+        });
+    </script>
     <style>
         
         html {

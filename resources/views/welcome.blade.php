@@ -137,7 +137,7 @@
             padding: 10px;
             margin: -10px;
             overflow: visible;
-            min-height: 350px;
+            min-height: 500px;
         }
         
         .carousel-item {

@@ -6,12 +6,10 @@
     <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <style>
         .logo-alatku {
@@ -1094,12 +1092,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- AOS JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init({duration: 800, easing: 'ease-out', once: true, mirror: false, offset: 120, disable: 'mobile'});
-    </script>
 </body>
 </html>
 

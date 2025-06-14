@@ -141,9 +141,10 @@
         }
         
         .carousel-item {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.6;
             transform: scale(0.90);
             will-change: transform, opacity;
-            transition: all 0.4s ease;
             transform-origin: center;
         }
         .carousel-item.active {
@@ -151,6 +152,7 @@
             border: 3px solid #f86f03;
             transition: all 0.3s ease-in-out;
             will-change: transform;
+            opacity: 1;
         }
         
         .btn-special {

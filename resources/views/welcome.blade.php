@@ -10,7 +10,7 @@
     <meta property="og:image" content="/images/alatku.webp">
     <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
     <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />

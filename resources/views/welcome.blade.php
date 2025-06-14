@@ -365,6 +365,9 @@
 
         /* Mobile: disable efek zoom, biar geser lancar */
         @media (max-width: 768px) {
+            .carousel-wrapper{
+                min-height: 400px;
+            }
             .carousel-item {
                 transform: none !important;
                 opacity: 1 !important;

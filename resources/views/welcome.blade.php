@@ -666,9 +666,27 @@
                                     <div class="absolute bottom-8 right-6 z-20">
                                     <button
                                         @click="
-                                            setTimeout(() => {
-                                                document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' });
-                                            }, 100);
+                                            (() => {
+                                                const target = document.querySelector('#equipment-sale');
+                                                if (!target) return;
+                                                
+                                                let shouldAnimate = true;
+                                                
+                                                // Cek koneksi
+                                                if ('connection' in navigator) {
+                                                    const conn = navigator.connection;
+                                                    if (['slow-2g', '2g', '3g', 'slow-4g'].includes(conn.effectiveType)) {shouldAnimate = false;}
+                                                }
+                                                
+                                                // Cek device memory
+                                                if ('deviceMemory' in navigator && navigator.deviceMemory < 4) {shouldAnimate = false;}
+                                                
+                                                // Cek reduced motion preference
+                                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {shouldAnimate = false;}
+                                                setTimeout(() => {
+                                                    target.scrollIntoView({ behavior: shouldAnimate ? 'smooth' : 'auto' });
+                                                }, 100);
+                                            })()
                                         "
                                         class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
                                     >
@@ -1195,8 +1213,11 @@
             newItem.classList.remove('scale-100');
   
             if (window.innerWidth > 640) {
-                // Only apply scrollIntoView & scaling for desktop
-                newItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                // Cek device memory dan network
+                const isSlowConnection = navigator.connection ? ['slow-2g', '2g', '3g', 'slow-4g'].includes(navigator.connection.effectiveType) : false;
+                const isLowMemory = navigator.deviceMemory ? navigator.deviceMemory < 4 : false;
+                const scrollBehavior = (isSlowConnection || isLowMemory) ? 'auto' : 'smooth';
+                newItem.scrollIntoView({ behavior: scrollBehavior, inline: 'center', block: 'nearest' });
             }
             
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
@@ -1333,6 +1354,8 @@
                 }
             });
         }
+
+        
    
     });
 </script>

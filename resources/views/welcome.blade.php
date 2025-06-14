@@ -153,7 +153,7 @@
         
         .carousel-item {
             transition: all 0.3s ease;
-            opacity: 0.8;
+            opacity: 0.6;
             /* Paksa rendering yang tepat */
             transform: translate3d(0, 0, 0) scale(0.95);
             -webkit-transform: translate3d(0, 0, 0) scale(0.95);

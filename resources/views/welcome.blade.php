@@ -4,15 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
+    <!-- Meta Open Graph -->
+    <meta property="og:title" content="Alatku - Sewa Alat Berat Terpercaya">
+    <meta property="og:description" content="Temukan berbagai alat berat untuk disewa dengan mudah dan cepat di Alatku.">
+    <meta property="og:image" content="/images/alatku.webp">
+    <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
+    <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
-
     <style>
         .logo-alatku {
             height: 120px;          
@@ -138,20 +144,22 @@
             padding: 10px;
             margin: -10px;
             overflow: visible;
-            min-height: 350px;
+            min-height: 500px;
         }
         
         .carousel-item {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.6;
             transform: scale(0.90);
             will-change: transform, opacity;
-            filter: blur(1.5px);
-            transition: all 0.4s ease;
             transform-origin: center;
         }
         .carousel-item.active {
             transform: scale(1);
-            filter: none;
-            z-index: 10;
+            border: 3px solid #f86f03;
+            transition: all 0.3s ease-in-out;
+            will-change: transform, opacity;
+            opacity: 1;
         }
         
         .btn-special {
@@ -254,6 +262,8 @@
             top: -65px;
             left: -250px;
             z-index: 6;
+            will-change: transform;
+            contain: layout style paint;
         }
 
         /* Right multi-layer eclipse */
@@ -264,8 +274,9 @@
             background: linear-gradient(to bottom, #FFA41B, #F86F03);
             top: 50%;
             right: -525px;
-            transform: translateY(-50%);
-
+            transform: translateY(-50%) translateZ(0);
+            will-change: transform;
+            contain: layout style paint;
         }
 
         .right-eclipse-middle {
@@ -275,8 +286,9 @@
             background: #FFA41B;
             top: 50%;
             right: -469px;
-            transform: translateY(-50%);
-
+            transform: translateY(-50%) translateZ(0);
+            will-change: transform;
+            contain: layout style paint;
         }
 
         .right-eclipse-front {
@@ -286,8 +298,10 @@
             background: #F86F03;
             top: 50%;
             right: -176px;
-            transform: translateY(-50%);
+            transform: translateY(-50%) translateZ(0);
             box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
+            will-change: transform;
+            contain: layout style paint;
 
         }
 
@@ -358,6 +372,9 @@
 
         /* Mobile: disable efek zoom, biar geser lancar */
         @media (max-width: 768px) {
+            .carousel-wrapper{
+                min-height: 400px;
+            }
             .carousel-item {
                 transform: none !important;
                 opacity: 1 !important;
@@ -393,7 +410,7 @@
         <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
     @endif
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 text-gray-800 scroll scroll-smooth">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
@@ -458,7 +475,7 @@
             @else
                 <div class="relative">
                     <!-- Profile toggle button -->
-                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer hover:bg-gray-100 h-10 hover:h-12 hover:shadow-md rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                    <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
                         <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <span class="font-medium">{{ Auth::user()->name }}</span>
@@ -629,7 +646,7 @@
                      :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" loading="eager" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-0 rounded-3xl">
+                    <img :src="slide.gambar" loading="eager" fetchpriority="high" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-[-1] rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
@@ -655,9 +672,27 @@
                                     <div class="absolute bottom-8 right-6 z-20">
                                     <button
                                         @click="
-                                            setTimeout(() => {
-                                                document.querySelector('#equipment-sale')?.scrollIntoView({ behavior: 'smooth' });
-                                            }, 100);
+                                            (() => {
+                                                const target = document.querySelector('#equipment-sale');
+                                                if (!target) return;
+                                                
+                                                let shouldAnimate = true;
+                                                
+                                                // Cek koneksi
+                                                if ('connection' in navigator) {
+                                                    const conn = navigator.connection;
+                                                    if (['slow-2g', '2g', '3g', 'slow-4g'].includes(conn.effectiveType)) {shouldAnimate = false;}
+                                                }
+                                                
+                                                // Cek device memory
+                                                if ('deviceMemory' in navigator && navigator.deviceMemory < 4) {shouldAnimate = false;}
+                                                
+                                                // Cek reduced motion preference
+                                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {shouldAnimate = false;}
+                                                setTimeout(() => {
+                                                    target.scrollIntoView({ behavior: shouldAnimate ? 'smooth' : 'auto' });
+                                                }, 100);
+                                            })()
                                         "
                                         class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
                                     >
@@ -756,7 +791,7 @@
         <div class="container mx-auto relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
                 <!-- Left side content - improved mobile spacing -->
-                <div class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
+                <div data-section="equiptment-left" class="text-black mb-6 md:mb-0 w-full md:w-full lg:w-1/3 text-center lg:text-left">
                     <h2 class="text-2xl sm:text-3xl font-bold mb-2 font-montserrat">
                         Alat Siap Pakai,<span class="block">Proyek Siap Jalan</span>
                     </h2>
@@ -774,13 +809,17 @@
                     </a>
                 </div>
                 
-                <!-- Right side carousel with improved mobile responsiveness -->
-                <div class="w-full lg:w-2/3 relative">
+                <!-- Right side carousel aos with improved mobile responsiveness -->
+                <div class="w-full lg:w-2/3 relative" 
+                    data-aos="slide-left" 
+                    data-aos-duration="800" 
+                    data-aos-once="true"
+                    data-aos-delay="300">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="motion-reduce:transition-none motion-reduce:scale-100 flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
                             @forelse ($ProductCard as $index => $product)
-                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
+                                <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" data-carousel-item class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
                                     <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
@@ -864,7 +903,7 @@
                         rounded-full text-white font-medium 
                         bg-[#F86F03] hover:bg-[#e56703] 
                         transition-all duration-300 shadow-lg 
-                        transform hover:-translate-y-1">
+                        transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:animate-none">
                     Selengkapnya
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -1080,6 +1119,15 @@
         </div>
     </footer>
 
+    <!-- AOS JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({duration: 800, easing: 'ease-out', once: true, mirror: false, offset: 120, disable: 'mobile'});
+        AOS.refresh();
+    });
+    </script>
+
 </body>
 </html>
 
@@ -1175,8 +1223,11 @@
             newItem.classList.remove('scale-100');
   
             if (window.innerWidth > 640) {
-                // Only apply scrollIntoView & scaling for desktop
-                newItem.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                // Cek device memory dan network
+                const isSlowConnection = navigator.connection ? ['slow-2g', '2g', '3g', 'slow-4g'].includes(navigator.connection.effectiveType) : false;
+                const isLowMemory = navigator.deviceMemory ? navigator.deviceMemory < 4 : false;
+                const scrollBehavior = (isSlowConnection || isLowMemory) ? 'auto' : 'smooth';
+                newItem.scrollIntoView({ behavior: scrollBehavior, inline: 'center', block: 'nearest' });
             }
             
             const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
@@ -1304,16 +1355,17 @@
             nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const tombolMenuMobile = document.getElementById('mobile-menu-button');
-            if (tombolMenuMobile) {
-                tombolMenuMobile.addEventListener('click', function() {
-                    const menuMobile = document.getElementById('mobile-menu');
-                    if (menuMobile) {
-                        menuMobile.classList.toggle('hidden');
-                    }
-                });
-            }
-        });
+        const tombolMenuMobile = document.getElementById('mobile-menu-button');
+        if (tombolMenuMobile) {
+            tombolMenuMobile.addEventListener('click', function() {
+                const menuMobile = document.getElementById('mobile-menu');
+                if (menuMobile) {
+                    menuMobile.classList.toggle('hidden');
+                }
+            });
+        }
+
+        
+   
     });
 </script>

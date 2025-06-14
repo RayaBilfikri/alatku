@@ -20,4 +20,13 @@ export default {
     },
 
     plugins: [forms],
+
+    variants: {
+        extend: {
+            transitionProperty: ['motion-reduce'],
+            animation: ['motion-reduce'],
+            transform: ['motion-reduce'],
+            scale: ['motion-reduce'],
+        },
+    },
 };

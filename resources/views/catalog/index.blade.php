@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body class="bg-white text-gray-800 antialiased" data-products-url="{{ route('products.ajax') }}">
+<body class="bg-white text-gray-800 antialiased scroll-smooth" data-products-url="{{ route('products.ajax') }}">
 <main>
     <!-- Banner -->
     <section class="bg-cover bg-center relative" style="background-image: url('/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp'); height: 300px;" aria-label="Banner Pencarian Alat">

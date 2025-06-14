@@ -8,4 +8,15 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    // Pisahkan AOS ke chunk terpisah untuk optimasi loading
+                    aos: ['aos']
+                }
+            }
+        }
+    }
 });

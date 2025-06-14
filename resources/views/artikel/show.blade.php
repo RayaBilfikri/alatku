@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="w-full min-h-screen bg-gray-100 py-10 px-4">
-    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden pt-20">
         <!-- Gambar Artikel -->
         @if($article->gambar)
             <img src="{{ asset('storage/' . $article->gambar) }}" alt="{{ $article->judul }}" class="w-full h-64 object-cover">

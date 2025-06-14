@@ -143,14 +143,14 @@
         .carousel-item {
             transform: scale(0.90);
             will-change: transform, opacity;
-            filter: blur(1px);
             transition: all 0.4s ease;
             transform-origin: center;
         }
         .carousel-item.active {
             transform: scale(1);
-            filter: none;
-            z-index: 10;
+            border: 3px solid #f86f03;
+            transition: all 0.3s ease-in-out;
+            will-change: transform;
         }
         
         .btn-special {

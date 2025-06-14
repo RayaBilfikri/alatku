@@ -1116,8 +1116,12 @@
     <!-- AOS JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
         AOS.init({duration: 800, easing: 'ease-out', once: true, mirror: false, offset: 120, disable: 'mobile'});
+        AOS.refresh();
+    });
     </script>
+
 </body>
 </html>
 

@@ -151,7 +151,7 @@
             transform: scale(1);
             border: 3px solid #f86f03;
             transition: all 0.3s ease-in-out;
-            will-change: transform;
+            will-change: transform, opacity;
             opacity: 1;
         }
         

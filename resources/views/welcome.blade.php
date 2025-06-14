@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <style>
+        
         html {
             scroll-behavior: smooth;
         }
@@ -151,18 +152,24 @@
         }
         
         .carousel-item {
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0.6;
-            transform: scale(0.90);
-            will-change: transform, opacity;
-            transform-origin: center;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            /* Paksa rendering yang tepat */
+            transform: translate3d(0, 0, 0) scale(0.95);
+            -webkit-transform: translate3d(0, 0, 0) scale(0.95);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            -webkit-font-smoothing: subpixel-antialiased;
+            font-smooth: always;
+            text-rendering: geometricPrecision;
         }
+
         .carousel-item.active {
-            transform: scale(1);
-            border: 3px solid #f86f03;
-            transition: all 0.3s ease-in-out;
-            will-change: transform, opacity;
             opacity: 1;
+            transform: scale(1);
+            -webkit-transform: scale(1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+            z-index: 10;
         }
         
         .btn-special {

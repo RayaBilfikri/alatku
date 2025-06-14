@@ -20,6 +20,9 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         .logo-alatku {
             height: 120px;          
             width: auto;
@@ -410,7 +413,7 @@
         <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
     @endif
 </head>
-<body class="bg-gray-100 text-gray-800 scroll scroll-smooth">
+<body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">

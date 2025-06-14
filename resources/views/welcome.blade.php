@@ -1123,9 +1123,79 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        AOS.init({duration: 800, easing: 'ease-out', once: true, mirror: false, offset: 120, disable: 'mobile'});
-        AOS.refresh();
+        // Throttle function untuk mengurangi frequency update
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        // Initialize AOS dengan konfigurasi yang dioptimasi
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true,
+            mirror: false,
+            offset: 120,
+            disable: 'mobile',
+            throttleDelay: 99, // Throttle scroll events
+            debounceDelay: 50, // Debounce resize events
+            useClassNames: false,
+            disableMutationObserver: false,
+            anchorPlacement: 'top-bottom'
+        });
+
+        // Force refresh setelah navigasi
+        let isNavigating = false;
+        
+        // Detect navigation
+        window.addEventListener('beforeunload', function() {
+            isNavigating = true;
+        });
+
+        // Handle page visibility change (untuk SPA atau navigasi cepat)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && isNavigating) {
+                setTimeout(() => {
+                    AOS.refresh();
+                    isNavigating = false;
+                }, 100);
+            }
+        });
+
+        // Throttled scroll handler untuk smooth performance
+        const throttledScroll = throttle(() => {
+            requestAnimationFrame(() => {
+                AOS.refresh();
+            });
+        }, 16); // ~60fps
+
+        // Optional: Manual refresh on focus (jika user kembali ke tab)
+        window.addEventListener('focus', function() {
+            setTimeout(() => {
+                AOS.refresh();
+            }, 200);
+        });
+
+        // Force refresh saat halaman fully loaded
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                AOS.refresh();
+            }, 300);
+        });
     });
+
+    // Alternative: Reset AOS on page navigation (untuk SPA)
+    function resetAOS() {
+        AOS.refreshHard(); // Force refresh semua elements
+    }
     </script>
 
 </body>

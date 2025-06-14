@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Alatku, platform sewa alat berat terpercaya.">
+    <!-- Meta Open Graph -->
+    <meta property="og:title" content="Alatku - Sewa Alat Berat Terpercaya">
+    <meta property="og:description" content="Temukan berbagai alat berat untuk disewa dengan mudah dan cepat di Alatku.">
+    <meta property="og:image" content="/images/alatku.webp">
+    <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
+    <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')

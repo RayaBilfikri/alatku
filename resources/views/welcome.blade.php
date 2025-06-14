@@ -9,6 +9,7 @@
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -784,8 +785,12 @@
                     </a>
                 </div>
                 
-                <!-- Right side carousel with improved mobile responsiveness -->
-                <div class="w-full lg:w-2/3 relative">
+                <!-- Right side carousel aos with improved mobile responsiveness -->
+                <div class="w-full lg:w-2/3 relative" 
+                    data-aos="slide-left" 
+                    data-aos-duration="800" 
+                    data-aos-once="true"
+                    data-aos-delay="300">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="motion-reduce:transition-none motion-reduce:scale-100 flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
@@ -1090,6 +1095,11 @@
         </div>
     </footer>
 
+    <!-- AOS JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({duration: 800, easing: 'ease-out', once: true, mirror: false, offset: 120, disable: 'mobile'});
+    </script>
 </body>
 </html>
 

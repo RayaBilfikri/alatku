@@ -374,8 +374,29 @@
             width: 100%;
             max-width: 1200px;
         }
-        
+        /*h1 and 2 for ipad mini*/
+        @media screen and (min-width: 768px) and (max-width: 820px) {
+            .ipad-mini-h2 {
+                font-size: 1.75rem;
+                line-height: 1.3;
+            }
+            
+            .ipad-mini-h1 {
+                font-size: 1.70rem; 
+                line-height: 1.3;
+                max-width: 20rem;
+            }
+        }
 
+        /* Folded devices only (btn cari solusi anda)*/
+        @media screen and (min-width: 280px) and (max-width: 374px) {
+            .folded-responsive {
+                min-width: 180px !important;
+                min-height: 42px !important;
+                font-size: 0.8125rem !important;
+                padding: 0.5rem 0.875rem !important;
+            }
+        }
 
         /* Mobile: disable efek zoom, biar geser lancar */
         @media (max-width: 768px) {
@@ -666,7 +687,7 @@
                                 </div>
                                 <div class="order-2 md:order-none md:ml-4 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
                                     <h1 class="text-lg sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight
-                                        max-w-full sm:max-w-md md:max-w-xl
+                                        max-w-full sm:max-w-md md:max-w-xl ipad-mini-h1
                                     ">
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
@@ -701,7 +722,7 @@
                                                 }, 100);
                                             })()
                                         "
-                                        class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                        class="folded-responsive min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
                                     >
                                         Cari Solusi Industri Anda
                                     </button>
@@ -712,7 +733,7 @@
 
                         <template x-if="!slide.is_static">
                             <div class="w-full text-center text-white px-4 sm:px-8 md:px-0 motion-reduce:transition-none">
-                                <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight" x-text="slide.judul"></h2>
+                                <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight ipad-mini-h2" x-text="slide.judul"></h2>
                                 <template x-if="slide.link">
                                     <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 inline-block shadow-lg">
                                         Kunjungi

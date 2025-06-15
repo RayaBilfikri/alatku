@@ -261,7 +261,7 @@
             }
         }
 
-        /* Left eclipse */
+        /* Left eclipse - Optimized */
         .left-eclipse {
             width: 500px;
             height: 500px;
@@ -271,11 +271,13 @@
             top: -65px;
             left: -250px;
             z-index: 6;
-            will-change: transform;
+            transform: translateZ(0);
+            will-change: auto;
             contain: layout style paint;
+            backface-visibility: hidden;
         }
 
-        /* Right multi-layer eclipse */
+        /* Right multi-layer eclipse - Optimized */
         .right-eclipse-back {
             width: 1051px;
             height: 1051px;
@@ -284,8 +286,9 @@
             top: 50%;
             right: -525px;
             transform: translateY(-50%) translateZ(0);
-            will-change: transform;
+            will-change: auto;
             contain: layout style paint;
+            backface-visibility: hidden;
         }
 
         .right-eclipse-middle {
@@ -296,8 +299,9 @@
             top: 50%;
             right: -469px;
             transform: translateY(-50%) translateZ(0);
-            will-change: transform;
+            will-change: auto;
             contain: layout style paint;
+            backface-visibility: hidden;
         }
 
         .right-eclipse-front {
@@ -309,9 +313,14 @@
             right: -176px;
             transform: translateY(-50%) translateZ(0);
             box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
-            will-change: transform;
+            will-change: auto;
             contain: layout style paint;
+            backface-visibility: hidden;
+        }
 
+        .testimonial-section {
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .testimonial-section .text-center {
@@ -926,9 +935,9 @@
             </div>
             
             <!-- Testimonial cards - top row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8 motion-reduce:animate-none motion-reduce:scale-100">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out  cursor-pointer">
+                <div class="bg-white rounded-xl testimonial-card p-6 shadow-lg">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
@@ -943,7 +952,7 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out  cursor-pointer">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
@@ -958,7 +967,7 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:shadow-lg cursor-pointer">
+                <div class="bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between h-full">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
@@ -974,7 +983,7 @@
             </div>
             
             <!-- Testimonial cards - bottom DYNAMIC -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 motion-reduce:scale-100 motion-reduce:animate-none">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out  cursor-pointer">
                         <div class="flex flex-col h-full">

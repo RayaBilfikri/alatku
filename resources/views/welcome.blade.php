@@ -10,7 +10,7 @@
     <meta property="og:image" content="/images/alatku.webp">
     <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
     <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -371,13 +371,10 @@
         }
 
         .container {
-            max-width: 100%;
-            padding-left: 1rem;  /* 16px */
-            padding-right: 1rem;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
+            width: 100%;
+            max-width: 1200px;
         }
+        
 
 
         /* Mobile: disable efek zoom, biar geser lancar */

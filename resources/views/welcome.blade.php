@@ -10,7 +10,7 @@
     <meta property="og:image" content="/images/alatku.webp">
     <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
     <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, shrink-to-fit=no viewport-fit=cover">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -19,7 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
-    <style>
+    <style>        
+        html {
+            scroll-behavior: smooth;
+        }
         .logo-alatku {
             height: 120px;          
             width: auto;
@@ -148,18 +151,24 @@
         }
         
         .carousel-item {
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: all 0.3s ease;
             opacity: 0.6;
-            transform: scale(0.90);
-            will-change: transform, opacity;
-            transform-origin: center;
+            /* Paksa rendering yang tepat */
+            transform: translate3d(0, 0, 0) scale(0.95);
+            -webkit-transform: translate3d(0, 0, 0) scale(0.95);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            -webkit-font-smoothing: subpixel-antialiased;
+            font-smooth: always;
+            text-rendering: geometricPrecision;
         }
+
         .carousel-item.active {
-            transform: scale(1);
-            border: 3px solid #f86f03;
-            transition: all 0.3s ease-in-out;
-            will-change: transform, opacity;
             opacity: 1;
+            transform: scale(1);
+            -webkit-transform: scale(1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+            z-index: 10;
         }
         
         .btn-special {
@@ -410,7 +419,7 @@
         <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
     @endif
 </head>
-<body class="bg-gray-100 text-gray-800 scroll scroll-smooth">
+<body class="bg-gray-100 text-gray-800">
 
     <!-- Header lengkap dengan dropdown klikable -->
     <header x-data="{ open: false }" class="flex justify-between items-center px-6 py-4 bg-gray-100">
@@ -1120,23 +1129,9 @@
     </footer>
 
     <!-- AOS JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Throttle function untuk mengurangi frequency update
-        function throttle(func, limit) {
-            let inThrottle;
-            return function() {
-                const args = arguments;
-                const context = this;
-                if (!inThrottle) {
-                    func.apply(context, args);
-                    inThrottle = true;
-                    setTimeout(() => inThrottle = false, limit);
-                }
-            }
-        }
-
         // Initialize AOS dengan konfigurasi yang dioptimasi
         AOS.init({
             duration: 800,
@@ -1151,51 +1146,7 @@
             disableMutationObserver: false,
             anchorPlacement: 'top-bottom'
         });
-
-        // Force refresh setelah navigasi
-        let isNavigating = false;
-        
-        // Detect navigation
-        window.addEventListener('beforeunload', function() {
-            isNavigating = true;
-        });
-
-        // Handle page visibility change (untuk SPA atau navigasi cepat)
-        document.addEventListener('visibilitychange', function() {
-            if (!document.hidden && isNavigating) {
-                setTimeout(() => {
-                    AOS.refresh();
-                    isNavigating = false;
-                }, 100);
-            }
-        });
-
-        // Throttled scroll handler untuk smooth performance
-        const throttledScroll = throttle(() => {
-            requestAnimationFrame(() => {
-                AOS.refresh();
-            });
-        }, 16); // ~60fps
-
-        // Optional: Manual refresh on focus (jika user kembali ke tab)
-        window.addEventListener('focus', function() {
-            setTimeout(() => {
-                AOS.refresh();
-            }, 200);
-        });
-
-        // Force refresh saat halaman fully loaded
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                AOS.refresh();
-            }, 300);
-        });
     });
-
-    // Alternative: Reset AOS on page navigation (untuk SPA)
-    function resetAOS() {
-        AOS.refreshHard(); // Force refresh semua elements
-    }
     </script>
 
 </body>

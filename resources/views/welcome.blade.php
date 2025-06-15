@@ -438,12 +438,12 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="navigation hidden md:flex flex-1 justify-center space-x-4 font-montserrat font-bold overflow-hidden">
+                <nav class="navigation hidden md:flex flex-1 justify-center space-x-4 font-montserrat font-bold overflow-hidden">
                     <a href="{{ route('home') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Tentang Kami</a>
                     <a href="{{ route('caramembeli') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Bagaimana cara membeli?</a>
                     <a href="{{ route('artikel') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Artikel</a>
-                </div>
+                </nav>
 
                 <!-- Mobile menu button -->
                 <button @click="open = !open"

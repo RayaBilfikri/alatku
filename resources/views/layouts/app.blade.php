@@ -45,7 +45,7 @@
 
                 <!-- Navbar tengah - Desktop (1024px+) -->
                 <div id="desktop-nav" class="flex-1 justify-center">
-                    <nav class="flex space-x-6 xl:space-x-8 font-montserrat font-bold">
+                    <div class="flex space-x-6 xl:space-x-8 font-montserrat font-bold">
                         <a href="{{ route('home') }}" 
                         class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Beranda
@@ -62,7 +62,7 @@
                         class="hover:text-orange-400 text-sm xl:text-sm whitespace-nowrap px-2 py-1 rounded transition-colors">
                             Artikel
                         </a>
-                    </nav>
+                    </div>
                 </div>
 
                 <!-- Auth buttons desktop - Desktop (1024px+) -->

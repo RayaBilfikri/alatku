@@ -10,7 +10,7 @@
     <meta property="og:image" content="/images/alatku.webp">
     <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
     <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, shrink-to-fit=no viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -261,6 +261,8 @@
             }
         }
 
+        
+
         /* Left eclipse */
         .left-eclipse {
             width: 500px;
@@ -311,7 +313,6 @@
             box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
             will-change: transform;
             contain: layout style paint;
-
         }
 
         .testimonial-section .text-center {
@@ -826,10 +827,12 @@
                     data-aos-delay="300">
                     <!-- Container with padding to accommodate scale effect -->
                     <div class="carousel-wrapper overflow-hidden">
-                        <div class="motion-reduce:transition-none motion-reduce:scale-100 flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel">
+                        <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel" style="font-display: swap;">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" data-carousel-item class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
-                                    <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="w-full h-36 sm:h-48 object-cover">
+                                    <div class="relative w-full" style="aspect-ratio: 400/300;">
+                                        <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover" style="display: block;">
+                                    </div>
                                     <div class="p-3 sm:p-4">
                                         <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
@@ -926,9 +929,9 @@
             </div>
             
             <!-- Testimonial cards - top row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 mb-6 mt-8 motion-reduce:animate-none motion-reduce:scale-100">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6 transform transition duration-300 ease-in-out  cursor-pointer">
+                <div class="bg-white rounded-xl testimonial-card p-6 shadow-lg">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
@@ -943,7 +946,7 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 transform transition duration-300 ease-in-out  cursor-pointer">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
@@ -958,7 +961,7 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between h-full transform transition duration-300 ease-in-out hover:shadow-lg cursor-pointer">
+                <div class="bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between h-full">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
@@ -974,7 +977,7 @@
             </div>
             
             <!-- Testimonial cards - bottom DYNAMIC -->
-            <div class="grid grid-cols-1 md:grid-cols-3 drop-shadow-lg gap-8 motion-reduce:scale-100 motion-reduce:animate-none">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach ($Testimonials as $testimonial)
                     <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out  cursor-pointer">
                         <div class="flex flex-col h-full">

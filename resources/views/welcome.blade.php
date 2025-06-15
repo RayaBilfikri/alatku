@@ -10,7 +10,7 @@
     <meta property="og:image" content="/images/alatku.webp">
     <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
     <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, shrink-to-fit=no viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -261,7 +261,9 @@
             }
         }
 
-        /* Left eclipse - Optimized */
+        
+
+        /* Left eclipse */
         .left-eclipse {
             width: 500px;
             height: 500px;
@@ -271,13 +273,11 @@
             top: -65px;
             left: -250px;
             z-index: 6;
-            transform: translateZ(0);
-            will-change: auto;
+            will-change: transform;
             contain: layout style paint;
-            backface-visibility: hidden;
         }
 
-        /* Right multi-layer eclipse - Optimized */
+        /* Right multi-layer eclipse */
         .right-eclipse-back {
             width: 1051px;
             height: 1051px;
@@ -286,9 +286,8 @@
             top: 50%;
             right: -525px;
             transform: translateY(-50%) translateZ(0);
-            will-change: auto;
+            will-change: transform;
             contain: layout style paint;
-            backface-visibility: hidden;
         }
 
         .right-eclipse-middle {
@@ -299,9 +298,8 @@
             top: 50%;
             right: -469px;
             transform: translateY(-50%) translateZ(0);
-            will-change: auto;
+            will-change: transform;
             contain: layout style paint;
-            backface-visibility: hidden;
         }
 
         .right-eclipse-front {
@@ -313,14 +311,8 @@
             right: -176px;
             transform: translateY(-50%) translateZ(0);
             box-shadow: -10px 0 15px -5px rgba(0, 0, 0, 0.3);
-            will-change: auto;
+            will-change: transform;
             contain: layout style paint;
-            backface-visibility: hidden;
-        }
-
-        .testimonial-section {
-            transform: translateZ(0);
-            backface-visibility: hidden;
         }
 
         .testimonial-section .text-center {

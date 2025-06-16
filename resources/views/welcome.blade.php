@@ -10,7 +10,7 @@
     <meta property="og:image" content="/images/alatku.webp">
     <meta property="og:url" content="URL_HALAMAN"> <!-- Ganti dengan URL halaman Anda -->
     <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
@@ -18,7 +18,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
     <style>        
         html {
             scroll-behavior: smooth;
@@ -218,12 +217,10 @@
             z-index: 10;
             overflow: visible; 
         }
-
         section {
             overflow-x: clip;
             overflow-clip-margin: 0px;
         }
-
         .equipment-sale-bg::before,
         .equipment-sale-bg::after {
             content: '';
@@ -371,14 +368,32 @@
         }
 
         .container {
-            max-width: 100%;
-            padding-left: 1rem;  /* 16px */
-            padding-right: 1rem;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
+            width: 100%;
+            max-width: 1200px;
+        }
+        /*h1 and 2 for ipad mini*/
+        @media screen and (min-width: 768px) and (max-width: 820px) {
+            .ipad-mini-h2 {
+                font-size: 1.75rem;
+                line-height: 1.3;
+            }
+            
+            .ipad-mini-h1 {
+                font-size: 1.70rem; 
+                line-height: 1.3;
+                max-width: 20rem;
+            }
         }
 
+        /* Folded devices only (btn cari solusi anda)*/
+        @media screen and (min-width: 280px) and (max-width: 374px) {
+            .folded-responsive {
+                min-width: 180px !important;
+                min-height: 42px !important;
+                font-size: 0.8125rem !important;
+                padding: 0.5rem 0.875rem !important;
+            }
+        }
 
         /* Mobile: disable efek zoom, biar geser lancar */
         @media (max-width: 768px) {
@@ -411,14 +426,6 @@
             }
         }
     </style>
-
-    @if($carousels->count() > 0)
-        {{-- Jika slide pertama dari database --}}
-        <link rel="preload" as="image" href="{{ asset('storage/' . $carousels->first()->gambar) }}" />
-    @else
-        {{-- Jika slide pertama adalah gambar statis --}}
-        <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
-    @endif
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -656,7 +663,7 @@
                      :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" loading="eager" fetchpriority="high" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-[-1] rounded-3xl">
+                    <img :src="slide.gambar" :srcset="slide.gambar" src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high" loading="eager" alt="Alatku Banner" width="1920" height="960" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover rounded-3xl"/>                   
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->
@@ -669,7 +676,7 @@
                                 </div>
                                 <div class="order-2 md:order-none md:ml-4 text-center md:text-left md:max-w-xl flex-grow mt-2 md:mt-0">
                                     <h1 class="text-lg sm:text-2xl md:text-3xl font-akira font-bold uppercase tracking-wide text-white mb-3 drop-shadow-md leading-tight
-                                        max-w-full sm:max-w-md md:max-w-xl
+                                        max-w-full sm:max-w-md md:max-w-xl ipad-mini-h1
                                     ">
                                         DARI DARAT KE LAUT,<br>
                                         KAMI SIAP MENDUKUNG ANDA!
@@ -704,7 +711,7 @@
                                                 }, 100);
                                             })()
                                         "
-                                        class="min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
+                                        class="folded-responsive min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
                                     >
                                         Cari Solusi Industri Anda
                                     </button>
@@ -715,7 +722,7 @@
 
                         <template x-if="!slide.is_static">
                             <div class="w-full text-center text-white px-4 sm:px-8 md:px-0 motion-reduce:transition-none">
-                                <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight" x-text="slide.judul"></h2>
+                                <h2 class="text-xl sm:text-3xl md:text-4xl font-akira font-bold mb-4 leading-tight ipad-mini-h2" x-text="slide.judul"></h2>
                                 <template x-if="slide.link">
                                     <a :href="slide.link" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 inline-block shadow-lg">
                                         Kunjungi
@@ -870,15 +877,15 @@
                     @if ($ProductCard->isNotEmpty())
                         <link rel="preload" as="image" href="{{ asset('storage/' . $ProductCard->first()->gambar) }}">
                         <!-- Tombol Prev -->
-                        <button class="carousel-prev hidden md:block absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button class="carousel-prev hidden md:block absolute left-2 sm:left-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity" aria-label="Previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                             </svg>
                         </button>
 
                         <!-- Tombol Next -->
-                        <button class="carousel-next hidden md:block absolute right-2 sm:right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button class="carousel-next hidden md:block absolute right-2 sm:right-2 top-1/2 transform -translate-y-1/2 bg-[#FFA41B] rounded-full p-1 sm:p-2 shadow-lg z-10 hover:opacity-100 transition-opacity" aria-label="Next">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-6 sm:w-6 text-[#525fe1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -931,7 +938,7 @@
             <!-- Testimonial cards - top row -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6 shadow-lg">
+                <div class="bg-white rounded-xl testimonial-card p-6 shadow-lg tilt-card">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
@@ -946,7 +953,7 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg">
+                <div class="bg-white rounded-xl p-6 shadow-lg tilt-card">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
@@ -961,7 +968,7 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between h-full">
+                <div class="bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between h-full tilt-card">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
@@ -975,14 +982,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Testimonial cards - bottom DYNAMIC -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach ($Testimonials as $testimonial)
-                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out  cursor-pointer">
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out cursor-pointer tilt-card">
                         <div class="flex flex-col h-full">
                             <!-- Kutipan + Konten -->
-                            <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->
+                            <div class="min-h-[100px]">
                                 <div class="text-2xl text-gray-300 mb-2 leading-none">“</div>
                                 <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                                     {{ $testimonial->content }}
@@ -1006,8 +1013,8 @@
                 <div class="bg-white rounded-lg p-8 max-w-md w-full transform scale-95 transition-all duration-300 shadow-2xl relative z-[10000]">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800">Pemberitahuan</h3>
-                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <button id="closeModal" class="text-gray-400 hover:text-gray-600 focus:outline-none" aria-label="More">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </button>
@@ -1083,7 +1090,7 @@
     </section>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-900 text-white">
+    <footer class="bg-gray-900 text-white" aria-label="Footer Page">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Brand and Company Info -->
@@ -1260,6 +1267,32 @@
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
         }
+
+        function addTiltEffect(card) {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * 8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                card.style.transition = 'transform 0.1s';
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+                card.style.transition = 'transform 0.3s';
+            });
+        }
+
+        // Top row testimonials (1,2,3) - select by unique classes or position
+        document.querySelectorAll('.testimonial-card, .grid > .bg-white.rounded-xl.p-6.shadow-lg.flex').forEach(addTiltEffect);
+
+        // Dynamic testimonials
+        document.querySelectorAll('.grid-cols-1.md\\:grid-cols-3.gap-8 > div.bg-white.rounded-xl.shadow-lg').forEach(addTiltEffect);
 
         if (modalBtn && modal && closeBtn) {
         // Fungsi untuk membuka modal dengan animasi

@@ -211,6 +211,10 @@
         .btn-special:hover .arrow-icon {
             transform: translateX(5px);
         }
+
+        .tilt-card {
+            will-change: transform;
+        }
             
         .testimonial-section {
             width: 100%;
@@ -949,7 +953,7 @@
             <!-- Testimonial cards - top row -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6 mt-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-xl testimonial-card p-6 shadow-lg">
+                <div class="bg-white rounded-xl testimonial-card p-6 shadow-lg tilt-card">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         Dulu sulit cari alat berat yang terpercaya. Sekarang dengan Alatku, tinggal buka website dan semua solusi ada di satu tempat.
@@ -964,7 +968,7 @@
                 </div>
                 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg">
+                <div class="bg-white rounded-xl p-6 shadow-lg tilt-card">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6 md:text-base">
                         "Saya suka karena tampilannya sederhana dan datanya lengkap. Tinggal klik, semua alat langsung muncul sesuai kebutuhan proyek.
@@ -979,7 +983,7 @@
                 </div>
                 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between h-full">
+                <div class="bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between h-full tilt-card">
                     <div class="text-3xl text-gray-300 mb-4">“</div>
                     <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                         Terbantu sekali dengan adanya website ini.
@@ -993,14 +997,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Testimonial cards - bottom DYNAMIC -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @foreach ($Testimonials as $testimonial)
-                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out  cursor-pointer">
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full transform transition duration-300 ease-in-out cursor-pointer tilt-card">
                         <div class="flex flex-col h-full">
                             <!-- Kutipan + Konten -->
-                            <div class="min-h-[100px]"> <!-- atau sesuaikan tinggi minimal -->
+                            <div class="min-h-[100px]">
                                 <div class="text-2xl text-gray-300 mb-2 leading-none">“</div>
                                 <p class="text-gray-700 text-sm leading-relaxed md:text-base">
                                     {{ $testimonial->content }}
@@ -1278,6 +1282,32 @@
             prevButton.style.display = newIndex === 0 ? 'none' : 'block';
             nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
         }
+
+        function addTiltEffect(card) {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * 8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                card.style.transition = 'transform 0.1s';
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+                card.style.transition = 'transform 0.3s';
+            });
+        }
+
+        // Top row testimonials (1,2,3) - select by unique classes or position
+        document.querySelectorAll('.testimonial-card, .grid > .bg-white.rounded-xl.p-6.shadow-lg.flex').forEach(addTiltEffect);
+
+        // Dynamic testimonials
+        document.querySelectorAll('.grid-cols-1.md\\:grid-cols-3.gap-8 > div.bg-white.rounded-xl.shadow-lg').forEach(addTiltEffect);
 
         if (modalBtn && modal && closeBtn) {
         // Fungsi untuk membuka modal dengan animasi

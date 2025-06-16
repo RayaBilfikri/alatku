@@ -258,9 +258,6 @@
             }
         }
 
-        
-
-        /* Left eclipse */
         .left-eclipse {
             width: 500px;
             height: 500px;
@@ -324,7 +321,6 @@
             transition: transform 0.2s ease;
         }
 
-        /* Tambahan efek bayangan saat dropdown muncul */
         #profileDropdown:not(.hidden) {
             animation: fadeIn 0.2s ease-out;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -350,10 +346,8 @@
         animation: slideUpFade 0.8s ease-out forwards;
         }
 
-        /* Mobile (hingga 576px) */
         @media (max-width: 576px) { /* aturan CSS */ }
 
-        /* Tablet (577px - 768px) */
         @media (min-width: 577px) and (max-width: 768px) { /* aturan CSS */ }
 
         /* Desktop (769px keatas) */
@@ -508,7 +502,7 @@
                         <hr class="my-1">
                         <form id="logoutForm" method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
+                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 flex items-center">
                                 <i class="fas fa-sign-out-alt mr-2 text-gray-500"></i> Logout
                             </button>
                         </form>
@@ -520,30 +514,39 @@
 
 
     <!-- Logout Confirmation Modal -->
-    <div id="logoutModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div id="logoutModal" class="fixed inset-0 z-50 items-center justify-center hidden">
         <!-- Backdrop/Overlay -->
         <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300" id="logoutModalBackdrop"></div>
-        
+
         <!-- Modal Content -->
-        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="logoutModalContent">
+        <div
+            id="logoutModalContent"
+            class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300
+                scale-95 opacity-0"
+        >
             <!-- Modal Header -->
             <div class="flex items-center justify-between p-4 border-b rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900">
                     Konfirmasi Logout
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" id="closeLogoutModal">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                <button type="button" id="closeLogoutModal"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
                     </svg>
                 </button>
             </div>
-            
+
             <!-- Modal Body -->
             <div class="p-6">
                 <div class="flex items-center mb-4">
                     <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
                         </svg>
                     </div>
                     <div class="ml-4">
@@ -552,18 +555,21 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Modal Footer -->
             <div class="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
-                <button type="button" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-sm transition-colors duration-200" id="cancelLogout">
+                <button type="button" id="cancelLogout"
+                    class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-sm transition-colors duration-200">
                     Batal
                 </button>
-                <button type="button" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg text-sm transition-colors duration-200" id="confirmLogout">
+                <button type="button" id="confirmLogout"
+                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg text-sm transition-colors duration-200">
                     Logout
                 </button>
             </div>
         </div>
     </div>
+
 
 
     <!-- Hero Section Carousel -->
@@ -801,7 +807,7 @@
 
     <!-- Equipment Sale with Product Card Section -->
     <section id="equipment-sale" class="bg-gray-100 py-10 px-4 md:py-16 lg:py-20 md:px-8 lg:px-10 relative z-6">
-        <!-- Background circles - adjusted for better mobile appearance -->
+        <!-- Background circles-->
         <div class="absolute -left-16 sm:-left-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-right-only opacity-90"></div>
         <div class="absolute -right-16 sm:-right-24 top-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-gradient-to-r from-[#f86f03] to-[#ffa41b] shadow-left-only opacity-90"></div>
         
@@ -832,7 +838,7 @@
                     data-aos-duration="800" 
                     data-aos-once="true"
                     data-aos-delay="300">
-                    <!-- Container with padding to accommodate scale effect -->
+                    <!-- Carousel Container with padding-->
                     <div class="carousel-wrapper overflow-hidden">
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel" style="font-display: swap;">
                             @forelse ($ProductCard as $index => $product)
@@ -913,7 +919,7 @@
         <!-- Content layer -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Testimonial heading -->
-            <div class="text-center mb-12 relative motion-reduce:transition-none">
+            <div class="text-center mb-12 relative">
                 <button type="button" id="selengkapnyaBtn"
                     data-logged-in="{{ auth()->check() ? 'true' : 'false' }}"
                     class="absolute right-0 
@@ -922,7 +928,7 @@
                         rounded-full text-white font-medium 
                         bg-[#F86F03] hover:bg-[#e56703] 
                         transition-all duration-300 shadow-lg 
-                        transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:animate-none">
+                        transform hover:-translate-y-1">
                     Selengkapnya
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform duration-300 ease-in-out group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -1040,8 +1046,6 @@
 
    <!--Article Section-->
     <section class="article-section relative bg-[#FFA41B] overflow-hidden pt-6 z-0">
-        <!-- Background gradient layer (matching testimonial section) -->
-
         <!-- Content layer -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="w-full mx-auto" style="max-width: 1440px;">
@@ -1059,11 +1063,9 @@
                         <div class="bg-orange-200 rounded-xl shadow-lg overflow-hidden relative flex flex-col">
                             <!-- Gambar -->
                             <img src="{{ asset('storage/' . $article->gambar) }}" loading="lazy" class="w-full h-40 object-cover" alt="{{ $article->judul }}">
-
                             <!-- Konten -->
                             <div class="p-4 flex flex-col flex-grow">
                             <h3 class="text-black font-bold text-lg mb-2 mt-4 md:text-base">{{ $article->judul }}</h3>
-
                             <p class="text-black text-sm mb-4 flex-grow md:text-base">
                                 {{ \Illuminate\Support\Str::limit($article->konten_artikel, 70) }}
                             </p>
@@ -1093,15 +1095,12 @@
     <footer class="bg-gray-900 text-white" aria-label="Footer Page">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Brand and Company Info -->
                 <div class="flex flex-col items-center md:items-start">
                     <h2 class="text-3xl font-bold font-montserrat text-[#FFA41B] mb-4">ALATKU</h2>
                     <p class="text-gray-300 text-center md:text-left">
                        Solusi terpercaya untuk kebutuhan alat konstruksi Anda
                     </p>
                 </div>
-                
-                <!-- Contact Information -->
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kontak Kami</h3>
                     <div class="flex items-center mb-3">
@@ -1118,8 +1117,6 @@
                         <p class="text-gray-300">+62 813 4886 9922</p>
                     </div>
                 </div>
-                
-                <!-- Website -->
                 <div class="flex flex-col items-center md:items-start">
                     <h3 class="text-xl font-semibold font-montserrat text-[#FFA41B] mb-4">Kunjungi Kami</h3>
                     <a href="https://www.alatku.com" class="flex items-center mb-3 hover:text-[#FFA41B] transition">
@@ -1130,8 +1127,6 @@
                     </a>
                 </div>
             </div>
-            
-            <!-- Copyright Section -->
             <div class="border-t border-gray-800 mt-8 pt-8 text-center">
                 <p class="text-gray-400">© 2025 alatKu. Hak Cipta Dilindungi di bawah naungan PT. Inti Teknologi Berdikari.</p>
             </div>
@@ -1184,16 +1179,14 @@
             const cancelLogout = document.getElementById('cancelLogout');
             const confirmLogout = document.getElementById('confirmLogout');
             
-            // Prevent the default form submission
             logoutButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 openModal();
             });
             
-            // Function to open the modal with animation
             function openModal() {
                 logoutModal.classList.remove('hidden');
-                // Trigger animation after a small delay to ensure the display change has applied
+                logoutModal.classList.add('flex'); 
                 setTimeout(() => {
                     logoutModalBackdrop.classList.add('opacity-100');
                     logoutModalContent.classList.remove('scale-95', 'opacity-0');
@@ -1214,7 +1207,6 @@
                 }, 300);
             }
             
-            // Close modal when clicking close button or cancel button
             closeLogoutModal.addEventListener('click', closeModal);
             cancelLogout.addEventListener('click', closeModal);
             
@@ -1296,7 +1288,6 @@
 
         if (modalBtn && modal && closeBtn) {
         // Fungsi untuk membuka modal dengan animasi
-            
             function openModal() {
                 modal.classList.remove('opacity-0', 'pointer-events-none');
                 modal.classList.add('opacity-100');
@@ -1306,7 +1297,7 @@
                 setTimeout(() => {
                     modalContent.classList.remove('scale-95');
                     modalContent.classList.add('scale-100');
-                }, 50);
+                }, 100);
             }
             
             // Fungsi untuk menutup modal dengan animasi
@@ -1318,7 +1309,7 @@
                 setTimeout(() => {
                     modal.classList.remove('opacity-100');
                     modal.classList.add('opacity-0', 'pointer-events-none');
-                }, 200);
+                }, 100);
             }
             
             // Event listener untuk tombol
@@ -1334,11 +1325,7 @@
                     }
                 });
             }
-
-            
             closeBtn.addEventListener('click', closeModal);
-            
-            // Tutup modal saat klik di luar modal
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     closeModal();
@@ -1374,18 +1361,13 @@
                     isDropdownOpen = false;
                 }
             });
-            
-            // Mencegah dropdown tertutup saat mengklik pada dropdown itu sendiri
             profileDropdown.addEventListener('click', function(e) {
-                // Jangan tutup dropdown jika mengklik di dalam menu dropdown
-                // kecuali jika itu tombol submit (logout)
                 if (!e.target.matches('button[type="submit"]')) {
                     e.stopPropagation();
                 }
             });
         }
         
-
         prevButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const carousel = this.closest('.relative').querySelector('#carousel');
@@ -1399,7 +1381,7 @@
                 updateActiveItem(carousel, 'next');
             });
         });
-        // Set kondisi tombol saat halaman pertama kali dimuat
+        // Set kondisi tombol (product card) saat halaman pertama kali dimuat
         document.querySelectorAll('#carousel').forEach(carousel => {
             const items = carousel.querySelectorAll('.carousel-item');
             const activeItem = carousel.querySelector('.carousel-item.active');
@@ -1420,9 +1402,6 @@
                     menuMobile.classList.toggle('hidden');
                 }
             });
-        }
-
-        
-   
+        }  
     });
 </script>

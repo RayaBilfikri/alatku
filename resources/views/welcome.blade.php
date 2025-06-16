@@ -426,14 +426,6 @@
             }
         }
     </style>
-
-    @if($carousels->count() > 0)
-        {{-- Jika slide pertama dari database --}}
-        <link rel="preload" as="image" href="{{ asset('storage/' . $carousels->first()->gambar) }}" />
-    @else
-        {{-- Jika slide pertama adalah gambar statis --}}
-        <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" />
-    @endif
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -671,7 +663,7 @@
                      :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" fetchpriority="auto" loading="eager" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-[-1] rounded-3xl">
+                    <img :src="slide.gambar" :srcset="slide.gambar" src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high" loading="eager" alt="Alatku Banner" width="1920" height="960" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover rounded-3xl"/>                   
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->

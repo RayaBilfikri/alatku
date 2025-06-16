@@ -18,7 +18,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
     <style>        
         html {
             scroll-behavior: smooth;
@@ -672,7 +671,7 @@
                      :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" loading="eager" fetchpriority="high" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-[-1] rounded-3xl">
+                    <img :src="slide.gambar" fetchpriority="auto" loading="eager" alt="Alatku Banner" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover z-[-1] rounded-3xl">
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->

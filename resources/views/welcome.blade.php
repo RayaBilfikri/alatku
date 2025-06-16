@@ -211,10 +211,6 @@
         .btn-special:hover .arrow-icon {
             transform: translateX(5px);
         }
-
-        .tilt-card {
-            will-change: transform;
-        }
             
         .testimonial-section {
             width: 100%;
@@ -222,12 +218,10 @@
             z-index: 10;
             overflow: visible; 
         }
-
         section {
             overflow-x: clip;
             overflow-clip-margin: 0px;
         }
-
         .equipment-sale-bg::before,
         .equipment-sale-bg::after {
             content: '';

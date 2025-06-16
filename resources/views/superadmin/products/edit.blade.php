@@ -172,8 +172,9 @@
     </div>
 </div>
 
-<!-- <script>
-    function formatRupiah(el) {
+<script>
+    document.getElementById('harga').addEventListener('input', function(e) {
+        let el = this;
         let value = el.value.replace(/[^,\d]/g, '').toString();
         let split = value.split(',');
         let sisa = split[0].length % 3;
@@ -187,54 +188,16 @@
 
         rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
         el.value = rupiah ? 'Rp ' + rupiah : '';
-    }
-
-    // Event input tetap untuk user experience
-    document.getElementById('harga').addEventListener('input', function(e) {
-        formatRupiah(this);
     });
 
-    // Event submit: hapus semua karakter non-angka sebelum submit
     document.querySelector('form').addEventListener('submit', function(e) {
         let hargaInput = document.getElementById('harga');
         if (hargaInput) {
-            // Hapus Rp, titik, koma, spasi
             let val = hargaInput.value.replace(/[^0-9]/g, '');
             hargaInput.value = val;
         }
     });
-</script> -->
-
-<script>
-    function formatRupiah(el) {
-        let value = el.value.replace(/[^,\d]/g, '').toString();
-        let split = value.split(',');
-        let sisa = split[0].length % 3;
-        let rupiah = split[0].substr(0, sisa);
-        let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            let separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-        el.value = rupiah ? 'Rp ' + rupiah : '';
-    }
-    document.getElementById('harga').addEventListener('input', function(e) {
-        formatRupiah(this);
-    });
-
-    document.querySelectorAll('form').forEach(function(form) {
-        form.addEventListener('submit', function(e) {
-            let hargaInput = form.querySelector('#harga');
-            if (hargaInput) {
-                let val = hargaInput.value;
-                val = val.replace(/Rp\s?/g, '').replace(/\./g, '').replace(/,/g, '');
-                hargaInput.value = val;
-            }
-        });
-    });
 </script>
+
 
 @endsection

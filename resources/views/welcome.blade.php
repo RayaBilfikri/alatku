@@ -71,6 +71,13 @@
                 font-size: 0.75rem;
             }
         }
+
+        @media (min-width: 1024px) {
+            .auth-buttons {
+                margin-right: 40px; /* Lebih jauh ke kiri di desktop besar */
+            }
+        }
+
         .shadow-text {
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
         }
@@ -439,7 +446,7 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="navigation hidden md:flex flex-1 justify-center space-x-4 font-montserrat font-bold overflow-hidden">
+                <div class="navigation hidden md:flex flex-1 justify-center space-x-8 font-montserrat font-bold overflow-hidden" aria-label="Navigation">
                     <a href="{{ route('home') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Tentang Kami</a>
                     <a href="{{ route('caramembeli') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Bagaimana cara membeli?</a>

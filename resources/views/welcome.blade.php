@@ -17,7 +17,12 @@
     <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+<!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Preload Montserrat -->  
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"></noscript>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>        
         html {
@@ -518,14 +523,7 @@
     <div id="logoutModal" class="fixed inset-0 z-50 items-center justify-center hidden">
         <!-- Backdrop/Overlay -->
         <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300" id="logoutModalBackdrop"></div>
-
-        <!-- Modal Content -->
-        <div
-            id="logoutModalContent"
-            class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300
-                scale-95 opacity-0"
-        >
-            <!-- Modal Header -->
+        <div id="logoutModalContent" class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
             <div class="flex items-center justify-between p-4 border-b rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900">
                     Konfirmasi Logout
@@ -539,8 +537,6 @@
                     </svg>
                 </button>
             </div>
-
-            <!-- Modal Body -->
             <div class="p-6">
                 <div class="flex items-center mb-4">
                     <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
@@ -556,8 +552,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Modal Footer -->
             <div class="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
                 <button type="button" id="cancelLogout"
                     class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-sm transition-colors duration-200">
@@ -570,8 +564,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!-- Hero Section Carousel -->
     <section 

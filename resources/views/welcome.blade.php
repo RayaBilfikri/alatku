@@ -500,7 +500,7 @@
                 <div class="relative">
                     <!-- Profile toggle button -->
                     <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                        <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
+                        <img src="{{ '/images/user.webp' }}" width="40" height="40" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <span class="font-medium">{{ Auth::user()->name }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -508,7 +508,7 @@
                         </svg>
                     </div>
                     
-                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                    <div id="profileDropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
                         <a href="{{ route('ulasan.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
                             <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
                         </a>

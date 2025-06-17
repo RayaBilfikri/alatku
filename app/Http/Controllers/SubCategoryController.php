@@ -10,7 +10,7 @@ class SubCategoryController extends Controller
 {
     public function index()
     {
-        $subcategories = SubCategory::with('category')->paginate(10);
+        $subcategories = SubCategory::with('category')->get();
         return view('superadmin.subcategories.index', compact('subcategories'));
     }
 

@@ -25,7 +25,7 @@
                         <tbody>
                             @forelse($subcategories as $index => $subcategory)
                             <tr class="text-center">
-                                <td class="px-4 py-2 border">{{ $subcategories->firstItem() + $index }}</td>
+                                <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                                 <td class="px-4 py-2 border">{{ $subcategory->name }}</td>
                                 <td class="px-4 py-2 border">{{ $subcategory->category->name ?? '-' }}</td>
                                 <td class="px-4 py-2 border text-center">

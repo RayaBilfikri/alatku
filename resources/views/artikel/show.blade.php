@@ -22,8 +22,8 @@
             </p>
 
             <!-- Konten Artikel -->
-            <div class="prose max-w-none">
-                {!! $article->konten_artikel !!}
+            <div class="prose prose-lg max-w-none">
+                {!! nl2br(e($article->konten_artikel)) !!}
             </div>
 
             <!-- Tombol Kembali -->

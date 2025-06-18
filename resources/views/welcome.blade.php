@@ -14,9 +14,15 @@
     <title>alatKu</title>
     @vite('resources/css/app.css')
     <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;700;800;900&family=Roboto&display=swap" rel="stylesheet">
+<!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Preload Montserrat -->  
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"></noscript>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>        
         html {
@@ -65,6 +71,13 @@
                 font-size: 0.75rem;
             }
         }
+
+        @media (min-width: 1024px) {
+            .auth-buttons {
+                margin-right: 40px; /* Lebih jauh ke kiri di desktop besar */
+            }
+        }
+
         .shadow-text {
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Horizontal, Vertical, Blur Radius, Color */
         }
@@ -433,7 +446,7 @@
                 </div>
                 
                 <!-- Navigation menu - sekarang akan ditaruh di tengah -->
-                <div class="navigation hidden md:flex flex-1 justify-center space-x-4 font-montserrat font-bold overflow-hidden">
+                <div class="navigation hidden md:flex flex-1 justify-center space-x-8 font-montserrat font-bold overflow-hidden" aria-label="Navigation">
                     <a href="{{ route('home') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Beranda</a>
                     <a href="{{ route('tentang-kami') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Tentang Kami</a>
                     <a href="{{ route('caramembeli') }}" class="text-xs sm:text-sm md:text-[13px] lg:text-sm hover:text-orange-600">Bagaimana cara membeli?</a>
@@ -487,7 +500,7 @@
                 <div class="relative">
                     <!-- Profile toggle button -->
                     <div id="profileDropdownToggle" class="flex items-center space-x-2 sm:space-x-3 cursor-pointer rounded-md transition duration-200">                        <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-                        <img src="{{ '/images/user.webp' }}" alt="Profile" class="w-full h-full object-cover">
+                        <img src="{{ '/images/user.webp' }}" width="40" height="40" alt="Profile" class="w-full h-full object-cover">
                         </div>
                         <span class="font-medium">{{ Auth::user()->name }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
@@ -495,7 +508,7 @@
                         </svg>
                     </div>
                     
-                    <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                    <div id="profileDropdown" class="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
                         <a href="{{ route('ulasan.index') }}" class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200 flex items-center">
                             <i class="fa-duotone fa-solid fa-comments mr-2 text-gray-500"></i> Ulasan
                         </a>
@@ -517,14 +530,7 @@
     <div id="logoutModal" class="fixed inset-0 z-50 items-center justify-center hidden">
         <!-- Backdrop/Overlay -->
         <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300" id="logoutModalBackdrop"></div>
-
-        <!-- Modal Content -->
-        <div
-            id="logoutModalContent"
-            class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300
-                scale-95 opacity-0"
-        >
-            <!-- Modal Header -->
+        <div id="logoutModalContent" class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0">
             <div class="flex items-center justify-between p-4 border-b rounded-t">
                 <h3 class="text-xl font-semibold text-gray-900">
                     Konfirmasi Logout
@@ -538,8 +544,6 @@
                     </svg>
                 </button>
             </div>
-
-            <!-- Modal Body -->
             <div class="p-6">
                 <div class="flex items-center mb-4">
                     <div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
@@ -555,8 +559,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Modal Footer -->
             <div class="flex items-center justify-end p-4 space-x-3 border-t border-gray-200 rounded-b">
                 <button type="button" id="cancelLogout"
                     class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-sm transition-colors duration-200">
@@ -569,8 +571,6 @@
             </div>
         </div>
     </div>
-
-
 
     <!-- Hero Section Carousel -->
     <section 
@@ -669,7 +669,7 @@
                      :class="{ 'transitioning': isTransitioning }"
                 >
                     <!-- Background -->
-                    <img :src="slide.gambar" :srcset="slide.gambar" src="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high" loading="eager" alt="Alatku Banner" width="1920" height="960" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover rounded-3xl"/>                   
+                    <img :src="slide.gambar" :srcset="slide.gambar" loading="eager" alt="Alatku Banner" width="1920" height="960" class="absolute inset-0 w-full h-full max-w-full max-h-full object-cover rounded-3xl"/>                   
                     <div class="absolute inset-0 bg-[#FFA41B]/60 z-0 rounded-3xl"></div>
 
                     <!-- Content -->

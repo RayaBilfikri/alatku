@@ -108,9 +108,11 @@
         <div class="flex-grow"></div>
 
         <!-- Harga -->
+        <div class="text-xs text-gray-600 mb-1 text-center font-montserrat">Harga Mulai</div>
         <div class="bg-orange-500 text-white font-semibold text-center py-3 rounded-lg text-xl font-montserrat shadow hover:shadow-md transition">
           Rp{{ number_format($product->harga, 0, ',', '.') }}
         </div>
+        <div class="text-xs text-gray-500 mt-1 text-center font-montserrat">*Hubungi untuk nego</div>
 
         <!-- Tombol WhatsApp -->
         @php

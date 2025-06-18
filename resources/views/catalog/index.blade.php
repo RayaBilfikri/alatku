@@ -265,7 +265,7 @@
     
     AOS.init({
         duration: 1000,
-        once: false,
+        once: true,
         mirror: true,
     });
 

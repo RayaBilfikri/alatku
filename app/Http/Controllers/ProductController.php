@@ -25,7 +25,7 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->paginate(10);
+        $products = $query->get();
 
         return view('superadmin.products.index', compact('products'));
     }

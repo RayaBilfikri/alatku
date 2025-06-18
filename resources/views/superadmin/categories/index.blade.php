@@ -25,7 +25,7 @@
                     <tbody>
                         @forelse($categories as $index => $category)
                         <tr class="text-center">
-                            <td class="px-4 py-2 border">{{ $categories->firstItem() + $index }}</td>
+                            <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                             <td class="px-4 py-2 border">{{ $category->name }}</td>
                             <td class="px-4 py-2 border">
                                 @if($category->icon)
@@ -73,9 +73,6 @@
                         @endforelse
                     </tbody>
                 </table>
-                <div class="mt-4">
-                    {{ $categories->onEachSide(1)->links('vendor.pagination.bootstrap-4') }}
-                </div>
             </div>
         </div>
     </div>

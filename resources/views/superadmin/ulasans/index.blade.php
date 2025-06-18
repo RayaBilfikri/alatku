@@ -22,7 +22,7 @@
                     <tbody>
                         @forelse($ulasans as $index => $ulasan)
                         <tr class="text-center">
-                            <td class="px-4 py-2 border">{{ $ulasans->firstItem() + $index }}</td>
+                            <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                             <td class="px-4 py-2 border">{{ $ulasan->user->name ?? 'Anonim' }}</td>
                             <td class="px-4 py-2 border text-left">{{ $ulasan->content }}</td>
                             <td class="px-4 py-2 border text-capitalize">

@@ -10,7 +10,7 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
-        $categories = Category::paginate(5);
+        $categories = Category::all();
 
         return view('superadmin.categories.index', compact('categories'));
     }

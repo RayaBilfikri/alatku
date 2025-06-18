@@ -92,7 +92,7 @@
 
     @media (min-width: 640px) {
         .info-mini {
-            font-size: 0.875rem;
+            font-size: 0.870rem;
         }
     }
 </style>

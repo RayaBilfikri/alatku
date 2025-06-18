@@ -85,6 +85,16 @@
     #scrollContainer { scrollbar-color: rgba(255,255,255,0.3) transparent; scrollbar-width: thin; }
     .active-subcategory { background: linear-gradient(90deg, #ff7e00, #ff9f00); color: white; }
     .subkategori-item { color: #374151; } 
+    .info-mini {
+        font-size: 0.675rem;
+        line-height: 1.2;
+    }
+
+    @media (min-width: 640px) {
+        .info-mini {
+            font-size: 0.875rem;
+        }
+    }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
@@ -157,28 +167,28 @@
                             <h3 class="font-semibold text-md text-gray-800 truncate">${item.name}</h3>
                             <p class="text-sm text-gray-600">Kategori: ${item.sub_category?.category?.name ?? '-'}</p>
                     
-                            <div class="flex justify-between gap-2 text-sm font-medium mt-3">
+                            <div class="info-mini flex justify-between gap-2 text-sm font-medium mt-3">
                                 <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                    <p class="text-xs flex justify-center items-center gap-1">
+                                    <p class="flex justify-center items-center gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                         Tahun
                                     </p>
-                                    <p class="text-sm font-semibold">${item.year_of_build}</p>
+                                    <p class="font-semibold">${item.year_of_build}</p>
                                 </div>
                                 <div class="bg-[#596DFF] text-white px-3 py-1 rounded-xl w-1/2 text-center shadow-sm">
-                                    <p class="text-xs flex justify-center items-center gap-1">
+                                    <p class="flex justify-center items-center gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                         Jam operasi
                                     </p>
-                                    <p class="text-sm font-semibold">${item.hours_meter} jam</p>
+                                    <p class="font-semibold">${item.hours_meter} jam</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center font-bold text-lg py-2 rounded-xl mt-2 shadow-md mx-4 mb-4">
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center font-bold text-sm sm:text-lg py-2 px-2 rounded-xl mt-2 shadow-md mx-4 mb-4 break-words">
                             Rp${Number(item.harga).toLocaleString("id-ID")}
                         </div>
                     </div>

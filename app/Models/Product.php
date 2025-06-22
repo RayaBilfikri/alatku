@@ -16,7 +16,7 @@ class Product extends Model
 
         'sub_category_id',
         'contact_id',
-        'category_id',
+        // 'category_id',
         'name',
         'gambar',
         'serial_number',
@@ -27,7 +27,7 @@ class Product extends Model
         'description',
         'brosur',
     ];
-    
+
 
     public function subCategory()
     {
@@ -45,9 +45,4 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
-
-    
-
-
-
 }

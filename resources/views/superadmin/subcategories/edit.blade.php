@@ -12,8 +12,8 @@
                 @method('PUT')
 
                 <div class="mb-3">
-                    <label for="categories_id" class="form-label">Kategori</label>
-                    <select id="categories_id" name="categories_id" class="form-select @error('categories_id') is-invalid @enderror">
+                    <label for="category_id" class="form-label">Kategori</label>
+                    <select id="category_id" name="category_id" class="form-select @error('category_id') is-invalid @enderror">
                         <option value="" disabled>Pilih Kategori</option>
                         @foreach($categories as $category)
                         <option value="{{ $category->id }}"

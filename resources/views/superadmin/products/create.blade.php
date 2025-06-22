@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="category_id" class="form-label">Kategori</label>
                             <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                                 <option value="">Pilih Kategori</option>
@@ -69,7 +69,7 @@
                             @error('category_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <div class="mb-3">
                             <label for="sub_category_id" class="form-label">Sub Kategori</label>
@@ -139,7 +139,10 @@
 
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
-                            <input type="text" id="harga" name="harga" class="form-control @error('harga') is-invalid @enderror" oninput="formatRupiah(this)">
+                            <input type="number" name="harga"
+                                value="{{ old('harga', $product->harga ?? '') }}"
+                                min="1" step="1"
+                                class="form-control @error('harga') is-invalid @enderror">
                             @error('harga')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -168,7 +171,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     function formatRupiah(el) {
         let value = el.value.replace(/[^,\d]/g, '').toString();
         let split = value.split(',');
@@ -198,7 +201,7 @@
             }
         });
     });
-</script>
+</script> -->
 
 
 @endsection

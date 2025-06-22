@@ -11,21 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = Product::with(['subCategory.category', 'contact', 'images']);
+        $products = Product::with(['subCategory.category', 'contact', 'images'])->get();
 
-        if ($request->has('search') && $request->search !== null) {
-            $search = $request->search;
-
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('serial_number', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%');
-            });
-        }
-
-        $products = $query->get();
+        // $products->load('subCategory.category');
 
         return view('superadmin.products.index', compact('products'));
     }
@@ -50,7 +40,7 @@ class ProductController extends Controller
                 'sub_images' => 'nullable|array|max:3',
                 'sub_images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
                 'brosur' => 'nullable|mimes:pdf|max:10240',
-                'category_id' => 'required|exists:categories,id',
+                // 'category_id' => 'required|exists:categories,id',
                 'sub_category_id' => 'required|exists:sub_categories,id',
                 'contact_id' => 'required|exists:contacts,id',
                 'serial_number' => 'nullable|string|max:255',
@@ -97,7 +87,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $validated['name'];
-        $product->category_id = $validated['category_id'];
+        // $product->category_id = $validated['category_id'];
         $product->sub_category_id = $validated['sub_category_id'];
         $product->contact_id = $validated['contact_id'];
         $product->serial_number = $validated['serial_number'];
@@ -133,7 +123,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with(['subCategory.category', 'images'])->findOrFail($id);
         $categories = Category::all();
         $subCategories = SubCategory::all();
         $contacts = Contact::all();
@@ -149,7 +139,7 @@ class ProductController extends Controller
             'sub_images' => 'nullable|array|max:3',
             'sub_images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             'brosur' => 'nullable|mimes:pdf|max:10240',
-            'category_id' => 'required|exists:categories,id',
+            // 'category_id' => 'required|exists:categories,id',
             'sub_category_id' => 'required|exists:sub_categories,id',
             'contact_id' => 'required|exists:contacts,id',
             'serial_number' => 'nullable|string|max:255',
@@ -191,7 +181,7 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
         $product->name = $validated['name'];
-        $product->category_id = $validated['category_id'];
+        // $product->category_id = $validated['category_id'];
         $product->sub_category_id = $validated['sub_category_id'];
         $product->contact_id = $validated['contact_id'];
         $product->serial_number = $validated['serial_number'];

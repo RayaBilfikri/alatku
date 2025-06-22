@@ -19,9 +19,10 @@
                             <tr>
                                 <th class="px-4 py-2 border">No</th>
                                 <th class="px-4 py-2 border">Nama Produk</th>
-                                <th class="px-4 py-2 border">Kategori</th>
+                                <!-- <th class="px-4 py-2 border">Kategori</th> -->
                                 <th class="px-4 py-2 border">Sub Kategori</th>
                                 <th class="px-4 py-2 border">Kontak</th>
+                                <th class="px-4 py-2 border">Harga</th>
                                 <th class="px-4 py-2 border">Aksi</th>
                             </tr>
                         </thead>
@@ -30,9 +31,10 @@
                             <tr class="text-center">
                                 <td class="px-4 py-2 border">{{ $index + 1 }}</td>
                                 <td class="px-4 py-2 border">{{ $product->name }}</td>
-                                <td class="px-4 py-2 border">{{ $product->subCategory->category->name ?? '-' }}</td>
+                                <!-- <td class="px-4 py-2 border">{{ $product->subCategory->category->name ?? '-' }}</td> -->
                                 <td class="px-4 py-2 border">{{ $product->subCategory->name ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $product->contact->no_wa ?? '-' }}</td>
+                                <td class="px-4 py-2 border">Rp {{ number_format($product->harga, 0, ',', '.') }}</td>
                                 <td class="px-4 py-2 border text-center">
                                     <div class="d-inline-flex gap-2">
                                         @if ($product->gambar)
@@ -45,7 +47,7 @@
                                             data-year_of_build="{{ $product->year_of_build ?? '-' }}"
                                             data-hours_meter="{{ $product->hours_meter ?? '-' }}"
                                             data-stock="{{ $product->stock }}"
-                                            data-harga="{{ number_format($product->harga, 2, ',', '.') }}"
+                                            data-harga="Rp {{ number_format($product->harga, 0, ',', '.') }}"
                                             data-description="{{ $product->description ?? '-' }}"
                                             data-gambar="{{ asset('storage/' . $product->gambar) }}"
                                             data-brosur="{{ $product->brosur ? asset('storage/' . $product->brosur) : '' }}"

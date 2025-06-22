@@ -847,21 +847,20 @@
                                         <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover" style="display: block;">
                                     </div>
                                     <div class="p-3 sm:p-4">
-                                        <h3 class="font-semibold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
+                                        <h3 class="font-bold text-sm sm:text-base text-gray-800">{{ $product->name }}</h3>
                                         <p class="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Kategori: {{ $product->subCategory?->category?->name ?? '-' }}</p>
                                         
                                         <div class="flex justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
                                             <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[90px] sm:min-w-[110px] flex flex-col items-center">
                                                 <span class="text-[10px] sm:text-xs">Tahun</span>
-                                                <span class="font-bold text-xs sm:text-sm">{{ $product->year_of_build }}</span>
+                                                <span class="font-bold text-xs sm:text-xs">{{ $product->year_of_build }}</span>
                                             </div>
                                             <div class="bg-[#525FE1] text-white text-xs font-medium px-2 sm:px-4 py-1 sm:py-2 rounded-full min-w-[120px] sm:min-w-[140px] flex flex-col items-center">
                                                 <span class="text-[10px] sm:text-xs">Jam operasional</span>
-                                                <span class="font-bold text-xs sm:text-sm">{{ $product->hours_meter }} jam</span>
+                                                <span class="font-bold text-xs sm:text-xs">{{ $product->hours_meter }} jam</span>
                                             </div>
                                         </div>
-
-                                        <div class="text-center font-bold text-sm sm:text-lg bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg mt-2 sm:mt-3">
+                                        <div class="text-center font-bold text-sm sm:text-base bg-gradient-to-r from-[#F86F03] to-[#FFA41B] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg mt-2 sm:mt-3">
                                             Rp{{ number_format($product->harga, 0, ',', '.') }}
                                         </div>
                                     </div>

@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sub_category_id')->constrained('sub_categories')->onDelete('cascade');
             $table->foreignId('contact_id')->constrained('contacts')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            // $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->string('gambar');
             $table->string('serial_number');
             $table->year('year_of_build')->nullable();
             $table->string('hours_meter')->nullable();
             $table->integer('stock');
-            $table->decimal('harga', 15, 2);
+            $table->decimal('harga', 16, 2);
             $table->text('description')->nullable();
             $table->string('brosur')->nullable();
             $table->timestamps();

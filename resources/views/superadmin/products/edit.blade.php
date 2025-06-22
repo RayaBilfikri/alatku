@@ -65,12 +65,13 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="category_id" class="form-label">Kategori</label>
                             <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                                 <option value="">Pilih Kategori</option>
                                 @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', $product->subCategory->category->id ?? '') == $category->id ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                                 @endforeach
@@ -78,7 +79,7 @@
                             @error('category_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <div class="mb-3">
                             <label for="sub_category_id" class="form-label">Sub Kategori</label>
@@ -145,9 +146,10 @@
 
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
-                            <input type="text" id="harga" name="harga" class="form-control @error('harga') is-invalid @enderror"
-                                value="{{ old('harga', $product->harga) }}" oninput="formatRupiah(this)">
-
+                            <input type="number" name="harga"
+                                value="{{ old('harga', (int) $product->harga ?? '') }}"
+                                min="1" step="1"
+                                class="form-control @error('harga') is-invalid @enderror">
                             @error('harga')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -172,32 +174,24 @@
     </div>
 </div>
 
-<script>
-    document.getElementById('harga').addEventListener('input', function(e) {
-        let el = this;
-        let value = el.value.replace(/[^,\d]/g, '').toString();
-        let split = value.split(',');
-        let sisa = split[0].length % 3;
-        let rupiah = split[0].substr(0, sisa);
-        let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+<!-- <script>
+    const hargaInput = document.getElementById('harga');
 
-        if (ribuan) {
-            let separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-        el.value = rupiah ? 'Rp ' + rupiah : '';
+    hargaInput.addEventListener('input', function(e) {
+        // Selalu sanitasi ke angka murni dulu
+        let value = this.value.replace(/[^0-9]/g, '');
+        // Format hanya jika user mengetik, bukan saat page load
+        this.value = value ? 'Rp ' + value.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
     });
 
+    // Bersihkan sebelum submit
     document.querySelector('form').addEventListener('submit', function(e) {
         let hargaInput = document.getElementById('harga');
         if (hargaInput) {
-            let val = hargaInput.value.replace(/[^0-9]/g, '');
-            hargaInput.value = val;
+            hargaInput.value = hargaInput.value.replace(/[^0-9]/g, '');
         }
     });
-</script>
+</script> -->
 
 
 @endsection

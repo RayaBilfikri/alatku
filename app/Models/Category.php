@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = [
-    'name',
-    'icon'];
+        'name',
+        'icon'
+    ];
 
     public function subCategories()
     {
@@ -16,11 +17,8 @@ class Category extends Model
     }
 
 
-    public function products()
-    {
-        return $this->hasManyThrough(Product::class, SubCategory::class, 'categories_id', 'sub_category_id');
-    }
+    // public function products()
+    // {
+    //     return $this->hasManyThrough(Product::class, SubCategory::class, 'categories_id', 'sub_category_id');
+    // }
 }
-
-
-

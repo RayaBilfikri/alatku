@@ -36,6 +36,9 @@
         @media (prefers-reduced-motion: reduce) { 
             html { scroll-behavior: auto; } 
         }
+        [data-aos] {
+            will-change: transform, opacity;
+        }
         .logo-alatku {
             height: 120px;          
             width: auto;
@@ -1122,7 +1125,7 @@
     <!-- AOS JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('load', () => {
             AOS.init({
                 duration: 600,
                 easing: 'ease-out',

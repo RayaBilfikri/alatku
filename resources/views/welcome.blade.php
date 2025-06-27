@@ -33,6 +33,9 @@
         html {
             scroll-behavior: smooth;
         }
+        @media (prefers-reduced-motion: reduce) { 
+            html { scroll-behavior: auto; } 
+        }
         .logo-alatku {
             height: 120px;          
             width: auto;
@@ -698,34 +701,12 @@
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
                                     <div class="absolute bottom-8 right-6 z-20">
-                                    <button
-                                        @click="
-                                            (() => {
-                                                const target = document.querySelector('#equipment-sale');
-                                                if (!target) return;
-                                                
-                                                let shouldAnimate = true;
-                                                
-                                                // Cek koneksi
-                                                if ('connection' in navigator) {
-                                                    const conn = navigator.connection;
-                                                    if (['slow-2g', '2g', '3g', 'slow-4g'].includes(conn.effectiveType)) {shouldAnimate = false;}
-                                                }
-                                                
-                                                // Cek device memory
-                                                if ('deviceMemory' in navigator && navigator.deviceMemory < 4) {shouldAnimate = false;}
-                                                
-                                                // Cek reduced motion preference
-                                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {shouldAnimate = false;}
-                                                setTimeout(() => {
-                                                    target.scrollIntoView({ behavior: shouldAnimate ? 'smooth' : 'auto' });
-                                                }, 100);
-                                            })()
-                                        "
-                                        class="folded-responsive min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
-                                    >
-                                        Cari Solusi Industri Anda
-                                    </button>
+                                        <button
+                                            @click="document.querySelector('#equipment-sale')?.scrollIntoView({behavior: 'smooth', block: 'start'})"
+                                            class="folded-responsive inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-colors font-montserrat duration-300 shadow-lg"
+                                            style="min-width: 240px; min-height: 48px;">
+                                            Cari Solusi Industri Anda
+                                        </button>
                                     </div>
                                 </div>
                             </div>

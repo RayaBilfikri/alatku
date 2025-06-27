@@ -24,12 +24,9 @@
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"></noscript>
-
     <!-- Fonts-->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"></noscript>
-
     <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>        
@@ -1143,22 +1140,34 @@
     <!-- AOS JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize AOS dengan konfigurasi yang dioptimasi
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out',
-            once: true,
-            mirror: false,
-            offset: 120,
-            disable: 'mobile',
-            throttleDelay: 99, // Throttle scroll events
-            debounceDelay: 50, // Debounce resize events
-            useClassNames: false,
-            disableMutationObserver: false,
-            anchorPlacement: 'top-bottom'
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 600,
+                easing: 'ease-out',
+                once: true,
+                mirror: false,
+                offset: 50,
+                disable: function() {
+                    return window.innerWidth < 768 || 
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                        navigator.hardwareConcurrency < 4;
+                },
+                throttleDelay: 160,
+                debounceDelay: 100, 
+                useClassNames: false,
+                disableMutationObserver: true, 
+                anchorPlacement: 'top-bottom'
+            });
+            
+            // Pause AOS pada scroll aktif
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    AOS.refresh();
+                }, 100);
+            }, { passive: true });
         });
-    });
     </script>
 
 </body>

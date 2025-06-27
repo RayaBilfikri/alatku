@@ -840,7 +840,7 @@
                 <!-- Right side carousel aos with improved mobile responsiveness -->
                 <div class="w-full lg:w-2/3 relative" 
                     data-aos="slide-left" 
-                    data-aos-duration="800" 
+                    data-aos-duration="600" 
                     data-aos-once="true"
                     data-aos-delay="300">
                     <!-- Carousel Container with padding-->
@@ -1141,32 +1141,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 600,
-                easing: 'ease-out',
-                once: true,
-                mirror: false,
-                offset: 50,
-                disable: function() {
-                    return window.innerWidth < 768 || 
-                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-                        navigator.hardwareConcurrency < 4;
-                },
-                throttleDelay: 160,
-                debounceDelay: 100, 
-                useClassNames: false,
-                disableMutationObserver: true, 
-                anchorPlacement: 'top-bottom'
-            });
+            // Disable AOS on mobile/low-end devices
+            const isMobile = window.innerWidth < 768 || 
+                            /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
-            // Pause AOS pada scroll aktif
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    AOS.refresh();
-                }, 100);
-            }, { passive: true });
+            if (!isMobile) {
+                AOS.init({
+                    duration: 600,
+                    once: true,
+                    offset: 50,
+                    disable: false,
+                    disableMutationObserver: true 
+                });
+            }
         });
     </script>
 

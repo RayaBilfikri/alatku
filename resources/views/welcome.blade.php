@@ -1141,19 +1141,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Disable AOS on mobile/low-end devices
-            const isMobile = window.innerWidth < 768 || 
-                            /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            AOS.init({
+                duration: 600,
+                easing: 'ease-out',
+                once: true,
+                mirror: false,
+                offset: 50,
+                disable: function() {
+                    return window.innerWidth < 768 || 
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                        navigator.hardwareConcurrency < 4;
+                },
+                throttleDelay: 160,
+                debounceDelay: 100, 
+                useClassNames: false,
+                disableMutationObserver: true, 
+                anchorPlacement: 'top-bottom'
+            });
             
-            if (!isMobile) {
-                AOS.init({
-                    duration: 600,
-                    once: true,
-                    offset: 50,
-                    disable: false,
-                    disableMutationObserver: true 
-                });
-            }
+            // Pause AOS pada scroll aktif
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    AOS.refresh();
+                }, 100);
+            }, { passive: true });
         });
     </script>
 

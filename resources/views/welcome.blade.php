@@ -12,17 +12,25 @@
     <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
-    @vite('resources/css/app.css')
-    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-<!-- Preconnect -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Preload Montserrat -->  
+    @vite('resources/css/app.css')
+    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"></noscript>
+
+    <!-- Fonts-->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"></noscript>
+
+    <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>        
         html {

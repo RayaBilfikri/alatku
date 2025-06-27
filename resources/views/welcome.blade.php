@@ -821,6 +821,7 @@
                 <!-- Right side carousel aos with improved mobile responsiveness -->
                 <div class="w-full lg:w-2/3 relative" 
                     data-aos="slide-left" 
+                    data-aos="fade"
                     data-aos-duration="600" 
                     data-aos-once="true"
                     data-aos-delay="300">
@@ -829,7 +830,7 @@
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel" style="font-display: swap;">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" data-carousel-item class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
-                                    <div class="relative w-full" style="aspect-ratio: 400/300;">
+                                    <div class="relative w-full aspect-[4/3]">
                                         <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover" style="display: block;">
                                     </div>
                                     <div class="p-3 sm:p-4">

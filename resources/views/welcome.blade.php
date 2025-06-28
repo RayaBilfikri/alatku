@@ -12,21 +12,32 @@
     <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alatKu</title>
-    @vite('resources/css/app.css')
-    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-<!-- Preconnect -->
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Preload Montserrat -->  
+    @vite('resources/css/app.css')
+    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/AkiraExpanded.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="image" href="/images/46fffdf7a99c6deffc8cdd6190b26e1c43346a0e.webp" fetchpriority="high">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Fonts-->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"></noscript>
+    <!-- Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>        
         html {
             scroll-behavior: smooth;
+        }
+        @media (prefers-reduced-motion: reduce) { 
+            html { scroll-behavior: auto; } 
+        }
+        [data-aos] {
+            will-change: transform, opacity;
         }
         .logo-alatku {
             height: 120px;          
@@ -693,34 +704,12 @@
                                         Efisiensi dan ketepatan dimulai dari pilihan alat yang tepat.
                                     </p>
                                     <div class="absolute bottom-8 right-6 z-20">
-                                    <button
-                                        @click="
-                                            (() => {
-                                                const target = document.querySelector('#equipment-sale');
-                                                if (!target) return;
-                                                
-                                                let shouldAnimate = true;
-                                                
-                                                // Cek koneksi
-                                                if ('connection' in navigator) {
-                                                    const conn = navigator.connection;
-                                                    if (['slow-2g', '2g', '3g', 'slow-4g'].includes(conn.effectiveType)) {shouldAnimate = false;}
-                                                }
-                                                
-                                                // Cek device memory
-                                                if ('deviceMemory' in navigator && navigator.deviceMemory < 4) {shouldAnimate = false;}
-                                                
-                                                // Cek reduced motion preference
-                                                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {shouldAnimate = false;}
-                                                setTimeout(() => {
-                                                    target.scrollIntoView({ behavior: shouldAnimate ? 'smooth' : 'auto' });
-                                                }, 100);
-                                            })()
-                                        "
-                                        class="folded-responsive min-w-[240px] min-h-[48px] inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-all font-montserrat duration-300 shadow-lg"
-                                    >
-                                        Cari Solusi Industri Anda
-                                    </button>
+                                        <button
+                                            @click="document.querySelector('#equipment-sale')?.scrollIntoView({behavior: 'smooth', block: 'start'})"
+                                            class="folded-responsive inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full text-base sm:text-lg transition-colors font-montserrat duration-300 shadow-lg"
+                                            style="min-width: 240px; min-height: 48px;">
+                                            Cari Solusi Industri Anda
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -835,7 +824,8 @@
                 <!-- Right side carousel aos with improved mobile responsiveness -->
                 <div class="w-full lg:w-2/3 relative" 
                     data-aos="slide-left" 
-                    data-aos-duration="800" 
+                    data-aos="fade"
+                    data-aos-duration="600" 
                     data-aos-once="true"
                     data-aos-delay="300">
                     <!-- Carousel Container with padding-->
@@ -843,7 +833,7 @@
                         <div class="flex overflow-x-auto gap-3 sm:gap-4 pb-4 snap-x snap-mandatory hide-scrollbar carousel-container px-1 sm:px-2 md:px-4 py-2 md:text-base font-montserrat ml-0 md:ml-0 lg:ml-14" id="carousel" style="font-display: swap;">
                             @forelse ($ProductCard as $index => $product)
                                 <a href="{{ route('catalog.detailproduct', ['id' => $product->id, 'from' => 'home']) }}" data-carousel-item class="carousel-item snap-start min-w-[240px] sm:min-w-[280px] bg-white rounded-xl overflow-hidden transition-transform duration-300 ease-in-out transform-gpu {{ $loop->first ? 'active scale-105 z-10' : 'scale-100' }}" data-index="{{ $index }}">
-                                    <div class="relative w-full" style="aspect-ratio: 400/300;">
+                                    <div class="relative w-full aspect-[4/3]">
                                         <img width="360" height="200" src="{{ asset('storage/' . $product->gambar) }}" loading="lazy" alt="{{ $product->name }}" class="absolute inset-0 w-full h-full object-cover" style="display: block;">
                                     </div>
                                     <div class="p-3 sm:p-4">
@@ -1135,272 +1125,239 @@
     <!-- AOS JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize AOS dengan konfigurasi yang dioptimasi
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out',
-            once: true,
-            mirror: false,
-            offset: 120,
-            disable: 'mobile',
-            throttleDelay: 99, // Throttle scroll events
-            debounceDelay: 50, // Debounce resize events
-            useClassNames: false,
-            disableMutationObserver: false,
-            anchorPlacement: 'top-bottom'
+        window.addEventListener('load', () => {
+            AOS.init({
+                duration: 600,
+                easing: 'ease-out',
+                once: true,
+                mirror: false,
+                offset: 50,
+                disable: function() {
+                    return window.innerWidth < 768 || 
+                        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                        navigator.hardwareConcurrency < 4;
+                },
+                throttleDelay: 160,
+                debounceDelay: 100, 
+                useClassNames: false,
+                disableMutationObserver: true, 
+                anchorPlacement: 'top-bottom'
+            });
+            
+            // Pause AOS pada scroll aktif
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    AOS.refresh();
+                }, 100);
+            }, { passive: true });
         });
-    });
     </script>
 
 </body>
 </html>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const authStatus = document.getElementById('authStatus');
-        const isLoggedIn = authStatus?.dataset.loggedIn === 'true';
-        const prevButtons = document.querySelectorAll('.carousel-prev');
-        const nextButtons = document.querySelectorAll('.carousel-next');
-        const modalBtn = document.getElementById('selengkapnyaBtn');
-        const modal = document.getElementById('registerModal');
-        const closeBtn = document.getElementById('closeModal');
-        const profileDropdownToggle = document.getElementById('profileDropdownToggle');
-        const profileDropdown = document.getElementById('profileDropdown');
-        const logoutForm = document.getElementById('logoutForm');
+document.addEventListener("DOMContentLoaded", function () {
+    // =============================
+    // Logout Modal
+    // =============================
+    const logoutForm = document.getElementById('logoutForm');
+    if (logoutForm) {
+        const logoutButton = logoutForm.querySelector('button[type="submit"]');
+        const logoutModal = document.getElementById('logoutModal');
+        const logoutModalContent = document.getElementById('logoutModalContent');
+        const logoutModalBackdrop = document.getElementById('logoutModalBackdrop');
+        const closeLogoutModal = document.getElementById('closeLogoutModal');
+        const cancelLogout = document.getElementById('cancelLogout');
+        const confirmLogout = document.getElementById('confirmLogout');
 
-        if (logoutForm) {
-            const logoutButton = logoutForm.querySelector('button[type="submit"]');
-            const logoutModal = document.getElementById('logoutModal');
-            const logoutModalContent = document.getElementById('logoutModalContent');
-            const logoutModalBackdrop = document.getElementById('logoutModalBackdrop');
-            const closeLogoutModal = document.getElementById('closeLogoutModal');
-            const cancelLogout = document.getElementById('cancelLogout');
-            const confirmLogout = document.getElementById('confirmLogout');
-            
-            logoutButton.addEventListener('click', function(e) {
-                e.preventDefault();
+        function openLogoutModal() {
+            logoutModal.classList.remove('hidden');
+            logoutModal.classList.add('flex');
+            requestAnimationFrame(() => {
+                logoutModalBackdrop.classList.add('opacity-100');
+                logoutModalContent.classList.remove('scale-95', 'opacity-0');
+                logoutModalContent.classList.add('scale-100', 'opacity-100');
+            });
+        }
+
+        function closeLogoutModalFn() {
+            logoutModalContent.classList.remove('scale-100', 'opacity-100');
+            logoutModalContent.classList.add('scale-95', 'opacity-0');
+            logoutModalBackdrop.classList.remove('opacity-100');
+            setTimeout(() => logoutModal.classList.add('hidden'), 300);
+        }
+
+        logoutButton?.addEventListener('click', e => {
+            e.preventDefault();
+            openLogoutModal();
+        });
+        closeLogoutModal?.addEventListener('click', closeLogoutModalFn);
+        cancelLogout?.addEventListener('click', closeLogoutModalFn);
+        logoutModal?.addEventListener('click', e => {
+            if (e.target === logoutModal || e.target === logoutModalBackdrop) closeLogoutModalFn();
+        });
+        confirmLogout?.addEventListener('click', () => logoutForm.submit());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) closeLogoutModalFn();
+        });
+    }
+
+    // =============================
+    // Register Modal
+    // =============================
+    const modalBtn = document.getElementById('selengkapnyaBtn');
+    const modal = document.getElementById('registerModal');
+    const closeBtn = document.getElementById('closeModal');
+
+    if (modalBtn && modal && closeBtn) {
+        const modalContent = modal.querySelector('div');
+
+        function openModal() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            requestAnimationFrame(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            });
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 100);
+        }
+
+        modalBtn.addEventListener('click', () => {
+            const isLoggedIn = modalBtn.dataset.loggedIn === 'true';
+            if (isLoggedIn) {
+                window.location.href = "{{ route('ulasan.index') }}";
+            } else {
                 openModal();
-            });
-            
-            function openModal() {
-                logoutModal.classList.remove('hidden');
-                logoutModal.classList.add('flex'); 
-                setTimeout(() => {
-                    logoutModalBackdrop.classList.add('opacity-100');
-                    logoutModalContent.classList.remove('scale-95', 'opacity-0');
-                    logoutModalContent.classList.add('scale-100', 'opacity-100');
-                    
-                }, 10);
             }
-            
-            // Function to close the modal with animation
-            function closeModal() {
-                logoutModalContent.classList.remove('scale-100', 'opacity-100');
-                logoutModalContent.classList.add('scale-95', 'opacity-0');
-                logoutModalBackdrop.classList.remove('opacity-100');
-                
-                // Wait for animation to finish before hiding the modal
-                setTimeout(() => {
-                    logoutModal.classList.add('hidden');
-                }, 300);
-            }
-            
-            closeLogoutModal.addEventListener('click', closeModal);
-            cancelLogout.addEventListener('click', closeModal);
-            
-            // Close modal when clicking outside
-            logoutModal.addEventListener('click', function(e) {
-                if (e.target === logoutModal || e.target === logoutModalBackdrop) {
-                    closeModal();
-                }
-            });
-            
-            // Handle the confirmation button - submit the form
-            confirmLogout.addEventListener('click', function() {
-                logoutForm.submit();
-            });
-            
-            // Handle escape key to close the modal
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) {
-                    closeModal();
-                }
-            });
-        }
-
-        function updateActiveItem(carousel, direction) {
-            const items = carousel.querySelectorAll('.carousel-item');
-            const activeItem = carousel.querySelector('.carousel-item.active');
-            let currentIndex = Array.from(items).indexOf(activeItem);
-            
-            let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
-            if (newIndex < 0 || newIndex >= items.length) return;
-
-            activeItem.classList.remove('active', 'scale-105', 'z-10');
-            activeItem.classList.add('scale-100');
-
-            const newItem = items[newIndex];
-            newItem.classList.add('active', 'scale-105', 'z-10');
-            newItem.classList.remove('scale-100');
-  
-            if (window.innerWidth > 640) {
-                // Cek device memory dan network
-                const isSlowConnection = navigator.connection ? ['slow-2g', '2g', '3g', 'slow-4g'].includes(navigator.connection.effectiveType) : false;
-                const isLowMemory = navigator.deviceMemory ? navigator.deviceMemory < 4 : false;
-                const scrollBehavior = (isSlowConnection || isLowMemory) ? 'auto' : 'smooth';
-                newItem.scrollIntoView({ behavior: scrollBehavior, inline: 'center', block: 'nearest' });
-            }
-            
-            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
-            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
-
-            prevButton.style.display = newIndex === 0 ? 'none' : 'block';
-            nextButton.style.display = newIndex === items.length - 1 ? 'none' : 'block';
-        }
-
-        function addTiltEffect(card) {
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * 8;
-                const rotateY = ((x - centerX) / centerX) * 8;
-
-                card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-                card.style.transition = 'transform 0.1s';
-            });
-
-            card.addEventListener("mouseleave", () => {
-                card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
-                card.style.transition = 'transform 0.3s';
-            });
-        }
-
-        // Top row testimonials (1,2,3) - select by unique classes or position
-        document.querySelectorAll('.testimonial-card, .grid > .bg-white.rounded-xl.p-6.shadow-lg.flex').forEach(addTiltEffect);
-
-        // Dynamic testimonials
-        document.querySelectorAll('.grid-cols-1.md\\:grid-cols-3.gap-8 > div.bg-white.rounded-xl.shadow-lg').forEach(addTiltEffect);
-
-        if (modalBtn && modal && closeBtn) {
-        // Fungsi untuk membuka modal dengan animasi
-            function openModal() {
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                modal.classList.add('opacity-100');
-                
-                // Animasi untuk konten modal
-                const modalContent = modal.querySelector('div');
-                setTimeout(() => {
-                    modalContent.classList.remove('scale-95');
-                    modalContent.classList.add('scale-100');
-                }, 100);
-            }
-            
-            // Fungsi untuk menutup modal dengan animasi
-            function closeModal() {
-                const modalContent = modal.querySelector('div');
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-                
-                setTimeout(() => {
-                    modal.classList.remove('opacity-100');
-                    modal.classList.add('opacity-0', 'pointer-events-none');
-                }, 100);
-            }
-            
-            // Event listener untuk tombol
-            if (selengkapnyaBtn) {
-                const isLoggedIn = selengkapnyaBtn.dataset.loggedIn === 'true';
-
-                selengkapnyaBtn.addEventListener('click', function () {
-                    if (isLoggedIn) {
-                        window.location.href = "{{ route('ulasan.index') }}";
-                    } else {
-                        modal.classList.remove('opacity-0', 'pointer-events-none');
-                        modal.classList.add('opacity-100');
-                    }
-                });
-            }
-            closeBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-            
-            // Tutup modal dengan tombol ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) {
-                    closeModal();
-                }
-            });
-        }
-
-        if (profileDropdownToggle && profileDropdown) {
-            let isDropdownOpen = false;
-            
-            // Toggle dropdown saat tombol profil diklik
-            profileDropdownToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (isDropdownOpen) {
-                    profileDropdown.classList.add('hidden');
-                } else {
-                    profileDropdown.classList.remove('hidden');
-                }
-                isDropdownOpen = !isDropdownOpen;
-            });
-            
-            // Tutup dropdown ketika mengklik di luar dropdown
-            document.addEventListener('click', function(event) {
-                if (!profileDropdownToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
-                    profileDropdown.classList.add('hidden');
-                    isDropdownOpen = false;
-                }
-            });
-            profileDropdown.addEventListener('click', function(e) {
-                if (!e.target.matches('button[type="submit"]')) {
-                    e.stopPropagation();
-                }
-            });
-        }
-        
-        prevButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const carousel = this.closest('.relative').querySelector('#carousel');
-                updateActiveItem(carousel, 'prev');
-            });
         });
-
-        nextButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const carousel = this.closest('.relative').querySelector('#carousel');
-                updateActiveItem(carousel, 'next');
-            });
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => {
+            if (e.target === modal) closeModal();
         });
-        // Set kondisi tombol (product card) saat halaman pertama kali dimuat
-        document.querySelectorAll('#carousel').forEach(carousel => {
-            const items = carousel.querySelectorAll('.carousel-item');
-            const activeItem = carousel.querySelector('.carousel-item.active');
-            const currentIndex = Array.from(items).indexOf(activeItem);
-
-            const prevButton = carousel.closest('.relative').querySelector('.carousel-prev');
-            const nextButton = carousel.closest('.relative').querySelector('.carousel-next');
-
-            prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
-            nextButton.style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && modal.classList.contains('opacity-100')) closeModal();
         });
+    }
 
-        const tombolMenuMobile = document.getElementById('mobile-menu-button');
-        if (tombolMenuMobile) {
-            tombolMenuMobile.addEventListener('click', function() {
-                const menuMobile = document.getElementById('mobile-menu');
-                if (menuMobile) {
-                    menuMobile.classList.toggle('hidden');
-                }
-            });
-        }  
+    // =============================
+    // Profile Dropdown
+    // =============================
+    const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+    const profileDropdown = document.getElementById('profileDropdown');
+    if (profileDropdownToggle && profileDropdown) {
+        let isOpen = false;
+        profileDropdownToggle.addEventListener('click', e => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('hidden');
+            isOpen = !isOpen;
+        });
+        document.addEventListener('click', e => {
+            if (!profileDropdown.contains(e.target) && !profileDropdownToggle.contains(e.target)) {
+                profileDropdown.classList.add('hidden');
+                isOpen = false;
+            }
+        });
+        profileDropdown.addEventListener('click', e => {
+            if (!e.target.matches('button[type="submit"]')) e.stopPropagation();
+        });
+    }
+
+    // =============================
+    // Tilt Effect
+    // =============================
+    function addTiltEffect(card) {
+        card.addEventListener("mousemove", e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * 8;
+            const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 8;
+            card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+            card.style.transition = 'transform 0.1s';
+        });
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+            card.style.transition = 'transform 0.3s';
+        });
+    }
+
+    document.querySelectorAll('.testimonial-card, .grid > .bg-white.rounded-xl.p-6.shadow-lg.flex, .grid-cols-1.md\\:grid-cols-3.gap-8 > div.bg-white.rounded-xl.shadow-lg')
+        .forEach(addTiltEffect);
+
+    // =============================
+    // Carousel Navigation
+    // =============================
+    function updateActiveItem(carousel, direction) {
+        const items = carousel.querySelectorAll('[data-carousel-item]');
+        const activeItem = carousel.querySelector('[data-carousel-item].active');
+        const currentIndex = parseInt(activeItem.dataset.index);
+        let newIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+        if (newIndex >= items.length) newIndex = 0;
+        if (newIndex < 0) newIndex = items.length - 1;
+        if (newIndex === currentIndex) return; // Prevent CLS
+
+        const newItem = carousel.querySelector(`[data-carousel-item][data-index="${newIndex}"]`);
+        activeItem.classList.remove('active', 'scale-105', 'z-10');
+        activeItem.classList.add('scale-100');
+        newItem.classList.add('active', 'scale-105', 'z-10');
+        newItem.classList.remove('scale-100');
+
+        if (window.innerWidth > 640) {
+            const isSlowConnection = navigator.connection ? ['slow-2g', '2g', '3g', 'slow-4g'].includes(navigator.connection.effectiveType) : false;
+            const isLowMemory = navigator.deviceMemory ? navigator.deviceMemory < 4 : false;
+            const behavior = (isSlowConnection || isLowMemory) ? 'auto' : 'smooth';
+            newItem.scrollIntoView({ behavior, inline: 'center', block: 'nearest' });
+        }
+
+        const wrapper = carousel.closest('.relative');
+        wrapper.querySelector('.carousel-prev').style.display = newIndex === 0 ? 'none' : 'block';
+        wrapper.querySelector('.carousel-next').style.display = newIndex === items.length - 1 ? 'none' : 'block';
+    }
+
+    document.querySelectorAll('.carousel-prev').forEach(button => {
+        button.addEventListener('click', function () {
+            const carousel = this.closest('.relative').querySelector('#carousel');
+            updateActiveItem(carousel, 'prev');
+        });
     });
+
+    document.querySelectorAll('.carousel-next').forEach(button => {
+        button.addEventListener('click', function () {
+            const carousel = this.closest('.relative').querySelector('#carousel');
+            updateActiveItem(carousel, 'next');
+        });
+    });
+
+    // Set initial button state without shifting
+    document.querySelectorAll('#carousel').forEach(carousel => {
+        const items = carousel.querySelectorAll('.carousel-item');
+        const activeItem = carousel.querySelector('.carousel-item.active');
+        const currentIndex = Array.from(items).indexOf(activeItem);
+        const wrapper = carousel.closest('.relative');
+        if (wrapper) {
+            wrapper.querySelector('.carousel-prev').style.display = currentIndex === 0 ? 'none' : 'block';
+            wrapper.querySelector('.carousel-next').style.display = currentIndex === items.length - 1 ? 'none' : 'block';
+        }
+    });
+
+    // =============================
+    // Mobile Menu Toggle
+    // =============================
+    const tombolMenuMobile = document.getElementById('mobile-menu-button');
+    const menuMobile = document.getElementById('mobile-menu');
+    tombolMenuMobile?.addEventListener('click', () => {
+        menuMobile?.classList.toggle('hidden');
+    });
+});
 </script>
